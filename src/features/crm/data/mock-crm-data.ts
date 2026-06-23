@@ -1,0 +1,92 @@
+import type { CrmOverview } from "@/features/crm/types/crm";
+
+export const crmOverview: CrmOverview = {
+  adminMetrics: [
+    { label: "Total Clients", value: "248", trend: "+14 this month" },
+    { label: "Ad Accounts", value: "684", trend: "612 active" },
+    { label: "Business Managers", value: "132", trend: "9 pending" },
+    { label: "Total Balance", value: "$42,860", trend: "125 BDT rate" },
+    { label: "Today's Spend", value: "$1,284", trend: "Meta API synced" },
+    { label: "Pending Requests", value: "37", trend: "Needs review" },
+  ],
+  customerMetrics: [
+    { label: "Current Balance", value: "$680.00", trend: "Wallet balance" },
+    { label: "Credit Balance", value: "-$50.00", trend: "Allowed limit" },
+    { label: "Available Balance", value: "$630.00", trend: "After credit" },
+    { label: "Today's Spend", value: "$18.40", trend: "$100 daily cap" },
+  ],
+  requests: [
+    { name: "NorthPeak Digital", type: "Top-up", amount: "$800", status: "Pending", method: "bKash" },
+    { name: "Pixel Reach", type: "New Ad Account", amount: "-", status: "Pending", method: "BM-8821" },
+    { name: "Orbit Media", type: "Business Share", amount: "-", status: "Approved", method: "BM-5128" },
+    { name: "Apex Retail", type: "Top-up", amount: "$250", status: "Rejected", method: "Bank" },
+  ],
+  accounts: [
+    {
+      name: "Scale Ads Main",
+      id: "act_182746",
+      client: "NorthPeak Digital",
+      businessManager: "BM-3491",
+      currency: "USD",
+      status: "Active",
+      spend: "$118.20",
+    },
+    {
+      name: "Lead Gen Backup",
+      id: "act_981332",
+      client: "Pixel Reach",
+      businessManager: "BM-8821",
+      currency: "USD",
+      status: "Pending",
+      spend: "$0.00",
+    },
+    {
+      name: "Remarketing Pro",
+      id: "act_553901",
+      client: "Orbit Media",
+      businessManager: "BM-5128",
+      currency: "USD",
+      status: "Disabled",
+      spend: "$42.60",
+    },
+  ],
+  clients: [
+    {
+      name: "NorthPeak Digital",
+      email: "billing@northpeak.com",
+      balance: "$1,240",
+      credit: "-$100",
+      dailyLimit: "$250/day",
+      status: "Active",
+    },
+    {
+      name: "Pixel Reach",
+      email: "owner@pixelreach.com",
+      balance: "$80",
+      credit: "-$50",
+      dailyLimit: "$20/day",
+      status: "Pending",
+    },
+    {
+      name: "Apex Retail",
+      email: "ads@apexretail.com",
+      balance: "$0",
+      credit: "$0",
+      dailyLimit: "Suspended",
+      status: "Suspended",
+    },
+  ],
+  wallet: [
+    { item: "Opening Balance", amount: "$530.00", type: "neutral" },
+    { item: "+ Top-up Approved", amount: "$200.00", type: "positive" },
+    { item: "- Ads Spend", amount: "$50.00", type: "negative" },
+    { item: "+ Credit Limit", amount: "-$50.00", type: "warning" },
+    { item: "= Current Balance", amount: "$680.00", type: "strong" },
+  ],
+  activities: [
+    "Top-up request from NorthPeak Digital is pending verification.",
+    "Meta API sync updated 684 ad accounts.",
+    "Dollar rate changed from 124 BDT to 125 BDT.",
+    "Business share approved for Orbit Media.",
+  ],
+};
