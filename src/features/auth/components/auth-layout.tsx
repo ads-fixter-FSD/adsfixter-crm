@@ -1,6 +1,6 @@
-import Link from "next/link";
-import Image from "next/image";
 import type { ReactNode } from "react";
+import { AuthBrandLink } from "@/features/auth/components/auth-brand-link";
+import { AuthCopy } from "@/features/auth/components/auth-copy";
 
 type AuthLayoutProps = {
   eyebrow: string;
@@ -11,52 +11,15 @@ type AuthLayoutProps = {
 
 export function AuthLayout({ eyebrow, title, description, children }: AuthLayoutProps) {
   return (
-    <main className="auth-shell">
-      <section className="auth-card">
-        <div className="auth-brand">
-          <Link className="auth-brand-link" href="/">
-            <Image alt="AdsFixter" className="brand-logo" height={28} src="/adsfixter-logo.png" width={28} />
-            <span>
-              <strong>AdsFixter</strong>
-              <small>Meta Wallet CRM</small>
-            </span>
-          </Link>
-        </div>
-
-        <div className="auth-copy">
-          <p className="eyebrow">{eyebrow}</p>
-          <h1>{title}</h1>
-          <span>{description}</span>
-        </div>
-
+    <main className="flex min-h-screen items-center justify-center p-4">
+      <section className="flex w-full max-w-[430px] flex-col gap-5 rounded-2xl border border-[var(--line)] bg-[var(--white)] p-5">
+        <AuthBrandLink />
+        <AuthCopy description={description} eyebrow={eyebrow} title={title} />
         {children}
       </section>
     </main>
   );
 }
 
-type AuthFieldProps = {
-  label: string;
-  placeholder: string;
-  type?: string;
-  defaultValue?: string;
-};
-
-export function AuthField({ label, placeholder, type = "text", defaultValue }: AuthFieldProps) {
-  return (
-    <label className="auth-field">
-      <span>{label}</span>
-      <input defaultValue={defaultValue} placeholder={placeholder} type={type} />
-    </label>
-  );
-}
-
-export function AuthDivider() {
-  return (
-    <div className="auth-divider">
-      <span />
-      <p>or</p>
-      <span />
-    </div>
-  );
-}
+export { AuthDivider } from "@/features/auth/components/auth-divider";
+export { AuthField } from "@/features/auth/components/auth-field";

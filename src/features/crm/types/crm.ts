@@ -2,7 +2,9 @@ export type Role = "Super Admin" | "Maintainer" | "Customer";
 
 export type ToastType = "success" | "error" | "warning";
 
-export type Status = "Active" | "Pending" | "Approved" | "Rejected" | "Disabled" | "Suspended";
+export type MetaAdAccountStatus = "ACTIVE" | "UNSETTLED" | "DISABLED" | "PENDING_RISK_REVIEW" | "PENDING_SETTLEMENT" | "CLOSED" | "UNKNOWN";
+
+export type Status = "Active" | "Pending" | "Approved" | "Rejected" | "Disabled" | "Suspended" | MetaAdAccountStatus;
 
 export type Metric = {
   label: string;
@@ -24,8 +26,14 @@ export type AdAccount = {
   client: string;
   businessManager: string;
   currency: "USD" | "BDT";
-  status: Status;
+  status: MetaAdAccountStatus;
+  balance: string;
+  spendInfo: string;
   spend: string;
+  yesterdaySpend: string;
+  cardName: string;
+  lastMetaUpdateAt: string;
+  notes: string;
 };
 
 export type Client = {
@@ -35,6 +43,11 @@ export type Client = {
   credit: string;
   dailyLimit: string;
   status: Status;
+};
+
+export type BusinessManager = {
+  id: string;
+  name: string;
 };
 
 export type WalletLine = {
@@ -48,6 +61,7 @@ export type CrmOverview = {
   customerMetrics: Metric[];
   requests: CrmRequest[];
   accounts: AdAccount[];
+  businessManagers: BusinessManager[];
   clients: Client[];
   wallet: WalletLine[];
   activities: string[];
