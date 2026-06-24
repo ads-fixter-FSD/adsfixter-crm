@@ -1,12 +1,20 @@
 import { AdAccountsDatabaseSection, AutoAddFromMetaSection, CreateNewAccountSection } from "@/features/crm/ad-accounts";
+import { AllBusinessManagersSection } from "@/features/crm/business-managers/components/all-business-managers-section";
+import { BusinessManagerPendingRequestsSection } from "@/features/crm/business-managers/components/business-manager-pending-requests-section";
+import { AllClientsSection } from "@/features/crm/clients/components/all-clients-section";
+import { PendingClientApprovalsSection } from "@/features/crm/clients/components/pending-client-approvals-section";
 import { ClientsManagementSection } from "@/features/crm/components/dashboard-sections/clients-management-section";
 import { ModulePlaceholderSection } from "@/features/crm/components/dashboard-sections/module-placeholder-section";
 import { RequestWorkflowSection } from "@/features/crm/components/dashboard-sections/request-workflow-section";
 import { WalletManagementSection } from "@/features/crm/components/dashboard-sections/wallet-management-section";
+import { CreateNotificationsSection } from "@/features/crm/notifications/components/create-notifications-section";
 import { BmShareRequestsSection } from "@/features/crm/requests/components/bm-share-requests/bm-share-requests-section";
 import { FailedTopUpsSection } from "@/features/crm/requests/components/failed-top-ups/failed-top-ups-section";
 import { NewAccountRequestsSection } from "@/features/crm/requests/components/new-account-requests/new-account-requests-section";
 import { TopUpRequestsSection } from "@/features/crm/requests/components/top-up-requests/top-up-requests-section";
+import { AccountsOverviewSection } from "@/features/crm/reports/components/accounts-overview-section";
+import { RevenueReportsSection } from "@/features/crm/reports/components/revenue-reports-section";
+import { AdminSettingsSection } from "@/features/crm/settings/components/admin-settings-section";
 import type { DashboardSectionWithNavigationProps } from "@/features/crm/components/dashboard-sections/dashboard-section-types";
 import type { Role } from "@/features/crm/types/crm";
 
@@ -32,6 +40,18 @@ export function SectionRenderer({ data, role, section, showToast, onSectionChang
     return <FailedTopUpsSection showToast={showToast} />;
   }
 
+  if (section === "Create Notifications") {
+    return <CreateNotificationsSection showToast={showToast} />;
+  }
+
+  if (section === "Business Managers" || section === "All Business Managers") {
+    return <AllBusinessManagersSection showToast={showToast} />;
+  }
+
+  if (section === "Pending Requests") {
+    return <BusinessManagerPendingRequestsSection showToast={showToast} onSectionChange={onSectionChange} />;
+  }
+
   if (section.includes("Request") || section === "Business Share" || section === "Payments" || section === "Top-Up Requests" || section === "BM Share Requests") {
     return <RequestWorkflowSection data={data} role={role} section={section} showToast={showToast} />;
   }
@@ -48,8 +68,28 @@ export function SectionRenderer({ data, role, section, showToast, onSectionChang
     return <AutoAddFromMetaSection data={data} showToast={showToast} />;
   }
 
-  if (section === "Clients") {
+  if (section === "Clients" || section === "All Clients") {
+    return <AllClientsSection data={data} showToast={showToast} />;
+  }
+
+  if (section === "Pending Approvals") {
+    return <PendingClientApprovalsSection showToast={showToast} onSectionChange={onSectionChange} />;
+  }
+
+  if (section === "Client Management") {
     return <ClientsManagementSection data={data} showToast={showToast} />;
+  }
+
+  if (section === "Settings") {
+    return <AdminSettingsSection showToast={showToast} />;
+  }
+
+  if (section === "Reports" || section === "Accounts Overview") {
+    return <AccountsOverviewSection data={data} />;
+  }
+
+  if (section === "Revenue Reports") {
+    return <RevenueReportsSection data={data} />;
   }
 
   if (section === "Wallet" || section === "Wallet Settings") {

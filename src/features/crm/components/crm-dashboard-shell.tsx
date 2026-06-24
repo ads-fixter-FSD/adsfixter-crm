@@ -6,7 +6,7 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { Bell, LogOut, Moon, Settings, Sun } from "lucide-react";
 import { useEffect, useState } from "react";
-import { adAccountSubNavigation, AppSidebar, getSectionHref, requestSubNavigation, roleNavigation, sectionToSlug } from "@/components/layout/app-sidebar";
+import { adAccountSubNavigation, AppSidebar, businessManagerSubNavigation, clientSubNavigation, getSectionHref, notificationSubNavigation, reportSubNavigation, requestSubNavigation, roleNavigation, sectionToSlug } from "@/components/layout/app-sidebar";
 import { ToastStack, type Toast } from "@/components/ui/toast-stack";
 import { getCrmOverview, crmQueryKeys } from "@/features/crm/api/crm-queries";
 import { AdminDashboard, CustomerDashboard, MaintainerDashboard, SectionRenderer } from "@/features/crm/components/dashboard-sections";
@@ -29,7 +29,7 @@ export function CrmDashboardShell() {
     const savedRole = window.localStorage.getItem("adsfixter-role") as Role | null;
     const nextRole = savedRole && roleNavigation[savedRole] ? savedRole : "Super Admin";
     const requestedSectionSlug = new URLSearchParams(window.location.search).get("section");
-    const allowedSections = [...roleNavigation[nextRole], ...adAccountSubNavigation, ...requestSubNavigation];
+    const allowedSections = [...roleNavigation[nextRole], ...adAccountSubNavigation, ...requestSubNavigation, ...notificationSubNavigation, ...businessManagerSubNavigation, ...clientSubNavigation, ...reportSubNavigation];
     const requestedSection = allowedSections.find((section) => sectionToSlug(section) === requestedSectionSlug);
 
     window.queueMicrotask(() => {
@@ -48,7 +48,7 @@ export function CrmDashboardShell() {
     });
   }, []);
 
-  const allowedSections = [...roleNavigation[role], ...adAccountSubNavigation, ...requestSubNavigation];
+  const allowedSections = [...roleNavigation[role], ...adAccountSubNavigation, ...requestSubNavigation, ...notificationSubNavigation, ...businessManagerSubNavigation, ...clientSubNavigation, ...reportSubNavigation];
   const visibleSection = allowedSections.includes(activeSection) ? activeSection : "Dashboard";
 
   const profileInitials = role === "Customer" ? "CU" : role === "Maintainer" ? "MT" : "SA";

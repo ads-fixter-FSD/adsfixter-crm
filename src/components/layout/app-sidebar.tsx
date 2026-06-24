@@ -4,7 +4,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { LayoutDashboard, Search } from "lucide-react";
 import { useState } from "react";
-import { adAccountSubNavigation, getSectionHref, navigationIcons, requestSubNavigation, roleNavigation } from "@/components/layout/app-sidebar-navigation";
+import { adAccountSubNavigation, businessManagerSubNavigation, clientSubNavigation, getSectionHref, navigationIcons, notificationSubNavigation, reportSubNavigation, requestSubNavigation, roleNavigation } from "@/components/layout/app-sidebar-navigation";
 import type { Role } from "@/features/crm/types/crm";
 
 type AppSidebarProps = {
@@ -16,6 +16,10 @@ type AppSidebarProps = {
 export function AppSidebar({ role, activeSection, onSectionChange }: AppSidebarProps) {
   const [isAdAccountOpen, setIsAdAccountOpen] = useState(adAccountSubNavigation.includes(activeSection));
   const [isRequestsOpen, setIsRequestsOpen] = useState(requestSubNavigation.includes(activeSection));
+  const [isNotificationsOpen, setIsNotificationsOpen] = useState(notificationSubNavigation.includes(activeSection));
+  const [isBusinessManagersOpen, setIsBusinessManagersOpen] = useState(businessManagerSubNavigation.includes(activeSection));
+  const [isClientsOpen, setIsClientsOpen] = useState(clientSubNavigation.includes(activeSection));
+  const [isReportsOpen, setIsReportsOpen] = useState(reportSubNavigation.includes(activeSection));
 
   return (
     <aside className="sticky top-0 flex min-h-screen w-[226px] flex-col gap-3 border-r border-[var(--line)] bg-[var(--surface)] p-3 text-[var(--black)] max-[1180px]:static max-[1180px]:min-h-0 max-[1180px]:w-full">
@@ -105,6 +109,146 @@ export function AppSidebar({ role, activeSection, onSectionChange }: AppSidebarP
             );
           }
 
+          if (item === "Notifications") {
+            return (
+              <div className="grid gap-1" key={item}>
+                <button
+                  className={`flex min-h-8 w-full items-center gap-2 rounded-lg px-2.5 py-2 text-left text-sm font-medium transition hover:bg-[var(--brand-navy)] hover:text-[var(--white)] ${
+                    notificationSubNavigation.includes(activeSection) ? "bg-[var(--brand-navy)] text-[var(--white)] shadow-[inset_3px_0_0_var(--brand-orange)]" : "text-[var(--sidebar-link)]"
+                  }`}
+                  onClick={() => setIsNotificationsOpen((current) => !current)}
+                  type="button"
+                >
+                  <Icon aria-hidden="true" size={17} strokeWidth={1.9} />
+                  <span>{item}</span>
+                  <span aria-hidden="true" className={`ml-auto text-xs font-bold transition-transform ${isNotificationsOpen ? "rotate-180" : ""}`}>
+                    v
+                  </span>
+                </button>
+
+                {isNotificationsOpen ? (
+                  <div className="grid gap-0.5 pl-5">
+                    {notificationSubNavigation.map((subItem) => (
+                      <Link
+                        className={`rounded-lg px-2 py-1.5 text-xs font-medium no-underline hover:bg-[var(--white)] hover:text-[var(--brand-navy)] ${subItem === activeSection ? "bg-[var(--white)] text-[var(--brand-navy)]" : "text-[var(--sidebar-link)]"}`}
+                        href={getSectionHref(subItem)}
+                        key={subItem}
+                        onClick={() => onSectionChange(subItem)}
+                      >
+                        {subItem}
+                      </Link>
+                    ))}
+                  </div>
+                ) : null}
+              </div>
+            );
+          }
+
+          if (item === "Business Managers") {
+            return (
+              <div className="grid gap-1" key={item}>
+                <button
+                  className={`flex min-h-8 w-full items-center gap-2 rounded-lg px-2.5 py-2 text-left text-sm font-medium transition hover:bg-[var(--brand-navy)] hover:text-[var(--white)] ${
+                    businessManagerSubNavigation.includes(activeSection) ? "bg-[var(--brand-navy)] text-[var(--white)] shadow-[inset_3px_0_0_var(--brand-orange)]" : "text-[var(--sidebar-link)]"
+                  }`}
+                  onClick={() => setIsBusinessManagersOpen((current) => !current)}
+                  type="button"
+                >
+                  <Icon aria-hidden="true" size={17} strokeWidth={1.9} />
+                  <span>{item}</span>
+                  <span aria-hidden="true" className={`ml-auto text-xs font-bold transition-transform ${isBusinessManagersOpen ? "rotate-180" : ""}`}>
+                    v
+                  </span>
+                </button>
+
+                {isBusinessManagersOpen ? (
+                  <div className="grid gap-0.5 pl-5">
+                    {businessManagerSubNavigation.map((subItem) => (
+                      <Link
+                        className={`rounded-lg px-2 py-1.5 text-xs font-medium no-underline hover:bg-[var(--white)] hover:text-[var(--brand-navy)] ${subItem === activeSection ? "bg-[var(--white)] text-[var(--brand-navy)]" : "text-[var(--sidebar-link)]"}`}
+                        href={getSectionHref(subItem)}
+                        key={subItem}
+                        onClick={() => onSectionChange(subItem)}
+                      >
+                        {subItem}
+                      </Link>
+                    ))}
+                  </div>
+                ) : null}
+              </div>
+            );
+          }
+
+          if (item === "Clients") {
+            return (
+              <div className="grid gap-1" key={item}>
+                <button
+                  className={`flex min-h-8 w-full items-center gap-2 rounded-lg px-2.5 py-2 text-left text-sm font-medium transition hover:bg-[var(--brand-navy)] hover:text-[var(--white)] ${
+                    clientSubNavigation.includes(activeSection) ? "bg-[var(--brand-navy)] text-[var(--white)] shadow-[inset_3px_0_0_var(--brand-orange)]" : "text-[var(--sidebar-link)]"
+                  }`}
+                  onClick={() => setIsClientsOpen((current) => !current)}
+                  type="button"
+                >
+                  <Icon aria-hidden="true" size={17} strokeWidth={1.9} />
+                  <span>{item}</span>
+                  <span aria-hidden="true" className={`ml-auto text-xs font-bold transition-transform ${isClientsOpen ? "rotate-180" : ""}`}>
+                    v
+                  </span>
+                </button>
+
+                {isClientsOpen ? (
+                  <div className="grid gap-0.5 pl-5">
+                    {clientSubNavigation.map((subItem) => (
+                      <Link
+                        className={`rounded-lg px-2 py-1.5 text-xs font-medium no-underline hover:bg-[var(--white)] hover:text-[var(--brand-navy)] ${subItem === activeSection ? "bg-[var(--white)] text-[var(--brand-navy)]" : "text-[var(--sidebar-link)]"}`}
+                        href={getSectionHref(subItem)}
+                        key={subItem}
+                        onClick={() => onSectionChange(subItem)}
+                      >
+                        {subItem}
+                      </Link>
+                    ))}
+                  </div>
+                ) : null}
+              </div>
+            );
+          }
+
+          if (item === "Reports") {
+            return (
+              <div className="grid gap-1" key={item}>
+                <button
+                  className={`flex min-h-8 w-full items-center gap-2 rounded-lg px-2.5 py-2 text-left text-sm font-medium transition hover:bg-[var(--brand-navy)] hover:text-[var(--white)] ${
+                    reportSubNavigation.includes(activeSection) ? "bg-[var(--brand-navy)] text-[var(--white)] shadow-[inset_3px_0_0_var(--brand-orange)]" : "text-[var(--sidebar-link)]"
+                  }`}
+                  onClick={() => setIsReportsOpen((current) => !current)}
+                  type="button"
+                >
+                  <Icon aria-hidden="true" size={17} strokeWidth={1.9} />
+                  <span>{item}</span>
+                  <span aria-hidden="true" className={`ml-auto text-xs font-bold transition-transform ${isReportsOpen ? "rotate-180" : ""}`}>
+                    v
+                  </span>
+                </button>
+
+                {isReportsOpen ? (
+                  <div className="grid gap-0.5 pl-5">
+                    {reportSubNavigation.map((subItem) => (
+                      <Link
+                        className={`rounded-lg px-2 py-1.5 text-xs font-medium no-underline hover:bg-[var(--white)] hover:text-[var(--brand-navy)] ${subItem === activeSection ? "bg-[var(--white)] text-[var(--brand-navy)]" : "text-[var(--sidebar-link)]"}`}
+                        href={getSectionHref(subItem)}
+                        key={subItem}
+                        onClick={() => onSectionChange(subItem)}
+                      >
+                        {subItem}
+                      </Link>
+                    ))}
+                  </div>
+                ) : null}
+              </div>
+            );
+          }
+
           return (
             <Link
               className={`flex min-h-8 w-full items-center gap-2 rounded-lg px-2.5 py-2 text-left text-sm font-medium no-underline transition hover:bg-[var(--brand-navy)] hover:text-[var(--white)] ${
@@ -125,4 +269,4 @@ export function AppSidebar({ role, activeSection, onSectionChange }: AppSidebarP
   );
 }
 
-export { adAccountSubNavigation, convertSectionNameToUrlSlug as sectionToSlug, getSectionHref, requestSubNavigation, roleNavigation } from "@/components/layout/app-sidebar-navigation";
+export { adAccountSubNavigation, businessManagerSubNavigation, clientSubNavigation, convertSectionNameToUrlSlug as sectionToSlug, getSectionHref, notificationSubNavigation, reportSubNavigation, requestSubNavigation, roleNavigation } from "@/components/layout/app-sidebar-navigation";
