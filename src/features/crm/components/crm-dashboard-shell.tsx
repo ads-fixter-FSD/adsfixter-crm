@@ -5,8 +5,8 @@ import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { Bell, LogOut, Moon, Settings, Sun } from "lucide-react";
-import { useEffect, useMemo, useState } from "react";
-import { adAccountSubNavigation, AppSidebar, getSectionHref, roleNavigation, sectionToSlug } from "@/components/layout/app-sidebar";
+import { useEffect, useState } from "react";
+import { adAccountSubNavigation, AppSidebar, getSectionHref, requestSubNavigation, roleNavigation, sectionToSlug } from "@/components/layout/app-sidebar";
 import { ToastStack, type Toast } from "@/components/ui/toast-stack";
 import { getCrmOverview, crmQueryKeys } from "@/features/crm/api/crm-queries";
 import { AdminDashboard, CustomerDashboard, MaintainerDashboard, SectionRenderer } from "@/features/crm/components/dashboard-sections";
@@ -29,7 +29,7 @@ export function CrmDashboardShell() {
     const savedRole = window.localStorage.getItem("adsfixter-role") as Role | null;
     const nextRole = savedRole && roleNavigation[savedRole] ? savedRole : "Super Admin";
     const requestedSectionSlug = new URLSearchParams(window.location.search).get("section");
-    const allowedSections = [...roleNavigation[nextRole], ...adAccountSubNavigation];
+    const allowedSections = [...roleNavigation[nextRole], ...adAccountSubNavigation, ...requestSubNavigation];
     const requestedSection = allowedSections.find((section) => sectionToSlug(section) === requestedSectionSlug);
 
     window.queueMicrotask(() => {
@@ -48,17 +48,10 @@ export function CrmDashboardShell() {
     });
   }, []);
 
-  const allowedSections = [...roleNavigation[role], ...adAccountSubNavigation];
+  const allowedSections = [...roleNavigation[role], ...adAccountSubNavigation, ...requestSubNavigation];
   const visibleSection = allowedSections.includes(activeSection) ? activeSection : "Dashboard";
 
-  const roleHint = useMemo(() => {
-    if (role === "Super Admin") return "Full access: dollar rate, wallet adjustment, maintainer creation, and system settings.";
-    if (role === "Maintainer") return "Operations access: approve top-ups, account requests, and business share requests.";
-    return "Customer access: wallet, payments, ad account requests, notifications, and optional 2FA.";
-  }, [role]);
-
   const profileInitials = role === "Customer" ? "CU" : role === "Maintainer" ? "MT" : "SA";
-  const contentTitle = visibleSection === "Dashboard" ? "Overview" : visibleSection;
 
   const showToast = (type: ToastType, message: string) => {
     const id = Date.now();
@@ -149,21 +142,6 @@ export function CrmDashboardShell() {
           </header>
 
           <div className="p-4 max-[720px]:p-3">
-            <div className="mb-3 flex items-center justify-between gap-4 max-[720px]:flex-col max-[720px]:items-start">
-              <div className="grid gap-0.5">
-                <h2 className="m-0 text-base font-semibold text-slate-900">{contentTitle}</h2>
-                <span className="text-xs text-[var(--muted)]">{roleHint}</span>
-              </div>
-              <div className="flex flex-wrap items-center gap-2 max-[720px]:w-full">
-                <button className="rounded-lg border border-[var(--line)] bg-[var(--white)] px-3 py-2 text-sm font-semibold leading-tight text-[var(--brand-navy)] transition hover:bg-[var(--surface)] max-[720px]:flex-1" onClick={() => showToast("warning", "Meta API sync queued for review")} type="button">
-                  Sync Meta API
-                </button>
-                <button className="rounded-lg border-0 bg-[var(--brand-orange)] px-3 py-2 text-sm font-semibold leading-tight text-[var(--white)] transition hover:bg-[var(--black)] max-[720px]:flex-1" onClick={() => showToast("success", "New notification sent successfully")} type="button">
-                  Create Notification
-                </button>
-              </div>
-            </div>
-
             {visibleSection === "Dashboard" ? (
               role === "Customer" ? (
                 <CustomerDashboard data={data} showToast={showToast} />

@@ -4,6 +4,7 @@ import {
   Building2,
   CircleDollarSign,
   CreditCard,
+  TriangleAlert,
   LayoutDashboard,
   Megaphone,
   ScrollText,
@@ -22,6 +23,7 @@ export const roleNavigation: Record<Role, string[]> = {
     "Dashboard",
     "Ad Accounts",
     "Requests",
+    "Failed Top-ups",
     "Clients",
     "Business Managers",
     "Reports",
@@ -55,6 +57,8 @@ export const roleNavigation: Record<Role, string[]> = {
 
 export const adAccountSubNavigation = ["Ad Accounts", "Create New Account", "Auto Add From Meta"];
 
+export const requestSubNavigation = ["New Account Requests", "Top-Up Requests", "BM Share Requests"];
+
 export const navigationIcons: Record<string, LucideIcon> = {
   "Account Requests": Megaphone,
   "Ad Accounts": Megaphone,
@@ -64,15 +68,19 @@ export const navigationIcons: Record<string, LucideIcon> = {
   "Clients": Users,
   "Create New Account": Megaphone,
   "Dashboard": LayoutDashboard,
+  "Failed Top-ups": TriangleAlert,
   "Maintainers": UserCog,
   "My Accounts": BriefcaseBusiness,
+  "New Account Requests": Megaphone,
   "Notifications": Bell,
   "Payments": CreditCard,
   "Reports": ScrollText,
   "Request Account": Megaphone,
   "Requests": Megaphone,
+  "BM Share Requests": Share2,
   "Security": ShieldCheck,
   "Settings": Settings,
+  "Top-Up Requests": CircleDollarSign,
   "Top-up Requests": CircleDollarSign,
   "Wallet": WalletCards,
   "Wallet Settings": WalletCards,
