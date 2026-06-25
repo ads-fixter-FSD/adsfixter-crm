@@ -1,11 +1,12 @@
 "use client";
 
-import { CalendarDays, CreditCard, DollarSign, MoreHorizontal, Plus, Search, TrendingUp, X } from "lucide-react";
-import { useMemo, useState } from "react";
+import { CalendarDays, ChevronDown, CreditCard, DollarSign, Eye, MoreHorizontal, Plus, Search, TrendingUp, X } from "lucide-react";
+import { useMemo, useRef, useState } from "react";
 import { PrimaryButton } from "@/components/shared-buttons";
 import { StatusChip } from "@/components/ui/status-chip";
 import type { DashboardSectionProps } from "@/features/crm/components/dashboard-sections/dashboard-section-types";
 import type { MetaAdAccountStatus } from "@/features/crm/types/crm";
+import { useClickOutside } from "@/hooks/use-click-outside";
 
 const accountStatusOptions: MetaAdAccountStatus[] = ["ACTIVE", "UNSETTLED", "DISABLED", "PENDING_RISK_REVIEW", "PENDING_SETTLEMENT", "CLOSED", "UNKNOWN"];
 
@@ -27,10 +28,13 @@ type NewAccountFormValues = {
 };
 
 export function CustomerDashboard({ data, showToast }: DashboardSectionProps) {
+  const statusFilterRef = useRef<HTMLDivElement | null>(null);
+  const actionDropdownRef = useRef<HTMLDivElement | null>(null);
   const [searchQuery, setSearchQuery] = useState("");
   const [selectedStatuses, setSelectedStatuses] = useState<MetaAdAccountStatus[]>(["ACTIVE"]);
   const [isStatusFilterOpen, setIsStatusFilterOpen] = useState(false);
   const [isRequestModalOpen, setIsRequestModalOpen] = useState(false);
+  const [openActionAccountId, setOpenActionAccountId] = useState<string | null>(null);
   const [newAccountForm, setNewAccountForm] = useState<NewAccountFormValues>({
     accountName: "",
     businessManagerId: "",
@@ -78,6 +82,14 @@ export function CustomerDashboard({ data, showToast }: DashboardSectionProps) {
     showToast("success", "New ad account request submitted");
   };
 
+  useClickOutside(statusFilterRef, () => setIsStatusFilterOpen(false));
+  useClickOutside(actionDropdownRef, () => setOpenActionAccountId(null));
+
+  const handleAccountAction = (accountName: string, action: "view" | "top-up") => {
+    setOpenActionAccountId(null);
+    showToast("success", action === "top-up" ? `Top-up started for ${accountName}` : `Opening ${accountName}`);
+  };
+
   return (
     <div className="grid gap-5">
       <p className="m-0 text-sm text-[var(--muted)]">Welcome back, Boostfixter! Manage your ad accounts and requests.</p>
@@ -87,7 +99,7 @@ export function CustomerDashboard({ data, showToast }: DashboardSectionProps) {
           const Icon = metric.icon;
 
           return (
-            <article className="rounded-xl border border-[var(--line)] bg-[var(--white)] p-4 shadow-sm" key={metric.label}>
+            <article className="rounded-xl border border-[var(--line)] bg-[var(--white)] p-4" key={metric.label}>
               <div className="flex items-start justify-between gap-3">
                 <div>
                   <p className="m-0 text-xs font-semibold text-[var(--muted)]">{metric.label}</p>
@@ -103,7 +115,7 @@ export function CustomerDashboard({ data, showToast }: DashboardSectionProps) {
         })}
       </section>
 
-      <section className="rounded-xl border border-[var(--line)] bg-[var(--white)] p-4 shadow-sm">
+      <section className="rounded-xl border border-[var(--line)] bg-[var(--white)] p-4">
         <div className="mb-4 flex flex-wrap items-center justify-between gap-3">
           <h2 className="m-0 text-lg font-semibold text-[var(--brand-navy)]">Your Ad Accounts</h2>
           <PrimaryButton onClick={() => setIsRequestModalOpen(true)} type="button">
@@ -118,12 +130,13 @@ export function CustomerDashboard({ data, showToast }: DashboardSectionProps) {
             <input className="min-w-0 flex-1 bg-transparent text-sm text-[var(--brand-navy)] outline-none" onChange={(event) => setSearchQuery(event.target.value)} placeholder="Search accounts..." type="search" value={searchQuery} />
           </label>
 
-          <div className="relative">
+          <div className="relative" ref={statusFilterRef}>
             <button className="inline-flex min-h-9 items-center gap-2 rounded-lg border border-[var(--line)] bg-[var(--white)] px-3 text-sm font-semibold text-[var(--brand-navy)] hover:bg-[var(--surface)]" onClick={() => setIsStatusFilterOpen((current) => !current)} type="button">
               Status
+              <ChevronDown aria-hidden="true" className={`transition-transform ${isStatusFilterOpen ? "rotate-180" : ""}`} size={15} strokeWidth={2} />
             </button>
             {isStatusFilterOpen ? (
-              <div className="absolute right-0 top-[calc(100%+0.4rem)] z-20 grid min-w-56 gap-2 rounded-xl border border-[var(--line)] bg-[var(--white)] p-3 shadow-xl">
+              <div className="absolute right-0 top-[calc(100%+0.4rem)] z-20 grid min-w-56 gap-2 rounded-xl border border-[var(--line)] bg-[var(--white)] p-3">
                 <label className="flex items-center gap-2 text-xs font-semibold text-[var(--brand-navy)]">
                   <input checked={selectedStatuses.length === 0} onChange={() => setSelectedStatuses([])} type="checkbox" />
                   All Statuses
@@ -173,14 +186,29 @@ export function CustomerDashboard({ data, showToast }: DashboardSectionProps) {
                     </td>
                     <td className="border-b border-[var(--line)] px-3 py-2 text-sm text-[var(--brand-navy)]">{account.lastMetaUpdateAt}</td>
                     <td className="border-b border-[var(--line)] px-3 py-2 text-sm text-[var(--brand-navy)]">{account.notes}</td>
-                    <td className="border-b border-[var(--line)] px-3 py-2 text-right text-sm">
-                      <div className="flex items-center justify-end gap-2">
-                        <PrimaryButton className="min-h-0 rounded-md px-3 py-1.5 text-xs" onClick={() => showToast("success", `Top-up started for ${account.name}`)} type="button">
-                          Top Up
-                        </PrimaryButton>
-                        <button className="rounded-md p-1.5 text-[var(--muted)] hover:bg-[var(--surface)] hover:text-[var(--brand-navy)]" type="button">
-                          <MoreHorizontal aria-hidden="true" size={15} strokeWidth={1.9} />
+                    <td className="relative border-b border-[var(--line)] px-3 py-2 text-center text-sm">
+                      <div className="relative inline-flex" ref={openActionAccountId === account.id ? actionDropdownRef : null}>
+                        <button
+                          aria-label={`Open actions for ${account.name}`}
+                          className="inline-flex h-8 w-8 items-center justify-center rounded-lg border border-[var(--line)] bg-[var(--white)] text-[var(--brand-navy)] transition hover:bg-[var(--surface)]"
+                          onClick={() => setOpenActionAccountId((current) => (current === account.id ? null : account.id))}
+                          title="Actions"
+                          type="button"
+                        >
+                          <MoreHorizontal aria-hidden="true" size={17} strokeWidth={2.1} />
                         </button>
+                        {openActionAccountId === account.id ? (
+                          <div className="absolute right-0 top-[calc(100%+0.35rem)] z-30 grid min-w-32 gap-1 rounded-xl border border-[var(--line)] bg-[var(--white)] p-1.5 text-left">
+                            <button className="flex items-center gap-2 rounded-lg px-2.5 py-2 text-xs font-semibold text-[var(--brand-navy)] hover:bg-[var(--surface)]" onClick={() => handleAccountAction(account.name, "view")} type="button">
+                              <Eye aria-hidden="true" size={14} strokeWidth={2.1} />
+                              View
+                            </button>
+                            <button className="flex items-center gap-2 rounded-lg px-2.5 py-2 text-xs font-semibold text-[var(--brand-orange)] hover:bg-[rgba(239,67,7,0.08)]" onClick={() => handleAccountAction(account.name, "top-up")} type="button">
+                              <CreditCard aria-hidden="true" size={14} strokeWidth={2.1} />
+                              Top Up
+                            </button>
+                          </div>
+                        ) : null}
                       </div>
                     </td>
                   </tr>
@@ -200,7 +228,7 @@ export function CustomerDashboard({ data, showToast }: DashboardSectionProps) {
 
       {isRequestModalOpen ? (
         <div className="fixed inset-0 z-50 grid place-items-center bg-black/35 p-4">
-          <div className="w-full max-w-md rounded-xl border border-[var(--line)] bg-[var(--white)] p-5 shadow-2xl">
+          <div className="w-full max-w-md rounded-xl border border-[var(--line)] bg-[var(--white)] p-5">
             <div className="mb-4 flex items-center justify-between gap-3">
               <h3 className="m-0 flex-1 text-center text-base font-semibold text-[var(--brand-navy)]">New Ad Account</h3>
               <button className="rounded-lg p-1 text-[var(--muted)] hover:bg-[var(--surface)] hover:text-[var(--brand-navy)]" onClick={() => setIsRequestModalOpen(false)} type="button">

@@ -2,6 +2,7 @@
 
 import { RefreshCw } from "lucide-react";
 import { useState } from "react";
+import { PrimaryButton } from "@/components/shared-buttons";
 import type { ToastAction } from "@/features/crm/components/forms/form-types";
 import type { BusinessManager } from "@/features/crm/types/crm";
 
@@ -20,11 +21,6 @@ export function MetaAutoAddPanel({ businessManagers, showToast }: MetaAutoAddPan
 
   return (
     <div className="grid w-full gap-5">
-      <div>
-        <h3 className="m-0 text-base font-semibold text-[var(--brand-navy)]">Auto-Add Meta Ad Accounts</h3>
-        <p className="mt-1 text-xs text-[var(--muted)]">Automatically import ad accounts from Meta and assign them to a Business Manager.</p>
-      </div>
-
       <div className="grid gap-4">
         <label className="grid gap-2 text-sm font-semibold text-[var(--brand-navy)]">
           Business Manager
@@ -38,10 +34,10 @@ export function MetaAutoAddPanel({ businessManagers, showToast }: MetaAutoAddPan
           <span className="text-xs font-normal text-[var(--muted)]">Select the Business Manager that will be used to fetch and assign ad accounts.</span>
         </label>
 
-        <button className="inline-flex min-h-9 w-fit items-center justify-center gap-2 rounded-lg border border-[var(--line)] bg-[var(--white)] px-3 py-2 text-sm font-semibold text-[var(--brand-navy)] transition hover:bg-[var(--surface)]" onClick={fetchAvailableMetaAccounts} type="button">
+        <PrimaryButton className="w-fit px-3" onClick={fetchAvailableMetaAccounts} type="button">
           <RefreshCw aria-hidden="true" size={15} strokeWidth={1.8} />
           Fetch Available Accounts
-        </button>
+        </PrimaryButton>
       </div>
     </div>
   );

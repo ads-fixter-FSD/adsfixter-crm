@@ -1,9 +1,10 @@
 "use client";
 
-import { MoreHorizontal, Plus, X } from "lucide-react";
-import { useMemo, useState } from "react";
+import { Edit, Eye, MoreHorizontal, Plus, Trash2, X } from "lucide-react";
+import { useMemo, useRef, useState } from "react";
 import { PrimaryButton, SecondaryButton } from "@/components/shared-buttons";
 import type { ToastType } from "@/features/crm/types/crm";
+import { useClickOutside } from "@/hooks/use-click-outside";
 
 type BusinessManagerRow = {
   id: string;
@@ -39,9 +40,11 @@ const initialBusinessManagers: BusinessManagerRow[] = [
 ];
 
 export function AllBusinessManagersSection({ showToast }: AllBusinessManagersSectionProps) {
+  const actionDropdownRef = useRef<HTMLDivElement | null>(null);
   const [businessManagers, setBusinessManagers] = useState(initialBusinessManagers);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [currentPage, setCurrentPage] = useState(1);
+  const [openActionBusinessManagerId, setOpenActionBusinessManagerId] = useState<string | null>(null);
   const [formValues, setFormValues] = useState({
     name: "",
     id: "",
@@ -86,6 +89,13 @@ export function AllBusinessManagersSection({ showToast }: AllBusinessManagersSec
     showToast("success", "Business Manager added");
   };
 
+  const handleBusinessManagerAction = (businessManager: BusinessManagerRow, action: "view" | "edit" | "delete") => {
+    setOpenActionBusinessManagerId(null);
+    showToast(action === "delete" ? "warning" : "success", `${businessManager.name} ${action} action selected`);
+  };
+
+  useClickOutside(actionDropdownRef, () => setOpenActionBusinessManagerId(null));
+
   return (
     <section className="grid gap-4">
       <div className="flex flex-wrap items-center justify-between gap-3">
@@ -115,10 +125,34 @@ export function AllBusinessManagersSection({ showToast }: AllBusinessManagersSec
                 <td className="border-b border-[var(--line)] px-4 py-3 text-sm text-[var(--brand-navy)]">{businessManager.created}</td>
                 <td className="border-b border-[var(--line)] px-4 py-3 text-sm text-[var(--brand-navy)]">{businessManager.linkedBusinesses}</td>
                 <td className="border-b border-[var(--line)] px-4 py-3 text-sm text-[var(--brand-navy)]">{businessManager.notes}</td>
-                <td className="border-b border-[var(--line)] px-4 py-3 text-sm">
-                  <button aria-label={`Open actions for ${businessManager.name}`} className="rounded-lg p-1.5 text-[var(--muted)] hover:bg-[var(--surface)] hover:text-[var(--brand-navy)]" type="button">
-                    <MoreHorizontal aria-hidden="true" size={16} strokeWidth={1.9} />
-                  </button>
+                <td className="relative border-b border-[var(--line)] px-4 py-3 text-center text-sm">
+                  <div className="relative inline-flex" ref={openActionBusinessManagerId === businessManager.id ? actionDropdownRef : null}>
+                    <button
+                      aria-label={`Open actions for ${businessManager.name}`}
+                      className="inline-flex h-8 w-8 items-center justify-center rounded-lg border border-[var(--line)] bg-[var(--white)] text-[var(--brand-navy)] transition hover:bg-[var(--surface)]"
+                      onClick={() => setOpenActionBusinessManagerId((current) => (current === businessManager.id ? null : businessManager.id))}
+                      title="Actions"
+                      type="button"
+                    >
+                      <MoreHorizontal aria-hidden="true" size={17} strokeWidth={2.1} />
+                    </button>
+                    {openActionBusinessManagerId === businessManager.id ? (
+                      <div className="absolute right-0 top-[calc(100%+0.35rem)] z-30 grid min-w-32 gap-1 rounded-xl border border-[var(--line)] bg-[var(--white)] p-1.5 text-left">
+                        <button className="flex items-center gap-2 rounded-lg px-2.5 py-2 text-xs font-semibold text-[var(--brand-navy)] hover:bg-[var(--surface)]" onClick={() => handleBusinessManagerAction(businessManager, "view")} type="button">
+                          <Eye aria-hidden="true" size={14} strokeWidth={2.1} />
+                          View
+                        </button>
+                        <button className="flex items-center gap-2 rounded-lg px-2.5 py-2 text-xs font-semibold text-[var(--brand-navy)] hover:bg-[var(--surface)]" onClick={() => handleBusinessManagerAction(businessManager, "edit")} type="button">
+                          <Edit aria-hidden="true" size={14} strokeWidth={2.1} />
+                          Edit
+                        </button>
+                        <button className="flex items-center gap-2 rounded-lg px-2.5 py-2 text-xs font-semibold text-[var(--brand-orange)] hover:bg-[rgba(239,67,7,0.08)]" onClick={() => handleBusinessManagerAction(businessManager, "delete")} type="button">
+                          <Trash2 aria-hidden="true" size={14} strokeWidth={2.1} />
+                          Delete
+                        </button>
+                      </div>
+                    ) : null}
+                  </div>
                 </td>
               </tr>
             ))}
@@ -147,7 +181,7 @@ export function AllBusinessManagersSection({ showToast }: AllBusinessManagersSec
 
       {isModalOpen ? (
         <div className="fixed inset-0 z-50 grid place-items-center bg-black/45 p-4">
-          <div className="w-full max-w-xl rounded-xl bg-[var(--white)] p-6 shadow-2xl">
+          <div className="w-full max-w-xl rounded-xl bg-[var(--white)] p-6">
             <div className="mb-4 flex items-start justify-between gap-3">
               <div>
                 <h3 className="m-0 text-xl font-semibold text-[var(--brand-navy)]">Add Business Manager</h3>

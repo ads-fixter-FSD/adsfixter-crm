@@ -100,7 +100,7 @@ export function CreateNotificationsSection({ showToast }: CreateNotificationsSec
 
           <div className="grid min-h-[330px] place-items-center rounded-xl bg-[var(--surface)] p-6 text-center">
             {hasPreviewContent ? (
-              <article className="w-full max-w-md rounded-xl border border-[var(--line)] bg-[var(--white)] p-4 text-left shadow-sm">
+              <article className="w-full max-w-md rounded-xl border border-[var(--line)] bg-[var(--white)] p-4 text-left">
                 <h3 className="m-0 text-base font-semibold text-[var(--brand-navy)]">{title || "Untitled notification"}</h3>
                 <p className="mt-2 text-sm text-[var(--brand-navy)]">{description || "No description yet."}</p>
                 <p className="mt-3 rounded-lg bg-[var(--surface)] p-3 text-sm text-[var(--muted)]">{contentDescription || "No content details yet."}</p>

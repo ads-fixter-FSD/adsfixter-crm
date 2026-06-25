@@ -5,6 +5,7 @@ import { useEffect, useMemo, useRef, useState } from "react";
 import { AccountTable, type AccountColumnKey } from "@/features/crm/ad-accounts/components/ad-accounts-database/account-table";
 import type { DashboardSectionWithNavigationProps } from "@/features/crm/components/dashboard-sections/dashboard-section-types";
 import type { MetaAdAccountStatus } from "@/features/crm/types/crm";
+import { useClickOutside } from "@/hooks/use-click-outside";
 
 const metaAdAccountStatuses: MetaAdAccountStatus[] = ["ACTIVE", "UNSETTLED", "DISABLED", "PENDING_RISK_REVIEW", "PENDING_SETTLEMENT", "CLOSED", "UNKNOWN"];
 
@@ -31,6 +32,8 @@ export function AdAccountsDatabaseSection({ data, showToast, onSectionChange }: 
   const [actionMenuOpen, setActionMenuOpen] = useState(false);
   const [autoRefreshEnabled, setAutoRefreshEnabled] = useState(false);
   const showToastRef = useRef(showToast);
+  const actionMenuRef = useRef<HTMLDivElement | null>(null);
+  const viewMenuRef = useRef<HTMLDivElement | null>(null);
 
   const filteredAccounts = useMemo(() => {
     const normalizedQuery = searchQuery.trim().toLowerCase();
@@ -82,6 +85,9 @@ export function AdAccountsDatabaseSection({ data, showToast, onSectionChange }: 
     return () => window.clearInterval(intervalId);
   }, [autoRefreshEnabled]);
 
+  useClickOutside(actionMenuRef, () => setActionMenuOpen(false));
+  useClickOutside(viewMenuRef, () => setViewMenuOpen(false));
+
   return (
     <div className="grid grid-cols-12 gap-3">
       <section className="col-span-12 w-full overflow-visible rounded-xl border border-[var(--line)] bg-[var(--white)] p-3">
@@ -92,12 +98,12 @@ export function AdAccountsDatabaseSection({ data, showToast, onSectionChange }: 
               <RefreshCw aria-hidden="true" size={15} strokeWidth={1.8} />
               Update All From Meta
             </button>
-            <div className="relative">
+            <div className="relative" ref={actionMenuRef}>
               <button aria-label="More ad account actions" className="inline-flex min-h-8 w-8 items-center justify-center gap-1.5 rounded-lg border border-[var(--line)] bg-[var(--white)] px-0 text-[var(--brand-navy)] hover:bg-[var(--surface)]" onClick={() => setActionMenuOpen((current) => !current)} type="button">
                 <MoreVertical aria-hidden="true" size={16} strokeWidth={1.9} />
               </button>
               {actionMenuOpen ? (
-                <div className="absolute right-0 top-[calc(100%+0.35rem)] z-20 grid min-w-56 gap-0.5 rounded-xl border border-[var(--line)] bg-[var(--white)] p-1.5 shadow-xl">
+                <div className="absolute right-0 top-[calc(100%+0.35rem)] z-20 grid min-w-56 gap-0.5 rounded-xl border border-[var(--line)] bg-[var(--white)] p-1.5">
                   <button className="flex min-h-8 w-full items-center gap-2 rounded-lg border-0 bg-transparent px-2 py-1.5 text-left text-sm text-[var(--brand-navy)] hover:bg-[var(--surface)]" onClick={() => showToast("warning", "Auto-add from Meta queued")} type="button">
                     <RefreshCw aria-hidden="true" size={15} strokeWidth={1.8} />
                     Auto-Add From Meta
@@ -148,13 +154,13 @@ export function AdAccountsDatabaseSection({ data, showToast, onSectionChange }: 
               <Download aria-hidden="true" size={15} strokeWidth={1.8} />
               Export
             </button>
-            <div className="relative">
+            <div className="relative" ref={viewMenuRef}>
               <button className="inline-flex min-h-8 items-center gap-2 rounded-lg border border-[var(--line)] bg-[var(--white)] px-3 py-2 text-sm font-semibold leading-tight text-[var(--brand-navy)] transition hover:bg-[var(--surface)] max-[720px]:flex-1 max-[720px]:justify-center" onClick={() => setViewMenuOpen((current) => !current)} type="button">
                 <SlidersHorizontal aria-hidden="true" size={15} strokeWidth={1.8} />
                 View
               </button>
               {viewMenuOpen ? (
-                <div className="absolute left-0 top-[calc(100%+0.35rem)] z-20 grid min-w-56 gap-0.5 rounded-xl border border-[var(--line)] bg-[var(--white)] p-1.5 shadow-xl">
+                <div className="absolute left-0 top-[calc(100%+0.35rem)] z-20 grid min-w-56 gap-0.5 rounded-xl border border-[var(--line)] bg-[var(--white)] p-1.5">
                   {accountColumnOptions.map((column) => (
                     <button className="flex min-h-8 w-full items-center gap-2 rounded-lg border-0 bg-transparent px-2 py-1.5 text-left text-sm text-[var(--brand-navy)] hover:bg-[var(--surface)]" key={column.key} onClick={() => toggleVisibleAdAccountColumn(column.key)} type="button">
                       <span className="inline-block w-5 shrink-0 text-xs font-bold uppercase text-[var(--brand-navy)]">{visibleColumns.includes(column.key) ? "on" : ""}</span>

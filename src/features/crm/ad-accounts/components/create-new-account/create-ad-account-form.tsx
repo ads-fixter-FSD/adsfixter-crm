@@ -13,9 +13,9 @@ export function CreateAdAccountForm({ businessManagers, clients, onBack, showToa
   return (
     <div className="grid gap-3">
       {onBack ? (
-        <button className="inline-flex justify-self-start border-0 bg-transparent p-0 text-sm font-semibold text-[var(--brand-navy)] before:mr-2 before:content-['<']" onClick={onBack} type="button">
+        <PrimaryButton className="justify-self-start px-3" onClick={onBack} type="button">
           Back to Ad Accounts
-        </button>
+        </PrimaryButton>
       ) : null}
 
       <form
@@ -25,11 +25,6 @@ export function CreateAdAccountForm({ businessManagers, clients, onBack, showToa
           showToast("success", "New ad account created under selected business manager");
         }}
       >
-        <div className="col-span-full">
-          <h3 className="m-0 text-base font-semibold text-[var(--brand-navy)]">Create New Ad Account</h3>
-          <p className="mt-1 text-xs font-normal text-[var(--muted)]">Add a new Facebook ad account to the system.</p>
-        </div>
-
         <label className="grid gap-2 text-sm font-semibold text-[var(--brand-navy)]">
           Ad Account Name
           <input className="min-h-9 w-full rounded-lg border border-[var(--line)] bg-[var(--white)] px-3 py-2 text-sm text-[var(--brand-navy)] outline-none focus:border-[var(--brand-navy)]" placeholder="Ad Account" />

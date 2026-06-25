@@ -5,15 +5,17 @@ import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { Bell, LogOut, Moon, Settings, Sun } from "lucide-react";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { adAccountSubNavigation, AppSidebar, businessManagerSubNavigation, clientSubNavigation, getSectionHref, notificationSubNavigation, paymentSubNavigation, reportSubNavigation, requestSubNavigation, roleNavigation, sectionToSlug, settingsSubNavigation } from "@/components/layout/app-sidebar";
 import { ToastStack, type Toast } from "@/components/ui/toast-stack";
 import { getCrmOverview, crmQueryKeys } from "@/features/crm/api/crm-queries";
 import { AdminDashboard, CustomerDashboard, MaintainerDashboard, SectionRenderer } from "@/features/crm/components/dashboard-sections";
 import type { Role, ToastType } from "@/features/crm/types/crm";
+import { useClickOutside } from "@/hooks/use-click-outside";
 
 export function CrmDashboardShell() {
   const router = useRouter();
+  const profileMenuRef = useRef<HTMLDivElement | null>(null);
   const [role, setRole] = useState<Role>("Super Admin");
   const [activeSection, setActiveSection] = useState("Dashboard");
   const [profileMenuOpen, setProfileMenuOpen] = useState(false);
@@ -77,6 +79,8 @@ export function CrmDashboardShell() {
     window.localStorage.setItem("adsfixter-theme", nextTheme);
   };
 
+  useClickOutside(profileMenuRef, () => setProfileMenuOpen(false));
+
   if (isLoading || !data) {
     return (
       <div className="grid min-h-screen place-content-center gap-4 text-center">
@@ -105,13 +109,13 @@ export function CrmDashboardShell() {
                 <Bell aria-hidden="true" size={16} strokeWidth={1.9} />
                 <span className="absolute right-1.5 top-1.5 h-2 w-2 rounded-full bg-red-500" />
               </button>
-              <div className="relative">
+              <div className="relative" ref={profileMenuRef}>
                 <button className="inline-flex min-h-8 items-center justify-center gap-1.5 rounded-lg border border-[var(--line)] bg-[var(--white)] px-2.5 text-[var(--brand-navy)] hover:bg-[var(--surface)] max-[720px]:flex-1" onClick={() => setProfileMenuOpen((current) => !current)} type="button">
                   <span className="inline-flex h-6 w-6 items-center justify-center rounded-full bg-[var(--brand-navy)] text-xs font-bold text-[var(--white)]">{profileInitials}</span>
                 </button>
 
                 {profileMenuOpen ? (
-                  <div className="absolute right-0 top-[calc(100%+0.45rem)] z-20 grid min-w-40 gap-1 rounded-xl border border-[var(--line)] bg-[var(--white)] p-1.5 shadow-xl">
+                  <div className="absolute right-0 top-[calc(100%+0.45rem)] z-20 grid min-w-40 gap-1 rounded-xl border border-[var(--line)] bg-[var(--white)] p-1.5">
                     <button
                       className="flex items-center gap-2 rounded-lg px-2.5 py-2 text-sm text-[var(--brand-navy)] hover:bg-[var(--surface)]"
                       onClick={() => {

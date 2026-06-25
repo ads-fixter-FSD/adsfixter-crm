@@ -28,7 +28,7 @@ export function AdminSettingsSection({ showToast }: AdminSettingsSectionProps) {
         <p className="mt-2 text-base text-[var(--muted)]">Manage your admin panel preferences and notifications</p>
       </div>
 
-      <section className="rounded-2xl border border-[var(--line)] bg-[var(--white)] p-7 shadow-sm">
+      <section className="rounded-2xl border border-[var(--line)] bg-[var(--white)] p-7">
         <div className="mb-6">
           <div className="flex items-center gap-2 text-lg font-semibold text-[var(--brand-navy)]">
             <Volume2 aria-hidden="true" size={20} strokeWidth={1.9} />
@@ -56,7 +56,7 @@ export function AdminSettingsSection({ showToast }: AdminSettingsSectionProps) {
               }}
               type="button"
             >
-              <span className={`block h-7 w-7 rounded-full bg-white shadow transition ${soundAlertsEnabled ? "translate-x-7 bg-green-500" : "translate-x-0"}`} />
+              <span className={`block h-7 w-7 rounded-full bg-white transition ${soundAlertsEnabled ? "translate-x-7 bg-green-500" : "translate-x-0"}`} />
             </button>
           </div>
 

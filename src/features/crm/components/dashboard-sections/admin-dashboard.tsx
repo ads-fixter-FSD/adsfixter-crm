@@ -11,29 +11,29 @@ type AdminDashboardProps = DashboardSectionProps & {
 
 export function AdminDashboard({ data, role, showToast }: AdminDashboardProps) {
   return (
-    <div className="grid grid-cols-12 gap-3">
-      <section className="col-span-12 grid grid-cols-6 gap-3 max-[1180px]:grid-cols-2 max-[720px]:grid-cols-1">
+    <div className="grid w-full grid-cols-12 gap-3">
+      <section className="col-span-12 grid grid-cols-6 gap-3 max-[1500px]:grid-cols-3 max-[1180px]:grid-cols-2 max-[720px]:grid-cols-1">
         {data.adminMetrics.map((metric) => (
           <MetricCard key={metric.label} metric={metric} />
         ))}
       </section>
 
-      <Panel className="col-span-8 max-[1180px]:col-span-12" title="Pending Workflow" action="Review all" onAction={() => showToast("warning", "37 pending requests need review")}>
+      <Panel className="col-span-9 max-[1180px]:col-span-12" title="Pending Workflow" action="Review all" onAction={() => showToast("warning", "37 pending requests need review")}>
         <RequestTable requests={data.requests} showToast={showToast} />
       </Panel>
 
-      <Panel className="col-span-4 max-[1180px]:col-span-12" title="Recent Activities">
-        <div className="grid gap-3">
+      <Panel className="col-span-3 max-[1180px]:col-span-12" title="Recent Activities">
+        <div className="grid gap-2">
           {data.activities.map((activity) => (
-            <div className="grid grid-cols-[auto_1fr] items-start gap-3" key={activity}>
-              <span className="mt-1.5 h-2.5 w-2.5 rounded-full bg-[var(--brand-orange)]" />
-              <p className="m-0 text-[var(--brand-navy)]">{activity}</p>
+            <div className="grid grid-cols-[auto_1fr] items-start gap-2 rounded-lg bg-[var(--surface)] px-2.5 py-2" key={activity}>
+              <span className="mt-1 h-2 w-2 rounded-full bg-[var(--brand-orange)]" />
+              <p className="m-0 text-xs leading-5 text-[var(--brand-navy)]">{activity}</p>
             </div>
           ))}
         </div>
       </Panel>
 
-      <Panel className="col-span-7 max-[1180px]:col-span-12" title="Dollar Rate Management">
+      <Panel className="col-span-8 max-[1180px]:col-span-12" title="Dollar Rate Management">
         <div className="flex items-center justify-between gap-4 max-[720px]:flex-col max-[720px]:items-start">
           <div>
             <span className="text-xs font-medium text-[var(--muted)]">Current Exchange Rate</span>
@@ -50,8 +50,8 @@ export function AdminDashboard({ data, role, showToast }: AdminDashboardProps) {
         </div>
       </Panel>
 
-      <Panel className="col-span-5 max-[1180px]:col-span-12" title={`${role} Controls`}>
-        <div className="grid gap-3">
+      <Panel className="col-span-4 max-[1180px]:col-span-12" title={`${role} Controls`}>
+        <div className="grid gap-2">
           {["Top-up Approval", "Credit Limit Change", "Client Suspend/Activate", "Business Manager Approve"].map((control) => (
             <SecondaryButton className="px-3" key={control} onClick={() => showToast("success", `${control} action completed`)} type="button">
               {control}

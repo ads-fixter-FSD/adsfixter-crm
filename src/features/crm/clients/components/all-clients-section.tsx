@@ -1,10 +1,11 @@
 "use client";
 
-import { Filter, MoreHorizontal, Plus, Search, X } from "lucide-react";
-import { useMemo, useState } from "react";
+import { Edit, Eye, Filter, MoreHorizontal, Plus, Search, ShieldOff, X } from "lucide-react";
+import { useMemo, useRef, useState } from "react";
 import { PrimaryButton, SecondaryButton } from "@/components/shared-buttons";
 import type { CrmOverview, ToastType } from "@/features/crm/types/crm";
 import { readApprovedClientsFromStorage, type ClientDashboardRow } from "@/features/crm/clients/components/client-storage";
+import { useClickOutside } from "@/hooks/use-click-outside";
 
 type AllClientsSectionProps = {
   data: CrmOverview;
@@ -42,11 +43,13 @@ function createInitialClients(data: CrmOverview) {
 }
 
 export function AllClientsSection({ data, showToast }: AllClientsSectionProps) {
+  const actionDropdownRef = useRef<HTMLDivElement | null>(null);
   const [clients, setClients] = useState<ClientDashboardRow[]>(() => createInitialClients(data));
   const [searchQuery, setSearchQuery] = useState("");
   const [statusFilter, setStatusFilter] = useState<ClientStatusFilter>("All");
   const [currentPage, setCurrentPage] = useState(1);
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [openActionClientId, setOpenActionClientId] = useState<string | null>(null);
   const [formValues, setFormValues] = useState({ name: "", email: "", usdRate: "130.00 BDT", balance: "$0.00", dueLimit: "$0.00" });
 
   const filteredClients = useMemo(() => {
@@ -97,6 +100,20 @@ export function AllClientsSection({ data, showToast }: AllClientsSectionProps) {
     closeModal();
     showToast("success", "Client created");
   };
+
+  const handleClientAction = (client: ClientDashboardRow, action: "view" | "edit" | "toggle-status") => {
+    setOpenActionClientId(null);
+
+    if (action === "toggle-status") {
+      setClients((current) => current.map((row) => (row.id === client.id ? { ...row, status: row.status === "Suspended" ? "Active" : "Suspended" } : row)));
+      showToast("warning", `${client.name} status updated`);
+      return;
+    }
+
+    showToast("success", `${client.name} ${action} action selected`);
+  };
+
+  useClickOutside(actionDropdownRef, () => setOpenActionClientId(null));
 
   return (
     <section className="grid gap-4">
@@ -167,10 +184,34 @@ export function AllClientsSection({ data, showToast }: AllClientsSectionProps) {
                 <td className="border-b border-[var(--line)] px-4 py-3 text-sm">
                   <span className={`inline-flex rounded-full px-2 py-1 text-xs font-semibold ${client.status === "Active" ? "bg-green-50 text-green-600" : client.status === "Pending" ? "bg-yellow-50 text-yellow-700" : "bg-red-50 text-red-600"}`}>{client.status}</span>
                 </td>
-                <td className="border-b border-[var(--line)] px-4 py-3 text-sm">
-                  <button className="rounded-lg p-1.5 text-[var(--muted)] hover:bg-[var(--surface)] hover:text-[var(--brand-navy)]" type="button">
-                    <MoreHorizontal aria-hidden="true" size={16} strokeWidth={1.9} />
-                  </button>
+                <td className="relative border-b border-[var(--line)] px-4 py-3 text-center text-sm">
+                  <div className="relative inline-flex" ref={openActionClientId === client.id ? actionDropdownRef : null}>
+                    <button
+                      aria-label={`Open actions for ${client.name}`}
+                      className="inline-flex h-8 w-8 items-center justify-center rounded-lg border border-[var(--line)] bg-[var(--white)] text-[var(--brand-navy)] transition hover:bg-[var(--surface)]"
+                      onClick={() => setOpenActionClientId((current) => (current === client.id ? null : client.id))}
+                      title="Actions"
+                      type="button"
+                    >
+                      <MoreHorizontal aria-hidden="true" size={17} strokeWidth={2.1} />
+                    </button>
+                    {openActionClientId === client.id ? (
+                      <div className="absolute right-0 top-[calc(100%+0.35rem)] z-30 grid min-w-36 gap-1 rounded-xl border border-[var(--line)] bg-[var(--white)] p-1.5 text-left">
+                        <button className="flex items-center gap-2 rounded-lg px-2.5 py-2 text-xs font-semibold text-[var(--brand-navy)] hover:bg-[var(--surface)]" onClick={() => handleClientAction(client, "view")} type="button">
+                          <Eye aria-hidden="true" size={14} strokeWidth={2.1} />
+                          View
+                        </button>
+                        <button className="flex items-center gap-2 rounded-lg px-2.5 py-2 text-xs font-semibold text-[var(--brand-navy)] hover:bg-[var(--surface)]" onClick={() => handleClientAction(client, "edit")} type="button">
+                          <Edit aria-hidden="true" size={14} strokeWidth={2.1} />
+                          Edit
+                        </button>
+                        <button className="flex items-center gap-2 rounded-lg px-2.5 py-2 text-xs font-semibold text-[var(--brand-orange)] hover:bg-[rgba(239,67,7,0.08)]" onClick={() => handleClientAction(client, "toggle-status")} type="button">
+                          <ShieldOff aria-hidden="true" size={14} strokeWidth={2.1} />
+                          {client.status === "Suspended" ? "Activate" : "Suspend"}
+                        </button>
+                      </div>
+                    ) : null}
+                  </div>
                 </td>
               </tr>
             ))}
@@ -199,7 +240,7 @@ export function AllClientsSection({ data, showToast }: AllClientsSectionProps) {
 
       {isModalOpen ? (
         <div className="fixed inset-0 z-50 grid place-items-center bg-black/45 p-4">
-          <div className="w-full max-w-lg rounded-xl bg-[var(--white)] p-6 shadow-2xl">
+          <div className="w-full max-w-lg rounded-xl bg-[var(--white)] p-6">
             <div className="mb-4 flex items-start justify-between gap-3">
               <div>
                 <h3 className="m-0 text-xl font-semibold text-[var(--brand-navy)]">Create Client</h3>

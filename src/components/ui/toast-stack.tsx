@@ -25,7 +25,7 @@ export function ToastStack({ toasts, onDismiss }: ToastStackProps) {
 
         return (
           <div
-            className={`grid grid-cols-[auto_1fr_auto] gap-x-3 gap-y-1 rounded-2xl border p-3 shadow-xl before:mt-1.5 before:h-2.5 before:w-2.5 before:rounded-full before:content-[''] ${toastClassName}`}
+            className={`grid grid-cols-[auto_1fr_auto] gap-x-3 gap-y-1 rounded-2xl border p-3 before:mt-1.5 before:h-2.5 before:w-2.5 before:rounded-full before:content-[''] ${toastClassName}`}
             key={toast.id}
           >
             <strong className="text-sm font-bold capitalize">{toast.type}</strong>

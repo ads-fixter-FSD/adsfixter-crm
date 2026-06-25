@@ -55,17 +55,20 @@ export function ClientNewPaymentSection({ showToast }: ClientNewPaymentSectionPr
         <p className="mt-1 text-sm text-[var(--muted)]">This balance can be used across all your ad accounts.</p>
       </div>
 
-      <div className="grid grid-cols-3 gap-2 rounded-xl border border-[var(--line)] bg-[var(--white)] p-2 max-[720px]:grid-cols-1">
+      <div className="mx-auto grid w-full max-w-4xl grid-cols-3 gap-3 rounded-xl border border-[var(--line)] bg-[var(--white)] p-3 text-center max-[720px]:grid-cols-1">
         {[
-          { id: 1, label: "Select Method", icon: CreditCard },
-          { id: 2, label: "Payment Details", icon: Upload },
-          { id: 3, label: "Review & Submit", icon: FileText },
+          { id: 1, label: "Select Method", helper: "Choose where you will send the payment.", icon: CreditCard },
+          { id: 2, label: "Payment Details", helper: "Enter amount, transaction ID, and proof.", icon: Upload },
+          { id: 3, label: "Review & Submit", helper: "Check everything and submit for approval.", icon: FileText },
         ].map((item) => {
           const Icon = item.icon;
           return (
-            <div className={`flex items-center justify-center gap-2 rounded-lg px-2.5 py-1.5 text-xs font-semibold ${step === item.id ? "bg-[var(--brand-orange)] text-white" : "bg-[var(--surface)] text-[var(--muted)]"}`} key={item.id}>
-              <Icon aria-hidden="true" size={15} strokeWidth={1.9} />
-              {item.id}. {item.label}
+            <div className={`rounded-lg border px-3 py-2 ${step === item.id ? "border-[var(--brand-navy)] bg-[var(--surface)]" : "border-[var(--line)] bg-[var(--white)]"}`} key={item.id}>
+              <div className="flex items-center justify-center gap-2 text-sm font-semibold text-[var(--brand-navy)]">
+                <Icon aria-hidden="true" size={15} strokeWidth={1.9} />
+                Step {item.id}: {item.label}
+              </div>
+              <p className="mt-1 mb-0 text-xs leading-5 text-[var(--muted)]">{item.helper}</p>
             </div>
           );
         })}

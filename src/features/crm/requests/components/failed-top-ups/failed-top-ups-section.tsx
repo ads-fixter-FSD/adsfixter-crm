@@ -1,7 +1,9 @@
 "use client";
 
-import { useMemo, useState } from "react";
+import { MoreHorizontal, RotateCcw } from "lucide-react";
+import { useMemo, useRef, useState } from "react";
 import type { ToastType } from "@/features/crm/types/crm";
+import { useClickOutside } from "@/hooks/use-click-outside";
 
 type FailedTopUpAttempt = {
   id: string;
@@ -37,8 +39,10 @@ const failedTopUpAttempts: FailedTopUpAttempt[] = [
 ];
 
 export function FailedTopUpsSection({ showToast }: FailedTopUpsSectionProps) {
+  const actionDropdownRef = useRef<HTMLDivElement | null>(null);
   const [filterQuery, setFilterQuery] = useState("");
   const [currentPage, setCurrentPage] = useState(1);
+  const [openActionAttemptId, setOpenActionAttemptId] = useState<string | null>(null);
 
   const filteredAttempts = useMemo(() => {
     const normalizedQuery = filterQuery.trim().toLowerCase();
@@ -64,6 +68,13 @@ export function FailedTopUpsSection({ showToast }: FailedTopUpsSectionProps) {
   const pageStartIndex = (safeCurrentPage - 1) * rowsPerPage;
   const visibleAttempts = filteredAttempts.slice(pageStartIndex, pageStartIndex + rowsPerPage);
   const shouldShowPagination = filteredAttempts.length > rowsPerPage;
+
+  const retryMetaApi = (attempt: FailedTopUpAttempt) => {
+    setOpenActionAttemptId(null);
+    showToast("warning", `Retry queued for ${attempt.adAccountName}`);
+  };
+
+  useClickOutside(actionDropdownRef, () => setOpenActionAttemptId(null));
 
   return (
     <section className="grid gap-4 rounded-xl border border-[var(--line)] bg-[var(--white)] p-4">
@@ -124,10 +135,26 @@ export function FailedTopUpsSection({ showToast }: FailedTopUpsSectionProps) {
                 <td className="border-b border-[var(--line)] px-2.5 py-2 text-sm font-semibold text-[var(--brand-navy)]">{attempt.amount}</td>
                 <td className="whitespace-pre-line border-b border-[var(--line)] px-2.5 py-2 text-xs text-amber-700">{attempt.balanceStatus}</td>
                 <td className="border-b border-[var(--line)] px-2.5 py-2 text-xs text-red-600">{attempt.errorMessage}</td>
-                <td className="border-b border-[var(--line)] px-2.5 py-2 text-xs">
-                  <button className="rounded-md border border-[var(--line)] bg-white px-3 py-1.5 text-xs font-semibold text-[var(--brand-navy)] hover:bg-[var(--surface)]" onClick={() => showToast("warning", `Retry queued for ${attempt.adAccountName}`)} type="button">
-                    Retry Meta API
-                  </button>
+                <td className="relative border-b border-[var(--line)] px-2.5 py-2 text-center text-xs">
+                  <div className="relative inline-flex" ref={openActionAttemptId === attempt.id ? actionDropdownRef : null}>
+                    <button
+                      aria-label={`Open actions for ${attempt.adAccountName}`}
+                      className="inline-flex h-8 w-8 items-center justify-center rounded-lg border border-[var(--line)] bg-[var(--white)] text-[var(--brand-navy)] transition hover:bg-[var(--surface)]"
+                      onClick={() => setOpenActionAttemptId((current) => (current === attempt.id ? null : attempt.id))}
+                      title="Actions"
+                      type="button"
+                    >
+                      <MoreHorizontal aria-hidden="true" size={17} strokeWidth={2.1} />
+                    </button>
+                    {openActionAttemptId === attempt.id ? (
+                      <div className="absolute right-0 top-[calc(100%+0.35rem)] z-30 grid min-w-40 gap-1 rounded-xl border border-[var(--line)] bg-[var(--white)] p-1.5 text-left">
+                        <button className="flex items-center gap-2 rounded-lg px-2.5 py-2 text-xs font-semibold text-[var(--brand-navy)] hover:bg-[var(--surface)]" onClick={() => retryMetaApi(attempt)} type="button">
+                          <RotateCcw aria-hidden="true" size={14} strokeWidth={2.1} />
+                          Retry Meta API
+                        </button>
+                      </div>
+                    ) : null}
+                  </div>
                 </td>
               </tr>
             ))}

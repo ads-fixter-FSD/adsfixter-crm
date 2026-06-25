@@ -1,10 +1,10 @@
 "use client";
 
-import { Check, X } from "lucide-react";
-import { useState } from "react";
-import { PrimaryButton, SecondaryButton } from "@/components/shared-buttons";
+import { Check, MoreHorizontal, X } from "lucide-react";
+import { useRef, useState } from "react";
 import type { ToastType } from "@/features/crm/types/crm";
 import { writeApprovedClientToStorage, type ClientDashboardRow } from "@/features/crm/clients/components/client-storage";
+import { useClickOutside } from "@/hooks/use-click-outside";
 
 type PendingClientApprovalsSectionProps = {
   showToast: (type: ToastType, message: string) => void;
@@ -35,19 +35,25 @@ const initialPendingClients: ClientDashboardRow[] = [
 ];
 
 export function PendingClientApprovalsSection({ showToast, onSectionChange }: PendingClientApprovalsSectionProps) {
+  const actionDropdownRef = useRef<HTMLDivElement | null>(null);
   const [pendingClients, setPendingClients] = useState(initialPendingClients);
+  const [openActionClientId, setOpenActionClientId] = useState<string | null>(null);
 
   const approveClient = (client: ClientDashboardRow) => {
     writeApprovedClientToStorage({ ...client, status: "Active", date: "Approved just now" });
     setPendingClients((current) => current.filter((pendingClient) => pendingClient.id !== client.id));
+    setOpenActionClientId(null);
     showToast("success", `${client.name} approved and moved to all clients`);
     onSectionChange?.("All Clients");
   };
 
   const rejectClient = (client: ClientDashboardRow) => {
     setPendingClients((current) => current.filter((pendingClient) => pendingClient.id !== client.id));
+    setOpenActionClientId(null);
     showToast("error", `${client.name} rejected`);
   };
+
+  useClickOutside(actionDropdownRef, () => setOpenActionClientId(null));
 
   return (
     <section className="grid gap-4">
@@ -84,16 +90,29 @@ export function PendingClientApprovalsSection({ showToast, onSectionChange }: Pe
                     <td className="border-b border-[var(--line)] px-3 py-2 text-sm">
                       <span className="inline-flex rounded-full bg-yellow-50 px-2 py-1 text-xs font-semibold text-yellow-700">Pending</span>
                     </td>
-                    <td className="border-b border-[var(--line)] px-3 py-2 text-sm">
-                      <div className="flex flex-wrap items-center gap-2">
-                        <PrimaryButton className="min-h-0 rounded-md px-3 py-1.5 text-xs" onClick={() => approveClient(client)} type="button">
-                          <Check aria-hidden="true" size={13} strokeWidth={1.9} />
-                          Approve
-                        </PrimaryButton>
-                        <SecondaryButton className="min-h-0 rounded-md px-3 py-1.5 text-xs" onClick={() => rejectClient(client)} type="button">
-                          <X aria-hidden="true" size={13} strokeWidth={1.9} />
-                          Reject
-                        </SecondaryButton>
+                    <td className="relative border-b border-[var(--line)] px-3 py-2 text-center text-sm">
+                      <div className="relative inline-flex" ref={openActionClientId === client.id ? actionDropdownRef : null}>
+                        <button
+                          aria-label={`Open actions for ${client.name}`}
+                          className="inline-flex h-8 w-8 items-center justify-center rounded-lg border border-[var(--line)] bg-[var(--white)] text-[var(--brand-navy)] transition hover:bg-[var(--surface)]"
+                          onClick={() => setOpenActionClientId((current) => (current === client.id ? null : client.id))}
+                          title="Actions"
+                          type="button"
+                        >
+                          <MoreHorizontal aria-hidden="true" size={17} strokeWidth={2.1} />
+                        </button>
+                        {openActionClientId === client.id ? (
+                          <div className="absolute right-0 top-[calc(100%+0.35rem)] z-30 grid min-w-32 gap-1 rounded-xl border border-[var(--line)] bg-[var(--white)] p-1.5 text-left">
+                            <button className="flex items-center gap-2 rounded-lg px-2.5 py-2 text-xs font-semibold text-[var(--brand-navy)] hover:bg-[var(--surface)]" onClick={() => approveClient(client)} type="button">
+                              <Check aria-hidden="true" size={14} strokeWidth={2.1} />
+                              Approve
+                            </button>
+                            <button className="flex items-center gap-2 rounded-lg px-2.5 py-2 text-xs font-semibold text-[var(--brand-orange)] hover:bg-[rgba(239,67,7,0.08)]" onClick={() => rejectClient(client)} type="button">
+                              <X aria-hidden="true" size={14} strokeWidth={2.1} />
+                              Reject
+                            </button>
+                          </div>
+                        ) : null}
                       </div>
                     </td>
                   </tr>

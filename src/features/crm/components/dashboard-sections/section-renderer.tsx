@@ -8,6 +8,7 @@ import { ClientBalanceHistorySection } from "@/features/crm/client-dashboard/com
 import { ClientNewPaymentSection } from "@/features/crm/client-dashboard/components/client-new-payment-section";
 import { ClientNotificationsSection } from "@/features/crm/client-dashboard/components/client-notifications-section";
 import { ClientPaymentHistorySection } from "@/features/crm/client-dashboard/components/client-payment-history-section";
+import { ClientSettingsSection } from "@/features/crm/client-dashboard/components/client-settings-section";
 import { ClientsManagementSection } from "@/features/crm/components/dashboard-sections/clients-management-section";
 import { ModulePlaceholderSection } from "@/features/crm/components/dashboard-sections/module-placeholder-section";
 import { RequestWorkflowSection } from "@/features/crm/components/dashboard-sections/request-workflow-section";
@@ -108,6 +109,10 @@ export function SectionRenderer({ data, role, section, showToast, onSectionChang
 
   if (section === "Client Management") {
     return <ClientsManagementSection data={data} showToast={showToast} />;
+  }
+
+  if (section === "Settings" && role === "Customer") {
+    return <ClientSettingsSection showToast={showToast} />;
   }
 
   if (section === "Settings") {

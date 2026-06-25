@@ -83,7 +83,6 @@ export function AppSidebar({ role, activeSection, onSectionChange }: AppSidebarP
       </label>
 
       <nav className="grid gap-1 max-[1180px]:grid-cols-2 max-[720px]:grid-cols-1">
-        <p className="ml-1 mt-1 mb-1 text-xs font-semibold text-[var(--sidebar-label)]">Main</p>
         {roleNavigation[role].map((item) => {
           const Icon = navigationIcons[item] ?? LayoutDashboard;
 
