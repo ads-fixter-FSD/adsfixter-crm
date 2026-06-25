@@ -2,6 +2,7 @@
 
 import { Eye, History, Send, Trash2 } from "lucide-react";
 import { useMemo, useState } from "react";
+import { PrimaryButton, SecondaryButton } from "@/components/shared-buttons";
 import type { ToastType } from "@/features/crm/types/crm";
 
 type CreateNotificationsSectionProps = {
@@ -79,14 +80,14 @@ export function CreateNotificationsSection({ showToast }: CreateNotificationsSec
             </label>
 
             <div className="mt-1 flex flex-wrap items-center justify-between gap-3">
-              <button className="inline-flex min-h-9 items-center gap-2 rounded-lg border border-[var(--line)] bg-[var(--white)] px-4 text-sm font-semibold text-[var(--muted)] hover:bg-[var(--surface)]" type="button">
+              <SecondaryButton type="button">
                 <Eye aria-hidden="true" size={15} strokeWidth={1.9} />
                 Preview
-              </button>
-              <button className="inline-flex min-h-9 min-w-64 items-center justify-center gap-2 rounded-lg border-0 bg-sky-500 px-4 text-sm font-semibold text-white hover:bg-sky-600 max-[720px]:min-w-0 max-[720px]:flex-1" onClick={sendNotificationToAll} type="button">
+              </SecondaryButton>
+              <PrimaryButton className="min-w-64 max-[720px]:min-w-0 max-[720px]:flex-1" onClick={sendNotificationToAll} type="button">
                 <Send aria-hidden="true" size={15} strokeWidth={1.9} />
                 Send to All
-              </button>
+              </PrimaryButton>
             </div>
           </div>
         </section>
@@ -136,9 +137,9 @@ export function CreateNotificationsSection({ showToast }: CreateNotificationsSec
                   <p className="mt-1 text-sm text-[var(--muted)]">{notification.description}</p>
                   <p className="mt-1 text-xs text-[var(--muted)]">{notification.sentAt}</p>
                 </div>
-                <button className="rounded-lg border border-[var(--line)] bg-[var(--white)] p-2 text-red-600 hover:bg-red-50" onClick={() => setHistory((current) => current.filter((item) => item.id !== notification.id))} type="button">
+                <SecondaryButton className="min-h-0 p-2" onClick={() => setHistory((current) => current.filter((item) => item.id !== notification.id))} type="button">
                   <Trash2 aria-hidden="true" size={15} strokeWidth={1.9} />
-                </button>
+                </SecondaryButton>
               </article>
             ))}
           </div>

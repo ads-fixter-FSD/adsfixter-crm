@@ -22,7 +22,7 @@ export function AdminSettingsSection({ showToast }: AdminSettingsSectionProps) {
   };
 
   return (
-    <section className="mx-auto grid max-w-5xl gap-6">
+    <section className="grid w-full gap-6">
       <div>
         <h2 className="m-0 text-3xl font-bold tracking-[-0.03em] text-[var(--brand-navy)]">Admin Settings</h2>
         <p className="mt-2 text-base text-[var(--muted)]">Manage your admin panel preferences and notifications</p>

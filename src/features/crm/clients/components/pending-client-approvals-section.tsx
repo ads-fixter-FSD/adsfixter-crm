@@ -2,6 +2,7 @@
 
 import { Check, X } from "lucide-react";
 import { useState } from "react";
+import { PrimaryButton, SecondaryButton } from "@/components/shared-buttons";
 import type { ToastType } from "@/features/crm/types/crm";
 import { writeApprovedClientToStorage, type ClientDashboardRow } from "@/features/crm/clients/components/client-storage";
 
@@ -85,14 +86,14 @@ export function PendingClientApprovalsSection({ showToast, onSectionChange }: Pe
                     </td>
                     <td className="border-b border-[var(--line)] px-3 py-2 text-sm">
                       <div className="flex flex-wrap items-center gap-2">
-                        <button className="inline-flex items-center gap-1 rounded-md border border-green-100 bg-green-50 px-3 py-1.5 text-xs font-semibold text-green-600 hover:bg-green-100" onClick={() => approveClient(client)} type="button">
+                        <PrimaryButton className="min-h-0 rounded-md px-3 py-1.5 text-xs" onClick={() => approveClient(client)} type="button">
                           <Check aria-hidden="true" size={13} strokeWidth={1.9} />
                           Approve
-                        </button>
-                        <button className="inline-flex items-center gap-1 rounded-md border border-red-100 bg-red-50 px-3 py-1.5 text-xs font-semibold text-red-600 hover:bg-red-100" onClick={() => rejectClient(client)} type="button">
+                        </PrimaryButton>
+                        <SecondaryButton className="min-h-0 rounded-md px-3 py-1.5 text-xs" onClick={() => rejectClient(client)} type="button">
                           <X aria-hidden="true" size={13} strokeWidth={1.9} />
                           Reject
-                        </button>
+                        </SecondaryButton>
                       </div>
                     </td>
                   </tr>

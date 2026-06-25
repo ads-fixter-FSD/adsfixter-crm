@@ -2,9 +2,10 @@
 
 import Link from "next/link";
 import Image from "next/image";
-import { LayoutDashboard, Search } from "lucide-react";
+import { useRouter } from "next/navigation";
+import { ChevronRight, LayoutDashboard, Search } from "lucide-react";
 import { useState } from "react";
-import { adAccountSubNavigation, businessManagerSubNavigation, clientSubNavigation, getSectionHref, navigationIcons, notificationSubNavigation, reportSubNavigation, requestSubNavigation, roleNavigation } from "@/components/layout/app-sidebar-navigation";
+import { adAccountSubNavigation, businessManagerSubNavigation, clientSubNavigation, getSectionHref, navigationIcons, notificationSubNavigation, paymentSubNavigation, reportSubNavigation, requestSubNavigation, roleNavigation, settingsSubNavigation } from "@/components/layout/app-sidebar-navigation";
 import type { Role } from "@/features/crm/types/crm";
 
 type AppSidebarProps = {
@@ -13,16 +14,63 @@ type AppSidebarProps = {
   onSectionChange: (section: string) => void;
 };
 
+function getSubNavigationLinkClassName(isActive: boolean) {
+  return `flex min-h-8 w-full items-center rounded-lg px-2.5 py-2 text-left text-sm font-medium no-underline transition hover:bg-[var(--brand-navy)] hover:text-[var(--white)] ${
+    isActive ? "bg-[var(--brand-navy)] text-[var(--white)]" : "text-[var(--sidebar-link)]"
+  }`;
+}
+
 export function AppSidebar({ role, activeSection, onSectionChange }: AppSidebarProps) {
+  const router = useRouter();
   const [isAdAccountOpen, setIsAdAccountOpen] = useState(adAccountSubNavigation.includes(activeSection));
   const [isRequestsOpen, setIsRequestsOpen] = useState(requestSubNavigation.includes(activeSection));
   const [isNotificationsOpen, setIsNotificationsOpen] = useState(notificationSubNavigation.includes(activeSection));
   const [isBusinessManagersOpen, setIsBusinessManagersOpen] = useState(businessManagerSubNavigation.includes(activeSection));
   const [isClientsOpen, setIsClientsOpen] = useState(clientSubNavigation.includes(activeSection));
   const [isReportsOpen, setIsReportsOpen] = useState(reportSubNavigation.includes(activeSection));
+  const [isPaymentsOpen, setIsPaymentsOpen] = useState(paymentSubNavigation.includes(activeSection));
+  const [isSettingsOpen, setIsSettingsOpen] = useState(settingsSubNavigation.includes(activeSection));
+
+  const closeAllDropdowns = () => {
+    setIsAdAccountOpen(false);
+    setIsRequestsOpen(false);
+    setIsNotificationsOpen(false);
+    setIsBusinessManagersOpen(false);
+    setIsClientsOpen(false);
+    setIsReportsOpen(false);
+    setIsPaymentsOpen(false);
+    setIsSettingsOpen(false);
+  };
+
+  const openOnlyDropdown = (dropdown: "adAccounts" | "requests" | "notifications" | "businessManagers" | "clients" | "reports" | "payments" | "settings") => {
+    setIsAdAccountOpen(dropdown === "adAccounts");
+    setIsRequestsOpen(dropdown === "requests");
+    setIsNotificationsOpen(dropdown === "notifications");
+    setIsBusinessManagersOpen(dropdown === "businessManagers");
+    setIsClientsOpen(dropdown === "clients");
+    setIsReportsOpen(dropdown === "reports");
+    setIsPaymentsOpen(dropdown === "payments");
+    setIsSettingsOpen(dropdown === "settings");
+  };
+
+  const openDropdownFirstSection = (dropdown: "adAccounts" | "requests" | "notifications" | "businessManagers" | "clients" | "reports" | "payments" | "settings", firstSection: string) => {
+    openOnlyDropdown(dropdown);
+    onSectionChange(firstSection);
+    router.push(getSectionHref(firstSection));
+  };
+
+  const handleDropdownChildClick = (dropdown: "adAccounts" | "requests" | "notifications" | "businessManagers" | "clients" | "reports" | "payments" | "settings", section: string) => {
+    openOnlyDropdown(dropdown);
+    onSectionChange(section);
+  };
+
+  const handleLeafClick = (section: string) => {
+    closeAllDropdowns();
+    onSectionChange(section);
+  };
 
   return (
-    <aside className="sticky top-0 flex min-h-screen w-[226px] flex-col gap-3 border-r border-[var(--line)] bg-[var(--surface)] p-3 text-[var(--black)] max-[1180px]:static max-[1180px]:min-h-0 max-[1180px]:w-full">
+    <aside className="sticky top-0 flex min-h-screen w-[clamp(280px,18vw,350px)] shrink-0 flex-col gap-3 border-r border-[var(--line)] bg-[var(--surface)] p-3 text-[var(--black)] max-[1180px]:static max-[1180px]:min-h-0 max-[1180px]:w-full max-[720px]:border-b max-[720px]:border-r-0 max-[720px]:p-2.5">
       <div className="flex min-h-[4.4rem] flex-col items-start gap-1">
         <span className="inline-flex items-center rounded-md p-0.5 [html[data-theme='dark']_&]:bg-white">
           <Image alt="AdsFixter" className="block h-10 w-29 object-contain" height={110} src="/adsfixter-logo.png" width={110} />
@@ -39,31 +87,29 @@ export function AppSidebar({ role, activeSection, onSectionChange }: AppSidebarP
         {roleNavigation[role].map((item) => {
           const Icon = navigationIcons[item] ?? LayoutDashboard;
 
-          if (item === "Ad Accounts") {
+          if (item === "Ad Accounts" && role !== "Customer") {
             return (
               <div className="grid gap-1" key={item}>
                 <button
                   className={`flex min-h-8 w-full items-center gap-2 rounded-lg px-2.5 py-2 text-left text-sm font-medium transition hover:bg-[var(--brand-navy)] hover:text-[var(--white)] ${
-                    adAccountSubNavigation.includes(activeSection) ? "bg-[var(--brand-navy)] text-[var(--white)] shadow-[inset_3px_0_0_var(--brand-orange)]" : "text-[var(--sidebar-link)]"
+                    adAccountSubNavigation.includes(activeSection) ? "bg-[var(--brand-navy)] text-[var(--white)]" : "text-[var(--sidebar-link)]"
                   }`}
-                  onClick={() => setIsAdAccountOpen((current) => !current)}
+                  onClick={() => openDropdownFirstSection("adAccounts", adAccountSubNavigation[0])}
                   type="button"
                 >
                   <Icon aria-hidden="true" size={17} strokeWidth={1.9} />
                   <span>{item}</span>
-                  <span aria-hidden="true" className={`ml-auto text-xs font-bold transition-transform ${isAdAccountOpen ? "rotate-180" : ""}`}>
-                    v
-                  </span>
+                  <ChevronRight aria-hidden="true" className={`ml-auto transition-transform ${isAdAccountOpen ? "rotate-90" : ""}`} size={15} strokeWidth={2.1} />
                 </button>
 
                 {isAdAccountOpen ? (
                   <div className="grid gap-0.5 pl-5">
                     {adAccountSubNavigation.map((subItem) => (
                       <Link
-                        className={`rounded-lg px-2 py-1.5 text-xs font-medium no-underline hover:bg-[var(--white)] hover:text-[var(--brand-navy)] ${subItem === activeSection ? "bg-[var(--white)] text-[var(--brand-navy)]" : "text-[var(--sidebar-link)]"}`}
+                        className={getSubNavigationLinkClassName(subItem === activeSection)}
                         href={getSectionHref(subItem)}
                         key={subItem}
-                        onClick={() => onSectionChange(subItem)}
+                        onClick={() => handleDropdownChildClick("adAccounts", subItem)}
                       >
                         {subItem}
                       </Link>
@@ -79,26 +125,24 @@ export function AppSidebar({ role, activeSection, onSectionChange }: AppSidebarP
               <div className="grid gap-1" key={item}>
                 <button
                   className={`flex min-h-8 w-full items-center gap-2 rounded-lg px-2.5 py-2 text-left text-sm font-medium transition hover:bg-[var(--brand-navy)] hover:text-[var(--white)] ${
-                    requestSubNavigation.includes(activeSection) ? "bg-[var(--brand-navy)] text-[var(--white)] shadow-[inset_3px_0_0_var(--brand-orange)]" : "text-[var(--sidebar-link)]"
+                    requestSubNavigation.includes(activeSection) ? "bg-[var(--brand-navy)] text-[var(--white)]" : "text-[var(--sidebar-link)]"
                   }`}
-                  onClick={() => setIsRequestsOpen((current) => !current)}
+                  onClick={() => openDropdownFirstSection("requests", requestSubNavigation[0])}
                   type="button"
                 >
                   <Icon aria-hidden="true" size={17} strokeWidth={1.9} />
                   <span>{item}</span>
-                  <span aria-hidden="true" className={`ml-auto text-xs font-bold transition-transform ${isRequestsOpen ? "rotate-180" : ""}`}>
-                    v
-                  </span>
+                  <ChevronRight aria-hidden="true" className={`ml-auto transition-transform ${isRequestsOpen ? "rotate-90" : ""}`} size={15} strokeWidth={2.1} />
                 </button>
 
                 {isRequestsOpen ? (
                   <div className="grid gap-0.5 pl-5">
                     {requestSubNavigation.map((subItem) => (
                       <Link
-                        className={`rounded-lg px-2 py-1.5 text-xs font-medium no-underline hover:bg-[var(--white)] hover:text-[var(--brand-navy)] ${subItem === activeSection ? "bg-[var(--white)] text-[var(--brand-navy)]" : "text-[var(--sidebar-link)]"}`}
+                        className={getSubNavigationLinkClassName(subItem === activeSection)}
                         href={getSectionHref(subItem)}
                         key={subItem}
-                        onClick={() => onSectionChange(subItem)}
+                        onClick={() => handleDropdownChildClick("requests", subItem)}
                       >
                         {subItem}
                       </Link>
@@ -109,31 +153,29 @@ export function AppSidebar({ role, activeSection, onSectionChange }: AppSidebarP
             );
           }
 
-          if (item === "Notifications") {
+          if (item === "Notifications" && role !== "Customer") {
             return (
               <div className="grid gap-1" key={item}>
                 <button
                   className={`flex min-h-8 w-full items-center gap-2 rounded-lg px-2.5 py-2 text-left text-sm font-medium transition hover:bg-[var(--brand-navy)] hover:text-[var(--white)] ${
-                    notificationSubNavigation.includes(activeSection) ? "bg-[var(--brand-navy)] text-[var(--white)] shadow-[inset_3px_0_0_var(--brand-orange)]" : "text-[var(--sidebar-link)]"
+                    notificationSubNavigation.includes(activeSection) ? "bg-[var(--brand-navy)] text-[var(--white)]" : "text-[var(--sidebar-link)]"
                   }`}
-                  onClick={() => setIsNotificationsOpen((current) => !current)}
+                  onClick={() => openDropdownFirstSection("notifications", notificationSubNavigation[0])}
                   type="button"
                 >
                   <Icon aria-hidden="true" size={17} strokeWidth={1.9} />
                   <span>{item}</span>
-                  <span aria-hidden="true" className={`ml-auto text-xs font-bold transition-transform ${isNotificationsOpen ? "rotate-180" : ""}`}>
-                    v
-                  </span>
+                  <ChevronRight aria-hidden="true" className={`ml-auto transition-transform ${isNotificationsOpen ? "rotate-90" : ""}`} size={15} strokeWidth={2.1} />
                 </button>
 
                 {isNotificationsOpen ? (
                   <div className="grid gap-0.5 pl-5">
                     {notificationSubNavigation.map((subItem) => (
                       <Link
-                        className={`rounded-lg px-2 py-1.5 text-xs font-medium no-underline hover:bg-[var(--white)] hover:text-[var(--brand-navy)] ${subItem === activeSection ? "bg-[var(--white)] text-[var(--brand-navy)]" : "text-[var(--sidebar-link)]"}`}
+                        className={getSubNavigationLinkClassName(subItem === activeSection)}
                         href={getSectionHref(subItem)}
                         key={subItem}
-                        onClick={() => onSectionChange(subItem)}
+                        onClick={() => handleDropdownChildClick("notifications", subItem)}
                       >
                         {subItem}
                       </Link>
@@ -149,26 +191,24 @@ export function AppSidebar({ role, activeSection, onSectionChange }: AppSidebarP
               <div className="grid gap-1" key={item}>
                 <button
                   className={`flex min-h-8 w-full items-center gap-2 rounded-lg px-2.5 py-2 text-left text-sm font-medium transition hover:bg-[var(--brand-navy)] hover:text-[var(--white)] ${
-                    businessManagerSubNavigation.includes(activeSection) ? "bg-[var(--brand-navy)] text-[var(--white)] shadow-[inset_3px_0_0_var(--brand-orange)]" : "text-[var(--sidebar-link)]"
+                    businessManagerSubNavigation.includes(activeSection) ? "bg-[var(--brand-navy)] text-[var(--white)]" : "text-[var(--sidebar-link)]"
                   }`}
-                  onClick={() => setIsBusinessManagersOpen((current) => !current)}
+                  onClick={() => openDropdownFirstSection("businessManagers", businessManagerSubNavigation[0])}
                   type="button"
                 >
                   <Icon aria-hidden="true" size={17} strokeWidth={1.9} />
                   <span>{item}</span>
-                  <span aria-hidden="true" className={`ml-auto text-xs font-bold transition-transform ${isBusinessManagersOpen ? "rotate-180" : ""}`}>
-                    v
-                  </span>
+                  <ChevronRight aria-hidden="true" className={`ml-auto transition-transform ${isBusinessManagersOpen ? "rotate-90" : ""}`} size={15} strokeWidth={2.1} />
                 </button>
 
                 {isBusinessManagersOpen ? (
                   <div className="grid gap-0.5 pl-5">
                     {businessManagerSubNavigation.map((subItem) => (
                       <Link
-                        className={`rounded-lg px-2 py-1.5 text-xs font-medium no-underline hover:bg-[var(--white)] hover:text-[var(--brand-navy)] ${subItem === activeSection ? "bg-[var(--white)] text-[var(--brand-navy)]" : "text-[var(--sidebar-link)]"}`}
+                        className={getSubNavigationLinkClassName(subItem === activeSection)}
                         href={getSectionHref(subItem)}
                         key={subItem}
-                        onClick={() => onSectionChange(subItem)}
+                        onClick={() => handleDropdownChildClick("businessManagers", subItem)}
                       >
                         {subItem}
                       </Link>
@@ -184,26 +224,24 @@ export function AppSidebar({ role, activeSection, onSectionChange }: AppSidebarP
               <div className="grid gap-1" key={item}>
                 <button
                   className={`flex min-h-8 w-full items-center gap-2 rounded-lg px-2.5 py-2 text-left text-sm font-medium transition hover:bg-[var(--brand-navy)] hover:text-[var(--white)] ${
-                    clientSubNavigation.includes(activeSection) ? "bg-[var(--brand-navy)] text-[var(--white)] shadow-[inset_3px_0_0_var(--brand-orange)]" : "text-[var(--sidebar-link)]"
+                    clientSubNavigation.includes(activeSection) ? "bg-[var(--brand-navy)] text-[var(--white)]" : "text-[var(--sidebar-link)]"
                   }`}
-                  onClick={() => setIsClientsOpen((current) => !current)}
+                  onClick={() => openDropdownFirstSection("clients", clientSubNavigation[0])}
                   type="button"
                 >
                   <Icon aria-hidden="true" size={17} strokeWidth={1.9} />
                   <span>{item}</span>
-                  <span aria-hidden="true" className={`ml-auto text-xs font-bold transition-transform ${isClientsOpen ? "rotate-180" : ""}`}>
-                    v
-                  </span>
+                  <ChevronRight aria-hidden="true" className={`ml-auto transition-transform ${isClientsOpen ? "rotate-90" : ""}`} size={15} strokeWidth={2.1} />
                 </button>
 
                 {isClientsOpen ? (
                   <div className="grid gap-0.5 pl-5">
                     {clientSubNavigation.map((subItem) => (
                       <Link
-                        className={`rounded-lg px-2 py-1.5 text-xs font-medium no-underline hover:bg-[var(--white)] hover:text-[var(--brand-navy)] ${subItem === activeSection ? "bg-[var(--white)] text-[var(--brand-navy)]" : "text-[var(--sidebar-link)]"}`}
+                        className={getSubNavigationLinkClassName(subItem === activeSection)}
                         href={getSectionHref(subItem)}
                         key={subItem}
-                        onClick={() => onSectionChange(subItem)}
+                        onClick={() => handleDropdownChildClick("clients", subItem)}
                       >
                         {subItem}
                       </Link>
@@ -219,26 +257,90 @@ export function AppSidebar({ role, activeSection, onSectionChange }: AppSidebarP
               <div className="grid gap-1" key={item}>
                 <button
                   className={`flex min-h-8 w-full items-center gap-2 rounded-lg px-2.5 py-2 text-left text-sm font-medium transition hover:bg-[var(--brand-navy)] hover:text-[var(--white)] ${
-                    reportSubNavigation.includes(activeSection) ? "bg-[var(--brand-navy)] text-[var(--white)] shadow-[inset_3px_0_0_var(--brand-orange)]" : "text-[var(--sidebar-link)]"
+                    reportSubNavigation.includes(activeSection) ? "bg-[var(--brand-navy)] text-[var(--white)]" : "text-[var(--sidebar-link)]"
                   }`}
-                  onClick={() => setIsReportsOpen((current) => !current)}
+                  onClick={() => openDropdownFirstSection("reports", reportSubNavigation[0])}
                   type="button"
                 >
                   <Icon aria-hidden="true" size={17} strokeWidth={1.9} />
                   <span>{item}</span>
-                  <span aria-hidden="true" className={`ml-auto text-xs font-bold transition-transform ${isReportsOpen ? "rotate-180" : ""}`}>
-                    v
-                  </span>
+                  <ChevronRight aria-hidden="true" className={`ml-auto transition-transform ${isReportsOpen ? "rotate-90" : ""}`} size={15} strokeWidth={2.1} />
                 </button>
 
                 {isReportsOpen ? (
                   <div className="grid gap-0.5 pl-5">
                     {reportSubNavigation.map((subItem) => (
                       <Link
-                        className={`rounded-lg px-2 py-1.5 text-xs font-medium no-underline hover:bg-[var(--white)] hover:text-[var(--brand-navy)] ${subItem === activeSection ? "bg-[var(--white)] text-[var(--brand-navy)]" : "text-[var(--sidebar-link)]"}`}
+                        className={getSubNavigationLinkClassName(subItem === activeSection)}
                         href={getSectionHref(subItem)}
                         key={subItem}
-                        onClick={() => onSectionChange(subItem)}
+                        onClick={() => handleDropdownChildClick("reports", subItem)}
+                      >
+                        {subItem}
+                      </Link>
+                    ))}
+                  </div>
+                ) : null}
+              </div>
+            );
+          }
+
+          if (item === "Payments") {
+            return (
+              <div className="grid gap-1" key={item}>
+                <button
+                  className={`flex min-h-8 w-full items-center gap-2 rounded-lg px-2.5 py-2 text-left text-sm font-medium transition hover:bg-[var(--brand-navy)] hover:text-[var(--white)] ${
+                    paymentSubNavigation.includes(activeSection) ? "bg-[var(--brand-navy)] text-[var(--white)]" : "text-[var(--sidebar-link)]"
+                  }`}
+                  onClick={() => openDropdownFirstSection("payments", paymentSubNavigation[0])}
+                  type="button"
+                >
+                  <Icon aria-hidden="true" size={17} strokeWidth={1.9} />
+                  <span>{item}</span>
+                  <ChevronRight aria-hidden="true" className={`ml-auto transition-transform ${isPaymentsOpen ? "rotate-90" : ""}`} size={15} strokeWidth={2.1} />
+                </button>
+
+                {isPaymentsOpen ? (
+                  <div className="grid gap-0.5 pl-5">
+                    {paymentSubNavigation.map((subItem) => (
+                      <Link
+                        className={getSubNavigationLinkClassName(subItem === activeSection)}
+                        href={getSectionHref(subItem)}
+                        key={subItem}
+                        onClick={() => handleDropdownChildClick("payments", subItem)}
+                      >
+                        {subItem}
+                      </Link>
+                    ))}
+                  </div>
+                ) : null}
+              </div>
+            );
+          }
+
+          if (item === "Settings" && role === "Super Admin") {
+            return (
+              <div className="grid gap-1" key={item}>
+                <button
+                  className={`flex min-h-8 w-full items-center gap-2 rounded-lg px-2.5 py-2 text-left text-sm font-medium transition hover:bg-[var(--brand-navy)] hover:text-[var(--white)] ${
+                    settingsSubNavigation.includes(activeSection) ? "bg-[var(--brand-navy)] text-[var(--white)]" : "text-[var(--sidebar-link)]"
+                  }`}
+                  onClick={() => openDropdownFirstSection("settings", settingsSubNavigation[0])}
+                  type="button"
+                >
+                  <Icon aria-hidden="true" size={17} strokeWidth={1.9} />
+                  <span>{item}</span>
+                  <ChevronRight aria-hidden="true" className={`ml-auto transition-transform ${isSettingsOpen ? "rotate-90" : ""}`} size={15} strokeWidth={2.1} />
+                </button>
+
+                {isSettingsOpen ? (
+                  <div className="grid gap-0.5 pl-5">
+                    {settingsSubNavigation.map((subItem) => (
+                      <Link
+                        className={getSubNavigationLinkClassName(subItem === activeSection)}
+                        href={getSectionHref(subItem)}
+                        key={subItem}
+                        onClick={() => handleDropdownChildClick("settings", subItem)}
                       >
                         {subItem}
                       </Link>
@@ -252,11 +354,11 @@ export function AppSidebar({ role, activeSection, onSectionChange }: AppSidebarP
           return (
             <Link
               className={`flex min-h-8 w-full items-center gap-2 rounded-lg px-2.5 py-2 text-left text-sm font-medium no-underline transition hover:bg-[var(--brand-navy)] hover:text-[var(--white)] ${
-                item === activeSection ? "bg-[var(--brand-navy)] text-[var(--white)] shadow-[inset_3px_0_0_var(--brand-orange)]" : "text-[var(--sidebar-link)]"
+                item === activeSection ? "bg-[var(--brand-navy)] text-[var(--white)]" : "text-[var(--sidebar-link)]"
               }`}
               href={getSectionHref(item)}
               key={item}
-              onClick={() => onSectionChange(item)}
+              onClick={() => handleLeafClick(item)}
             >
               <Icon aria-hidden="true" size={17} strokeWidth={1.9} />
               <span>{item}</span>
@@ -269,4 +371,4 @@ export function AppSidebar({ role, activeSection, onSectionChange }: AppSidebarP
   );
 }
 
-export { adAccountSubNavigation, businessManagerSubNavigation, clientSubNavigation, convertSectionNameToUrlSlug as sectionToSlug, getSectionHref, notificationSubNavigation, reportSubNavigation, requestSubNavigation, roleNavigation } from "@/components/layout/app-sidebar-navigation";
+export { adAccountSubNavigation, businessManagerSubNavigation, clientSubNavigation, convertSectionNameToUrlSlug as sectionToSlug, getSectionHref, notificationSubNavigation, paymentSubNavigation, reportSubNavigation, requestSubNavigation, roleNavigation, settingsSubNavigation } from "@/components/layout/app-sidebar-navigation";

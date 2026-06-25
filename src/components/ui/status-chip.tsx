@@ -11,5 +11,5 @@ export function StatusChip({ status }: StatusChipProps) {
     return "bg-amber-100 text-[var(--warning)]";
   })();
 
-  return <span className={`inline-flex rounded-full px-2 py-1 text-xs font-semibold ${statusClassName}`}>{status}</span>;
+  return <span className={`inline-flex h-7 w-44 items-center justify-center rounded-full px-3 text-center text-xs font-semibold leading-none whitespace-nowrap ${statusClassName}`}>{status}</span>;
 }

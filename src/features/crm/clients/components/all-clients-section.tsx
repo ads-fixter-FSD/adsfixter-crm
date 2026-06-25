@@ -2,6 +2,7 @@
 
 import { Filter, MoreHorizontal, Plus, Search, X } from "lucide-react";
 import { useMemo, useState } from "react";
+import { PrimaryButton, SecondaryButton } from "@/components/shared-buttons";
 import type { CrmOverview, ToastType } from "@/features/crm/types/crm";
 import { readApprovedClientsFromStorage, type ClientDashboardRow } from "@/features/crm/clients/components/client-storage";
 
@@ -115,10 +116,10 @@ export function AllClientsSection({ data, showToast }: AllClientsSectionProps) {
               value={searchQuery}
             />
           </label>
-          <button className="inline-flex min-h-9 items-center gap-2 rounded-lg border-0 bg-green-600 px-4 text-sm font-semibold text-white hover:bg-green-700" onClick={() => setIsModalOpen(true)} type="button">
+          <PrimaryButton onClick={() => setIsModalOpen(true)} type="button">
             <Plus aria-hidden="true" size={15} strokeWidth={1.9} />
             Create Client
-          </button>
+          </PrimaryButton>
           <select
             className="min-h-9 rounded-lg border border-[var(--line)] bg-[var(--white)] px-3 text-sm font-semibold text-[var(--brand-navy)] outline-none"
             onChange={(event) => {
@@ -235,12 +236,12 @@ export function AllClientsSection({ data, showToast }: AllClientsSectionProps) {
             </div>
 
             <div className="mt-6 flex flex-wrap justify-end gap-2">
-              <button className="rounded-lg border border-[var(--line)] bg-[var(--white)] px-5 py-2 text-sm font-semibold text-[var(--brand-navy)] hover:bg-[var(--surface)]" onClick={closeModal} type="button">
+              <SecondaryButton onClick={closeModal} type="button">
                 Cancel
-              </button>
-              <button className="rounded-lg border-0 bg-green-600 px-5 py-2 text-sm font-semibold text-white hover:bg-green-700" onClick={createClient} type="button">
+              </SecondaryButton>
+              <PrimaryButton onClick={createClient} type="button">
                 Create Client
-              </button>
+              </PrimaryButton>
             </div>
           </div>
         </div>

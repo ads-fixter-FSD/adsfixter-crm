@@ -6,7 +6,7 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { Bell, LogOut, Moon, Settings, Sun } from "lucide-react";
 import { useEffect, useState } from "react";
-import { adAccountSubNavigation, AppSidebar, businessManagerSubNavigation, clientSubNavigation, getSectionHref, notificationSubNavigation, reportSubNavigation, requestSubNavigation, roleNavigation, sectionToSlug } from "@/components/layout/app-sidebar";
+import { adAccountSubNavigation, AppSidebar, businessManagerSubNavigation, clientSubNavigation, getSectionHref, notificationSubNavigation, paymentSubNavigation, reportSubNavigation, requestSubNavigation, roleNavigation, sectionToSlug, settingsSubNavigation } from "@/components/layout/app-sidebar";
 import { ToastStack, type Toast } from "@/components/ui/toast-stack";
 import { getCrmOverview, crmQueryKeys } from "@/features/crm/api/crm-queries";
 import { AdminDashboard, CustomerDashboard, MaintainerDashboard, SectionRenderer } from "@/features/crm/components/dashboard-sections";
@@ -29,7 +29,7 @@ export function CrmDashboardShell() {
     const savedRole = window.localStorage.getItem("adsfixter-role") as Role | null;
     const nextRole = savedRole && roleNavigation[savedRole] ? savedRole : "Super Admin";
     const requestedSectionSlug = new URLSearchParams(window.location.search).get("section");
-    const allowedSections = [...roleNavigation[nextRole], ...adAccountSubNavigation, ...requestSubNavigation, ...notificationSubNavigation, ...businessManagerSubNavigation, ...clientSubNavigation, ...reportSubNavigation];
+    const allowedSections = [...roleNavigation[nextRole], ...adAccountSubNavigation, ...requestSubNavigation, ...notificationSubNavigation, ...businessManagerSubNavigation, ...clientSubNavigation, ...reportSubNavigation, ...paymentSubNavigation, ...settingsSubNavigation];
     const requestedSection = allowedSections.find((section) => sectionToSlug(section) === requestedSectionSlug);
 
     window.queueMicrotask(() => {
@@ -48,7 +48,7 @@ export function CrmDashboardShell() {
     });
   }, []);
 
-  const allowedSections = [...roleNavigation[role], ...adAccountSubNavigation, ...requestSubNavigation, ...notificationSubNavigation, ...businessManagerSubNavigation, ...clientSubNavigation, ...reportSubNavigation];
+  const allowedSections = [...roleNavigation[role], ...adAccountSubNavigation, ...requestSubNavigation, ...notificationSubNavigation, ...businessManagerSubNavigation, ...clientSubNavigation, ...reportSubNavigation, ...paymentSubNavigation, ...settingsSubNavigation];
   const visibleSection = allowedSections.includes(activeSection) ? activeSection : "Dashboard";
 
   const profileInitials = role === "Customer" ? "CU" : role === "Maintainer" ? "MT" : "SA";
@@ -87,15 +87,14 @@ export function CrmDashboardShell() {
   }
 
   return (
-    <div className="flex min-h-screen bg-[var(--surface)] max-[1180px]:block">
+    <div className="flex min-h-screen w-full overflow-x-hidden bg-[var(--surface)] max-[1180px]:block">
       <AppSidebar role={role} activeSection={visibleSection} onSectionChange={setActiveSection} />
 
       <main className="min-w-0 flex-1 bg-[var(--surface)]">
-        <div className="m-3 min-h-[calc(100vh-1.7rem)] overflow-hidden rounded-2xl border border-[var(--line)] bg-[var(--white)]">
-          <header className="flex min-h-14 items-center justify-between gap-4 border-b border-[var(--line)] bg-[var(--white)] px-4 max-[720px]:flex-col max-[720px]:items-start max-[720px]:p-4">
+        <div className="min-h-screen w-full overflow-hidden bg-[var(--white)]">
+          <header className="flex min-h-14 w-full items-center justify-between gap-4 border-b border-[var(--line)] bg-[var(--white)] px-4 max-[720px]:flex-col max-[720px]:items-start max-[720px]:p-3">
             <div className="min-w-0">
-              <p className="mb-1 text-xs font-bold uppercase tracking-widest text-[var(--brand-orange)]">{role} Panel</p>
-              <h1 className="m-0 text-[clamp(1rem,2vw,1.1rem)] font-semibold leading-tight tracking-[-0.01em] text-[var(--brand-navy)]">{visibleSection}</h1>
+              <p className="m-0 text-xs font-bold uppercase tracking-widest text-[var(--brand-orange)]">{role} Panel</p>
             </div>
 
             <div className="flex flex-wrap items-center gap-2 max-[720px]:w-full">
@@ -141,7 +140,7 @@ export function CrmDashboardShell() {
             </div>
           </header>
 
-          <div className="p-4 max-[720px]:p-3">
+          <div className="w-full p-4 max-[720px]:p-3">
             {visibleSection === "Dashboard" ? (
               role === "Customer" ? (
                 <CustomerDashboard data={data} showToast={showToast} />

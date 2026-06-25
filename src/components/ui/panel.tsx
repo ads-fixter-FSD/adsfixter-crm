@@ -1,4 +1,5 @@
 import type { ReactNode } from "react";
+import { PrimaryButton } from "@/components/shared-buttons";
 
 type PanelProps = {
   title: string;
@@ -14,9 +15,9 @@ export function Panel({ title, children, action, onAction, className = "" }: Pan
       <div className="-mx-3 -mt-3 mb-3 flex items-center justify-between border-b border-[var(--line)] px-3 py-2">
         <h2 className="text-sm font-semibold text-[var(--brand-navy)]">{title}</h2>
         {action ? (
-          <button className="rounded-lg border-0 bg-[var(--brand-orange)] px-3 py-2 text-sm font-semibold leading-tight text-[var(--white)] transition hover:bg-[var(--black)]" onClick={onAction} type="button">
+          <PrimaryButton className="px-3" onClick={onAction} type="button">
             {action}
-          </button>
+          </PrimaryButton>
         ) : null}
       </div>
       {children}

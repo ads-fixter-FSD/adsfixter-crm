@@ -1,3 +1,4 @@
+import { PrimaryButton } from "@/components/shared-buttons";
 import type { ToastAction } from "@/features/crm/components/forms/form-types";
 
 type CustomerRequestFormProps = {
@@ -32,9 +33,9 @@ export function CustomerRequestForm({ section, showToast }: CustomerRequestFormP
         Screenshot / Attachment
         <input className="min-h-9 w-full rounded-lg border border-[var(--line)] bg-[var(--white)] px-3 py-2 text-sm text-[var(--brand-navy)] outline-none focus:border-[var(--brand-navy)]" type="file" />
       </label>
-      <button className="rounded-lg border-0 bg-[var(--brand-orange)] px-3 py-2 text-sm font-semibold leading-tight text-[var(--white)] transition hover:bg-[var(--black)]" type="submit">
+      <PrimaryButton className="min-h-8 justify-self-start px-3 py-1.5 text-xs" type="submit">
         Submit Request
-      </button>
+      </PrimaryButton>
     </form>
   );
 }

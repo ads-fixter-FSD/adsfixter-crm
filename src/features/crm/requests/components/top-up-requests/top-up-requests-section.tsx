@@ -1,6 +1,7 @@
 "use client";
 
 import { useMemo, useState } from "react";
+import { PrimaryButton, SecondaryButton } from "@/components/shared-buttons";
 import type { ToastType } from "@/features/crm/types/crm";
 
 type TopUpRequestStatus = "Pending" | "Hold" | "Approved" | "Rejected";
@@ -163,16 +164,16 @@ export function TopUpRequestsSection({ showToast }: TopUpRequestsSectionProps) {
                 <td className="border-b border-[var(--line)] px-2.5 py-2 text-xs">
                   {request.status === "Pending" || request.status === "Hold" ? (
                     <div className="flex flex-wrap items-center gap-2">
-                      <button className="rounded-md bg-cyan-600 px-3 py-1.5 text-xs font-semibold text-white hover:bg-cyan-700" onClick={() => updateRequestStatus(request.id, "Approved")} type="button">
+                      <PrimaryButton className="min-h-0 rounded-md px-3 py-1.5 text-xs" onClick={() => updateRequestStatus(request.id, "Approved")} type="button">
                         Approve
-                      </button>
-                      <button className="rounded-md bg-red-600 px-3 py-1.5 text-xs font-semibold text-white hover:bg-red-700" onClick={() => updateRequestStatus(request.id, "Rejected")} type="button">
+                      </PrimaryButton>
+                      <SecondaryButton className="min-h-0 rounded-md px-3 py-1.5 text-xs" onClick={() => updateRequestStatus(request.id, "Rejected")} type="button">
                         Reject
-                      </button>
+                      </SecondaryButton>
                       {request.status === "Pending" ? (
-                        <button className="rounded-md border border-[var(--line)] bg-white px-3 py-1.5 text-xs font-semibold text-[var(--brand-navy)] hover:bg-[var(--surface)]" onClick={() => updateRequestStatus(request.id, "Hold")} type="button">
+                        <SecondaryButton className="min-h-0 rounded-md px-3 py-1.5 text-xs" onClick={() => updateRequestStatus(request.id, "Hold")} type="button">
                           Hold
-                        </button>
+                        </SecondaryButton>
                       ) : null}
                     </div>
                   ) : (

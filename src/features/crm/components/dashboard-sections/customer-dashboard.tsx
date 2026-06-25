@@ -2,6 +2,8 @@
 
 import { CalendarDays, CreditCard, DollarSign, MoreHorizontal, Plus, Search, TrendingUp, X } from "lucide-react";
 import { useMemo, useState } from "react";
+import { PrimaryButton } from "@/components/shared-buttons";
+import { StatusChip } from "@/components/ui/status-chip";
 import type { DashboardSectionProps } from "@/features/crm/components/dashboard-sections/dashboard-section-types";
 import type { MetaAdAccountStatus } from "@/features/crm/types/crm";
 
@@ -104,10 +106,10 @@ export function CustomerDashboard({ data, showToast }: DashboardSectionProps) {
       <section className="rounded-xl border border-[var(--line)] bg-[var(--white)] p-4 shadow-sm">
         <div className="mb-4 flex flex-wrap items-center justify-between gap-3">
           <h2 className="m-0 text-lg font-semibold text-[var(--brand-navy)]">Your Ad Accounts</h2>
-          <button className="inline-flex min-h-9 items-center gap-2 rounded-lg border-0 bg-blue-600 px-4 text-sm font-semibold text-white hover:bg-blue-700" onClick={() => setIsRequestModalOpen(true)} type="button">
+          <PrimaryButton onClick={() => setIsRequestModalOpen(true)} type="button">
             <Plus aria-hidden="true" size={15} strokeWidth={1.9} />
             Request New Account
-          </button>
+          </PrimaryButton>
         </div>
 
         <div className="mb-4 flex flex-wrap items-center justify-between gap-3">
@@ -161,7 +163,7 @@ export function CustomerDashboard({ data, showToast }: DashboardSectionProps) {
                       <a className="font-semibold text-blue-600 underline-offset-2 hover:underline" href={`#${account.id}`}>{account.id}</a>
                     </td>
                     <td className="border-b border-[var(--line)] px-3 py-2 text-sm">
-                      <span className={`inline-flex rounded-full px-2 py-1 text-xs font-semibold ${account.status === "ACTIVE" ? "bg-green-50 text-green-600" : "bg-red-50 text-red-600"}`}>{account.status === "ACTIVE" ? "Active" : "Error"}</span>
+                      <StatusChip status={account.status} />
                     </td>
                     <td className="border-b border-[var(--line)] px-3 py-2 text-sm text-[var(--brand-navy)]">
                       <span className="block text-xs font-semibold">{account.balance}</span>
@@ -173,9 +175,9 @@ export function CustomerDashboard({ data, showToast }: DashboardSectionProps) {
                     <td className="border-b border-[var(--line)] px-3 py-2 text-sm text-[var(--brand-navy)]">{account.notes}</td>
                     <td className="border-b border-[var(--line)] px-3 py-2 text-right text-sm">
                       <div className="flex items-center justify-end gap-2">
-                        <button className="rounded-md bg-blue-600 px-3 py-1.5 text-xs font-semibold text-white hover:bg-blue-700" onClick={() => showToast("success", `Top-up started for ${account.name}`)} type="button">
+                        <PrimaryButton className="min-h-0 rounded-md px-3 py-1.5 text-xs" onClick={() => showToast("success", `Top-up started for ${account.name}`)} type="button">
                           Top Up
-                        </button>
+                        </PrimaryButton>
                         <button className="rounded-md p-1.5 text-[var(--muted)] hover:bg-[var(--surface)] hover:text-[var(--brand-navy)]" type="button">
                           <MoreHorizontal aria-hidden="true" size={15} strokeWidth={1.9} />
                         </button>
@@ -242,9 +244,9 @@ export function CustomerDashboard({ data, showToast }: DashboardSectionProps) {
                   <CalendarDays aria-hidden="true" className="pointer-events-none absolute right-3 top-2.5 text-[var(--muted)]" size={15} strokeWidth={1.9} />
                 </span>
               </label>
-              <button className="mt-1 min-h-10 rounded-lg border-0 bg-blue-600 px-4 text-sm font-semibold text-white hover:bg-blue-700" onClick={submitNewAccountRequest} type="button">
+              <PrimaryButton className="mt-1 min-h-10" onClick={submitNewAccountRequest} type="button">
                 Submit Request
-              </button>
+              </PrimaryButton>
             </div>
           </div>
         </div>

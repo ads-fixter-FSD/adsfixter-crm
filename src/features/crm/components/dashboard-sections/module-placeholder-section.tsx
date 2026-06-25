@@ -1,3 +1,4 @@
+import { PrimaryButton } from "@/components/shared-buttons";
 import type { ToastType } from "@/features/crm/types/crm";
 
 type ModulePlaceholderSectionProps = {
@@ -15,9 +16,9 @@ export function ModulePlaceholderSection({ section, showToast }: ModulePlacehold
           This screen follows the same CRM design system with black and white surfaces, brand orange actions, navy structure,
           filters, status chips, and toast feedback for success, warning, and error states.
         </p>
-        <button className="mt-4 rounded-lg border-0 bg-[var(--brand-orange)] px-3 py-2 text-sm font-semibold leading-tight text-[var(--white)] transition hover:bg-[var(--black)]" onClick={() => showToast("error", `${section} validation demo error`)} type="button">
+        <PrimaryButton className="mt-4 px-3" onClick={() => showToast("error", `${section} validation demo error`)} type="button">
           Show Error Toast
-        </button>
+        </PrimaryButton>
       </section>
     </div>
   );

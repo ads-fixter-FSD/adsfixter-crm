@@ -1,3 +1,4 @@
+import { Check, X } from "lucide-react";
 import { StatusChip } from "@/components/ui/status-chip";
 import type { CrmRequest, ToastType } from "@/features/crm/types/crm";
 
@@ -32,11 +33,23 @@ export function RequestTable({ requests, showToast }: RequestTableProps) {
               </td>
               <td className="border-b border-[var(--line)] px-2.5 py-2 text-sm text-[var(--brand-navy)]">
                 <div className="flex flex-wrap items-center gap-2">
-                  <button className="rounded-lg border-0 bg-[var(--brand-orange)] px-3 py-2 text-sm font-semibold leading-tight text-[var(--white)] transition hover:bg-[var(--black)]" onClick={() => showToast("success", `${request.type} approved`)} type="button">
-                    Approve
+                  <button
+                    aria-label={`Approve ${request.type}`}
+                    className="inline-flex h-8 w-8 items-center justify-center rounded-lg border border-[var(--brand-orange)] bg-[var(--brand-orange)] text-white transition hover:bg-[#d63a05]"
+                    onClick={() => showToast("success", `${request.type} approved`)}
+                    title="Approve"
+                    type="button"
+                  >
+                    <Check aria-hidden="true" size={16} strokeWidth={2.2} />
                   </button>
-                  <button className="rounded-lg border border-[var(--line)] bg-[var(--white)] px-3 py-2 text-sm font-semibold leading-tight text-[var(--brand-navy)] transition hover:bg-[var(--surface)]" onClick={() => showToast("error", `${request.type} rejected with notes`)} type="button">
-                    Reject
+                  <button
+                    aria-label={`Reject ${request.type}`}
+                    className="inline-flex h-8 w-8 items-center justify-center rounded-lg border border-[var(--line)] bg-[var(--white)] text-[var(--brand-orange)] transition hover:bg-[rgba(239,67,7,0.08)]"
+                    onClick={() => showToast("error", `${request.type} rejected with notes`)}
+                    title="Reject"
+                    type="button"
+                  >
+                    <X aria-hidden="true" size={16} strokeWidth={2.2} />
                   </button>
                 </div>
               </td>

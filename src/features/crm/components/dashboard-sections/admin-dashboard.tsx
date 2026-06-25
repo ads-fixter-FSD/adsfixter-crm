@@ -1,3 +1,4 @@
+import { PrimaryButton, SecondaryButton } from "@/components/shared-buttons";
 import { MetricCard } from "@/components/ui/metric-card";
 import { Panel } from "@/components/ui/panel";
 import { RequestTable } from "@/features/crm/components/tables/request-table";
@@ -41,9 +42,9 @@ export function AdminDashboard({ data, role, showToast }: AdminDashboardProps) {
           </div>
           <div className="flex flex-wrap items-center gap-2">
             {[125, 126, 127].map((rate) => (
-              <button className="rounded-lg border-0 bg-[var(--brand-navy)] px-3 py-2 text-sm font-semibold text-[var(--white)]" key={rate} onClick={() => showToast("success", `Dollar rate set to ${rate} BDT`)} type="button">
+              <PrimaryButton className="px-3" key={rate} onClick={() => showToast("success", `Dollar rate set to ${rate} BDT`)} type="button">
                 {rate} BDT
-              </button>
+              </PrimaryButton>
             ))}
           </div>
         </div>
@@ -52,9 +53,9 @@ export function AdminDashboard({ data, role, showToast }: AdminDashboardProps) {
       <Panel className="col-span-5 max-[1180px]:col-span-12" title={`${role} Controls`}>
         <div className="grid gap-3">
           {["Top-up Approval", "Credit Limit Change", "Client Suspend/Activate", "Business Manager Approve"].map((control) => (
-            <button className="rounded-lg border border-[var(--line)] bg-[var(--white)] px-3 py-2 text-sm font-semibold leading-tight text-[var(--brand-navy)] transition hover:bg-[var(--surface)]" key={control} onClick={() => showToast("success", `${control} action completed`)} type="button">
+            <SecondaryButton className="px-3" key={control} onClick={() => showToast("success", `${control} action completed`)} type="button">
               {control}
-            </button>
+            </SecondaryButton>
           ))}
         </div>
       </Panel>

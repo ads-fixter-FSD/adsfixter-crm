@@ -2,6 +2,7 @@
 
 import { MoreHorizontal, Plus, X } from "lucide-react";
 import { useMemo, useState } from "react";
+import { PrimaryButton, SecondaryButton } from "@/components/shared-buttons";
 import type { ToastType } from "@/features/crm/types/crm";
 
 type BusinessManagerRow = {
@@ -89,10 +90,10 @@ export function AllBusinessManagersSection({ showToast }: AllBusinessManagersSec
     <section className="grid gap-4">
       <div className="flex flex-wrap items-center justify-between gap-3">
         <h2 className="m-0 text-xl font-semibold text-[var(--brand-navy)]">Business Managers</h2>
-        <button className="inline-flex min-h-9 items-center gap-2 rounded-lg border-0 bg-blue-600 px-4 text-sm font-semibold text-white hover:bg-blue-700" onClick={() => setIsModalOpen(true)} type="button">
+        <PrimaryButton onClick={() => setIsModalOpen(true)} type="button">
           <Plus aria-hidden="true" size={15} strokeWidth={1.9} />
           Add Business Manager
-        </button>
+        </PrimaryButton>
       </div>
 
       <div className="overflow-x-auto rounded-xl border border-[var(--line)] bg-[var(--white)]">
@@ -189,12 +190,12 @@ export function AllBusinessManagersSection({ showToast }: AllBusinessManagersSec
             </div>
 
             <div className="mt-6 flex flex-wrap justify-end gap-2">
-              <button className="rounded-lg border border-[var(--line)] bg-[var(--white)] px-5 py-2 text-sm font-semibold text-[var(--brand-navy)] hover:bg-[var(--surface)]" onClick={closeModal} type="button">
+              <SecondaryButton onClick={closeModal} type="button">
                 Cancel
-              </button>
-              <button className="rounded-lg border-0 bg-blue-700 px-5 py-2 text-sm font-semibold text-white hover:bg-blue-800" onClick={addBusinessManager} type="button">
+              </SecondaryButton>
+              <PrimaryButton onClick={addBusinessManager} type="button">
                 Add Business Manager
-              </button>
+              </PrimaryButton>
             </div>
           </div>
         </div>

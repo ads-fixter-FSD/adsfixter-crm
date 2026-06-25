@@ -1,3 +1,4 @@
+import { PrimaryButton } from "@/components/shared-buttons";
 import type { ToastAction } from "@/features/crm/components/forms/form-types";
 import type { BusinessManager, Client } from "@/features/crm/types/crm";
 
@@ -70,9 +71,9 @@ export function CreateAdAccountForm({ businessManagers, clients, onBack, showToa
         </label>
 
         <div className="col-span-full flex justify-end">
-          <button className="rounded-lg border-0 bg-[var(--brand-orange)] px-3 py-2 text-sm font-semibold leading-tight text-[var(--white)] transition hover:bg-[var(--black)]" type="submit">
+          <PrimaryButton className="px-3" type="submit">
             Create Ad Account
-          </button>
+          </PrimaryButton>
         </div>
       </form>
     </div>

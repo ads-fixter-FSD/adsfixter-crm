@@ -19,7 +19,7 @@ export function MetaAutoAddPanel({ businessManagers, showToast }: MetaAutoAddPan
   };
 
   return (
-    <div className="grid max-w-2xl gap-5">
+    <div className="grid w-full gap-5">
       <div>
         <h3 className="m-0 text-base font-semibold text-[var(--brand-navy)]">Auto-Add Meta Ad Accounts</h3>
         <p className="mt-1 text-xs text-[var(--muted)]">Automatically import ad accounts from Meta and assign them to a Business Manager.</p>

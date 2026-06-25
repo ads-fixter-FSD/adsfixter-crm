@@ -1,3 +1,4 @@
+import { PrimaryButton } from "@/components/shared-buttons";
 import type { ToastAction } from "@/features/crm/components/forms/form-types";
 
 type WalletSettingsFormProps = {
@@ -33,9 +34,9 @@ export function WalletSettingsForm({ showToast }: WalletSettingsFormProps) {
           <option>Pending</option>
         </select>
       </label>
-      <button className="rounded-lg border-0 bg-[var(--brand-orange)] px-3 py-2 text-sm font-semibold leading-tight text-[var(--white)] transition hover:bg-[var(--black)]" type="submit">
+      <PrimaryButton className="px-3" type="submit">
         Save Settings
-      </button>
+      </PrimaryButton>
     </form>
   );
 }
