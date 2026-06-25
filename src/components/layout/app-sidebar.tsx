@@ -20,6 +20,12 @@ function getSubNavigationLinkClassName(isActive: boolean) {
   }`;
 }
 
+function getSubNavigationPanelClassName(isOpen: boolean) {
+  return `grid transition-all duration-200 ease-out ${isOpen ? "grid-rows-[1fr] opacity-100" : "grid-rows-[0fr] opacity-0"}`;
+}
+
+type SidebarDropdown = "adAccounts" | "requests" | "notifications" | "businessManagers" | "clients" | "reports" | "payments" | "settings";
+
 export function AppSidebar({ role, activeSection, onSectionChange }: AppSidebarProps) {
   const router = useRouter();
   const [isAdAccountOpen, setIsAdAccountOpen] = useState(adAccountSubNavigation.includes(activeSection));
@@ -42,7 +48,18 @@ export function AppSidebar({ role, activeSection, onSectionChange }: AppSidebarP
     setIsSettingsOpen(false);
   };
 
-  const openOnlyDropdown = (dropdown: "adAccounts" | "requests" | "notifications" | "businessManagers" | "clients" | "reports" | "payments" | "settings") => {
+  const isDropdownOpen = (dropdown: SidebarDropdown) => {
+    if (dropdown === "adAccounts") return isAdAccountOpen;
+    if (dropdown === "requests") return isRequestsOpen;
+    if (dropdown === "notifications") return isNotificationsOpen;
+    if (dropdown === "businessManagers") return isBusinessManagersOpen;
+    if (dropdown === "clients") return isClientsOpen;
+    if (dropdown === "reports") return isReportsOpen;
+    if (dropdown === "payments") return isPaymentsOpen;
+    return isSettingsOpen;
+  };
+
+  const openOnlyDropdown = (dropdown: SidebarDropdown) => {
     setIsAdAccountOpen(dropdown === "adAccounts");
     setIsRequestsOpen(dropdown === "requests");
     setIsNotificationsOpen(dropdown === "notifications");
@@ -53,13 +70,18 @@ export function AppSidebar({ role, activeSection, onSectionChange }: AppSidebarP
     setIsSettingsOpen(dropdown === "settings");
   };
 
-  const openDropdownFirstSection = (dropdown: "adAccounts" | "requests" | "notifications" | "businessManagers" | "clients" | "reports" | "payments" | "settings", firstSection: string) => {
+  const toggleDropdownFirstSection = (dropdown: SidebarDropdown, firstSection: string) => {
+    if (isDropdownOpen(dropdown)) {
+      closeAllDropdowns();
+      return;
+    }
+
     openOnlyDropdown(dropdown);
     onSectionChange(firstSection);
     router.push(getSectionHref(firstSection));
   };
 
-  const handleDropdownChildClick = (dropdown: "adAccounts" | "requests" | "notifications" | "businessManagers" | "clients" | "reports" | "payments" | "settings", section: string) => {
+  const handleDropdownChildClick = (dropdown: SidebarDropdown, section: string) => {
     openOnlyDropdown(dropdown);
     onSectionChange(section);
   };
@@ -93,7 +115,7 @@ export function AppSidebar({ role, activeSection, onSectionChange }: AppSidebarP
                   className={`flex min-h-8 w-full items-center gap-2 rounded-lg px-2.5 py-2 text-left text-sm font-medium transition hover:bg-[var(--brand-navy)] hover:text-[var(--white)] ${
                     adAccountSubNavigation.includes(activeSection) ? "bg-[var(--brand-navy)] text-[var(--white)]" : "text-[var(--sidebar-link)]"
                   }`}
-                  onClick={() => openDropdownFirstSection("adAccounts", adAccountSubNavigation[0])}
+                  onClick={() => toggleDropdownFirstSection("adAccounts", adAccountSubNavigation[0])}
                   type="button"
                 >
                   <Icon aria-hidden="true" size={17} strokeWidth={1.9} />
@@ -101,20 +123,23 @@ export function AppSidebar({ role, activeSection, onSectionChange }: AppSidebarP
                   <ChevronRight aria-hidden="true" className={`ml-auto transition-transform ${isAdAccountOpen ? "rotate-90" : ""}`} size={15} strokeWidth={2.1} />
                 </button>
 
-                {isAdAccountOpen ? (
-                  <div className="grid gap-0.5 pl-5">
+                <div className={getSubNavigationPanelClassName(isAdAccountOpen)}>
+                  <div className="min-h-0 overflow-hidden">
+                    <div className="grid gap-0.5 pl-5">
                     {adAccountSubNavigation.map((subItem) => (
                       <Link
                         className={getSubNavigationLinkClassName(subItem === activeSection)}
                         href={getSectionHref(subItem)}
                         key={subItem}
                         onClick={() => handleDropdownChildClick("adAccounts", subItem)}
+                        tabIndex={isAdAccountOpen ? 0 : -1}
                       >
                         {subItem}
                       </Link>
                     ))}
+                    </div>
                   </div>
-                ) : null}
+                </div>
               </div>
             );
           }
@@ -126,7 +151,7 @@ export function AppSidebar({ role, activeSection, onSectionChange }: AppSidebarP
                   className={`flex min-h-8 w-full items-center gap-2 rounded-lg px-2.5 py-2 text-left text-sm font-medium transition hover:bg-[var(--brand-navy)] hover:text-[var(--white)] ${
                     requestSubNavigation.includes(activeSection) ? "bg-[var(--brand-navy)] text-[var(--white)]" : "text-[var(--sidebar-link)]"
                   }`}
-                  onClick={() => openDropdownFirstSection("requests", requestSubNavigation[0])}
+                  onClick={() => toggleDropdownFirstSection("requests", requestSubNavigation[0])}
                   type="button"
                 >
                   <Icon aria-hidden="true" size={17} strokeWidth={1.9} />
@@ -134,20 +159,23 @@ export function AppSidebar({ role, activeSection, onSectionChange }: AppSidebarP
                   <ChevronRight aria-hidden="true" className={`ml-auto transition-transform ${isRequestsOpen ? "rotate-90" : ""}`} size={15} strokeWidth={2.1} />
                 </button>
 
-                {isRequestsOpen ? (
-                  <div className="grid gap-0.5 pl-5">
+                <div className={getSubNavigationPanelClassName(isRequestsOpen)}>
+                  <div className="min-h-0 overflow-hidden">
+                    <div className="grid gap-0.5 pl-5">
                     {requestSubNavigation.map((subItem) => (
                       <Link
                         className={getSubNavigationLinkClassName(subItem === activeSection)}
                         href={getSectionHref(subItem)}
                         key={subItem}
                         onClick={() => handleDropdownChildClick("requests", subItem)}
+                        tabIndex={isRequestsOpen ? 0 : -1}
                       >
                         {subItem}
                       </Link>
                     ))}
+                    </div>
                   </div>
-                ) : null}
+                </div>
               </div>
             );
           }
@@ -159,7 +187,7 @@ export function AppSidebar({ role, activeSection, onSectionChange }: AppSidebarP
                   className={`flex min-h-8 w-full items-center gap-2 rounded-lg px-2.5 py-2 text-left text-sm font-medium transition hover:bg-[var(--brand-navy)] hover:text-[var(--white)] ${
                     notificationSubNavigation.includes(activeSection) ? "bg-[var(--brand-navy)] text-[var(--white)]" : "text-[var(--sidebar-link)]"
                   }`}
-                  onClick={() => openDropdownFirstSection("notifications", notificationSubNavigation[0])}
+                  onClick={() => toggleDropdownFirstSection("notifications", notificationSubNavigation[0])}
                   type="button"
                 >
                   <Icon aria-hidden="true" size={17} strokeWidth={1.9} />
@@ -167,20 +195,23 @@ export function AppSidebar({ role, activeSection, onSectionChange }: AppSidebarP
                   <ChevronRight aria-hidden="true" className={`ml-auto transition-transform ${isNotificationsOpen ? "rotate-90" : ""}`} size={15} strokeWidth={2.1} />
                 </button>
 
-                {isNotificationsOpen ? (
-                  <div className="grid gap-0.5 pl-5">
+                <div className={getSubNavigationPanelClassName(isNotificationsOpen)}>
+                  <div className="min-h-0 overflow-hidden">
+                    <div className="grid gap-0.5 pl-5">
                     {notificationSubNavigation.map((subItem) => (
                       <Link
                         className={getSubNavigationLinkClassName(subItem === activeSection)}
                         href={getSectionHref(subItem)}
                         key={subItem}
                         onClick={() => handleDropdownChildClick("notifications", subItem)}
+                        tabIndex={isNotificationsOpen ? 0 : -1}
                       >
                         {subItem}
                       </Link>
                     ))}
+                    </div>
                   </div>
-                ) : null}
+                </div>
               </div>
             );
           }
@@ -192,7 +223,7 @@ export function AppSidebar({ role, activeSection, onSectionChange }: AppSidebarP
                   className={`flex min-h-8 w-full items-center gap-2 rounded-lg px-2.5 py-2 text-left text-sm font-medium transition hover:bg-[var(--brand-navy)] hover:text-[var(--white)] ${
                     businessManagerSubNavigation.includes(activeSection) ? "bg-[var(--brand-navy)] text-[var(--white)]" : "text-[var(--sidebar-link)]"
                   }`}
-                  onClick={() => openDropdownFirstSection("businessManagers", businessManagerSubNavigation[0])}
+                  onClick={() => toggleDropdownFirstSection("businessManagers", businessManagerSubNavigation[0])}
                   type="button"
                 >
                   <Icon aria-hidden="true" size={17} strokeWidth={1.9} />
@@ -200,20 +231,23 @@ export function AppSidebar({ role, activeSection, onSectionChange }: AppSidebarP
                   <ChevronRight aria-hidden="true" className={`ml-auto transition-transform ${isBusinessManagersOpen ? "rotate-90" : ""}`} size={15} strokeWidth={2.1} />
                 </button>
 
-                {isBusinessManagersOpen ? (
-                  <div className="grid gap-0.5 pl-5">
+                <div className={getSubNavigationPanelClassName(isBusinessManagersOpen)}>
+                  <div className="min-h-0 overflow-hidden">
+                    <div className="grid gap-0.5 pl-5">
                     {businessManagerSubNavigation.map((subItem) => (
                       <Link
                         className={getSubNavigationLinkClassName(subItem === activeSection)}
                         href={getSectionHref(subItem)}
                         key={subItem}
                         onClick={() => handleDropdownChildClick("businessManagers", subItem)}
+                        tabIndex={isBusinessManagersOpen ? 0 : -1}
                       >
                         {subItem}
                       </Link>
                     ))}
+                    </div>
                   </div>
-                ) : null}
+                </div>
               </div>
             );
           }
@@ -225,7 +259,7 @@ export function AppSidebar({ role, activeSection, onSectionChange }: AppSidebarP
                   className={`flex min-h-8 w-full items-center gap-2 rounded-lg px-2.5 py-2 text-left text-sm font-medium transition hover:bg-[var(--brand-navy)] hover:text-[var(--white)] ${
                     clientSubNavigation.includes(activeSection) ? "bg-[var(--brand-navy)] text-[var(--white)]" : "text-[var(--sidebar-link)]"
                   }`}
-                  onClick={() => openDropdownFirstSection("clients", clientSubNavigation[0])}
+                  onClick={() => toggleDropdownFirstSection("clients", clientSubNavigation[0])}
                   type="button"
                 >
                   <Icon aria-hidden="true" size={17} strokeWidth={1.9} />
@@ -233,20 +267,23 @@ export function AppSidebar({ role, activeSection, onSectionChange }: AppSidebarP
                   <ChevronRight aria-hidden="true" className={`ml-auto transition-transform ${isClientsOpen ? "rotate-90" : ""}`} size={15} strokeWidth={2.1} />
                 </button>
 
-                {isClientsOpen ? (
-                  <div className="grid gap-0.5 pl-5">
+                <div className={getSubNavigationPanelClassName(isClientsOpen)}>
+                  <div className="min-h-0 overflow-hidden">
+                    <div className="grid gap-0.5 pl-5">
                     {clientSubNavigation.map((subItem) => (
                       <Link
                         className={getSubNavigationLinkClassName(subItem === activeSection)}
                         href={getSectionHref(subItem)}
                         key={subItem}
                         onClick={() => handleDropdownChildClick("clients", subItem)}
+                        tabIndex={isClientsOpen ? 0 : -1}
                       >
                         {subItem}
                       </Link>
                     ))}
+                    </div>
                   </div>
-                ) : null}
+                </div>
               </div>
             );
           }
@@ -258,7 +295,7 @@ export function AppSidebar({ role, activeSection, onSectionChange }: AppSidebarP
                   className={`flex min-h-8 w-full items-center gap-2 rounded-lg px-2.5 py-2 text-left text-sm font-medium transition hover:bg-[var(--brand-navy)] hover:text-[var(--white)] ${
                     reportSubNavigation.includes(activeSection) ? "bg-[var(--brand-navy)] text-[var(--white)]" : "text-[var(--sidebar-link)]"
                   }`}
-                  onClick={() => openDropdownFirstSection("reports", reportSubNavigation[0])}
+                  onClick={() => toggleDropdownFirstSection("reports", reportSubNavigation[0])}
                   type="button"
                 >
                   <Icon aria-hidden="true" size={17} strokeWidth={1.9} />
@@ -266,20 +303,23 @@ export function AppSidebar({ role, activeSection, onSectionChange }: AppSidebarP
                   <ChevronRight aria-hidden="true" className={`ml-auto transition-transform ${isReportsOpen ? "rotate-90" : ""}`} size={15} strokeWidth={2.1} />
                 </button>
 
-                {isReportsOpen ? (
-                  <div className="grid gap-0.5 pl-5">
+                <div className={getSubNavigationPanelClassName(isReportsOpen)}>
+                  <div className="min-h-0 overflow-hidden">
+                    <div className="grid gap-0.5 pl-5">
                     {reportSubNavigation.map((subItem) => (
                       <Link
                         className={getSubNavigationLinkClassName(subItem === activeSection)}
                         href={getSectionHref(subItem)}
                         key={subItem}
                         onClick={() => handleDropdownChildClick("reports", subItem)}
+                        tabIndex={isReportsOpen ? 0 : -1}
                       >
                         {subItem}
                       </Link>
                     ))}
+                    </div>
                   </div>
-                ) : null}
+                </div>
               </div>
             );
           }
@@ -291,7 +331,7 @@ export function AppSidebar({ role, activeSection, onSectionChange }: AppSidebarP
                   className={`flex min-h-8 w-full items-center gap-2 rounded-lg px-2.5 py-2 text-left text-sm font-medium transition hover:bg-[var(--brand-navy)] hover:text-[var(--white)] ${
                     paymentSubNavigation.includes(activeSection) ? "bg-[var(--brand-navy)] text-[var(--white)]" : "text-[var(--sidebar-link)]"
                   }`}
-                  onClick={() => openDropdownFirstSection("payments", paymentSubNavigation[0])}
+                  onClick={() => toggleDropdownFirstSection("payments", paymentSubNavigation[0])}
                   type="button"
                 >
                   <Icon aria-hidden="true" size={17} strokeWidth={1.9} />
@@ -299,20 +339,23 @@ export function AppSidebar({ role, activeSection, onSectionChange }: AppSidebarP
                   <ChevronRight aria-hidden="true" className={`ml-auto transition-transform ${isPaymentsOpen ? "rotate-90" : ""}`} size={15} strokeWidth={2.1} />
                 </button>
 
-                {isPaymentsOpen ? (
-                  <div className="grid gap-0.5 pl-5">
+                <div className={getSubNavigationPanelClassName(isPaymentsOpen)}>
+                  <div className="min-h-0 overflow-hidden">
+                    <div className="grid gap-0.5 pl-5">
                     {paymentSubNavigation.map((subItem) => (
                       <Link
                         className={getSubNavigationLinkClassName(subItem === activeSection)}
                         href={getSectionHref(subItem)}
                         key={subItem}
                         onClick={() => handleDropdownChildClick("payments", subItem)}
+                        tabIndex={isPaymentsOpen ? 0 : -1}
                       >
                         {subItem}
                       </Link>
                     ))}
+                    </div>
                   </div>
-                ) : null}
+                </div>
               </div>
             );
           }
@@ -324,7 +367,7 @@ export function AppSidebar({ role, activeSection, onSectionChange }: AppSidebarP
                   className={`flex min-h-8 w-full items-center gap-2 rounded-lg px-2.5 py-2 text-left text-sm font-medium transition hover:bg-[var(--brand-navy)] hover:text-[var(--white)] ${
                     settingsSubNavigation.includes(activeSection) ? "bg-[var(--brand-navy)] text-[var(--white)]" : "text-[var(--sidebar-link)]"
                   }`}
-                  onClick={() => openDropdownFirstSection("settings", settingsSubNavigation[0])}
+                  onClick={() => toggleDropdownFirstSection("settings", settingsSubNavigation[0])}
                   type="button"
                 >
                   <Icon aria-hidden="true" size={17} strokeWidth={1.9} />
@@ -332,20 +375,23 @@ export function AppSidebar({ role, activeSection, onSectionChange }: AppSidebarP
                   <ChevronRight aria-hidden="true" className={`ml-auto transition-transform ${isSettingsOpen ? "rotate-90" : ""}`} size={15} strokeWidth={2.1} />
                 </button>
 
-                {isSettingsOpen ? (
-                  <div className="grid gap-0.5 pl-5">
+                <div className={getSubNavigationPanelClassName(isSettingsOpen)}>
+                  <div className="min-h-0 overflow-hidden">
+                    <div className="grid gap-0.5 pl-5">
                     {settingsSubNavigation.map((subItem) => (
                       <Link
                         className={getSubNavigationLinkClassName(subItem === activeSection)}
                         href={getSectionHref(subItem)}
                         key={subItem}
                         onClick={() => handleDropdownChildClick("settings", subItem)}
+                        tabIndex={isSettingsOpen ? 0 : -1}
                       >
                         {subItem}
                       </Link>
                     ))}
+                    </div>
                   </div>
-                ) : null}
+                </div>
               </div>
             );
           }
