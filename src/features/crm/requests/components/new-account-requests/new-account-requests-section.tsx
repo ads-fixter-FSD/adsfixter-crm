@@ -1,9 +1,8 @@
 "use client";
 
-import { Check, MoreHorizontal, X } from "lucide-react";
-import { useMemo, useRef, useState } from "react";
+import { Check, X } from "lucide-react";
+import { useMemo, useState } from "react";
 import type { ToastType } from "@/features/crm/types/crm";
-import { useClickOutside } from "@/hooks/use-click-outside";
 
 type NewAccountRequestStatus = "Pending" | "Approved" | "Rejected";
 
@@ -37,12 +36,10 @@ const rowsPerPage = 10;
 const requestStatusTabs: Array<"All" | NewAccountRequestStatus> = ["All", "Pending", "Approved", "Rejected"];
 
 export function NewAccountRequestsSection({ showToast }: NewAccountRequestsSectionProps) {
-  const actionDropdownRef = useRef<HTMLDivElement | null>(null);
   const [requests, setRequests] = useState(initialNewAccountRequests);
   const [activeStatus, setActiveStatus] = useState<"All" | NewAccountRequestStatus>("All");
   const [filterQuery, setFilterQuery] = useState("");
   const [currentPage, setCurrentPage] = useState(1);
-  const [openActionRequestId, setOpenActionRequestId] = useState<string | null>(null);
 
   const pendingCount = requests.filter((request) => request.status === "Pending").length;
 
@@ -71,14 +68,11 @@ export function NewAccountRequestsSection({ showToast }: NewAccountRequestsSecti
 
   const updateRequestStatus = (requestId: string, nextStatus: NewAccountRequestStatus) => {
     setRequests((current) => current.map((request) => (request.id === requestId ? { ...request, status: nextStatus } : request)));
-    setOpenActionRequestId(null);
     showToast(nextStatus === "Approved" ? "success" : "error", `New account request ${nextStatus.toLowerCase()}`);
   };
 
-  useClickOutside(actionDropdownRef, () => setOpenActionRequestId(null));
-
   return (
-    <section className="grid gap-4 rounded-xl border border-[var(--line)] bg-[var(--white)] p-3">
+    <section className="grid gap-4 rounded-xl border-2 border-[var(--line)] bg-[var(--white)] p-4">
       <div className="flex flex-wrap items-center justify-between gap-3">
         <div className="flex flex-wrap items-center gap-5">
           {requestStatusTabs.map((tab) => (
@@ -125,7 +119,7 @@ export function NewAccountRequestsSection({ showToast }: NewAccountRequestsSecti
                 <td className="border-b border-[var(--line)] px-2.5 py-2 text-sm">
                   <span
                     className={`inline-flex rounded-full px-2 py-1 text-xs font-semibold ${
-                      request.status === "Pending" ? "bg-yellow-100 text-yellow-700" : request.status === "Approved" ? "bg-green-100 text-green-700" : "bg-red-100 text-red-700"
+                      request.status === "Pending" ? "bg-[var(--warning-bg)] text-[var(--warning-text)]" : request.status === "Approved" ? "bg-[var(--success-bg)] text-[var(--success-text)]" : "bg-[var(--danger-bg)] text-[var(--danger-text)]"
                     }`}
                   >
                     {request.status}
@@ -136,29 +130,16 @@ export function NewAccountRequestsSection({ showToast }: NewAccountRequestsSecti
                 <td className="border-b border-[var(--line)] px-2.5 py-2 text-sm text-[var(--brand-navy)]">{request.businessManagerId}</td>
                 <td className="border-b border-[var(--line)] px-2.5 py-2 text-sm text-[var(--brand-navy)]">{request.email}</td>
                 <td className="border-b border-[var(--line)] px-2.5 py-2 text-sm text-[var(--brand-navy)]">{request.assignedAccount}</td>
-                <td className="relative border-b border-[var(--line)] px-2.5 py-2 text-center text-sm">
-                  <div className="relative inline-flex" ref={openActionRequestId === request.id ? actionDropdownRef : null}>
-                    <button
-                      aria-label={`Open actions for ${request.requestedName}`}
-                      className="inline-flex h-8 w-8 items-center justify-center rounded-lg border border-[var(--line)] bg-[var(--white)] text-[var(--brand-navy)] transition hover:bg-[var(--surface)]"
-                      onClick={() => setOpenActionRequestId((current) => (current === request.id ? null : request.id))}
-                      title="Actions"
-                      type="button"
-                    >
-                      <MoreHorizontal aria-hidden="true" size={17} strokeWidth={2.1} />
+                <td className="border-b border-[var(--line)] px-2.5 py-2 text-center text-sm">
+                  <div className="flex flex-wrap items-center justify-center gap-2">
+                    <button className="inline-flex min-h-8 items-center gap-1.5 rounded-lg border border-[var(--brand-orange)] bg-[var(--brand-orange)] px-2.5 text-xs font-semibold text-[var(--brand-orange-contrast)] transition hover:bg-[var(--brand-orange-hover)]" onClick={() => updateRequestStatus(request.id, "Approved")} type="button">
+                      <Check aria-hidden="true" size={13} strokeWidth={2.1} />
+                      Approve
                     </button>
-                    {openActionRequestId === request.id ? (
-                      <div className="absolute right-0 top-[calc(100%+0.35rem)] z-30 grid min-w-32 gap-1 rounded-xl border border-[var(--line)] bg-[var(--white)] p-1.5 text-left">
-                        <button className="flex items-center gap-2 rounded-lg px-2.5 py-2 text-xs font-semibold text-[var(--brand-navy)] hover:bg-[var(--surface)]" onClick={() => updateRequestStatus(request.id, "Approved")} type="button">
-                          <Check aria-hidden="true" size={14} strokeWidth={2.1} />
-                          Approve
-                        </button>
-                        <button className="flex items-center gap-2 rounded-lg px-2.5 py-2 text-xs font-semibold text-[var(--brand-orange)] hover:bg-[rgba(239,67,7,0.08)]" onClick={() => updateRequestStatus(request.id, "Rejected")} type="button">
-                          <X aria-hidden="true" size={14} strokeWidth={2.1} />
-                          Reject
-                        </button>
-                      </div>
-                    ) : null}
+                    <button className="inline-flex min-h-8 items-center gap-1.5 rounded-lg border border-[var(--brand-orange)] bg-[var(--white)] px-2.5 text-xs font-semibold text-[var(--brand-orange)] transition hover:bg-[var(--brand-orange-soft)]" onClick={() => updateRequestStatus(request.id, "Rejected")} type="button">
+                      <X aria-hidden="true" size={13} strokeWidth={2.1} />
+                      Reject
+                    </button>
                   </div>
                 </td>
               </tr>
@@ -179,7 +160,7 @@ export function NewAccountRequestsSection({ showToast }: NewAccountRequestsSecti
             <span className="font-semibold text-[var(--brand-navy)]">
               Page {safeCurrentPage} of {totalPages}
             </span>
-            <button className="font-semibold text-[var(--brand-navy)] disabled:opacity-40" disabled={safeCurrentPage === totalPages} onClick={() => setCurrentPage((page) => Math.min(totalPages, page + 1))} type="button">
+            <button className="font-semibold text-[var(--brand-orange)] disabled:opacity-40" disabled={safeCurrentPage === totalPages} onClick={() => setCurrentPage((page) => Math.min(totalPages, page + 1))} type="button">
               Next
             </button>
           </div>

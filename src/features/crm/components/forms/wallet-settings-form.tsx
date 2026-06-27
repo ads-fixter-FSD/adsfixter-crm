@@ -34,7 +34,7 @@ export function WalletSettingsForm({ showToast }: WalletSettingsFormProps) {
           <option>Pending</option>
         </select>
       </label>
-      <PrimaryButton className="px-3" type="submit">
+      <PrimaryButton className="min-h-8 justify-self-start px-3 py-1.5 text-xs" type="submit">
         Save Settings
       </PrimaryButton>
     </form>

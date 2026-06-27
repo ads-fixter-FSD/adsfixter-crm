@@ -55,7 +55,7 @@ export function ClientNewPaymentSection({ showToast }: ClientNewPaymentSectionPr
         <p className="mt-1 text-sm text-[var(--muted)]">This balance can be used across all your ad accounts.</p>
       </div>
 
-      <div className="mx-auto grid w-full max-w-4xl grid-cols-3 gap-3 rounded-xl border border-[var(--line)] bg-[var(--white)] p-3 text-center max-[720px]:grid-cols-1">
+      <div className="mx-auto grid w-full max-w-4xl grid-cols-3 gap-3 rounded-xl border-2 border-[var(--line)] bg-[var(--white)] p-4 text-center max-[720px]:grid-cols-1">
         {[
           { id: 1, label: "Select Method", helper: "Choose where you will send the payment.", icon: CreditCard },
           { id: 2, label: "Payment Details", helper: "Enter amount, transaction ID, and proof.", icon: Upload },
@@ -80,13 +80,13 @@ export function ClientNewPaymentSection({ showToast }: ClientNewPaymentSectionPr
       </div>
 
       {step === 1 ? (
-        <section className="rounded-xl border border-[var(--line)] bg-[var(--white)] p-4">
+        <section className="rounded-xl border-2 border-[var(--line)] bg-[var(--white)] p-5">
           <h3 className="m-0 text-base font-semibold text-[var(--brand-navy)]">Select Payment Method</h3>
           <p className="mt-1 text-sm text-[var(--muted)]">Choose a payment method to top up your balance</p>
 
           <div className="mt-5 grid grid-cols-3 gap-4 max-[1180px]:grid-cols-2 max-[720px]:grid-cols-1">
             {paymentMethods.map((method) => (
-              <article className={`rounded-xl border p-4 ${selectedMethodId === method.id ? "border-blue-500 bg-blue-50" : "border-[var(--line)] bg-[var(--white)]"}`} key={method.id}>
+              <article className={`rounded-xl border p-4 ${selectedMethodId === method.id ? "border-[var(--brand-orange)] bg-[var(--brand-orange-soft)]" : "border-[var(--line)] bg-[var(--white)]"}`} key={method.id}>
                 <h4 className="m-0 text-sm font-semibold text-[var(--brand-navy)]">{method.name}</h4>
                 <p className="mt-1 text-xs text-[var(--muted)]">{method.account}</p>
                 <dl className="mt-4 grid grid-cols-2 gap-x-4 gap-y-2 text-xs text-[var(--brand-navy)]">
@@ -112,15 +112,15 @@ export function ClientNewPaymentSection({ showToast }: ClientNewPaymentSectionPr
           <p className="m-0 rounded-lg bg-[var(--surface)] p-3 text-sm text-[var(--brand-navy)]">Selected method: <strong>{selectedMethod.name}</strong></p>
           <label className="grid gap-1 text-sm font-semibold text-[var(--brand-navy)]">
             Amount (BDT)
-            <input className="min-h-10 rounded-lg border border-[var(--line)] px-3 font-normal outline-none focus:border-blue-500" onChange={(event) => setAmount(event.target.value)} placeholder="Enter amount" value={amount} />
+            <input className="min-h-10 rounded-lg border border-[var(--line)] bg-[var(--field-bg)] px-3 font-normal text-[var(--brand-navy)] outline-none focus:border-[var(--brand-orange)]" onChange={(event) => setAmount(event.target.value)} placeholder="Enter amount" value={amount} />
           </label>
           <label className="grid gap-1 text-sm font-semibold text-[var(--brand-navy)]">
             Transaction ID
-            <input className="min-h-10 rounded-lg border border-[var(--line)] px-3 font-normal outline-none focus:border-blue-500" onChange={(event) => setTransactionId(event.target.value)} placeholder="Enter transaction reference" value={transactionId} />
+            <input className="min-h-10 rounded-lg border border-[var(--line)] bg-[var(--field-bg)] px-3 font-normal text-[var(--brand-navy)] outline-none focus:border-[var(--brand-orange)]" onChange={(event) => setTransactionId(event.target.value)} placeholder="Enter transaction reference" value={transactionId} />
           </label>
           <label className="grid gap-1 text-sm font-semibold text-[var(--brand-navy)]">
             Payment Proof
-            <input className="min-h-10 rounded-lg border border-[var(--line)] px-3 font-normal outline-none focus:border-blue-500" onChange={(event) => setPaymentProof(event.target.value)} placeholder="Screenshot URL or note" value={paymentProof} />
+            <input className="min-h-10 rounded-lg border border-[var(--line)] bg-[var(--field-bg)] px-3 font-normal text-[var(--brand-navy)] outline-none focus:border-[var(--brand-orange)]" onChange={(event) => setPaymentProof(event.target.value)} placeholder="Screenshot URL or note" value={paymentProof} />
           </label>
           <PrimaryButton className="min-h-8 justify-self-start px-3 py-1.5 text-xs" onClick={goToReview} type="button">
             Continue to Review

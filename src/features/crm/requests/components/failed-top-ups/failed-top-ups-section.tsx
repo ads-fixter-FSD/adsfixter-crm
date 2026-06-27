@@ -1,9 +1,8 @@
 "use client";
 
-import { MoreHorizontal, RotateCcw } from "lucide-react";
-import { useMemo, useRef, useState } from "react";
+import { RotateCcw } from "lucide-react";
+import { useMemo, useState } from "react";
 import type { ToastType } from "@/features/crm/types/crm";
-import { useClickOutside } from "@/hooks/use-click-outside";
 
 type FailedTopUpAttempt = {
   id: string;
@@ -39,10 +38,8 @@ const failedTopUpAttempts: FailedTopUpAttempt[] = [
 ];
 
 export function FailedTopUpsSection({ showToast }: FailedTopUpsSectionProps) {
-  const actionDropdownRef = useRef<HTMLDivElement | null>(null);
   const [filterQuery, setFilterQuery] = useState("");
   const [currentPage, setCurrentPage] = useState(1);
-  const [openActionAttemptId, setOpenActionAttemptId] = useState<string | null>(null);
 
   const filteredAttempts = useMemo(() => {
     const normalizedQuery = filterQuery.trim().toLowerCase();
@@ -70,20 +67,17 @@ export function FailedTopUpsSection({ showToast }: FailedTopUpsSectionProps) {
   const shouldShowPagination = filteredAttempts.length > rowsPerPage;
 
   const retryMetaApi = (attempt: FailedTopUpAttempt) => {
-    setOpenActionAttemptId(null);
     showToast("warning", `Retry queued for ${attempt.adAccountName}`);
   };
 
-  useClickOutside(actionDropdownRef, () => setOpenActionAttemptId(null));
-
   return (
-    <section className="grid gap-4 rounded-xl border border-[var(--line)] bg-[var(--white)] p-4">
+    <section className="grid gap-4 rounded-xl border-2 border-[var(--line)] bg-[var(--white)] p-5">
       <div>
         <h2 className="m-0 text-xl font-semibold text-[var(--brand-navy)]">Failed Top-Up Attempts</h2>
         <p className="mt-1 text-sm text-[var(--muted)]">These top-ups have successfully deducted the user&apos;s balance but failed to increase the Meta ad account limit.</p>
       </div>
 
-      <div className="rounded-xl border border-amber-200 bg-amber-50 p-4 text-sm text-amber-900">
+      <div className="rounded-xl border border-[var(--warning-text)] bg-[var(--warning-bg)] p-4 text-sm text-[var(--warning-text)]">
         <p className="mb-2 font-semibold">Important Information</p>
         <ul className="m-0 grid gap-1 pl-5">
           <li>Balance Status: User balance has already been deducted. The money is accounted for in the system.</li>
@@ -103,7 +97,7 @@ export function FailedTopUpsSection({ showToast }: FailedTopUpsSectionProps) {
           type="search"
           value={filterQuery}
         />
-        <button className="rounded-lg border border-[var(--line)] bg-[var(--white)] px-3 py-2 text-sm font-semibold text-[var(--brand-navy)] hover:bg-[var(--surface)]" onClick={() => showToast("success", "Failed top-up attempts refreshed")} type="button">
+        <button className="rounded-lg border border-[var(--brand-orange)] bg-[var(--brand-orange)] px-3 py-2 text-sm font-semibold text-[var(--brand-orange-contrast)] hover:bg-[var(--brand-orange-hover)]" onClick={() => showToast("success", "Failed top-up attempts refreshed")} type="button">
           Refresh
         </button>
       </div>
@@ -125,35 +119,22 @@ export function FailedTopUpsSection({ showToast }: FailedTopUpsSectionProps) {
                 <td className="border-b border-[var(--line)] px-2.5 py-2 text-xs text-[var(--brand-navy)]">{attempt.id}</td>
                 <td className="border-b border-[var(--line)] px-2.5 py-2 text-xs text-[var(--brand-navy)]">{attempt.date}</td>
                 <td className="border-b border-[var(--line)] px-2.5 py-2 text-xs text-[var(--brand-navy)]">
-                  <div className="font-semibold text-cyan-700">{attempt.client}</div>
+                  <div className="font-semibold text-[var(--link)]">{attempt.client}</div>
                   <div className="text-[var(--muted)]">{attempt.clientEmail}</div>
                 </td>
                 <td className="border-b border-[var(--line)] px-2.5 py-2 text-xs text-[var(--brand-navy)]">
-                  <div className="font-semibold text-cyan-700">{attempt.adAccountName}</div>
+                  <div className="font-semibold text-[var(--link)]">{attempt.adAccountName}</div>
                   <div className="text-[var(--muted)]">{attempt.adAccountId}</div>
                 </td>
                 <td className="border-b border-[var(--line)] px-2.5 py-2 text-sm font-semibold text-[var(--brand-navy)]">{attempt.amount}</td>
-                <td className="whitespace-pre-line border-b border-[var(--line)] px-2.5 py-2 text-xs text-amber-700">{attempt.balanceStatus}</td>
-                <td className="border-b border-[var(--line)] px-2.5 py-2 text-xs text-red-600">{attempt.errorMessage}</td>
-                <td className="relative border-b border-[var(--line)] px-2.5 py-2 text-center text-xs">
-                  <div className="relative inline-flex" ref={openActionAttemptId === attempt.id ? actionDropdownRef : null}>
-                    <button
-                      aria-label={`Open actions for ${attempt.adAccountName}`}
-                      className="inline-flex h-8 w-8 items-center justify-center rounded-lg border border-[var(--line)] bg-[var(--white)] text-[var(--brand-navy)] transition hover:bg-[var(--surface)]"
-                      onClick={() => setOpenActionAttemptId((current) => (current === attempt.id ? null : attempt.id))}
-                      title="Actions"
-                      type="button"
-                    >
-                      <MoreHorizontal aria-hidden="true" size={17} strokeWidth={2.1} />
+                <td className="whitespace-pre-line border-b border-[var(--line)] px-2.5 py-2 text-xs text-[var(--warning-text)]">{attempt.balanceStatus}</td>
+                <td className="border-b border-[var(--line)] px-2.5 py-2 text-xs text-[var(--danger-text)]">{attempt.errorMessage}</td>
+                <td className="border-b border-[var(--line)] px-2.5 py-2 text-center text-xs">
+                  <div className="flex flex-wrap items-center justify-center gap-2">
+                    <button className="inline-flex min-h-8 items-center gap-1.5 rounded-lg border border-[var(--brand-orange)] bg-[var(--brand-orange)] px-2.5 text-xs font-semibold text-[var(--brand-orange-contrast)] transition hover:bg-[var(--brand-orange-hover)]" onClick={() => retryMetaApi(attempt)} type="button">
+                      <RotateCcw aria-hidden="true" size={13} strokeWidth={2.1} />
+                      Retry Meta API
                     </button>
-                    {openActionAttemptId === attempt.id ? (
-                      <div className="absolute right-0 top-[calc(100%+0.35rem)] z-30 grid min-w-40 gap-1 rounded-xl border border-[var(--line)] bg-[var(--white)] p-1.5 text-left">
-                        <button className="flex items-center gap-2 rounded-lg px-2.5 py-2 text-xs font-semibold text-[var(--brand-navy)] hover:bg-[var(--surface)]" onClick={() => retryMetaApi(attempt)} type="button">
-                          <RotateCcw aria-hidden="true" size={14} strokeWidth={2.1} />
-                          Retry Meta API
-                        </button>
-                      </div>
-                    ) : null}
                   </div>
                 </td>
               </tr>
@@ -174,7 +155,7 @@ export function FailedTopUpsSection({ showToast }: FailedTopUpsSectionProps) {
             <span className="font-semibold text-[var(--brand-navy)]">
               Page {safeCurrentPage} of {totalPages}
             </span>
-            <button className="font-semibold text-[var(--brand-navy)] disabled:opacity-40" disabled={safeCurrentPage === totalPages} onClick={() => setCurrentPage((page) => Math.min(totalPages, page + 1))} type="button">
+            <button className="font-semibold text-[var(--brand-orange)] disabled:opacity-40" disabled={safeCurrentPage === totalPages} onClick={() => setCurrentPage((page) => Math.min(totalPages, page + 1))} type="button">
               Next
             </button>
           </div>

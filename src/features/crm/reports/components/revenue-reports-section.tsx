@@ -41,7 +41,7 @@ export function RevenueReportsSection({ data }: RevenueReportsSectionProps) {
           <h2 className="m-0 text-2xl font-semibold text-[var(--brand-navy)]">Revenue Reports</h2>
           <p className="mt-1 text-sm text-[var(--muted)]">Revenue, top-up volume, spend trend, and client contribution overview.</p>
         </div>
-        <button className="rounded-lg border border-[var(--line)] bg-[var(--white)] px-4 py-2 text-sm font-semibold text-[var(--brand-navy)] hover:bg-[var(--surface)]" type="button">
+        <button className="rounded-lg border border-[var(--brand-orange)] bg-[var(--brand-orange)] px-4 py-2 text-sm font-semibold text-[var(--brand-orange-contrast)] hover:bg-[var(--brand-orange-hover)]" type="button">
           Export Report
         </button>
       </div>
@@ -53,7 +53,7 @@ export function RevenueReportsSection({ data }: RevenueReportsSectionProps) {
           { label: "Tracked Spend", value: formatUsd(totalSpend), detail: "Meta account spend" },
           { label: "Monthly Growth", value: `${revenueGrowth}%`, detail: "Compared with last month" },
         ].map((metric) => (
-          <article className="rounded-xl border border-[var(--line)] bg-[var(--white)] p-4" key={metric.label}>
+          <article className="rounded-xl border-2 border-[var(--line)] bg-[var(--white)] p-5" key={metric.label}>
             <p className="m-0 text-xs font-semibold uppercase text-[var(--muted)]">{metric.label}</p>
             <strong className="mt-2 block text-2xl text-[var(--brand-navy)]">{metric.value}</strong>
             <span className="mt-1 block text-xs text-[var(--muted)]">{metric.detail}</span>
@@ -62,7 +62,7 @@ export function RevenueReportsSection({ data }: RevenueReportsSectionProps) {
       </div>
 
       <div className="grid grid-cols-12 gap-4">
-        <section className="col-span-8 rounded-xl border border-[var(--line)] bg-[var(--white)] p-4 max-[1180px]:col-span-12">
+        <section className="col-span-8 rounded-xl border-2 border-[var(--line)] bg-[var(--white)] p-5 max-[1180px]:col-span-12">
           <h3 className="m-0 text-base font-semibold text-[var(--brand-navy)]">Monthly Revenue Trend</h3>
           <div className="mt-5 flex h-64 items-end gap-4 border-b border-l border-[var(--line)] px-4 pb-4">
             {monthlyRevenue.map((month) => (
@@ -76,7 +76,7 @@ export function RevenueReportsSection({ data }: RevenueReportsSectionProps) {
           </div>
         </section>
 
-        <section className="col-span-4 rounded-xl border border-[var(--line)] bg-[var(--white)] p-4 max-[1180px]:col-span-12">
+        <section className="col-span-4 rounded-xl border-2 border-[var(--line)] bg-[var(--white)] p-5 max-[1180px]:col-span-12">
           <h3 className="m-0 text-base font-semibold text-[var(--brand-navy)]">Revenue Channels</h3>
           <div className="mt-4 grid gap-3">
             {revenueChannels.map((channel) => (
@@ -92,7 +92,7 @@ export function RevenueReportsSection({ data }: RevenueReportsSectionProps) {
         </section>
       </div>
 
-      <section className="rounded-xl border border-[var(--line)] bg-[var(--white)] p-4">
+      <section className="rounded-xl border-2 border-[var(--line)] bg-[var(--white)] p-5">
         <h3 className="m-0 text-base font-semibold text-[var(--brand-navy)]">Top Client Revenue Snapshot</h3>
         <div className="mt-4 overflow-x-auto">
           <table className="w-full min-w-[820px] border-collapse">

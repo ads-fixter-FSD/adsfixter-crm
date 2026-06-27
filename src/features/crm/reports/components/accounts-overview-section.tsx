@@ -39,7 +39,7 @@ export function AccountsOverviewSection({ data }: AccountsOverviewSectionProps) 
           { label: "Total Balance", value: `$${totalBalance.toFixed(2)}`, detail: "Available account balance" },
           { label: "Total Spend", value: `$${totalSpend.toFixed(2)}`, detail: "Tracked current spend" },
         ].map((metric) => (
-          <article className="rounded-xl border border-[var(--line)] bg-[var(--white)] p-4" key={metric.label}>
+          <article className="rounded-xl border-2 border-[var(--line)] bg-[var(--white)] p-5" key={metric.label}>
             <p className="m-0 text-xs font-semibold uppercase text-[var(--muted)]">{metric.label}</p>
             <strong className="mt-2 block text-2xl text-[var(--brand-navy)]">{metric.value}</strong>
             <span className="mt-1 block text-xs text-[var(--muted)]">{metric.detail}</span>
@@ -48,7 +48,7 @@ export function AccountsOverviewSection({ data }: AccountsOverviewSectionProps) 
       </div>
 
       <div className="grid grid-cols-12 gap-4">
-        <section className="col-span-5 rounded-xl border border-[var(--line)] bg-[var(--white)] p-4 max-[1180px]:col-span-12">
+        <section className="col-span-5 rounded-xl border-2 border-[var(--line)] bg-[var(--white)] p-5 max-[1180px]:col-span-12">
           <h3 className="m-0 text-base font-semibold text-[var(--brand-navy)]">Status Breakdown</h3>
           <div className="mt-4 grid gap-3">
             {statusBreakdown.map((item) => (
@@ -65,7 +65,7 @@ export function AccountsOverviewSection({ data }: AccountsOverviewSectionProps) 
           </div>
         </section>
 
-        <section className="col-span-7 rounded-xl border border-[var(--line)] bg-[var(--white)] p-4 max-[1180px]:col-span-12">
+        <section className="col-span-7 rounded-xl border-2 border-[var(--line)] bg-[var(--white)] p-5 max-[1180px]:col-span-12">
           <h3 className="m-0 text-base font-semibold text-[var(--brand-navy)]">Top Account Snapshot</h3>
           <div className="mt-4 overflow-x-auto">
             <table className="w-full min-w-[760px] border-collapse">

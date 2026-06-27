@@ -1,9 +1,8 @@
 "use client";
 
-import { Check, Hand, MoreHorizontal, X } from "lucide-react";
-import { useMemo, useRef, useState } from "react";
+import { Check, Hand, X } from "lucide-react";
+import { useMemo, useState } from "react";
 import type { ToastType } from "@/features/crm/types/crm";
-import { useClickOutside } from "@/hooks/use-click-outside";
 
 type TopUpRequestStatus = "Pending" | "Hold" | "Approved" | "Rejected";
 
@@ -43,12 +42,10 @@ const initialTopUpRequests: TopUpRequestRow[] = [
 const topUpStatusTabs: Array<"All" | TopUpRequestStatus> = ["All", "Pending", "Hold", "Approved", "Rejected"];
 
 export function TopUpRequestsSection({ showToast }: TopUpRequestsSectionProps) {
-  const actionDropdownRef = useRef<HTMLDivElement | null>(null);
   const [requests, setRequests] = useState(initialTopUpRequests);
   const [activeStatus, setActiveStatus] = useState<"All" | TopUpRequestStatus>("All");
   const [filterQuery, setFilterQuery] = useState("");
   const [currentPage, setCurrentPage] = useState(1);
-  const [openActionRequestId, setOpenActionRequestId] = useState<string | null>(null);
 
   const filteredRequests = useMemo(() => {
     const normalizedQuery = filterQuery.trim().toLowerCase();
@@ -86,20 +83,17 @@ export function TopUpRequestsSection({ showToast }: TopUpRequestsSectionProps) {
           : request,
       ),
     );
-    setOpenActionRequestId(null);
     showToast(nextStatus === "Rejected" ? "error" : "success", `Top-up request ${nextStatus.toLowerCase()}`);
   };
 
-  useClickOutside(actionDropdownRef, () => setOpenActionRequestId(null));
-
   return (
-    <section className="grid gap-4 rounded-xl border border-[var(--line)] bg-[var(--white)] p-3">
+    <section className="grid gap-4 rounded-xl border-2 border-[var(--line)] bg-[var(--white)] p-4">
       <div className="flex flex-wrap items-center justify-between gap-3">
         <div className="flex flex-wrap items-center gap-2">
           {topUpStatusTabs.map((tab) => (
             <button
               className={`rounded-md border px-3 py-1.5 text-xs font-semibold transition ${
-                activeStatus === tab ? "border-[var(--brand-navy)] bg-[var(--brand-navy)] text-white" : "border-[var(--line)] bg-[var(--surface)] text-[var(--muted)] hover:text-[var(--brand-navy)]"
+                activeStatus === tab ? "border-[var(--brand-orange)] bg-[var(--brand-orange)] text-[var(--brand-orange-contrast)]" : "border-[var(--brand-orange)] bg-[var(--white)] text-[var(--brand-orange)] hover:bg-[var(--brand-orange-soft)]"
               }`}
               key={tab}
               onClick={() => {
@@ -142,42 +136,29 @@ export function TopUpRequestsSection({ showToast }: TopUpRequestsSectionProps) {
                 <td className="border-b border-[var(--line)] px-2.5 py-2 text-xs text-[var(--brand-navy)]">#{request.id}</td>
                 <td className="whitespace-pre-line border-b border-[var(--line)] px-2.5 py-2 text-xs text-[var(--brand-navy)]">{request.requestTime}</td>
                 <td className="max-w-[300px] border-b border-[var(--line)] px-2.5 py-2 text-xs text-[var(--brand-navy)]">{request.bankAccount}</td>
-                <td className="border-b border-[var(--line)] px-2.5 py-2 text-xs font-semibold text-cyan-700">{request.client}</td>
+                <td className="border-b border-[var(--line)] px-2.5 py-2 text-xs font-semibold text-[var(--link)]">{request.client}</td>
                 <td className="whitespace-pre-line border-b border-[var(--line)] px-2.5 py-2 text-xs text-[var(--brand-navy)]">{request.amount}</td>
                 <td className="border-b border-[var(--line)] px-2.5 py-2 text-xs text-[var(--brand-navy)]">{request.transactionReference}</td>
                 <td className="border-b border-[var(--line)] px-2.5 py-2 text-xs">
-                  <button className="font-semibold text-cyan-700" type="button">
+                  <button className="font-semibold text-[var(--brand-orange)]" type="button">
                     {request.paymentProof}
                   </button>
                 </td>
                 <td className="whitespace-pre-line border-b border-[var(--line)] px-2.5 py-2 text-xs text-[var(--brand-navy)]">{request.processedBy}</td>
-                <td className="relative border-b border-[var(--line)] px-2.5 py-2 text-center text-xs">
-                  <div className="relative inline-flex" ref={openActionRequestId === request.id ? actionDropdownRef : null}>
-                    <button
-                      aria-label={`Open top-up actions for ${request.id}`}
-                      className="inline-flex h-8 w-8 items-center justify-center rounded-lg border border-[var(--line)] bg-[var(--white)] text-[var(--brand-navy)] transition hover:bg-[var(--surface)]"
-                      onClick={() => setOpenActionRequestId((current) => (current === request.id ? null : request.id))}
-                      title="Actions"
-                      type="button"
-                    >
-                      <MoreHorizontal aria-hidden="true" size={17} strokeWidth={2.1} />
+                <td className="border-b border-[var(--line)] px-2.5 py-2 text-center text-xs">
+                  <div className="flex flex-wrap items-center justify-center gap-2">
+                    <button className="inline-flex min-h-8 items-center gap-1.5 rounded-lg border border-[var(--brand-orange)] bg-[var(--brand-orange)] px-2.5 text-xs font-semibold text-[var(--brand-orange-contrast)] transition hover:bg-[var(--brand-orange-hover)]" onClick={() => updateRequestStatus(request.id, "Approved")} type="button">
+                      <Check aria-hidden="true" size={13} strokeWidth={2.1} />
+                      Approved
                     </button>
-                    {openActionRequestId === request.id ? (
-                      <div className="absolute right-0 top-[calc(100%+0.35rem)] z-30 grid min-w-36 gap-1 rounded-xl border border-[var(--line)] bg-[var(--white)] p-1.5 text-left">
-                        <button className="flex items-center gap-2 rounded-lg px-2.5 py-2 text-xs font-semibold text-[var(--brand-navy)] hover:bg-[var(--surface)]" onClick={() => updateRequestStatus(request.id, "Approved")} type="button">
-                          <Check aria-hidden="true" size={14} strokeWidth={2.1} />
-                          Approved
-                        </button>
-                        <button className="flex items-center gap-2 rounded-lg px-2.5 py-2 text-xs font-semibold text-[var(--brand-orange)] hover:bg-[rgba(239,67,7,0.08)]" onClick={() => updateRequestStatus(request.id, "Rejected")} type="button">
-                          <X aria-hidden="true" size={14} strokeWidth={2.1} />
-                          Reject
-                        </button>
-                        <button className="flex items-center gap-2 rounded-lg px-2.5 py-2 text-xs font-semibold text-[var(--brand-navy)] hover:bg-[var(--surface)]" onClick={() => updateRequestStatus(request.id, "Hold")} type="button">
-                          <Hand aria-hidden="true" size={14} strokeWidth={2.1} />
-                          Hold
-                        </button>
-                      </div>
-                    ) : null}
+                    <button className="inline-flex min-h-8 items-center gap-1.5 rounded-lg border border-[var(--brand-orange)] bg-[var(--white)] px-2.5 text-xs font-semibold text-[var(--brand-orange)] transition hover:bg-[var(--brand-orange-soft)]" onClick={() => updateRequestStatus(request.id, "Rejected")} type="button">
+                      <X aria-hidden="true" size={13} strokeWidth={2.1} />
+                      Reject
+                    </button>
+                    <button className="inline-flex min-h-8 items-center gap-1.5 rounded-lg border border-[var(--brand-orange)] bg-[var(--white)] px-2.5 text-xs font-semibold text-[var(--brand-orange)] transition hover:bg-[var(--brand-orange-soft)]" onClick={() => updateRequestStatus(request.id, "Hold")} type="button">
+                      <Hand aria-hidden="true" size={13} strokeWidth={2.1} />
+                      Hold
+                    </button>
                   </div>
                 </td>
               </tr>
@@ -198,7 +179,7 @@ export function TopUpRequestsSection({ showToast }: TopUpRequestsSectionProps) {
             <span className="font-semibold text-[var(--brand-navy)]">
               Page {safeCurrentPage} of {totalPages}
             </span>
-            <button className="font-semibold text-[var(--brand-navy)] disabled:opacity-40" disabled={safeCurrentPage === totalPages} onClick={() => setCurrentPage((page) => Math.min(totalPages, page + 1))} type="button">
+            <button className="font-semibold text-[var(--brand-orange)] disabled:opacity-40" disabled={safeCurrentPage === totalPages} onClick={() => setCurrentPage((page) => Math.min(totalPages, page + 1))} type="button">
               Next
             </button>
           </div>

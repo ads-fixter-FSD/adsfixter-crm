@@ -4,7 +4,7 @@ import type { DashboardSectionProps } from "@/features/crm/components/dashboard-
 export function AutoAddFromMetaSection({ data, showToast }: DashboardSectionProps) {
   return (
     <div className="grid grid-cols-12 gap-3">
-      <section className="col-span-12 rounded-xl border border-[var(--line)] bg-[var(--white)] p-3">
+      <section className="col-span-12 rounded-xl border-2 border-[var(--line)] bg-[var(--white)] p-4">
         <MetaAutoAddPanel businessManagers={data.businessManagers} showToast={showToast} />
       </section>
     </div>

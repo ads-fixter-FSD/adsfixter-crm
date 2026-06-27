@@ -16,13 +16,14 @@ export const crmOverview: CrmOverview = {
     { label: "Today's Spend", value: "$18.40", trend: "$100 daily cap" },
   ],
   requests: [
-    { name: "NorthPeak Digital", type: "Top-up", amount: "$800", status: "Pending", method: "bKash" },
-    { name: "Pixel Reach", type: "New Ad Account", amount: "-", status: "Pending", method: "BM-8821" },
-    { name: "Orbit Media", type: "Business Share", amount: "-", status: "Approved", method: "BM-5128" },
-    { name: "Apex Retail", type: "Top-up", amount: "$250", status: "Rejected", method: "Bank" },
+    { date: "2026-06-27", name: "NorthPeak Digital", type: "Top-up", amount: "$800", status: "Pending", method: "bKash" },
+    { date: "2026-06-27", name: "Pixel Reach", type: "New Ad Account", amount: "-", status: "Pending", method: "BM-8821" },
+    { date: "2026-06-26", name: "Orbit Media", type: "Business Share", amount: "-", status: "Approved", method: "BM-5128" },
+    { date: "2026-06-24", name: "Apex Retail", type: "Top-up", amount: "$250", status: "Rejected", method: "Bank" },
   ],
   accounts: [
     {
+      date: "2026-06-27",
       name: "ADF_1467_Boostiful_Products_V2_backup",
       id: "795681953285582",
       client: "NorthPeak Digital",
@@ -38,6 +39,7 @@ export const crmOverview: CrmOverview = {
       notes: "No notes",
     },
     {
+      date: "2026-06-27",
       name: "ADF_1477_HM_02",
       id: "1214502370761233",
       client: "Pixel Reach",
@@ -53,6 +55,7 @@ export const crmOverview: CrmOverview = {
       notes: "No notes",
     },
     {
+      date: "2026-06-26",
       name: "ADF_1350_Kawsar Boosting_04",
       id: "1469893900558830",
       client: "Orbit Media",
@@ -68,6 +71,7 @@ export const crmOverview: CrmOverview = {
       notes: "No notes",
     },
     {
+      date: "2026-06-24",
       name: "ADF_1246_MSM_Womens Budget Beauty_WBB_V3",
       id: "9487276631815643",
       client: "MediaWave",
@@ -83,6 +87,7 @@ export const crmOverview: CrmOverview = {
       notes: "Risk review",
     },
     {
+      date: "2026-06-24",
       name: "ADF_1281_Boostiful Products_V3",
       id: "238918273645129",
       client: "Apex Retail",
@@ -98,6 +103,7 @@ export const crmOverview: CrmOverview = {
       notes: "Settlement pending",
     },
     {
+      date: "2026-06-23",
       name: "ADF_1322_Retargeting Closed Account",
       id: "784512390087321",
       client: "Orbit Media",
@@ -113,6 +119,7 @@ export const crmOverview: CrmOverview = {
       notes: "Closed by Meta",
     },
     {
+      date: "2026-06-27",
       name: "ADF_1198_Unknown Meta Sync",
       id: "983451209834510",
       client: "Unassigned",
@@ -137,6 +144,7 @@ export const crmOverview: CrmOverview = {
   ],
   clients: [
     {
+      date: "2026-06-27",
       name: "NorthPeak Digital",
       email: "billing@northpeak.com",
       balance: "$1,240",
@@ -145,6 +153,7 @@ export const crmOverview: CrmOverview = {
       status: "Active",
     },
     {
+      date: "2026-06-27",
       name: "Pixel Reach",
       email: "owner@pixelreach.com",
       balance: "$80",
@@ -153,6 +162,7 @@ export const crmOverview: CrmOverview = {
       status: "Pending",
     },
     {
+      date: "2026-06-24",
       name: "Apex Retail",
       email: "ads@apexretail.com",
       balance: "$0",
@@ -162,16 +172,16 @@ export const crmOverview: CrmOverview = {
     },
   ],
   wallet: [
-    { item: "Opening Balance", amount: "$530.00", type: "neutral" },
-    { item: "+ Top-up Approved", amount: "$200.00", type: "positive" },
-    { item: "- Ads Spend", amount: "$50.00", type: "negative" },
-    { item: "+ Credit Limit", amount: "-$50.00", type: "warning" },
-    { item: "= Current Balance", amount: "$680.00", type: "strong" },
+    { date: "2026-06-27", item: "Opening Balance", amount: "$530.00", type: "neutral" },
+    { date: "2026-06-27", item: "+ Top-up Approved", amount: "$200.00", type: "positive" },
+    { date: "2026-06-26", item: "- Ads Spend", amount: "$50.00", type: "negative" },
+    { date: "2026-06-24", item: "+ Credit Limit", amount: "-$50.00", type: "warning" },
+    { date: "2026-06-27", item: "= Current Balance", amount: "$680.00", type: "strong" },
   ],
   activities: [
-    "Top-up request from NorthPeak Digital is pending verification.",
-    "Meta API sync updated 684 ad accounts.",
-    "Dollar rate changed from 124 BDT to 125 BDT.",
-    "Business share approved for Orbit Media.",
+    { date: "2026-06-27", message: "Top-up request from NorthPeak Digital is pending verification." },
+    { date: "2026-06-27", message: "Meta API sync updated 684 ad accounts." },
+    { date: "2026-06-26", message: "Dollar rate changed from 124 BDT to 125 BDT." },
+    { date: "2026-06-24", message: "Business share approved for Orbit Media." },
   ],
 };

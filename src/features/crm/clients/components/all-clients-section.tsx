@@ -1,11 +1,10 @@
 "use client";
 
-import { Edit, Eye, Filter, MoreHorizontal, Plus, Search, ShieldOff, X } from "lucide-react";
-import { useMemo, useRef, useState } from "react";
+import { Edit, Eye, Filter, Plus, Search, ShieldOff, X } from "lucide-react";
+import { useMemo, useState } from "react";
 import { PrimaryButton, SecondaryButton } from "@/components/shared-buttons";
 import type { CrmOverview, ToastType } from "@/features/crm/types/crm";
 import { readApprovedClientsFromStorage, type ClientDashboardRow } from "@/features/crm/clients/components/client-storage";
-import { useClickOutside } from "@/hooks/use-click-outside";
 
 type AllClientsSectionProps = {
   data: CrmOverview;
@@ -43,13 +42,11 @@ function createInitialClients(data: CrmOverview) {
 }
 
 export function AllClientsSection({ data, showToast }: AllClientsSectionProps) {
-  const actionDropdownRef = useRef<HTMLDivElement | null>(null);
   const [clients, setClients] = useState<ClientDashboardRow[]>(() => createInitialClients(data));
   const [searchQuery, setSearchQuery] = useState("");
   const [statusFilter, setStatusFilter] = useState<ClientStatusFilter>("All");
   const [currentPage, setCurrentPage] = useState(1);
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [openActionClientId, setOpenActionClientId] = useState<string | null>(null);
   const [formValues, setFormValues] = useState({ name: "", email: "", usdRate: "130.00 BDT", balance: "$0.00", dueLimit: "$0.00" });
 
   const filteredClients = useMemo(() => {
@@ -102,8 +99,6 @@ export function AllClientsSection({ data, showToast }: AllClientsSectionProps) {
   };
 
   const handleClientAction = (client: ClientDashboardRow, action: "view" | "edit" | "toggle-status") => {
-    setOpenActionClientId(null);
-
     if (action === "toggle-status") {
       setClients((current) => current.map((row) => (row.id === client.id ? { ...row, status: row.status === "Suspended" ? "Active" : "Suspended" } : row)));
       showToast("warning", `${client.name} status updated`);
@@ -112,8 +107,6 @@ export function AllClientsSection({ data, showToast }: AllClientsSectionProps) {
 
     showToast("success", `${client.name} ${action} action selected`);
   };
-
-  useClickOutside(actionDropdownRef, () => setOpenActionClientId(null));
 
   return (
     <section className="grid gap-4">
@@ -170,7 +163,7 @@ export function AllClientsSection({ data, showToast }: AllClientsSectionProps) {
               <tr key={client.id}>
                 <td className="border-b border-[var(--line)] px-4 py-3">
                   <div className="flex items-center gap-2">
-                    <span className="inline-flex h-8 w-8 items-center justify-center rounded-full bg-[var(--brand-orange)] text-xs font-bold text-white">{client.name.slice(0, 2).toUpperCase()}</span>
+                    <span className="inline-flex h-8 w-8 items-center justify-center rounded-full bg-[var(--brand-orange)] text-xs font-bold text-[var(--brand-orange-contrast)]">{client.name.slice(0, 2).toUpperCase()}</span>
                     <span>
                       <span className="block text-sm font-semibold text-[var(--brand-navy)]">{client.name}</span>
                       <span className="block text-xs text-[var(--muted)]">{client.email}</span>
@@ -182,35 +175,22 @@ export function AllClientsSection({ data, showToast }: AllClientsSectionProps) {
                 <td className="border-b border-[var(--line)] px-4 py-3 text-sm text-[var(--brand-navy)]">{client.balance}</td>
                 <td className="border-b border-[var(--line)] px-4 py-3 text-sm text-[var(--brand-navy)]">{client.dueLimit}</td>
                 <td className="border-b border-[var(--line)] px-4 py-3 text-sm">
-                  <span className={`inline-flex rounded-full px-2 py-1 text-xs font-semibold ${client.status === "Active" ? "bg-green-50 text-green-600" : client.status === "Pending" ? "bg-yellow-50 text-yellow-700" : "bg-red-50 text-red-600"}`}>{client.status}</span>
+                  <span className={`inline-flex rounded-full px-2 py-1 text-xs font-semibold ${client.status === "Active" ? "bg-[var(--success-bg)] text-[var(--success-text)]" : client.status === "Pending" ? "bg-[var(--warning-bg)] text-[var(--warning-text)]" : "bg-[var(--danger-bg)] text-[var(--danger-text)]"}`}>{client.status}</span>
                 </td>
-                <td className="relative border-b border-[var(--line)] px-4 py-3 text-center text-sm">
-                  <div className="relative inline-flex" ref={openActionClientId === client.id ? actionDropdownRef : null}>
-                    <button
-                      aria-label={`Open actions for ${client.name}`}
-                      className="inline-flex h-8 w-8 items-center justify-center rounded-lg border border-[var(--line)] bg-[var(--white)] text-[var(--brand-navy)] transition hover:bg-[var(--surface)]"
-                      onClick={() => setOpenActionClientId((current) => (current === client.id ? null : client.id))}
-                      title="Actions"
-                      type="button"
-                    >
-                      <MoreHorizontal aria-hidden="true" size={17} strokeWidth={2.1} />
+                <td className="border-b border-[var(--line)] px-4 py-3 text-center text-sm">
+                  <div className="flex flex-wrap items-center justify-center gap-2">
+                    <button className="inline-flex min-h-8 items-center gap-1.5 rounded-lg border border-[var(--brand-orange)] bg-[var(--brand-orange)] px-2.5 text-xs font-semibold text-[var(--brand-orange-contrast)] transition hover:bg-[var(--brand-orange-hover)]" onClick={() => handleClientAction(client, "view")} type="button">
+                      <Eye aria-hidden="true" size={13} strokeWidth={2.1} />
+                      View
                     </button>
-                    {openActionClientId === client.id ? (
-                      <div className="absolute right-0 top-[calc(100%+0.35rem)] z-30 grid min-w-36 gap-1 rounded-xl border border-[var(--line)] bg-[var(--white)] p-1.5 text-left">
-                        <button className="flex items-center gap-2 rounded-lg px-2.5 py-2 text-xs font-semibold text-[var(--brand-navy)] hover:bg-[var(--surface)]" onClick={() => handleClientAction(client, "view")} type="button">
-                          <Eye aria-hidden="true" size={14} strokeWidth={2.1} />
-                          View
-                        </button>
-                        <button className="flex items-center gap-2 rounded-lg px-2.5 py-2 text-xs font-semibold text-[var(--brand-navy)] hover:bg-[var(--surface)]" onClick={() => handleClientAction(client, "edit")} type="button">
-                          <Edit aria-hidden="true" size={14} strokeWidth={2.1} />
-                          Edit
-                        </button>
-                        <button className="flex items-center gap-2 rounded-lg px-2.5 py-2 text-xs font-semibold text-[var(--brand-orange)] hover:bg-[rgba(239,67,7,0.08)]" onClick={() => handleClientAction(client, "toggle-status")} type="button">
-                          <ShieldOff aria-hidden="true" size={14} strokeWidth={2.1} />
-                          {client.status === "Suspended" ? "Activate" : "Suspend"}
-                        </button>
-                      </div>
-                    ) : null}
+                    <button className="inline-flex min-h-8 items-center gap-1.5 rounded-lg border border-[var(--brand-orange)] bg-[var(--white)] px-2.5 text-xs font-semibold text-[var(--brand-orange)] transition hover:bg-[var(--brand-orange-soft)]" onClick={() => handleClientAction(client, "edit")} type="button">
+                      <Edit aria-hidden="true" size={13} strokeWidth={2.1} />
+                      Edit
+                    </button>
+                    <button className="inline-flex min-h-8 items-center gap-1.5 rounded-lg border border-[var(--brand-orange)] bg-[var(--white)] px-2.5 text-xs font-semibold text-[var(--brand-orange)] transition hover:bg-[var(--brand-orange-soft)]" onClick={() => handleClientAction(client, "toggle-status")} type="button">
+                      <ShieldOff aria-hidden="true" size={13} strokeWidth={2.1} />
+                      {client.status === "Suspended" ? "Activate" : "Suspend"}
+                    </button>
                   </div>
                 </td>
               </tr>
@@ -231,7 +211,7 @@ export function AllClientsSection({ data, showToast }: AllClientsSectionProps) {
             <span className="font-semibold text-[var(--brand-navy)]">
               Page {safeCurrentPage} of {totalPages}
             </span>
-            <button className="font-semibold text-[var(--brand-navy)] disabled:opacity-40" disabled={safeCurrentPage === totalPages} onClick={() => setCurrentPage((page) => Math.min(totalPages, page + 1))} type="button">
+            <button className="font-semibold text-[var(--brand-orange)] disabled:opacity-40" disabled={safeCurrentPage === totalPages} onClick={() => setCurrentPage((page) => Math.min(totalPages, page + 1))} type="button">
               Next
             </button>
           </div>
@@ -239,14 +219,14 @@ export function AllClientsSection({ data, showToast }: AllClientsSectionProps) {
       </div>
 
       {isModalOpen ? (
-        <div className="fixed inset-0 z-50 grid place-items-center bg-black/45 p-4">
+        <div className="fixed inset-0 z-50 grid place-items-center bg-[var(--modal-backdrop)] p-4">
           <div className="w-full max-w-lg rounded-xl bg-[var(--white)] p-6">
             <div className="mb-4 flex items-start justify-between gap-3">
               <div>
                 <h3 className="m-0 text-xl font-semibold text-[var(--brand-navy)]">Create Client</h3>
                 <p className="mt-1 text-sm text-[var(--muted)]">Add a new client to the CRM dashboard</p>
               </div>
-              <button className="rounded-lg p-1 text-[var(--muted)] hover:bg-[var(--surface)] hover:text-[var(--brand-navy)]" onClick={closeModal} type="button">
+              <button className="rounded-lg p-1 text-[var(--brand-orange)] hover:bg-[var(--brand-orange-soft)]" onClick={closeModal} type="button">
                 <X aria-hidden="true" size={18} strokeWidth={1.9} />
               </button>
             </div>
@@ -254,24 +234,24 @@ export function AllClientsSection({ data, showToast }: AllClientsSectionProps) {
             <div className="grid gap-3">
               <label className="grid gap-1.5 text-sm font-semibold text-[var(--brand-navy)]">
                 Client Name
-                <input className="min-h-10 rounded-lg border border-[var(--line)] bg-[var(--white)] px-3 font-normal outline-none focus:border-green-500" onChange={(event) => updateFormValue("name", event.target.value)} placeholder="Client name" value={formValues.name} />
+                <input className="min-h-10 rounded-lg border border-[var(--line)] bg-[var(--field-bg)] px-3 font-normal text-[var(--brand-navy)] outline-none focus:border-[var(--brand-orange)]" onChange={(event) => updateFormValue("name", event.target.value)} placeholder="Client name" value={formValues.name} />
               </label>
               <label className="grid gap-1.5 text-sm font-semibold text-[var(--brand-navy)]">
                 Email
-                <input className="min-h-10 rounded-lg border border-[var(--line)] bg-[var(--white)] px-3 font-normal outline-none focus:border-green-500" onChange={(event) => updateFormValue("email", event.target.value)} placeholder="client@example.com" type="email" value={formValues.email} />
+                <input className="min-h-10 rounded-lg border border-[var(--line)] bg-[var(--field-bg)] px-3 font-normal text-[var(--brand-navy)] outline-none focus:border-[var(--brand-orange)]" onChange={(event) => updateFormValue("email", event.target.value)} placeholder="client@example.com" type="email" value={formValues.email} />
               </label>
               <div className="grid grid-cols-3 gap-3 max-[720px]:grid-cols-1">
                 <label className="grid gap-1.5 text-sm font-semibold text-[var(--brand-navy)]">
                   USD Rate
-                  <input className="min-h-10 rounded-lg border border-[var(--line)] bg-[var(--white)] px-3 font-normal outline-none focus:border-green-500" onChange={(event) => updateFormValue("usdRate", event.target.value)} value={formValues.usdRate} />
+                  <input className="min-h-10 rounded-lg border border-[var(--line)] bg-[var(--field-bg)] px-3 font-normal text-[var(--brand-navy)] outline-none focus:border-[var(--brand-orange)]" onChange={(event) => updateFormValue("usdRate", event.target.value)} value={formValues.usdRate} />
                 </label>
                 <label className="grid gap-1.5 text-sm font-semibold text-[var(--brand-navy)]">
                   Balance
-                  <input className="min-h-10 rounded-lg border border-[var(--line)] bg-[var(--white)] px-3 font-normal outline-none focus:border-green-500" onChange={(event) => updateFormValue("balance", event.target.value)} value={formValues.balance} />
+                  <input className="min-h-10 rounded-lg border border-[var(--line)] bg-[var(--field-bg)] px-3 font-normal text-[var(--brand-navy)] outline-none focus:border-[var(--brand-orange)]" onChange={(event) => updateFormValue("balance", event.target.value)} value={formValues.balance} />
                 </label>
                 <label className="grid gap-1.5 text-sm font-semibold text-[var(--brand-navy)]">
                   Due Limit
-                  <input className="min-h-10 rounded-lg border border-[var(--line)] bg-[var(--white)] px-3 font-normal outline-none focus:border-green-500" onChange={(event) => updateFormValue("dueLimit", event.target.value)} value={formValues.dueLimit} />
+                  <input className="min-h-10 rounded-lg border border-[var(--line)] bg-[var(--field-bg)] px-3 font-normal text-[var(--brand-navy)] outline-none focus:border-[var(--brand-orange)]" onChange={(event) => updateFormValue("dueLimit", event.target.value)} value={formValues.dueLimit} />
                 </label>
               </div>
             </div>
