@@ -31,7 +31,7 @@ export function ClientSettingsSection({ showToast }: ClientSettingsSectionProps)
       </div>
 
       <div className="grid grid-cols-12 gap-4">
-        <section className="col-span-8 rounded-xl border border-[var(--line)] bg-[var(--white)] p-4 max-[1180px]:col-span-12">
+        <section className="col-span-8 rounded-xl border-2 border-[var(--line)] bg-[var(--white)] p-5 max-[1180px]:col-span-12">
           <div className="mb-4 flex items-center gap-2 text-base font-semibold text-[var(--brand-navy)]">
             <UserRound aria-hidden="true" size={18} strokeWidth={1.9} />
             Profile Information
@@ -71,7 +71,7 @@ export function ClientSettingsSection({ showToast }: ClientSettingsSectionProps)
         </section>
 
         <aside className="col-span-4 grid gap-4 max-[1180px]:col-span-12">
-          <section className="rounded-xl border border-[var(--line)] bg-[var(--white)] p-4">
+          <section className="rounded-xl border-2 border-[var(--line)] bg-[var(--white)] p-5">
             <div className="mb-3 flex items-center gap-2 text-sm font-semibold text-[var(--brand-navy)]">
               <Bell aria-hidden="true" size={17} strokeWidth={1.9} />
               Notification Preferences
@@ -88,7 +88,7 @@ export function ClientSettingsSection({ showToast }: ClientSettingsSectionProps)
             </div>
           </section>
 
-          <section className="rounded-xl border border-[var(--line)] bg-[var(--white)] p-4">
+          <section className="rounded-xl border-2 border-[var(--line)] bg-[var(--white)] p-5">
             <div className="mb-3 flex items-center gap-2 text-sm font-semibold text-[var(--brand-navy)]">
               <Lock aria-hidden="true" size={17} strokeWidth={1.9} />
               Security
@@ -99,7 +99,7 @@ export function ClientSettingsSection({ showToast }: ClientSettingsSectionProps)
             </SecondaryButton>
           </section>
 
-          <section className="rounded-xl border border-[var(--line)] bg-[var(--white)] p-4">
+          <section className="rounded-xl border-2 border-[var(--line)] bg-[var(--white)] p-5">
             <div className="mb-3 flex items-center gap-2 text-sm font-semibold text-[var(--brand-navy)]">
               <Globe2 aria-hidden="true" size={17} strokeWidth={1.9} />
               Account Region

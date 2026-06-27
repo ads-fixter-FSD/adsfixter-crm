@@ -30,7 +30,7 @@ type SectionRendererProps = DashboardSectionWithNavigationProps & {
   section: string;
 };
 
-export function SectionRenderer({ data, role, section, showToast, onSectionChange }: SectionRendererProps) {
+export function SectionRenderer({ data, dateFilterControl, dateRangeLabel, role, section, showToast, onSectionChange }: SectionRendererProps) {
   if (section === "New Account Requests") {
     return <NewAccountRequestsSection showToast={showToast} />;
   }
@@ -88,7 +88,7 @@ export function SectionRenderer({ data, role, section, showToast, onSectionChang
   }
 
   if (section === "Ad Accounts" || section === "My Accounts") {
-    return <AdAccountsDatabaseSection data={data} showToast={showToast} onSectionChange={onSectionChange} />;
+    return <AdAccountsDatabaseSection data={data} dateFilterControl={dateFilterControl} dateRangeLabel={dateRangeLabel} showToast={showToast} onSectionChange={onSectionChange} />;
   }
 
   if (section === "Create New Account") {

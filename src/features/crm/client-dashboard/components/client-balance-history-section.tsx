@@ -32,7 +32,7 @@ export function ClientBalanceHistorySection() {
         <p className="mt-1 text-sm text-[var(--muted)]">View your account balance transaction history</p>
       </div>
 
-      <div className="rounded-xl border border-[var(--line)] bg-[var(--white)] p-4">
+      <div className="rounded-xl border-2 border-[var(--line)] bg-[var(--white)] p-5">
         <h3 className="m-0 text-base font-semibold text-[var(--brand-navy)]">Balance History</h3>
         <div className="mt-4 overflow-x-auto">
           <table className="w-full min-w-[820px] border-collapse">
@@ -50,9 +50,9 @@ export function ClientBalanceHistorySection() {
                 <tr key={`${row.date}-${index}`}>
                   <td className="whitespace-pre-line border-b border-[var(--line)] px-3 py-2 text-sm text-[var(--brand-navy)]">{row.date}</td>
                   <td className="border-b border-[var(--line)] px-3 py-2 text-sm">
-                    <span className={`inline-flex rounded-full px-2 py-1 text-xs font-semibold ${row.type === "ADD" ? "bg-blue-100 text-blue-700" : "bg-red-100 text-red-700"}`}>{row.type}</span>
+                    <span className={`inline-flex rounded-full px-2 py-1 text-xs font-semibold ${row.type === "ADD" ? "bg-[var(--info-bg)] text-[var(--info-text)]" : "bg-[var(--danger-bg)] text-[var(--danger-text)]"}`}>{row.type}</span>
                   </td>
-                  <td className={`border-b border-[var(--line)] px-3 py-2 text-sm font-semibold ${row.type === "ADD" ? "text-green-600" : "text-red-600"}`}>{row.amount}</td>
+                  <td className={`border-b border-[var(--line)] px-3 py-2 text-sm font-semibold ${row.type === "ADD" ? "text-[var(--success-text)]" : "text-[var(--danger-text)]"}`}>{row.amount}</td>
                   <td className="border-b border-[var(--line)] px-3 py-2 text-sm text-[var(--brand-navy)]">{row.balanceAfter}</td>
                   <td className="whitespace-pre-line border-b border-[var(--line)] px-3 py-2 text-sm text-[var(--brand-navy)]">{row.description}</td>
                 </tr>

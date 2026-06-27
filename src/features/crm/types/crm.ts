@@ -13,6 +13,7 @@ export type Metric = {
 };
 
 export type CrmRequest = {
+  date: string;
   name: string;
   type: "Top-up" | "New Ad Account" | "Business Share";
   amount: string;
@@ -21,6 +22,7 @@ export type CrmRequest = {
 };
 
 export type AdAccount = {
+  date: string;
   name: string;
   id: string;
   client: string;
@@ -37,6 +39,7 @@ export type AdAccount = {
 };
 
 export type Client = {
+  date: string;
   name: string;
   email: string;
   balance: string;
@@ -51,9 +54,15 @@ export type BusinessManager = {
 };
 
 export type WalletLine = {
+  date: string;
   item: string;
   amount: string;
   type: "neutral" | "positive" | "negative" | "warning" | "strong";
+};
+
+export type CrmActivity = {
+  date: string;
+  message: string;
 };
 
 export type CrmOverview = {
@@ -64,5 +73,5 @@ export type CrmOverview = {
   businessManagers: BusinessManager[];
   clients: Client[];
   wallet: WalletLine[];
-  activities: string[];
+  activities: CrmActivity[];
 };
