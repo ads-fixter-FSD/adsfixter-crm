@@ -1,10 +1,9 @@
 "use client";
 
-import { Edit, Eye, MoreHorizontal, Plus, Trash2, X } from "lucide-react";
-import { useMemo, useRef, useState } from "react";
+import { Edit, Eye, Plus, Trash2, X } from "lucide-react";
+import { useMemo, useState } from "react";
 import { PrimaryButton, SecondaryButton } from "@/components/shared-buttons";
 import type { ToastType } from "@/features/crm/types/crm";
-import { useClickOutside } from "@/hooks/use-click-outside";
 
 type BusinessManagerRow = {
   id: string;
@@ -40,11 +39,9 @@ const initialBusinessManagers: BusinessManagerRow[] = [
 ];
 
 export function AllBusinessManagersSection({ showToast }: AllBusinessManagersSectionProps) {
-  const actionDropdownRef = useRef<HTMLDivElement | null>(null);
   const [businessManagers, setBusinessManagers] = useState(initialBusinessManagers);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [currentPage, setCurrentPage] = useState(1);
-  const [openActionBusinessManagerId, setOpenActionBusinessManagerId] = useState<string | null>(null);
   const [formValues, setFormValues] = useState({
     name: "",
     id: "",
@@ -90,11 +87,8 @@ export function AllBusinessManagersSection({ showToast }: AllBusinessManagersSec
   };
 
   const handleBusinessManagerAction = (businessManager: BusinessManagerRow, action: "view" | "edit" | "delete") => {
-    setOpenActionBusinessManagerId(null);
     showToast(action === "delete" ? "warning" : "success", `${businessManager.name} ${action} action selected`);
   };
-
-  useClickOutside(actionDropdownRef, () => setOpenActionBusinessManagerId(null));
 
   return (
     <section className="grid gap-4">
@@ -125,33 +119,20 @@ export function AllBusinessManagersSection({ showToast }: AllBusinessManagersSec
                 <td className="border-b border-[var(--line)] px-4 py-3 text-sm text-[var(--brand-navy)]">{businessManager.created}</td>
                 <td className="border-b border-[var(--line)] px-4 py-3 text-sm text-[var(--brand-navy)]">{businessManager.linkedBusinesses}</td>
                 <td className="border-b border-[var(--line)] px-4 py-3 text-sm text-[var(--brand-navy)]">{businessManager.notes}</td>
-                <td className="relative border-b border-[var(--line)] px-4 py-3 text-center text-sm">
-                  <div className="relative inline-flex" ref={openActionBusinessManagerId === businessManager.id ? actionDropdownRef : null}>
-                    <button
-                      aria-label={`Open actions for ${businessManager.name}`}
-                      className="inline-flex h-8 w-8 items-center justify-center rounded-lg border border-[var(--line)] bg-[var(--white)] text-[var(--brand-navy)] transition hover:bg-[var(--surface)]"
-                      onClick={() => setOpenActionBusinessManagerId((current) => (current === businessManager.id ? null : businessManager.id))}
-                      title="Actions"
-                      type="button"
-                    >
-                      <MoreHorizontal aria-hidden="true" size={17} strokeWidth={2.1} />
+                <td className="border-b border-[var(--line)] px-4 py-3 text-center text-sm">
+                  <div className="flex flex-wrap items-center justify-center gap-2">
+                    <button className="inline-flex min-h-8 items-center gap-1.5 rounded-lg border border-[var(--brand-orange)] bg-[var(--brand-orange)] px-2.5 text-xs font-semibold text-[var(--brand-orange-contrast)] transition hover:bg-[var(--brand-orange-hover)]" onClick={() => handleBusinessManagerAction(businessManager, "view")} type="button">
+                      <Eye aria-hidden="true" size={13} strokeWidth={2.1} />
+                      View
                     </button>
-                    {openActionBusinessManagerId === businessManager.id ? (
-                      <div className="absolute right-0 top-[calc(100%+0.35rem)] z-30 grid min-w-32 gap-1 rounded-xl border border-[var(--line)] bg-[var(--white)] p-1.5 text-left">
-                        <button className="flex items-center gap-2 rounded-lg px-2.5 py-2 text-xs font-semibold text-[var(--brand-navy)] hover:bg-[var(--surface)]" onClick={() => handleBusinessManagerAction(businessManager, "view")} type="button">
-                          <Eye aria-hidden="true" size={14} strokeWidth={2.1} />
-                          View
-                        </button>
-                        <button className="flex items-center gap-2 rounded-lg px-2.5 py-2 text-xs font-semibold text-[var(--brand-navy)] hover:bg-[var(--surface)]" onClick={() => handleBusinessManagerAction(businessManager, "edit")} type="button">
-                          <Edit aria-hidden="true" size={14} strokeWidth={2.1} />
-                          Edit
-                        </button>
-                        <button className="flex items-center gap-2 rounded-lg px-2.5 py-2 text-xs font-semibold text-[var(--brand-orange)] hover:bg-[rgba(239,67,7,0.08)]" onClick={() => handleBusinessManagerAction(businessManager, "delete")} type="button">
-                          <Trash2 aria-hidden="true" size={14} strokeWidth={2.1} />
-                          Delete
-                        </button>
-                      </div>
-                    ) : null}
+                    <button className="inline-flex min-h-8 items-center gap-1.5 rounded-lg border border-[var(--brand-orange)] bg-[var(--white)] px-2.5 text-xs font-semibold text-[var(--brand-orange)] transition hover:bg-[var(--brand-orange-soft)]" onClick={() => handleBusinessManagerAction(businessManager, "edit")} type="button">
+                      <Edit aria-hidden="true" size={13} strokeWidth={2.1} />
+                      Edit
+                    </button>
+                    <button className="inline-flex min-h-8 items-center gap-1.5 rounded-lg border border-[var(--brand-orange)] bg-[var(--white)] px-2.5 text-xs font-semibold text-[var(--brand-orange)] transition hover:bg-[var(--brand-orange-soft)]" onClick={() => handleBusinessManagerAction(businessManager, "delete")} type="button">
+                      <Trash2 aria-hidden="true" size={13} strokeWidth={2.1} />
+                      Delete
+                    </button>
                   </div>
                 </td>
               </tr>
@@ -172,7 +153,7 @@ export function AllBusinessManagersSection({ showToast }: AllBusinessManagersSec
             <span className="font-semibold text-[var(--brand-navy)]">
               Page {safeCurrentPage} of {totalPages}
             </span>
-            <button className="font-semibold text-[var(--brand-navy)] disabled:opacity-40" disabled={safeCurrentPage === totalPages} onClick={() => setCurrentPage((page) => Math.min(totalPages, page + 1))} type="button">
+            <button className="font-semibold text-[var(--brand-orange)] disabled:opacity-40" disabled={safeCurrentPage === totalPages} onClick={() => setCurrentPage((page) => Math.min(totalPages, page + 1))} type="button">
               Next
             </button>
           </div>
@@ -180,14 +161,14 @@ export function AllBusinessManagersSection({ showToast }: AllBusinessManagersSec
       </div>
 
       {isModalOpen ? (
-        <div className="fixed inset-0 z-50 grid place-items-center bg-black/45 p-4">
+        <div className="fixed inset-0 z-50 grid place-items-center bg-[var(--modal-backdrop)] p-4">
           <div className="w-full max-w-xl rounded-xl bg-[var(--white)] p-6">
             <div className="mb-4 flex items-start justify-between gap-3">
               <div>
                 <h3 className="m-0 text-xl font-semibold text-[var(--brand-navy)]">Add Business Manager</h3>
                 <p className="mt-1 text-sm text-[var(--muted)]">Add a new Meta Business Manager to use for ad account creation</p>
               </div>
-              <button className="rounded-lg p-1 text-[var(--muted)] hover:bg-[var(--surface)] hover:text-[var(--brand-navy)]" onClick={closeModal} type="button">
+              <button className="rounded-lg p-1 text-[var(--brand-orange)] hover:bg-[var(--brand-orange-soft)]" onClick={closeModal} type="button">
                 <X aria-hidden="true" size={18} strokeWidth={1.9} />
               </button>
             </div>
@@ -195,31 +176,31 @@ export function AllBusinessManagersSection({ showToast }: AllBusinessManagersSec
             <div className="grid gap-4">
               <label className="grid gap-1.5 text-sm font-semibold text-[var(--brand-navy)]">
                 Business Manager Name
-                <input className="min-h-10 rounded-lg border border-[var(--line)] bg-[var(--white)] px-3 font-normal outline-none focus:border-blue-500" onChange={(event) => updateFormValue("name", event.target.value)} placeholder="My Business Manager" value={formValues.name} />
+                <input className="min-h-10 rounded-lg border border-[var(--line)] bg-[var(--field-bg)] px-3 font-normal text-[var(--brand-navy)] outline-none focus:border-[var(--brand-orange)]" onChange={(event) => updateFormValue("name", event.target.value)} placeholder="My Business Manager" value={formValues.name} />
                 <span className="text-xs font-normal text-[var(--muted)]">Friendly name for the Business Manager</span>
               </label>
 
               <label className="grid gap-1.5 text-sm font-semibold text-[var(--brand-navy)]">
                 Business Manager ID
-                <input className="min-h-10 rounded-lg border border-[var(--line)] bg-[var(--white)] px-3 font-normal outline-none focus:border-blue-500" onChange={(event) => updateFormValue("id", event.target.value)} placeholder="12345678" value={formValues.id} />
+                <input className="min-h-10 rounded-lg border border-[var(--line)] bg-[var(--field-bg)] px-3 font-normal text-[var(--brand-navy)] outline-none focus:border-[var(--brand-orange)]" onChange={(event) => updateFormValue("id", event.target.value)} placeholder="12345678" value={formValues.id} />
                 <span className="text-xs font-normal text-[var(--muted)]">The Meta Business Manager ID</span>
               </label>
 
               <label className="grid gap-1.5 text-sm font-semibold text-[var(--brand-navy)]">
                 Access Token
-                <input className="min-h-10 rounded-lg border border-[var(--line)] bg-blue-50 px-3 font-normal outline-none focus:border-blue-500" onChange={(event) => updateFormValue("accessToken", event.target.value)} placeholder="Long-lived access token" type="password" value={formValues.accessToken} />
+                <input className="min-h-10 rounded-lg border border-[var(--line)] bg-[var(--field-bg)] px-3 font-normal text-[var(--brand-navy)] outline-none focus:border-[var(--brand-orange)]" onChange={(event) => updateFormValue("accessToken", event.target.value)} placeholder="Long-lived access token" type="password" value={formValues.accessToken} />
                 <span className="text-xs font-normal text-[var(--muted)]">Long-lived access token for the Meta API</span>
               </label>
 
               <label className="grid gap-1.5 text-sm font-semibold text-[var(--brand-navy)]">
                 Ad Account Name Prefix
-                <input className="min-h-10 rounded-lg border border-[var(--line)] bg-blue-50 px-3 font-normal outline-none focus:border-blue-500" onChange={(event) => updateFormValue("adAccountNamePrefix", event.target.value)} placeholder="shohan.adsfixter@gmail.com" value={formValues.adAccountNamePrefix} />
+                <input className="min-h-10 rounded-lg border border-[var(--line)] bg-[var(--field-bg)] px-3 font-normal text-[var(--brand-navy)] outline-none focus:border-[var(--brand-orange)]" onChange={(event) => updateFormValue("adAccountNamePrefix", event.target.value)} placeholder="shohan.adsfixter@gmail.com" value={formValues.adAccountNamePrefix} />
                 <span className="text-xs font-normal text-[var(--muted)]">This prefix will be added to all ad account names under this business manager</span>
               </label>
 
               <label className="grid gap-1.5 text-sm font-semibold text-[var(--brand-navy)]">
                 Notes (Optional)
-                <textarea className="min-h-20 resize-none rounded-lg border border-[var(--line)] bg-[var(--white)] px-3 py-2 font-normal outline-none focus:border-blue-500" onChange={(event) => updateFormValue("notes", event.target.value)} placeholder="Additional notes about this Business Manager" value={formValues.notes} />
+                <textarea className="min-h-20 resize-none rounded-lg border border-[var(--line)] bg-[var(--field-bg)] px-3 py-2 font-normal text-[var(--brand-navy)] outline-none focus:border-[var(--brand-orange)]" onChange={(event) => updateFormValue("notes", event.target.value)} placeholder="Additional notes about this Business Manager" value={formValues.notes} />
               </label>
             </div>
 

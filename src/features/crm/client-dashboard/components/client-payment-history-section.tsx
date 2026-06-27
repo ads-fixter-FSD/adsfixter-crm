@@ -67,7 +67,7 @@ export function ClientPaymentHistorySection() {
         <p className="mt-1 text-sm text-[var(--muted)]">View your account top-up history and transaction status</p>
       </div>
 
-      <div className="overflow-x-auto rounded-xl border border-[var(--line)] bg-[var(--white)] p-3">
+      <div className="overflow-x-auto rounded-xl border-2 border-[var(--line)] bg-[var(--white)] p-4">
         <table className="w-full min-w-[1180px] border-collapse">
           <thead>
             <tr>
@@ -88,11 +88,11 @@ export function ClientPaymentHistorySection() {
                 <td className="border-b border-[var(--line)] px-3 py-2 text-sm text-[var(--brand-navy)]">{payment.transactionId}</td>
                 <td className="border-b border-[var(--line)] px-3 py-2 text-sm text-[var(--brand-navy)]">{payment.method}</td>
                 <td className="border-b border-[var(--line)] px-3 py-2 text-sm">
-                  <span className={`inline-flex rounded-full px-2 py-1 text-xs font-semibold ${payment.status === "Approved" ? "bg-green-50 text-green-600" : "bg-red-50 text-red-600"}`}>{payment.status}</span>
+                  <span className={`inline-flex rounded-full px-2 py-1 text-xs font-semibold ${payment.status === "Approved" ? "bg-[var(--success-bg)] text-[var(--success-text)]" : "bg-[var(--danger-bg)] text-[var(--danger-text)]"}`}>{payment.status}</span>
                 </td>
                 <td className="border-b border-[var(--line)] px-3 py-2 text-sm text-[var(--muted)]">{payment.reason}</td>
                 <td className="border-b border-[var(--line)] px-3 py-2 text-sm">
-                  <button className="inline-flex items-center gap-1 text-sm font-semibold text-blue-600 hover:underline" onClick={() => openReceiptWindow(payment)} type="button">
+                  <button className="inline-flex items-center gap-1 text-sm font-semibold text-[var(--brand-orange)] hover:underline" onClick={() => openReceiptWindow(payment)} type="button">
                     <ExternalLink aria-hidden="true" size={14} strokeWidth={1.9} />
                     View
                   </button>

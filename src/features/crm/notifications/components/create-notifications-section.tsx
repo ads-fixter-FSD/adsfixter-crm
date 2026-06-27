@@ -57,7 +57,7 @@ export function CreateNotificationsSection({ showToast }: CreateNotificationsSec
       </div>
 
       <div className="grid grid-cols-2 gap-4 max-[1180px]:grid-cols-1">
-        <section className="rounded-xl border border-[var(--line)] bg-[var(--white)] p-4">
+        <section className="rounded-xl border-2 border-[var(--line)] bg-[var(--white)] p-5">
           <div className="mb-4 flex items-center gap-2 text-sm font-semibold text-[var(--brand-navy)]">
             <Send aria-hidden="true" size={16} strokeWidth={1.9} />
             Create Notification
@@ -92,7 +92,7 @@ export function CreateNotificationsSection({ showToast }: CreateNotificationsSec
           </div>
         </section>
 
-        <section className="rounded-xl border border-[var(--line)] bg-[var(--white)] p-4">
+        <section className="rounded-xl border-2 border-[var(--line)] bg-[var(--white)] p-5">
           <div className="mb-4 flex items-center gap-2 text-sm font-semibold text-[var(--brand-navy)]">
             <Eye aria-hidden="true" size={16} strokeWidth={1.9} />
             Live Preview
@@ -100,14 +100,14 @@ export function CreateNotificationsSection({ showToast }: CreateNotificationsSec
 
           <div className="grid min-h-[330px] place-items-center rounded-xl bg-[var(--surface)] p-6 text-center">
             {hasPreviewContent ? (
-              <article className="w-full max-w-md rounded-xl border border-[var(--line)] bg-[var(--white)] p-4 text-left">
+              <article className="w-full max-w-md rounded-xl border-2 border-[var(--line)] bg-[var(--white)] p-5 text-left">
                 <h3 className="m-0 text-base font-semibold text-[var(--brand-navy)]">{title || "Untitled notification"}</h3>
                 <p className="mt-2 text-sm text-[var(--brand-navy)]">{description || "No description yet."}</p>
                 <p className="mt-3 rounded-lg bg-[var(--surface)] p-3 text-sm text-[var(--muted)]">{contentDescription || "No content details yet."}</p>
               </article>
             ) : (
               <div className="grid justify-items-center gap-3 text-sm text-[var(--muted)]">
-                <Send aria-hidden="true" className="text-slate-300" size={36} strokeWidth={1.4} />
+                <Send aria-hidden="true" className="text-[var(--muted)]" size={36} strokeWidth={1.4} />
                 <p>Fill in the form to see live preview</p>
               </div>
             )}
@@ -115,7 +115,7 @@ export function CreateNotificationsSection({ showToast }: CreateNotificationsSec
         </section>
       </div>
 
-      <section className="rounded-xl border border-[var(--line)] bg-[var(--white)] p-4">
+      <section className="rounded-xl border-2 border-[var(--line)] bg-[var(--white)] p-5">
         <div className="mb-4 flex items-center gap-2 text-sm font-semibold text-[var(--brand-navy)]">
           <History aria-hidden="true" size={16} strokeWidth={1.9} />
           Notification History
@@ -124,7 +124,7 @@ export function CreateNotificationsSection({ showToast }: CreateNotificationsSec
         {history.length === 0 ? (
           <div className="grid min-h-40 place-items-center text-center text-sm text-[var(--muted)]">
             <div className="grid justify-items-center gap-2">
-              <History aria-hidden="true" className="text-slate-300" size={34} strokeWidth={1.5} />
+              <History aria-hidden="true" className="text-[var(--muted)]" size={34} strokeWidth={1.5} />
               <p>No notifications sent yet</p>
             </div>
           </div>

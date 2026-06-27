@@ -1,6 +1,6 @@
 "use client";
 
-import { CalendarDays, ChevronDown, CreditCard, DollarSign, Eye, MoreHorizontal, Plus, Search, TrendingUp, X } from "lucide-react";
+import { CalendarDays, ChevronDown, CreditCard, DollarSign, Eye, Plus, Search, TrendingUp, X } from "lucide-react";
 import { useMemo, useRef, useState } from "react";
 import { PrimaryButton } from "@/components/shared-buttons";
 import { StatusChip } from "@/components/ui/status-chip";
@@ -11,10 +11,10 @@ import { useClickOutside } from "@/hooks/use-click-outside";
 const accountStatusOptions: MetaAdAccountStatus[] = ["ACTIVE", "UNSETTLED", "DISABLED", "PENDING_RISK_REVIEW", "PENDING_SETTLEMENT", "CLOSED", "UNKNOWN"];
 
 const customerMetricCards = [
-  { label: "Wallet Balance", value: "$606.04", detail: "Available USD", icon: DollarSign, tone: "bg-blue-50 text-blue-600" },
-  { label: "USD Rate", value: "127.00", detail: "BDT to USD", icon: TrendingUp, tone: "bg-green-50 text-green-600" },
-  { label: "Top Up", value: "$379.39", detail: "Jun 01 - Jan 01, 2026", icon: Plus, tone: "bg-emerald-50 text-emerald-600" },
-  { label: "Remaining", value: "$94.74", detail: "Remove subject", icon: CreditCard, tone: "bg-amber-50 text-amber-600" },
+  { label: "Wallet Balance", value: "$606.04", detail: "Available USD", icon: DollarSign, tone: "bg-[var(--info-bg)] text-[var(--info-text)]" },
+  { label: "USD Rate", value: "127.00", detail: "BDT to USD", icon: TrendingUp, tone: "bg-[var(--success-bg)] text-[var(--success-text)]" },
+  { label: "Top Up", value: "$379.39", detail: "Jun 01 - Jan 01, 2026", icon: Plus, tone: "bg-[var(--success-bg)] text-[var(--success-text)]" },
+  { label: "Remaining", value: "$94.74", detail: "Remove subject", icon: CreditCard, tone: "bg-[var(--warning-bg)] text-[var(--warning-text)]" },
 ];
 
 type NewAccountFormValues = {
@@ -29,12 +29,10 @@ type NewAccountFormValues = {
 
 export function CustomerDashboard({ data, showToast }: DashboardSectionProps) {
   const statusFilterRef = useRef<HTMLDivElement | null>(null);
-  const actionDropdownRef = useRef<HTMLDivElement | null>(null);
   const [searchQuery, setSearchQuery] = useState("");
   const [selectedStatuses, setSelectedStatuses] = useState<MetaAdAccountStatus[]>(["ACTIVE"]);
   const [isStatusFilterOpen, setIsStatusFilterOpen] = useState(false);
   const [isRequestModalOpen, setIsRequestModalOpen] = useState(false);
-  const [openActionAccountId, setOpenActionAccountId] = useState<string | null>(null);
   const [newAccountForm, setNewAccountForm] = useState<NewAccountFormValues>({
     accountName: "",
     businessManagerId: "",
@@ -83,10 +81,8 @@ export function CustomerDashboard({ data, showToast }: DashboardSectionProps) {
   };
 
   useClickOutside(statusFilterRef, () => setIsStatusFilterOpen(false));
-  useClickOutside(actionDropdownRef, () => setOpenActionAccountId(null));
 
   const handleAccountAction = (accountName: string, action: "view" | "top-up") => {
-    setOpenActionAccountId(null);
     showToast("success", action === "top-up" ? `Top-up started for ${accountName}` : `Opening ${accountName}`);
   };
 
@@ -99,7 +95,7 @@ export function CustomerDashboard({ data, showToast }: DashboardSectionProps) {
           const Icon = metric.icon;
 
           return (
-            <article className="rounded-xl border border-[var(--line)] bg-[var(--white)] p-4" key={metric.label}>
+            <article className="rounded-xl border-2 border-[var(--line)] bg-[var(--white)] p-5" key={metric.label}>
               <div className="flex items-start justify-between gap-3">
                 <div>
                   <p className="m-0 text-xs font-semibold text-[var(--muted)]">{metric.label}</p>
@@ -115,7 +111,7 @@ export function CustomerDashboard({ data, showToast }: DashboardSectionProps) {
         })}
       </section>
 
-      <section className="rounded-xl border border-[var(--line)] bg-[var(--white)] p-4">
+      <section className="rounded-xl border-2 border-[var(--line)] bg-[var(--white)] p-5">
         <div className="mb-4 flex flex-wrap items-center justify-between gap-3">
           <h2 className="m-0 text-lg font-semibold text-[var(--brand-navy)]">Your Ad Accounts</h2>
           <PrimaryButton onClick={() => setIsRequestModalOpen(true)} type="button">
@@ -131,12 +127,12 @@ export function CustomerDashboard({ data, showToast }: DashboardSectionProps) {
           </label>
 
           <div className="relative" ref={statusFilterRef}>
-            <button className="inline-flex min-h-9 items-center gap-2 rounded-lg border border-[var(--line)] bg-[var(--white)] px-3 text-sm font-semibold text-[var(--brand-navy)] hover:bg-[var(--surface)]" onClick={() => setIsStatusFilterOpen((current) => !current)} type="button">
+            <button className="inline-flex min-h-9 items-center gap-2 rounded-lg border border-[var(--brand-orange)] bg-[var(--brand-orange)] px-3 text-sm font-semibold text-[var(--brand-orange-contrast)] hover:bg-[var(--brand-orange-hover)]" onClick={() => setIsStatusFilterOpen((current) => !current)} type="button">
               Status
               <ChevronDown aria-hidden="true" className={`transition-transform ${isStatusFilterOpen ? "rotate-180" : ""}`} size={15} strokeWidth={2} />
             </button>
             {isStatusFilterOpen ? (
-              <div className="absolute right-0 top-[calc(100%+0.4rem)] z-20 grid min-w-56 gap-2 rounded-xl border border-[var(--line)] bg-[var(--white)] p-3">
+              <div className="absolute right-0 top-[calc(100%+0.4rem)] z-20 grid min-w-56 gap-2 rounded-xl border-2 border-[var(--line)] bg-[var(--white)] p-4">
                 <label className="flex items-center gap-2 text-xs font-semibold text-[var(--brand-navy)]">
                   <input checked={selectedStatuses.length === 0} onChange={() => setSelectedStatuses([])} type="checkbox" />
                   All Statuses
@@ -173,42 +169,29 @@ export function CustomerDashboard({ data, showToast }: DashboardSectionProps) {
                   <tr key={account.id}>
                     <td className="border-b border-[var(--line)] px-3 py-2 text-sm font-semibold text-[var(--brand-navy)]">{account.name}</td>
                     <td className="border-b border-[var(--line)] px-3 py-2 text-sm">
-                      <a className="font-semibold text-blue-600 underline-offset-2 hover:underline" href={`#${account.id}`}>{account.id}</a>
+                      <a className="font-semibold text-[var(--link)] underline-offset-2 hover:underline" href={`#${account.id}`}>{account.id}</a>
                     </td>
                     <td className="border-b border-[var(--line)] px-3 py-2 text-sm">
                       <StatusChip status={account.status} />
                     </td>
                     <td className="border-b border-[var(--line)] px-3 py-2 text-sm text-[var(--brand-navy)]">
                       <span className="block text-xs font-semibold">{account.balance}</span>
-                      <div className="mt-1 h-1.5 w-36 overflow-hidden rounded-full bg-slate-100">
-                        <div className={`h-full rounded-full ${isError ? "bg-red-500" : budgetPercent > 70 ? "bg-yellow-400" : "bg-red-500"}`} style={{ width: `${budgetPercent}%` }} />
+                      <div className="mt-1 h-1.5 w-36 overflow-hidden rounded-full bg-[var(--neutral-track)]">
+                        <div className={`h-full rounded-full ${isError ? "bg-[var(--danger-text)]" : budgetPercent > 70 ? "bg-[var(--warning-text)]" : "bg-[var(--danger-text)]"}`} style={{ width: `${budgetPercent}%` }} />
                       </div>
                     </td>
                     <td className="border-b border-[var(--line)] px-3 py-2 text-sm text-[var(--brand-navy)]">{account.lastMetaUpdateAt}</td>
                     <td className="border-b border-[var(--line)] px-3 py-2 text-sm text-[var(--brand-navy)]">{account.notes}</td>
-                    <td className="relative border-b border-[var(--line)] px-3 py-2 text-center text-sm">
-                      <div className="relative inline-flex" ref={openActionAccountId === account.id ? actionDropdownRef : null}>
-                        <button
-                          aria-label={`Open actions for ${account.name}`}
-                          className="inline-flex h-8 w-8 items-center justify-center rounded-lg border border-[var(--line)] bg-[var(--white)] text-[var(--brand-navy)] transition hover:bg-[var(--surface)]"
-                          onClick={() => setOpenActionAccountId((current) => (current === account.id ? null : account.id))}
-                          title="Actions"
-                          type="button"
-                        >
-                          <MoreHorizontal aria-hidden="true" size={17} strokeWidth={2.1} />
+                    <td className="border-b border-[var(--line)] px-3 py-2 text-center text-sm">
+                      <div className="flex flex-wrap items-center justify-center gap-2">
+                        <button className="inline-flex min-h-8 items-center gap-1.5 rounded-lg border border-[var(--brand-orange)] bg-[var(--brand-orange)] px-2.5 text-xs font-semibold text-[var(--brand-orange-contrast)] transition hover:bg-[var(--brand-orange-hover)]" onClick={() => handleAccountAction(account.name, "view")} type="button">
+                          <Eye aria-hidden="true" size={13} strokeWidth={2.1} />
+                          View
                         </button>
-                        {openActionAccountId === account.id ? (
-                          <div className="absolute right-0 top-[calc(100%+0.35rem)] z-30 grid min-w-32 gap-1 rounded-xl border border-[var(--line)] bg-[var(--white)] p-1.5 text-left">
-                            <button className="flex items-center gap-2 rounded-lg px-2.5 py-2 text-xs font-semibold text-[var(--brand-navy)] hover:bg-[var(--surface)]" onClick={() => handleAccountAction(account.name, "view")} type="button">
-                              <Eye aria-hidden="true" size={14} strokeWidth={2.1} />
-                              View
-                            </button>
-                            <button className="flex items-center gap-2 rounded-lg px-2.5 py-2 text-xs font-semibold text-[var(--brand-orange)] hover:bg-[rgba(239,67,7,0.08)]" onClick={() => handleAccountAction(account.name, "top-up")} type="button">
-                              <CreditCard aria-hidden="true" size={14} strokeWidth={2.1} />
-                              Top Up
-                            </button>
-                          </div>
-                        ) : null}
+                        <button className="inline-flex min-h-8 items-center gap-1.5 rounded-lg border border-[var(--brand-orange)] bg-[var(--white)] px-2.5 text-xs font-semibold text-[var(--brand-orange)] transition hover:bg-[var(--brand-orange-soft)]" onClick={() => handleAccountAction(account.name, "top-up")} type="button">
+                          <CreditCard aria-hidden="true" size={13} strokeWidth={2.1} />
+                          Top Up
+                        </button>
                       </div>
                     </td>
                   </tr>
@@ -227,11 +210,11 @@ export function CustomerDashboard({ data, showToast }: DashboardSectionProps) {
       </section>
 
       {isRequestModalOpen ? (
-        <div className="fixed inset-0 z-50 grid place-items-center bg-black/35 p-4">
+        <div className="fixed inset-0 z-50 grid place-items-center bg-[var(--modal-backdrop)] p-4">
           <div className="w-full max-w-md rounded-xl border border-[var(--line)] bg-[var(--white)] p-5">
             <div className="mb-4 flex items-center justify-between gap-3">
               <h3 className="m-0 flex-1 text-center text-base font-semibold text-[var(--brand-navy)]">New Ad Account</h3>
-              <button className="rounded-lg p-1 text-[var(--muted)] hover:bg-[var(--surface)] hover:text-[var(--brand-navy)]" onClick={() => setIsRequestModalOpen(false)} type="button">
+              <button className="rounded-lg p-1 text-[var(--brand-orange)] hover:bg-[var(--brand-orange-soft)]" onClick={() => setIsRequestModalOpen(false)} type="button">
                 <X aria-hidden="true" size={16} strokeWidth={1.9} />
               </button>
             </div>
@@ -239,15 +222,15 @@ export function CustomerDashboard({ data, showToast }: DashboardSectionProps) {
             <div className="grid gap-3">
               <label className="grid gap-1 text-xs font-semibold text-[var(--brand-navy)]">
                 Account Name
-                <input className="min-h-9 rounded-lg border border-[var(--line)] px-3 text-sm font-normal outline-none focus:border-blue-500" onChange={(event) => updateNewAccountFormValue("accountName", event.target.value)} placeholder="Enter account name" value={newAccountForm.accountName} />
+                <input className="min-h-9 rounded-lg border border-[var(--line)] bg-[var(--field-bg)] px-3 text-sm font-normal text-[var(--brand-navy)] outline-none focus:border-[var(--brand-orange)]" onChange={(event) => updateNewAccountFormValue("accountName", event.target.value)} placeholder="Enter account name" value={newAccountForm.accountName} />
               </label>
               <label className="grid gap-1 text-xs font-semibold text-[var(--brand-navy)]">
                 Business Manager ID
-                <input className="min-h-9 rounded-lg border border-[var(--line)] px-3 text-sm font-normal outline-none focus:border-blue-500" onChange={(event) => updateNewAccountFormValue("businessManagerId", event.target.value)} placeholder="Enter BM ID" value={newAccountForm.businessManagerId} />
+                <input className="min-h-9 rounded-lg border border-[var(--line)] bg-[var(--field-bg)] px-3 text-sm font-normal text-[var(--brand-navy)] outline-none focus:border-[var(--brand-orange)]" onChange={(event) => updateNewAccountFormValue("businessManagerId", event.target.value)} placeholder="Enter BM ID" value={newAccountForm.businessManagerId} />
               </label>
               <label className="grid gap-1 text-xs font-semibold text-[var(--brand-navy)]">
                 Timezone
-                <select className="min-h-9 rounded-lg border border-[var(--line)] px-3 text-sm font-normal outline-none focus:border-blue-500" onChange={(event) => updateNewAccountFormValue("timezone", event.target.value)} value={newAccountForm.timezone}>
+                <select className="min-h-9 rounded-lg border border-[var(--line)] bg-[var(--field-bg)] px-3 text-sm font-normal text-[var(--brand-navy)] outline-none focus:border-[var(--brand-orange)]" onChange={(event) => updateNewAccountFormValue("timezone", event.target.value)} value={newAccountForm.timezone}>
                   <option>BST (Bangladesh Standard Time)</option>
                   <option>UTC</option>
                   <option>EST (Eastern Standard Time)</option>
@@ -255,20 +238,20 @@ export function CustomerDashboard({ data, showToast }: DashboardSectionProps) {
               </label>
               <label className="grid gap-1 text-xs font-semibold text-[var(--brand-navy)]">
                 Facebook Page (Optional)
-                <input className="min-h-9 rounded-lg border border-[var(--line)] px-3 text-sm font-normal outline-none focus:border-blue-500" onChange={(event) => updateNewAccountFormValue("facebookPage", event.target.value)} placeholder="https://facebook.com/yourpage" value={newAccountForm.facebookPage} />
+                <input className="min-h-9 rounded-lg border border-[var(--line)] bg-[var(--field-bg)] px-3 text-sm font-normal text-[var(--brand-navy)] outline-none focus:border-[var(--brand-orange)]" onChange={(event) => updateNewAccountFormValue("facebookPage", event.target.value)} placeholder="https://facebook.com/yourpage" value={newAccountForm.facebookPage} />
               </label>
               <label className="grid gap-1 text-xs font-semibold text-[var(--brand-navy)]">
                 Email (Optional)
-                <input className="min-h-9 rounded-lg border border-[var(--line)] px-3 text-sm font-normal outline-none focus:border-blue-500" onChange={(event) => updateNewAccountFormValue("email", event.target.value)} placeholder="example@email.com" type="email" value={newAccountForm.email} />
+                <input className="min-h-9 rounded-lg border border-[var(--line)] bg-[var(--field-bg)] px-3 text-sm font-normal text-[var(--brand-navy)] outline-none focus:border-[var(--brand-orange)]" onChange={(event) => updateNewAccountFormValue("email", event.target.value)} placeholder="example@email.com" type="email" value={newAccountForm.email} />
               </label>
               <label className="grid gap-1 text-xs font-semibold text-[var(--brand-navy)]">
                 Monthly Budget (USD)
-                <input className="min-h-9 rounded-lg border border-[var(--line)] px-3 text-sm font-normal outline-none focus:border-blue-500" onChange={(event) => updateNewAccountFormValue("monthlyBudget", event.target.value)} placeholder="100" value={newAccountForm.monthlyBudget} />
+                <input className="min-h-9 rounded-lg border border-[var(--line)] bg-[var(--field-bg)] px-3 text-sm font-normal text-[var(--brand-navy)] outline-none focus:border-[var(--brand-orange)]" onChange={(event) => updateNewAccountFormValue("monthlyBudget", event.target.value)} placeholder="100" value={newAccountForm.monthlyBudget} />
               </label>
               <label className="grid gap-1 text-xs font-semibold text-[var(--brand-navy)]">
                 Start Date
                 <span className="relative">
-                  <input className="min-h-9 w-full rounded-lg border border-[var(--line)] px-3 text-sm font-normal outline-none focus:border-blue-500" onChange={(event) => updateNewAccountFormValue("startDate", event.target.value)} placeholder="Pick a date" type="date" value={newAccountForm.startDate} />
+                  <input className="min-h-9 w-full rounded-lg border border-[var(--line)] bg-[var(--field-bg)] px-3 text-sm font-normal text-[var(--brand-navy)] outline-none focus:border-[var(--brand-orange)]" onChange={(event) => updateNewAccountFormValue("startDate", event.target.value)} placeholder="Pick a date" type="date" value={newAccountForm.startDate} />
                   <CalendarDays aria-hidden="true" className="pointer-events-none absolute right-3 top-2.5 text-[var(--muted)]" size={15} strokeWidth={1.9} />
                 </span>
               </label>

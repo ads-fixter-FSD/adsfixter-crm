@@ -4,7 +4,7 @@ import type { DashboardSectionWithNavigationProps } from "@/features/crm/compone
 export function CreateNewAccountSection({ data, showToast, onSectionChange }: DashboardSectionWithNavigationProps) {
   return (
     <div className="grid grid-cols-12 gap-3">
-      <section className="col-span-12 w-full rounded-xl border border-[var(--line)] bg-[var(--white)] p-3">
+      <section className="col-span-12 w-full rounded-xl border-2 border-[var(--line)] bg-[var(--white)] p-4">
         <CreateAdAccountForm businessManagers={data.businessManagers} clients={data.clients} onBack={() => onSectionChange?.("Ad Accounts")} showToast={showToast} />
       </section>
     </div>

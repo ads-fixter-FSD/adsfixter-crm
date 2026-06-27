@@ -18,10 +18,10 @@ export function ToastStack({ toasts, onDismiss }: ToastStackProps) {
       {toasts.map((toast) => {
         const toastClassName =
           toast.type === "success"
-            ? "border-green-300 bg-green-50 text-green-800 before:bg-green-500"
+            ? "border-[var(--success-text)] bg-[var(--success-bg)] text-[var(--success-text)] before:bg-[var(--success-text)]"
             : toast.type === "error"
-              ? "border-red-300 bg-red-50 text-red-800 before:bg-red-500"
-              : "border-amber-300 bg-amber-50 text-amber-800 before:bg-amber-500";
+              ? "border-[var(--danger-text)] bg-[var(--danger-bg)] text-[var(--danger-text)] before:bg-[var(--danger-text)]"
+              : "border-[var(--warning-text)] bg-[var(--warning-bg)] text-[var(--warning-text)] before:bg-[var(--warning-text)]";
 
         return (
           <div
@@ -30,7 +30,7 @@ export function ToastStack({ toasts, onDismiss }: ToastStackProps) {
           >
             <strong className="text-sm font-bold capitalize">{toast.type}</strong>
             <span className="col-start-2 text-sm">{toast.message}</span>
-            <button aria-label="Close toast" className="col-start-3 row-span-2 inline-flex h-6 w-6 items-center justify-center rounded-full border-0 bg-transparent p-0 opacity-75 hover:bg-black/5 hover:opacity-100" onClick={() => onDismiss(toast.id)} type="button">
+            <button aria-label="Close toast" className="col-start-3 row-span-2 inline-flex h-6 w-6 items-center justify-center rounded-full border-0 bg-transparent p-0 opacity-75 hover:bg-[var(--brand-orange-soft)] hover:opacity-100" onClick={() => onDismiss(toast.id)} type="button">
               <X aria-hidden="true" size={14} strokeWidth={2} />
             </button>
           </div>

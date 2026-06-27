@@ -15,7 +15,7 @@ export function ClientNotificationsSection() {
         <p className="mt-1 text-sm text-[var(--muted)]">View all notifications and announcements</p>
       </div>
 
-      <section className="rounded-xl border border-[var(--line)] bg-[var(--white)] p-4">
+      <section className="rounded-xl border-2 border-[var(--line)] bg-[var(--white)] p-5">
         <div className="mb-4 flex items-center gap-2 text-sm font-semibold text-[var(--brand-navy)]">
           <Bell aria-hidden="true" size={16} strokeWidth={1.9} />
           Notification History
@@ -24,7 +24,7 @@ export function ClientNotificationsSection() {
         {clientNotifications.length === 0 ? (
           <div className="grid min-h-40 place-items-center text-center text-sm text-[var(--muted)]">
             <div className="grid justify-items-center gap-2">
-              <Bell aria-hidden="true" className="text-slate-300" size={34} strokeWidth={1.5} />
+              <Bell aria-hidden="true" className="text-[var(--muted)]" size={34} strokeWidth={1.5} />
               <p>No notifications yet</p>
             </div>
           </div>
