@@ -4,6 +4,7 @@ import { useState } from "react";
 import TextField from "@/components/ui/TextField";
 import PasswordField from "@/components/ui/PasswordField";
 import PrimaryButton from "@/components/ui/PrimaryButton";
+import { setAuthSession } from "@/features/auth/auth-session";
 import { useRouter } from "next/navigation";
 
 interface SignUpFormProps {
@@ -23,7 +24,19 @@ export default function SignUpForm({ onSwitchToSignIn }: SignUpFormProps) {
   function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
 
-    window.localStorage.setItem("adsfixter-role", "Customer");
+    if (!agreed) {
+      return;
+    }
+
+    if (password !== confirmPassword) {
+      return;
+    }
+
+    setAuthSession({
+      email: email.trim(),
+      role: "Customer",
+      name: fullName.trim(),
+    });
     router.push("/");
 
     // TODO: wire up to auth endpoint

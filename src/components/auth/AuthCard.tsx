@@ -17,8 +17,12 @@ const COPY: Record<AuthMode, { title: string; subtitle: string }> = {
   },
 };
 
-export default function AuthCard() {
-  const [mode, setMode] = useState<AuthMode>("signin");
+type AuthCardProps = {
+  defaultMode?: AuthMode;
+};
+
+export default function AuthCard({ defaultMode = "signin" }: AuthCardProps) {
+  const [mode, setMode] = useState<AuthMode>(defaultMode);
 
   return (
     <motion.div

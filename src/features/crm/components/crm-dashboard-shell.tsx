@@ -36,8 +36,6 @@ export function CrmDashboardShell() {
   }, []);
 
   useEffect(() => {
-    window.localStorage.setItem("adsfixter-role", "Customer");
-
     const requestsNavEnabled = isBusinessProfileRequestsNavEnabled();
     const requestedSectionSlug = new URLSearchParams(window.location.search).get("section");
     const allowedSections = getCustomerAllowedSections({ showRequestsNav: requestsNavEnabled });

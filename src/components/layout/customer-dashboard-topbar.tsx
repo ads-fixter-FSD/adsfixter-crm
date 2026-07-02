@@ -4,6 +4,7 @@ import Link from "next/link";
 import { Bell, LogOut, Moon, Search, Settings, Sun } from "lucide-react";
 import { useRef } from "react";
 import { getCustomerBreadcrumbParts } from "@/components/layout/customer-navigation";
+import { clearAuthSession } from "@/features/auth/auth-session";
 import { useClickOutside } from "@/hooks/use-click-outside";
 
 type CustomerDashboardTopbarProps = {
@@ -109,7 +110,7 @@ export function CustomerDashboardTopbar({
                 className="flex items-center gap-2 rounded-lg px-2.5 py-2 text-sm text-[var(--danger-text)] no-underline hover:bg-[var(--surface)]"
                 href="/auth/signin"
                 onClick={() => {
-                  window.localStorage.removeItem("adsfixter-role");
+                  clearAuthSession();
                   setProfileMenuOpen(false);
                 }}
               >
