@@ -6,6 +6,7 @@ import PasswordField from "@/components/ui/PasswordField";
 import PrimaryButton from "@/components/ui/PrimaryButton";
 import GoogleButton from "@/components/auth/GoogleButton";
 import { demoCredentials } from "@/features/auth/data/demo-credentials";
+import { setAuthSession } from "@/features/auth/auth-session";
 import { useRouter } from "next/navigation";
 
 interface SignInFormProps {
@@ -25,12 +26,18 @@ export default function SignInForm({ onSwitchToSignUp }: SignInFormProps) {
     const matchedCredential = demoCredentials.find((credential) => credential.email === email.trim() && credential.password === password);
 
     if (matchedCredential) {
-      window.localStorage.setItem("adsfixter-role", matchedCredential.role);
+      setAuthSession({
+        email: matchedCredential.email,
+        role: matchedCredential.role,
+      });
       router.push("/");
       return;
     }
 
-    window.localStorage.setItem("adsfixter-role", "Customer");
+    setAuthSession({
+      email: email.trim(),
+      role: "Customer",
+    });
     router.push("/");
   }
 
