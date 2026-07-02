@@ -75,6 +75,7 @@ export function CrmDashboardShell() {
   const shouldShowGlobalExportButton = visibleSection !== "Ad Accounts";
   const shouldEmbedOverviewToolbar = visibleSection === "Dashboard" && role === "Super Admin";
   const shouldHideOverviewToolbar = visibleSection === "Ad Accounts" && role !== "Customer";
+  const shouldFrameOverviewToolbar = visibleSection === "Create New Account";
 
   const profileInitials = role === "Customer" ? "CU" : role === "Maintainer" ? "MT" : "SA";
 
@@ -142,7 +143,7 @@ export function CrmDashboardShell() {
   }
 
   const overviewToolbar = (
-    <section className="flex flex-wrap items-start justify-between gap-3">
+    <section className={`flex flex-wrap items-start justify-between gap-3 ${shouldFrameOverviewToolbar ? "rounded-xl border-2 border-[var(--line)] bg-[var(--white)] p-4" : ""}`}>
       <div>
         <h2 className="m-0 text-xl font-semibold tracking-[-0.02em] text-[var(--brand-navy)]">{visibleSection === "Dashboard" ? "Overview" : visibleSection}</h2>
         <p className="mt-1 text-sm text-[var(--muted)]">
