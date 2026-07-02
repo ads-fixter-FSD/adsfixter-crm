@@ -18,7 +18,7 @@ export default function ForgotPasswordPage() {
       </form>
 
       <p className="m-0 text-center text-sm text-[var(--muted)]">
-        Remembered password? <Link className="font-semibold text-[var(--brand-navy)] no-underline" href="/login">Back to login</Link>
+        Remembered password? <Link className="font-semibold text-[var(--brand-navy)] no-underline" href="/auth/signin">Back to login</Link>
       </p>
     </AuthLayout>
   );

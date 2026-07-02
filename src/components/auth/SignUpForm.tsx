@@ -23,7 +23,8 @@ export default function SignUpForm({ onSwitchToSignIn }: SignUpFormProps) {
   function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
 
-    router.push("/dashboard");
+    window.localStorage.setItem("adsfixter-role", "Customer");
+    router.push("/");
 
     // TODO: wire up to auth endpoint
   }
