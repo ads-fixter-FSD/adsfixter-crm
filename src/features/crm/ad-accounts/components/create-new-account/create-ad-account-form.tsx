@@ -13,9 +13,11 @@ export function CreateAdAccountForm({ businessManagers, clients, onBack, showToa
   return (
     <div className="grid gap-3">
       {onBack ? (
-        <PrimaryButton className="justify-self-start px-3" onClick={onBack} type="button">
-          Back to Ad Accounts
-        </PrimaryButton>
+        <div className="-mx-4 border-b border-[var(--line)] px-4 pb-4">
+          <PrimaryButton className="px-3" onClick={onBack} type="button">
+            Back to Ad Accounts
+          </PrimaryButton>
+        </div>
       ) : null}
 
       <form
