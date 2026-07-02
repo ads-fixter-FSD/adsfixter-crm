@@ -4,7 +4,7 @@ import "./globals.css";
 
 export const metadata: Metadata = {
   title: "AdsFixter CRM",
-  description: "Meta Ads Wallet Management CRM for clients, maintainers, and super admins.",
+  description: "Meta Ads wallet and account management for AdsFixter customers.",
   icons: {
     icon: "/favicon.png",
     shortcut: "/favicon.png",

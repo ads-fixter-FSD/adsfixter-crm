@@ -5,6 +5,7 @@ import TextField from "@/components/ui/TextField";
 import PasswordField from "@/components/ui/PasswordField";
 import PrimaryButton from "@/components/ui/PrimaryButton";
 import GoogleButton from "@/components/auth/GoogleButton";
+import { demoCredentials } from "@/features/auth/data/demo-credentials";
 import { useRouter } from "next/navigation";
 
 interface SignInFormProps {
@@ -20,9 +21,17 @@ export default function SignInForm({ onSwitchToSignUp }: SignInFormProps) {
 
   function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
-    
-    router.push('/dashboard')
-    // TODO: wire up to auth endpoint
+
+    const matchedCredential = demoCredentials.find((credential) => credential.email === email.trim() && credential.password === password);
+
+    if (matchedCredential) {
+      window.localStorage.setItem("adsfixter-role", matchedCredential.role);
+      router.push("/");
+      return;
+    }
+
+    window.localStorage.setItem("adsfixter-role", "Customer");
+    router.push("/");
   }
 
   return (
