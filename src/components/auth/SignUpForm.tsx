@@ -4,6 +4,7 @@ import { useState } from "react";
 import TextField from "@/components/ui/TextField";
 import PasswordField from "@/components/ui/PasswordField";
 import PrimaryButton from "@/components/ui/PrimaryButton";
+import { useRouter } from "next/navigation";
 
 interface SignUpFormProps {
   onSwitchToSignIn: () => void;
@@ -17,18 +18,29 @@ export default function SignUpForm({ onSwitchToSignIn }: SignUpFormProps) {
   const [confirmPassword, setConfirmPassword] = useState("");
   const [agreed, setAgreed] = useState(false);
 
+  const router = useRouter();
+
   function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
+
+    router.push("/dashboard");
+
     // TODO: wire up to auth endpoint
   }
 
   return (
     <div className="flex flex-col gap-6">
       <div>
-        <h1 className="text-2xl font-semibold text-neutral-900">
+        <h1
+          className="h6-semibold"
+          style={{ color: "var(--color-primary-text-500)" }}
+        >
           Create your account
         </h1>
-        <p className="mt-1 text-sm text-neutral-500">
+        <p
+          className="body-sm-regular mt-1"
+          style={{ color: "var(--color-subtext-500)" }}
+        >
           Fill the details below to get started
         </p>
       </div>
@@ -81,20 +93,32 @@ export default function SignUpForm({ onSwitchToSignIn }: SignUpFormProps) {
           autoComplete="new-password"
         />
 
-        <label className="flex items-start gap-2 text-sm text-neutral-600">
+        <label
+          className="body-sm-regular flex items-start gap-2"
+          style={{ color: "var(--color-subtext-500)" }}
+        >
           <input
             type="checkbox"
             checked={agreed}
             onChange={(e) => setAgreed(e.target.checked)}
-            className="mt-0.5 h-4 w-4 rounded border-neutral-300 text-orange-600 focus:ring-orange-500"
+            className="mt-0.5 h-4 w-4 rounded"
+            style={{ accentColor: "var(--color-primary)" }}
           />
           <span>
             I agree to the{" "}
-            <a href="#" className="font-medium text-orange-600 hover:text-orange-700">
+            <a
+              href="#"
+              className="body-sm-medium"
+              style={{ color: "var(--color-primary)" }}
+            >
               Terms of service
             </a>{" "}
             and{" "}
-            <a href="#" className="font-medium text-orange-600 hover:text-orange-700">
+            <a
+              href="#"
+              className="body-sm-medium"
+              style={{ color: "var(--color-primary)" }}
+            >
               Privacy Policy
             </a>
           </span>
@@ -103,12 +127,16 @@ export default function SignUpForm({ onSwitchToSignIn }: SignUpFormProps) {
         <PrimaryButton type="submit">Create Account</PrimaryButton>
       </form>
 
-      <p className="text-center text-sm text-neutral-500">
+      <p
+        className="body-sm-regular text-center"
+        style={{ color: "var(--color-subtext-500)" }}
+      >
         Already have an account?{" "}
         <button
           type="button"
           onClick={onSwitchToSignIn}
-          className="font-medium text-orange-600 hover:text-orange-700"
+          className="body-sm-medium"
+          style={{ color: "var(--color-primary)" }}
         >
           Sign In
         </button>

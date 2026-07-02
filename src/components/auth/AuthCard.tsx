@@ -2,10 +2,20 @@
 
 import { useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
-import Logo from "@/components/auth/Logo";
 import AuthTabs, { AuthMode } from "@/components/auth/AuthTabs";
 import SignInForm from "@/components/auth/SignInForm";
 import SignUpForm from "@/components/auth/SignUpForm";
+
+const COPY: Record<AuthMode, { title: string; subtitle: string }> = {
+  signin: {
+    title: "Sign in to your Account",
+    subtitle: "Enter your credential to access your dashboard",
+  },
+  signup: {
+    title: "Create your account",
+    subtitle: "Fill the details below to get started",
+  },
+};
 
 export default function AuthCard() {
   const [mode, setMode] = useState<AuthMode>("signin");
@@ -15,7 +25,21 @@ export default function AuthCard() {
       layout
       className="flex w-full max-w-md flex-col gap-8 overflow-hidden py-4"
     >
-      <Logo />
+      <div className="text-center">
+        <h1
+          className="h5 font-medium text-primary-text-500"
+          style={{ color: "var(--color-primary-text-500)" }}
+        >
+          {COPY[mode].title}
+        </h1>
+        <p
+          className="body-sm-regular mt-1"
+          style={{ color: "var(--color-subtext-500)" }}
+        >
+          {COPY[mode].subtitle}
+        </p>
+      </div>
+
       <AuthTabs mode={mode} onChange={setMode} />
 
       <AnimatePresence mode="wait" initial={false}>

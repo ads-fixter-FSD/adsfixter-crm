@@ -19,7 +19,11 @@ export default function TextField({
 }: TextFieldProps) {
   return (
     <div className="flex flex-col gap-1.5">
-      <label htmlFor={id} className="text-sm font-medium text-neutral-800">
+      <label
+        htmlFor={id}
+        className="body-sm-medium"
+        style={{ color: "var(--color-primary-text-500)" }}
+      >
         {label}
       </label>
       <input
@@ -30,7 +34,20 @@ export default function TextField({
         value={value}
         autoComplete={autoComplete}
         onChange={(e) => onChange(e.target.value)}
-        className="w-full rounded-xl border border-neutral-200 bg-white px-4 py-3 text-sm text-neutral-900 placeholder:text-neutral-400 outline-none transition-colors focus:border-orange-500 focus:ring-2 focus:ring-orange-100"
+        className="body-sm-regular w-full rounded-lg px-4 py-3 outline-none transition-colors placeholder:text-[var(--color-subtext-400)]"
+        style={{
+          border: "1px solid var(--color-line)",
+          background: "var(--color-field)",
+          color: "var(--color-primary-text-500)",
+        }}
+        onFocus={(e) => {
+          e.currentTarget.style.borderColor = "var(--color-primary)";
+          e.currentTarget.style.boxShadow = "0 0 0 3px var(--color-primary-soft)";
+        }}
+        onBlur={(e) => {
+          e.currentTarget.style.borderColor = "var(--color-line)";
+          e.currentTarget.style.boxShadow = "none";
+        }}
       />
     </div>
   );

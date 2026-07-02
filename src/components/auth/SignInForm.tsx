@@ -5,6 +5,7 @@ import TextField from "@/components/ui/TextField";
 import PasswordField from "@/components/ui/PasswordField";
 import PrimaryButton from "@/components/ui/PrimaryButton";
 import GoogleButton from "@/components/auth/GoogleButton";
+import { useRouter } from "next/navigation";
 
 interface SignInFormProps {
   onSwitchToSignUp: () => void;
@@ -15,18 +16,22 @@ export default function SignInForm({ onSwitchToSignUp }: SignInFormProps) {
   const [password, setPassword] = useState("");
   const [remember, setRemember] = useState(false);
 
+  const router = useRouter()
+
   function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
+    
+    router.push('/dashboard')
     // TODO: wire up to auth endpoint
   }
 
   return (
     <div className="flex flex-col gap-6">
       <div>
-        <h1 className="text-2xl font-semibold text-neutral-900">
+        <h1 className="h6-semibold" style={{ color: "var(--color-primary-text-500)" }}>
           Sign in to your Account
         </h1>
-        <p className="mt-1 text-sm text-neutral-500">
+        <p className="body-sm-regular mt-1" style={{ color: "var(--color-subtext-500)" }}>
           Enter your credential to access your dashboard
         </p>
       </div>
@@ -50,17 +55,25 @@ export default function SignInForm({ onSwitchToSignUp }: SignInFormProps) {
           onChange={setPassword}
         />
 
-        <div className="flex items-center justify-between text-sm">
-          <label className="flex items-center gap-2 text-neutral-600">
+        <div className="flex items-center justify-between">
+          <label
+            className="body-sm-regular flex items-center gap-2"
+            style={{ color: "var(--color-subtext-500)" }}
+          >
             <input
               type="checkbox"
               checked={remember}
               onChange={(e) => setRemember(e.target.checked)}
-              className="h-4 w-4 rounded border-neutral-300 text-orange-600 focus:ring-orange-500"
+              className="h-4 w-4 rounded"
+              style={{ accentColor: "var(--color-primary)" }}
             />
             Remember me
           </label>
-          <a href="#" className="font-medium text-orange-600 hover:text-orange-700">
+          <a
+            href="#"
+            className="body-sm-medium"
+            style={{ color: "var(--color-primary)" }}
+          >
             Forgot password?
           </a>
         </div>
@@ -68,20 +81,21 @@ export default function SignInForm({ onSwitchToSignUp }: SignInFormProps) {
         <PrimaryButton type="submit">Sign In</PrimaryButton>
       </form>
 
-      <div className="flex items-center gap-3 text-xs text-neutral-400">
-        <div className="h-px flex-1 bg-neutral-200" />
-        Or continue with
-        <div className="h-px flex-1 bg-neutral-200" />
+      <div className="flex items-center gap-3" style={{ color: "var(--color-subtext-400)" }}>
+        <div className="h-px flex-1" style={{ background: "var(--color-line)" }} />
+        <span className="body-xsm-regular">Or continue with</span>
+        <div className="h-px flex-1" style={{ background: "var(--color-line)" }} />
       </div>
 
       <GoogleButton />
 
-      <p className="text-center text-sm text-neutral-500">
+      <p className="body-sm-regular text-center" style={{ color: "var(--color-subtext-500)" }}>
         Dont have an account?{" "}
         <button
           type="button"
           onClick={onSwitchToSignUp}
-          className="font-medium text-orange-600 hover:text-orange-700"
+          className="body-sm-medium"
+          style={{ color: "var(--color-primary)" }}
         >
           Create Account
         </button>

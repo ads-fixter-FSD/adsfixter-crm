@@ -2,7 +2,18 @@ export default function GoogleButton() {
   return (
     <button
       type="button"
-      className="flex w-full items-center justify-center gap-2 rounded-xl border border-neutral-200 bg-white py-3 text-sm font-medium text-neutral-700 transition-colors hover:bg-neutral-50"
+      className="body-sm-medium flex w-full items-center justify-center gap-2 rounded-lg py-3 transition-colors"
+      style={{
+        border: "1px solid var(--color-line)",
+        background: "var(--color-field)",
+        color: "var(--color-primary-text-500)",
+      }}
+      onMouseEnter={(e) => {
+        e.currentTarget.style.background = "var(--color-surface)";
+      }}
+      onMouseLeave={(e) => {
+        e.currentTarget.style.background = "var(--color-field)";
+      }}
     >
       <svg width="18" height="18" viewBox="0 0 48 48">
         <path

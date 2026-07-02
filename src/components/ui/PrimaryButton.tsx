@@ -8,7 +8,19 @@ export default function PrimaryButton({
   return (
     <button
       {...rest}
-      className={`w-full rounded-xl bg-orange-600 py-3 text-sm font-semibold text-white transition-colors hover:bg-orange-700 active:bg-orange-800 ${className}`}
+      className={`body-medium w-full rounded-[var(--btn-radius)] transition-colors ${className}`}
+      style={{
+        height: "var(--btn-primary-height)",
+        padding: "var(--btn-primary-padding-y) var(--btn-primary-padding-x)",
+        background: "var(--color-primary)",
+        color: "var(--color-on-primary)",
+      }}
+      onMouseEnter={(e) => {
+        e.currentTarget.style.background = "var(--color-primary-hover)";
+      }}
+      onMouseLeave={(e) => {
+        e.currentTarget.style.background = "var(--color-primary)";
+      }}
     >
       {children}
     </button>
