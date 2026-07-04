@@ -1,3 +1,6 @@
+
+
+/* eslint-disable react-hooks/set-state-in-effect */
 "use client";
 
 import { Pencil, Plus, X } from "lucide-react";
@@ -21,6 +24,17 @@ type AdAccountRequestsTableProps = {
   showToast: (type: ToastType, message: string) => void;
   title?: string;
 };
+
+const tableHeaders = [
+  "No",
+  "Business Profile",
+  "Category",
+  "Ad Account",
+  "Access ID",
+  "Monthly Spend ($)",
+  "Status",
+  "Action",
+];
 
 function getBusinessProfileMeta(request: AdAccountRequest) {
   const profile = getBusinessProfileRequests().find((item) => item.id === request.businessProfileId);
@@ -62,20 +76,24 @@ export function AdAccountRequestsTable({ onAddNew, showAddButton = false, showTo
   };
 
   return (
-    <>
+    <div className="border border-[var(--line)] rounded-[12px]">
       {title || showAddButton ? (
-        <div className="flex flex-wrap items-start justify-between gap-4">
+        <div className="flex flex-wrap items-start p-4 justify-between gap-4">
           {title ? (
             <div>
               <h2 className="h4 m-0 primary-text">{title}</h2>
-              <p className="body-regular m-0 mt-1 subtext">View and manage all your ad accounts requests in one place.</p>
+              <p className="body-regular m-0 subtext">View and manage all your ad accounts requests in one place.</p>
             </div>
           ) : (
             <div />
           )}
 
           {showAddButton && onAddNew ? (
-            <SecondaryButton className="min-h-10 gap-2 bg-[var(--brand-navy)] px-4 text-[var(--white)] hover:bg-[var(--black)]" onClick={onAddNew} type="button">
+            <SecondaryButton
+              className="min-h-10 gap-2 bg-[var(--brand-navy)] px-4 text-[var(--white)] hover:bg-[var(--black)]"
+              onClick={onAddNew}
+              type="button"
+            >
               <Plus aria-hidden="true" size={16} strokeWidth={1.8} />
               Request Another Ad Account
             </SecondaryButton>
@@ -83,84 +101,103 @@ export function AdAccountRequestsTable({ onAddNew, showAddButton = false, showTo
         </div>
       ) : null}
 
-      <div className="overflow-hidden rounded-xl border border-[var(--line)] bg-[var(--white)]">
-        <div className="overflow-x-auto">
-          <table className="min-w-[1100px] w-full border-collapse">
-            <thead>
-              <tr className="border-b border-[var(--line)] bg-[var(--surface)] text-left">
-                <th className="body-xsm-medium px-4 py-3 primary-text">No</th>
-                <th className="body-xsm-medium px-4 py-3 primary-text">Business Profile</th>
-                <th className="body-xsm-medium px-4 py-3 primary-text">Category</th>
-                <th className="body-xsm-medium px-4 py-3 primary-text">Ad Account</th>
-                <th className="body-xsm-medium px-4 py-3 primary-text">Access ID</th>
-                <th className="body-xsm-medium px-4 py-3 primary-text">Monthly Spend ($)</th>
-                <th className="body-xsm-medium px-4 py-3 primary-text">Status</th>
-                <th className="body-xsm-medium px-4 py-3 primary-text">Action</th>
-              </tr>
-            </thead>
-            <tbody>
-              {requests.length === 0 ? (
-                <tr>
-                  <td className="body-sm-regular px-4 py-10 text-center subtext" colSpan={8}>
-                    No ad account requests yet. Click &quot;Request Another Ad Account&quot; to submit your first request.
-                  </td>
-                </tr>
-              ) : (
-                requests.map((request, index) => {
-                  const profileMeta = getBusinessProfileMeta(request);
+      <hr className="text-[var(--line)]" />
 
-                  return (
-                    <tr className="border-b border-[var(--line)] last:border-b-0" key={request.id}>
-                      <td className="body-sm-regular px-4 py-4 subtext">{index + 1}</td>
-                      <td className="px-4 py-4">
-                        <strong className="body-sm-medium block primary-text">{request.businessProfileName}</strong>
-                        <span className="body-xsm-regular subtext">
-                          {profileMeta.statusLabel} on {profileMeta.dateLabel}
-                        </span>
-                      </td>
-                      <td className="body-sm-regular px-4 py-4 primary-text">{request.productCategory}</td>
-                      <td className="body-sm-regular px-4 py-4 primary-text">{request.adAccountName}</td>
-                      <td className="px-4 py-4">
-                        <a className="body-sm-regular font-medium text-[var(--link)] underline-offset-2 hover:underline" href={`#${request.id}`}>
-                          {request.accessSharingDetails}
-                        </a>
-                      </td>
-                      <td className="body-sm-regular px-4 py-4 primary-text">{request.expectedMonthlySpend} $</td>
-                      <td className="px-4 py-4">
-                        <StatusChip status={request.status} />
-                      </td>
-                      <td className="px-4 py-4">
-                        <div className="flex items-center gap-2">
-                          <button
-                            aria-label={`Edit ${request.adAccountName}`}
-                            className="inline-flex h-8 w-8 items-center justify-center rounded-lg border border-[var(--line)] text-[var(--brand-navy)] hover:bg-[var(--surface)]"
-                            onClick={() => setSelectedRequest(request)}
-                            type="button"
+      <div className="p-4">
+        <div className="overflow-hidden rounded-xl border border-[var(--line)] bg-[var(--white)]">
+          <div className="overflow-x-auto">
+            <table className="w-full min-w-[1100px] border-collapse">
+              <thead>
+                <tr className="bg-[var(--table-header-bg)] text-left">
+                  {tableHeaders.map((header, i) => (
+                    <th
+                      className={`body-sm-regular subtext-500 px-4 py-3 align-middle ${
+                        i !== tableHeaders.length - 1
+                          ? "border-r border-[var(--table-header-border)]"
+                          : ""
+                      }`}
+                      key={header}
+                    >
+                      {header}
+                    </th>
+                  ))}
+                </tr>
+              </thead>
+              <tbody>
+                {requests.length === 0 ? (
+                  <tr>
+                    <td className="body-sm-regular px-4 py-10 text-center subtext" colSpan={tableHeaders.length}>
+                      No ad account requests yet. Click &quot;Request Another Ad Account&quot; to submit your first request.
+                    </td>
+                  </tr>
+                ) : (
+                  requests.map((request, index) => {
+                    const profileMeta = getBusinessProfileMeta(request);
+
+                    return (
+                      <tr className="border-b border-[var(--line)] last:border-b-0" key={request.id}>
+                        <td className="body-regular border-r border-[var(--line)] px-4 py-4 subtext">
+                          {index + 1}
+                        </td>
+                        <td className="border-r border-[var(--line)] px-4 py-4">
+                          <strong className="body-regular block primary-text">{request.businessProfileName}</strong>
+                          <span className="body-xsm-regular subtext">
+                            {profileMeta.statusLabel} on {profileMeta.dateLabel}
+                          </span>
+                        </td>
+                        <td className="body-regular border-r border-[var(--line)] px-4 py-4 primary-text-400">
+                          {request.productCategory}
+                        </td>
+                        <td className="body-xsm-regular border-r border-[var(--line)] px-4 py-4 primary-text-400">
+                          {request.adAccountName}
+                        </td>
+                        <td className="border-r border-[var(--line)] px-4 py-4">
+                          <a
+                            className="body-xsm-regular font-medium underline-offset-2 hover:underline"
+                            href={`#${request.id}`}
                           >
-                            <Pencil aria-hidden="true" size={15} strokeWidth={1.8} />
-                          </button>
-                          <button
-                            aria-label={`Delete ${request.adAccountName}`}
-                            className="inline-flex h-8 w-8 items-center justify-center rounded-lg border border-[var(--line)] text-[var(--danger-text)] hover:bg-[var(--danger-bg)]"
-                            onClick={() => handleDelete(request)}
-                            type="button"
-                          >
-                            <X aria-hidden="true" size={15} strokeWidth={1.8} />
-                          </button>
-                        </div>
-                      </td>
-                    </tr>
-                  );
-                })
-              )}
-            </tbody>
-          </table>
+                            {request.accessSharingDetails}
+                          </a>
+                        </td>
+                        <td className="body-regular border-r border-[var(--line)] px-4 py-4 primary-text-400">
+                          {request.expectedMonthlySpend} $
+                        </td>
+                        <td className="border-r border-[var(--line)] px-4 py-4">
+                          <StatusChip status={request.status} />
+                        </td>
+                        <td className="px-4 py-4">
+                          <div className="flex items-center gap-2">
+                            <button
+                              aria-label={`Edit ${request.adAccountName}`}
+                              className="inline-flex h-8 w-8 items-center justify-center rounded-lg border border-[var(--line)] text-[var(--brand-navy)] hover:bg-[var(--surface)]"
+                              onClick={() => setSelectedRequest(request)}
+                              type="button"
+                            >
+                              <Pencil aria-hidden="true" size={15} strokeWidth={1.8} />
+                            </button>
+                            <button
+                              aria-label={`Delete ${request.adAccountName}`}
+                              className="inline-flex h-8 w-8 items-center justify-center rounded-lg border border-[var(--line)] text-[var(--danger-text)] hover:bg-[var(--danger-bg)]"
+                              onClick={() => handleDelete(request)}
+                              type="button"
+                            >
+                              <X aria-hidden="true" size={15} strokeWidth={1.8} />
+                            </button>
+                          </div>
+                        </td>
+                      </tr>
+                    );
+                  })
+                )}
+              </tbody>
+            </table>
+          </div>
         </div>
       </div>
 
       {selectedRequest ? (
         <AdAccountRequestEditModal onClose={closeModal} onSave={handleSave} request={selectedRequest} showToast={showToast} />
       ) : null}
-    </>
+    </div>
   );
 }
