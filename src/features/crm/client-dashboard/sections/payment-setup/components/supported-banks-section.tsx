@@ -8,11 +8,11 @@ type SupportedBanksSectionProps = {
 
 export function SupportedBanksSection({ selectedBanks, onChange }: SupportedBanksSectionProps) {
   return (
-    <div className="border-t border-[var(--line)] pt-8">
-      <div className="grid gap-4">
+    <div className="">
+      <div className="grid p-4 gap-4">
         <div>
-          <h2 className="body-sm-medium m-0 primary-text">Supported Banks (Bank Transfer)</h2>
-          <p className="body-xsm-regular m-0 mt-1 subtext">Select one or more banks you would like to use for wallet deposits.</p>
+          <h2 className="title-medium m-0 primary-text">Supported Banks (Bank Transfer)</h2>
+          <p className="body-regular m-0 mt-1 subtext-400">Select one or more banks you would like to use for wallet deposits.</p>
         </div>
 
         <BanksMultiSelect onChange={onChange} selectedBanks={selectedBanks} />
