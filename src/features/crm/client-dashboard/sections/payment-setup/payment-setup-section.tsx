@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/set-state-in-effect */
 "use client";
 
 import { useEffect, useState } from "react";
@@ -17,9 +18,16 @@ type PaymentSetupSectionProps = {
   showToast: (type: ToastType, message: string) => void;
 };
 
-export function PaymentSetupSection({ onCancel, onSaved, showToast }: PaymentSetupSectionProps) {
+export function PaymentSetupSection({
+  onCancel,
+  onSaved,
+  showToast,
+}: PaymentSetupSectionProps) {
   const [currency, setCurrency] = useState("BDT");
-  const [paymentMethods, setPaymentMethods] = useState<string[]>(["bank-transfer", "bkash"]);
+  const [paymentMethods, setPaymentMethods] = useState<string[]>([
+    "bank-transfer",
+    "bkash",
+  ]);
   const [selectedBanks, setSelectedBanks] = useState<string[]>([]);
 
   useEffect(() => {
@@ -73,23 +81,48 @@ export function PaymentSetupSection({ onCancel, onSaved, showToast }: PaymentSet
 
   return (
     <section className="grid gap-6">
-      <div>
-        <h1 className="h4 m-0 primary-text">Payment Setup</h1>
-        <p className="body-regular m-0 mt-1 subtext">Please select your preferred payment method(s) and choose your primary currency.</p>
-      </div>
+      <div className="rounded-[12px] border border-[var(--line)] bg-[var(--white)]">
+        <div className="p-5 max-[720px]:p-4">
+          <h1 className="h6-medium m-0 primary-text">Payment Setup</h1>
+          <p className="body-regular subtext-500 m-0 mt-1">
+            Please select your preferred payment method(s) and choose your
+            primary currency.
+          </p>
+        </div>
 
-      <div className="grid gap-8 rounded-xl border border-[var(--line)] bg-[var(--white)] p-5 max-[720px]:p-4">
-        <PrimaryCurrencySection currency={currency} onChange={setCurrency} />
-        <PaymentMethodsSection onToggle={togglePaymentMethod} selectedMethods={paymentMethods} />
-        {hasBankTransfer ? <SupportedBanksSection onChange={setSelectedBanks} selectedBanks={selectedBanks} /> : null}
+        <hr className="border-0 border-t border-[var(--line)]" />
 
-        <div className="flex flex-wrap items-center justify-end gap-3 border-t border-[var(--line)] pt-6">
-          <SecondaryButton className="min-h-10 px-6" onClick={onCancel} type="button">
-            Cancel
-          </SecondaryButton>
-          <PrimaryButton className="min-h-10 px-6" onClick={handleSave} type="button">
-            Save &amp; Continue
-          </PrimaryButton>
+        <div className="grid gap-8 ">
+          <PrimaryCurrencySection currency={currency} onChange={setCurrency} />
+
+        <hr className="border-0 border-t border-[var(--line)]" />
+          <PaymentMethodsSection
+            onToggle={togglePaymentMethod}
+            selectedMethods={paymentMethods}
+          />
+          {hasBankTransfer ? (
+            <SupportedBanksSection
+              onChange={setSelectedBanks}
+              selectedBanks={selectedBanks}
+            />
+          ) : null}
+
+          <div className="flex flex-wrap items-center justify-end gap-3 p-4">
+            <SecondaryButton
+              className="min-h-10 px-6"
+              onClick={onCancel}
+              type="button"
+            >
+              Cancel
+            </SecondaryButton>
+            <PrimaryButton
+              className="min-h-10 px-6"
+              onClick={handleSave}
+              type="button"
+            >
+              Save &amp; Continue
+            </PrimaryButton>
+          </div>
         </div>
       </div>
     </section>
