@@ -1,11 +1,13 @@
 "use client";
 
 import { useState } from "react";
-import { CustomerBusinessProfilesSection } from "@/features/crm/client-dashboard/components/home/customer-business-profiles-section";
-import { CustomerHomeWelcome } from "@/features/crm/client-dashboard/components/home/customer-home-sections";
-import { CustomerOnboardingSteps } from "@/features/crm/client-dashboard/components/home/customer-onboarding-steps";
-import { CustomerRecentActivitiesLayout } from "@/features/crm/client-dashboard/components/home/customer-recent-activities-layout";
-import { CustomerSupportChat } from "@/features/crm/client-dashboard/components/home/customer-support-chat";
+import {
+  CustomerBusinessProfilesSection,
+  CustomerHomeWelcome,
+  CustomerOnboardingSteps,
+  CustomerRecentActivitiesLayout,
+  CustomerSupportChat,
+} from "@/features/crm/client-dashboard/sections/home";
 import type { DashboardSectionWithNavigationProps } from "@/features/crm/components/dashboard-sections/dashboard-section-types";
 
 type CustomerDashboardProps = DashboardSectionWithNavigationProps & {

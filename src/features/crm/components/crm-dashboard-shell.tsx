@@ -11,7 +11,7 @@ import { getCustomerAllowedSections } from "@/components/layout/customer-navigat
 import { createDefaultDateRange, isDateWithinRange } from "@/components/ui/date-range-filter";
 import { ToastStack, type Toast } from "@/components/ui/toast-stack";
 import { getCrmOverview, crmQueryKeys } from "@/features/crm/api/crm-queries";
-import { enableBusinessProfileRequestsNav, isBusinessProfileRequestsNavEnabled } from "@/features/crm/client-dashboard/business-profile-request-storage";
+import { enableBusinessProfileRequestsNav, isBusinessProfileRequestsNavEnabled } from "@/features/crm/client-dashboard/sections/business-profile/business-profile-request-storage";
 import { CustomerDashboard, SectionRenderer } from "@/features/crm/components/dashboard-sections";
 import type { ToastType } from "@/features/crm/types/crm";
 
