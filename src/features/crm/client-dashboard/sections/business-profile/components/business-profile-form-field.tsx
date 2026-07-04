@@ -12,7 +12,7 @@ export function BusinessProfileFormField({ children, htmlFor, label, required = 
     <div className="grid gap-2">
       <label className={businessProfileLabelClassName} htmlFor={htmlFor}>
         {label}
-        {required ? <span className="text-[var(--danger-text)]"> *</span> : null}
+        {required ? <span className="text-[#F74608]"> *</span> : null}
       </label>
       {children}
     </div>
