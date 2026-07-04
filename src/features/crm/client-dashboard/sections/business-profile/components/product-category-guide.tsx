@@ -1,4 +1,8 @@
-import { blackCategoryItems, grayCategoryItems, whiteCategoryItems } from "@/features/crm/client-dashboard/sections/business-profile/components/business-profile-form-styles";
+import {
+  blackCategoryItems,
+  grayCategoryItems,
+  whiteCategoryItems,
+} from "@/features/crm/client-dashboard/sections/business-profile/components/business-profile-form-styles";
 
 type CategoryCardProps = {
   items: string[];

@@ -25,7 +25,7 @@ export function PaymentMethodGrid({ selectedMethods, onToggle }: PaymentMethodGr
             type="button"
           >
             <PaymentMethodIcon methodId={method.id} />
-            <strong className="body-sm-medium flex-1 primary-text">{method.label}</strong>
+            <strong className="title-regular flex-1 primary-text">{method.label}</strong>
             <span
               className={`absolute right-3 top-3 inline-flex h-5 w-5 items-center justify-center rounded border ${
                 isSelected
