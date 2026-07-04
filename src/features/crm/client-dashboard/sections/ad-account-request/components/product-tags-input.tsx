@@ -59,7 +59,7 @@ export function ProductTagsInput({ id, onChange, products }: ProductTagsInputPro
       >
         {products.map((product) => (
           <span
-            className="body-xsm-regular inline-flex items-center gap-1.5 rounded-md border border-[var(--line)] bg-[var(--white)] px-2.5 py-1.5 primary-text"
+            className="body-sm-regular inline-flex items-center gap-1.5 rounded-md border border-[var(--line)] bg-[var(--line)] px-2.5 py-1.5 primary-text"
             key={product}
           >
             {product}
@@ -78,7 +78,7 @@ export function ProductTagsInput({ id, onChange, products }: ProductTagsInputPro
         ))}
 
         <input
-          className="min-w-[220px] flex-1 border-0 bg-transparent py-1 text-sm text-[var(--brand-navy)] outline-none placeholder:text-[var(--muted)]"
+          className="min-w-[220px] flex-1 border-0 bg-transparent py-1 body-sm-regular text-[var(--brand-navy)] outline-none placeholder:text-[var(--muted)]"
           id={id}
           onChange={(event) => setInputValue(event.target.value)}
           onKeyDown={handleKeyDown}
@@ -88,7 +88,7 @@ export function ProductTagsInput({ id, onChange, products }: ProductTagsInputPro
         />
       </div>
 
-      <p className="body-xsm-regular m-0 subtext">
+      <p className="body-regular m-0 subtext">
         After selecting the category, describe every product that will be advertise under this ad account.
       </p>
     </div>
