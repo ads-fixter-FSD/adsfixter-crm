@@ -112,6 +112,9 @@
   --btn-gap: 8px;
   --btn-radius: 8px;
 
+  --table-header-bg: #f2f3f3;
+  --table-header-border: #ededed;
+
   /* Legacy aliases */
   --brand-orange: var(--color-adsfixter-primary);
   --brand-orange-contrast: var(--color-on-primary);
@@ -164,6 +167,9 @@
   --color-surface: #11151b;
   --color-line: #242831;
   --color-field: #10141b;
+
+  --table-header-bg: #1a1e26;
+  --table-header-border: #2a2f3a;
 
   --color-link: #93c5fd;
   --color-success-bg: rgba(34, 197, 94, 0.18);
