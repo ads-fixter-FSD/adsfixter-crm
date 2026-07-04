@@ -5,8 +5,8 @@ import TextField from "@/components/ui/TextField";
 import PasswordField from "@/components/ui/PasswordField";
 import PrimaryButton from "@/components/ui/PrimaryButton";
 import GoogleButton from "@/components/auth/GoogleButton";
-import { demoCredentials } from "@/features/auth/data/demo-credentials";
-import { setAuthSession } from "@/features/auth/auth-session";
+import { setAuthSession } from "@/components/auth/auth-session";
+import { demoCredentials } from "@/components/auth/demo-credentials";
 import { useRouter } from "next/navigation";
 
 interface SignInFormProps {

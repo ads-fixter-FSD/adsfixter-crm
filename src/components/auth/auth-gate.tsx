@@ -3,19 +3,19 @@
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
-import { isAuthenticated } from "@/features/auth/auth-session";
+import { isAuthenticated } from "@/components/auth/auth-session";
 
-type RedirectIfAuthenticatedProps = {
+type AuthGateProps = {
   children: React.ReactNode;
 };
 
-export function RedirectIfAuthenticated({ children }: RedirectIfAuthenticatedProps) {
+export function AuthGate({ children }: AuthGateProps) {
   const router = useRouter();
   const [isReady, setIsReady] = useState(false);
 
   useEffect(() => {
-    if (isAuthenticated()) {
-      router.replace("/");
+    if (!isAuthenticated()) {
+      router.replace("/auth/signin");
       return;
     }
 
@@ -26,7 +26,7 @@ export function RedirectIfAuthenticated({ children }: RedirectIfAuthenticatedPro
     return (
       <div className="grid min-h-screen place-content-center gap-4 text-center">
         <Image alt="AdsFixter" className="block h-10 w-10 object-contain" height={44} src="/adsfixter-logo.png" width={44} />
-        <p>Loading...</p>
+        <p>Checking your session...</p>
       </div>
     );
   }

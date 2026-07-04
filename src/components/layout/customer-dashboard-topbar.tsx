@@ -4,7 +4,7 @@ import Link from "next/link";
 import { Bell, LogOut, Moon, Search, Settings, Sun } from "lucide-react";
 import { useRef } from "react";
 import { getCustomerBreadcrumbParts } from "@/components/layout/customer-navigation";
-import { clearAuthSession } from "@/features/auth/auth-session";
+import { clearAuthSession } from "@/components/auth/auth-session";
 import { resetCustomerSetupProgress } from "@/features/crm/client-dashboard/demo-progress-storage";
 import { useClickOutside } from "@/hooks/use-click-outside";
 

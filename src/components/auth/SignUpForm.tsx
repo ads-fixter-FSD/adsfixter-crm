@@ -4,7 +4,7 @@ import { useState } from "react";
 import TextField from "@/components/ui/TextField";
 import PasswordField from "@/components/ui/PasswordField";
 import PrimaryButton from "@/components/ui/PrimaryButton";
-import { setAuthSession } from "@/features/auth/auth-session";
+import { setAuthSession } from "@/components/auth/auth-session";
 import { useRouter } from "next/navigation";
 
 interface SignUpFormProps {
