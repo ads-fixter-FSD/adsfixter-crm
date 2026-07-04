@@ -13,7 +13,10 @@ import {
 import { PrimaryButton, SecondaryButton } from "@/components/shared-buttons";
 
 import Image from "next/image";
-import { getCustomerCurrentStepIndex, getCustomerOnboardingPhase } from "../../sections";
+import {
+  getCustomerCurrentStepIndex,
+  getCustomerOnboardingPhase,
+} from "../../sections";
 
 const onboardingSteps = [
   {
@@ -106,11 +109,11 @@ export function CustomerOnboardingSteps({
           label: "Request Business Profile",
           onClick: onRequestBusinessProfile,
         }
-      : phase === "waiting_approval"
+      : phase === "payment_setup"
         ? { icon: CreditCard, label: "Payment Setup", onClick: onPaymentSetup }
         : {
             icon: Megaphone,
-            label: "Request Ad Account",  
+            label: "Request Ad Account",
             onClick: onPaymentSetup,
           };
 
