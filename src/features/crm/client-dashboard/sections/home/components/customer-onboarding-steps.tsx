@@ -304,7 +304,7 @@ export function CustomerOnboardingSteps({
       </div>
 
       {shouldShowSetupCompleteContinue ? (
-        <div className=" flex justify-center">
+        <div className="mt-8 flex justify-center py-8">
           <PrimaryButton
             className="min-h-9 gap-2 px-8"
             onClick={handlePrimaryClick}
@@ -315,7 +315,7 @@ export function CustomerOnboardingSteps({
           </PrimaryButton>
         </div>
       ) : !isFullyComplete ? (
-        <div className="mt-8 py-8 flex justify-center">
+        <div className="mt-8 flex justify-center py-8">
           <PrimaryButton
             className="min-h-9 gap-2 px-8"
             onClick={handlePrimaryClick}
