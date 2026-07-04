@@ -1,1 +1,114 @@
-export { default } from "@/features/auth/components/sign-in-form";
+"use client";
+
+import { useState } from "react";
+import TextField from "@/components/ui/TextField";
+import PasswordField from "@/components/ui/PasswordField";
+import PrimaryButton from "@/components/ui/PrimaryButton";
+import GoogleButton from "@/components/auth/GoogleButton";
+import { demoCredentials } from "@/features/auth/data/demo-credentials";
+import { setAuthSession } from "@/features/auth/auth-session";
+import { useRouter } from "next/navigation";
+
+interface SignInFormProps {
+  onSwitchToSignUp: () => void;
+}
+
+export default function SignInForm({ onSwitchToSignUp }: SignInFormProps) {
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [remember, setRemember] = useState(false);
+
+  const router = useRouter()
+
+  function handleSubmit(e: React.FormEvent) {
+    e.preventDefault();
+
+    const matchedCredential = demoCredentials.find((credential) => credential.email === email.trim() && credential.password === password);
+
+    if (matchedCredential) {
+      setAuthSession({
+        email: matchedCredential.email,
+        role: matchedCredential.role,
+      });
+      router.push("/");
+      return;
+    }
+
+    setAuthSession({
+      email: email.trim(),
+      role: "Customer",
+    });
+    router.push("/");
+  }
+
+  return (
+    <div className="flex flex-col gap-6">
+
+
+      <form onSubmit={handleSubmit} className="flex flex-col gap-4">
+        <TextField
+          id="email"
+          label="Email address"
+          type="email"
+          placeholder="Enter your email address"
+          value={email}
+          onChange={setEmail}
+          autoComplete="email"
+
+        />
+
+        <PasswordField
+          id="password"
+          label="Password"
+          placeholder="Enter your password"
+          value={password}
+          onChange={setPassword}
+        />
+
+        <div className="flex items-center justify-between">
+          <label
+            className="body-regular  flex items-center gap-2"
+            style={{ color: "var(--color-subtext-500)" }}
+          >
+            <input
+              type="checkbox"
+              checked={remember}
+              onChange={(e) => setRemember(e.target.checked)}
+              className="h-4 w-4 rounded"
+              style={{ accentColor: "var(--color-primary)" }}
+            />
+            Remember me
+          </label>
+          <a
+            href="#"
+            className="body-sm-medium"
+            style={{ color: "var(--color-primary)" }}
+          >
+            Forgot password?
+          </a>
+        </div>
+
+        <PrimaryButton type="submit">Sign In</PrimaryButton>
+      </form>
+
+      <div className="flex items-center gap-3" style={{ color: "var(--color-subtext-400)" }}>
+        <div className="h-px flex-1" style={{ background: "var(--color-line)" }} />
+        <span className="Body/body-regular ">Or continue with</span>
+        <div className="h-px flex-1" style={{ background: "var(--color-line)" }} />
+      </div>
+
+      <GoogleButton />
+
+      <p className="body-regular text-center" style={{ color: "var(--color-subtext-500)" }}>
+        Dont have an account?{" "}
+        <button
+          type="button"
+          onClick={onSwitchToSignUp}
+          className="body-regular text-[#F74608]"
+        >
+          Create Account
+        </button>
+      </p>
+    </div>
+  );
+}
