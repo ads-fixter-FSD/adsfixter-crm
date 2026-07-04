@@ -3,17 +3,35 @@
 import { ClipboardList } from "lucide-react";
 import { formatBusinessProfileSubmittedDate } from "@/features/crm/client-dashboard/sections/business-profile/business-profile-request-format";
 import { getBusinessProfileRequests } from "@/features/crm/client-dashboard/sections/business-profile/business-profile-request-storage";
-import { hasSubmittedBusinessProfile } from "@/features/crm/client-dashboard/sections/home/customer-onboarding-storage";
+import { getAdAccountRequests } from "@/features/crm/client-dashboard/sections/ad-account-request/ad-account-request-storage";
+import { isPaymentSetupSubmitted } from "@/features/crm/client-dashboard/sections/home/customer-onboarding-storage";
+import { getPaymentSetupData } from "@/features/crm/client-dashboard/sections/payment-setup/payment-setup-storage";
 
 export function CustomerRecentActivitiesLayout() {
-  const activities = hasSubmittedBusinessProfile()
-    ? getBusinessProfileRequests().map((request) => ({
-        id: request.id,
-        date: formatBusinessProfileSubmittedDate(request.submittedAt),
-        message: `${request.businessName} business profile Submitted`,
-        status: request.status === "Approved" ? ("Approved" as const) : ("Pending" as const),
-      }))
-    : [];
+  const activities = [
+    ...getBusinessProfileRequests().map((request) => ({
+      id: request.id,
+      date: formatBusinessProfileSubmittedDate(request.submittedAt),
+      message: `${request.businessName} business profile Submitted`,
+      status: request.status === "Approved" ? ("Approved" as const) : ("Pending" as const),
+    })),
+    ...(isPaymentSetupSubmitted() && getPaymentSetupData()
+      ? [
+          {
+            id: "payment-setup",
+            date: formatBusinessProfileSubmittedDate(new Date().toISOString()),
+            message: "Payment setup completed",
+            status: "Approved" as const,
+          },
+        ]
+      : []),
+    ...getAdAccountRequests().map((request) => ({
+      id: request.id,
+      date: formatBusinessProfileSubmittedDate(request.submittedAt),
+      message: `${request.adAccountName} ad account request submitted`,
+      status: "Pending" as const,
+    })),
+  ];
 
   return (
     <section className="rounded-xl border border-[var(--line)] bg-[var(--white)] p-5 max-[1180px]:p-4">

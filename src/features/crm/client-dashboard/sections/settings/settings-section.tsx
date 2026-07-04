@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { AccountRegionPanel } from "@/features/crm/client-dashboard/sections/settings/components/account-region-panel";
+import { DemoSetupPanel } from "@/features/crm/client-dashboard/sections/settings/components/demo-setup-panel";
 import { NotificationPreferencesPanel } from "@/features/crm/client-dashboard/sections/settings/components/notification-preferences-panel";
 import { ProfileInformationPanel } from "@/features/crm/client-dashboard/sections/settings/components/profile-information-panel";
 import { SecurityPanel } from "@/features/crm/client-dashboard/sections/settings/components/security-panel";
@@ -48,6 +49,7 @@ export function SettingsSection({ showToast }: SettingsSectionProps) {
             paymentAlertsEnabled={paymentAlertsEnabled}
           />
           <SecurityPanel onChangePassword={() => showToast("warning", "Password update flow coming soon")} />
+          <DemoSetupPanel onReset={() => showToast("success", "Setup progress reset. Starting from Home.")} />
           <AccountRegionPanel />
         </aside>
       </div>
