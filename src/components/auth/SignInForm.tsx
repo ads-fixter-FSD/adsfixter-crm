@@ -43,14 +43,7 @@ export default function SignInForm({ onSwitchToSignUp }: SignInFormProps) {
 
   return (
     <div className="flex flex-col gap-6">
-      <div>
-        <h1 className="h6-semibold" style={{ color: "var(--color-primary-text-500)" }}>
-          Sign in to your Account
-        </h1>
-        <p className="body-sm-regular mt-1" style={{ color: "var(--color-subtext-500)" }}>
-          Enter your credential to access your dashboard
-        </p>
-      </div>
+
 
       <form onSubmit={handleSubmit} className="flex flex-col gap-4">
         <TextField
@@ -61,6 +54,7 @@ export default function SignInForm({ onSwitchToSignUp }: SignInFormProps) {
           value={email}
           onChange={setEmail}
           autoComplete="email"
+
         />
 
         <PasswordField
@@ -73,7 +67,7 @@ export default function SignInForm({ onSwitchToSignUp }: SignInFormProps) {
 
         <div className="flex items-center justify-between">
           <label
-            className="body-sm-regular flex items-center gap-2"
+            className="body-regular  flex items-center gap-2"
             style={{ color: "var(--color-subtext-500)" }}
           >
             <input
@@ -99,19 +93,18 @@ export default function SignInForm({ onSwitchToSignUp }: SignInFormProps) {
 
       <div className="flex items-center gap-3" style={{ color: "var(--color-subtext-400)" }}>
         <div className="h-px flex-1" style={{ background: "var(--color-line)" }} />
-        <span className="body-xsm-regular">Or continue with</span>
+        <span className="Body/body-regular ">Or continue with</span>
         <div className="h-px flex-1" style={{ background: "var(--color-line)" }} />
       </div>
 
       <GoogleButton />
 
-      <p className="body-sm-regular text-center" style={{ color: "var(--color-subtext-500)" }}>
+      <p className="body-regular text-center" style={{ color: "var(--color-subtext-500)" }}>
         Dont have an account?{" "}
         <button
           type="button"
           onClick={onSwitchToSignUp}
-          className="body-sm-medium"
-          style={{ color: "var(--color-primary)" }}
+          className="body-regular text-[#F74608]"
         >
           Create Account
         </button>

@@ -1,7 +1,7 @@
 export default function AuthFooter() {
   return (
     <div
-      className="body-xsm-regular flex items-center justify-between px-1"
+      className="/body-sm-regular flex items-center justify-between px-1"
       style={{ color: "var(--color-subtext-400)" }}
     >
       <span>©2026 metabari. All right reserved.</span>

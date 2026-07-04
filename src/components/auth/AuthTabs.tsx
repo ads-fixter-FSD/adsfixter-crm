@@ -25,7 +25,7 @@ export default function AuthTabs({ mode, onChange }: AuthTabsProps) {
       <button
         type="button"
         onClick={() => onChange("signin")}
-        className="body-sm-medium relative z-10 rounded-full py-2 transition-colors"
+        className="body-medium relative z-10 rounded-full py-2 transition-colors"
         style={{
           color: mode === "signin" ? "var(--color-primary-text-500)" : "var(--color-subtext-500)",
         }}
@@ -35,7 +35,7 @@ export default function AuthTabs({ mode, onChange }: AuthTabsProps) {
       <button
         type="button"
         onClick={() => onChange("signup")}
-        className="body-sm-medium relative z-10 rounded-full py-2 transition-colors"
+        className="body-medium relative z-10 rounded-full py-2 transition-colors"
         style={{
           color: mode === "signup" ? "var(--color-primary-text-500)" : "var(--color-subtext-500)",
         }}

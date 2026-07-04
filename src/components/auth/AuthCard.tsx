@@ -30,14 +30,9 @@ export default function AuthCard({ defaultMode = "signin" }: AuthCardProps) {
       className="flex w-full max-w-md flex-col gap-8 overflow-hidden py-4"
     >
       <div className="text-center">
-        <h1
-          className="h5 font-medium text-primary-text-500"
-          style={{ color: "var(--color-primary-text-500)" }}
-        >
-          {COPY[mode].title}
-        </h1>
+        <h1 className="h5 font-medium text-primary-text">{COPY[mode].title}</h1>
         <p
-          className="body-sm-regular mt-1"
+          className="body-l-regular mt-1"
           style={{ color: "var(--color-subtext-500)" }}
         >
           {COPY[mode].subtitle}
