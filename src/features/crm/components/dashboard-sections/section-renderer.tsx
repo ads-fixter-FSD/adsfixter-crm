@@ -1,6 +1,7 @@
 import {
   ClientAdAccountsSection,
   ClientBalanceHistorySection,
+  ClientAdAccountRequestsListSection,
   ClientBusinessProfileRequestSection,
   ClientBusinessProfileRequestsListSection,
   ClientHelpSupportSection,
@@ -10,6 +11,10 @@ import {
   ClientPaymentSetupSection,
   ClientSettingsSection,
 } from "@/features/crm/client-dashboard/sections";
+import { ClientAdAccountRequestSection } from "@/features/crm/client-dashboard/sections/ad-account-request/ad-account-request-section";
+import { isAdAccountRequestSubmitted } from "@/features/crm/client-dashboard/sections/ad-account-request/ad-account-request-storage";
+import { CustomerSetupCompleteSection } from "@/features/crm/client-dashboard/sections/home";
+import { markStartAdvertisingReady } from "@/features/crm/client-dashboard/sections/home/customer-onboarding-storage";
 import { CustomerRequestForm } from "@/features/crm/components/forms/customer-request-form";
 import type { DashboardSectionWithNavigationProps } from "@/features/crm/components/dashboard-sections/dashboard-section-types";
 
@@ -76,7 +81,43 @@ export function SectionRenderer({ data, section, showToast, onSectionChange }: S
     return <ClientSettingsSection showToast={showToast} />;
   }
 
-  if (section === "Request Account" || section === "Business Share") {
+  if (section === "Ad Account Requests") {
+    return (
+      <ClientAdAccountRequestsListSection
+        onAddNew={() => onSectionChange?.("Request Account")}
+        showToast={showToast}
+      />
+    );
+  }
+
+  if (section === "Request Account") {
+    return (
+      <ClientAdAccountRequestSection
+        onBack={() => onSectionChange?.(isAdAccountRequestSubmitted() ? "Ad Account Requests" : "Dashboard")}
+        onContactSupport={() => onSectionChange?.("Help & Support")}
+        onSubmitted={() => onSectionChange?.("Ad Account Requests")}
+        showToast={showToast}
+      />
+    );
+  }
+
+  if (section === "Setup Complete") {
+    if (!isAdAccountRequestSubmitted()) {
+      onSectionChange?.("Dashboard");
+      return null;
+    }
+
+    return (
+      <CustomerSetupCompleteSection
+        onGrow={() => {
+          markStartAdvertisingReady();
+          onSectionChange?.("Ad Accounts");
+        }}
+      />
+    );
+  }
+
+  if (section === "Business Share") {
     return (
       <section className="grid gap-5">
         <div>

@@ -4,12 +4,13 @@ import Image from "next/image";
 import Link from "next/link";
 import { BadgeCheck, ChevronDown, ChevronRight, Headset, Home, LifeBuoy, Settings, X } from "lucide-react";
 import { useState } from "react";
-import { customerMainNavigation, customerOtherNavigation, customerRequestsNavigation, getSectionHref, navigationIcons } from "@/components/layout/app-sidebar-navigation";
+import { customerMainNavigation, customerOtherNavigation, getSectionHref, navigationIcons } from "@/components/layout/app-sidebar-navigation";
 import { getCustomerSectionLabel } from "@/components/layout/customer-navigation";
 
 type CustomerSidebarProps = {
   activeSection: string;
   onSectionChange: (section: string) => void;
+  requestNavItems?: string[];
   showRequestsNav?: boolean;
 };
 
@@ -41,13 +42,21 @@ export function CustomerSidebarBrand() {
   );
 }
 
-export function CustomerSidebar({ activeSection, onSectionChange, showRequestsNav = false }: CustomerSidebarProps) {
+export function CustomerSidebar({
+  activeSection,
+  onSectionChange,
+  requestNavItems = [],
+  showRequestsNav = false,
+}: CustomerSidebarProps) {
   const [isSupportCardVisible, setIsSupportCardVisible] = useState(true);
 
   const renderNavItem = (section: string) => {
     const Icon = section === "Dashboard" ? Home : section === "Help & Support" ? LifeBuoy : (navigationIcons[section] ?? Home);
     const label = getCustomerSectionLabel(section);
-    const isActive = activeSection === section || (section === "Business Profile Requests" && activeSection === "New Business Profile Request");
+    const isActive =
+      activeSection === section ||
+      (section === "Business Profile Requests" && activeSection === "New Business Profile Request") ||
+      (section === "Ad Account Requests" && activeSection === "Request Account");
 
     return (
       <Link
@@ -73,7 +82,9 @@ export function CustomerSidebar({ activeSection, onSectionChange, showRequestsNa
         {showRequestsNav ? (
           <div className="grid gap-2">
             <p className="body-xsm-regular m-0 px-2 uppercase tracking-[0.08em] subtext">Requests</p>
-            <div className="grid gap-1">{customerRequestsNavigation.map(renderNavItem)}</div>
+            <div className="grid gap-1">
+              {requestNavItems.map(renderNavItem)}
+            </div>
           </div>
         ) : null}
 

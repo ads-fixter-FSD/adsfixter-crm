@@ -1,13 +1,38 @@
-import { BadgeDollarSign, Bell, BriefcaseBusiness, CreditCard, HandCoins, LayoutDashboard, LifeBuoy, PlusCircle, ReceiptText, Settings, Share2, WalletCards, type LucideIcon } from "lucide-react";
+import { BadgeDollarSign, Bell, BriefcaseBusiness, CreditCard, HandCoins, LayoutDashboard, LifeBuoy, Megaphone, PlusCircle, ReceiptText, Settings, Share2, WalletCards, type LucideIcon } from "lucide-react";
 
 export const customerMainNavigation = ["Dashboard"];
 
-export const customerRequestsNavigation = ["Business Profile Requests", "Payment Setup"];
+export const customerRequestsNavigation = ["Business Profile Requests", "Payment Setup", "Ad Account Requests"];
+
+export type CustomerRequestsNavOptions = {
+  showAdAccountRequests?: boolean;
+  showBusinessProfileRequests?: boolean;
+  showPaymentSetup?: boolean;
+};
+
+export function getCustomerRequestsNavigation(options?: CustomerRequestsNavOptions) {
+  const items: string[] = [];
+
+  if (options?.showBusinessProfileRequests) {
+    items.push("Business Profile Requests");
+  }
+
+  if (options?.showPaymentSetup) {
+    items.push("Payment Setup");
+  }
+
+  if (options?.showAdAccountRequests) {
+    items.push("Ad Account Requests");
+  }
+
+  return items;
+}
 
 export const customerOtherNavigation = ["Help & Support", "Settings"];
 
 export const customerHiddenNavigation = [
   "New Business Profile Request",
+  "Payment Setup",
   "Ad Accounts",
   "Request Account",
   "Business Share",
@@ -16,11 +41,18 @@ export const customerHiddenNavigation = [
   "Payment History",
   "Balance History",
   "Notifications",
+  "Setup Complete",
 ];
 
-export const customerNavigation = [...customerMainNavigation, ...customerRequestsNavigation, ...customerOtherNavigation, ...customerHiddenNavigation];
+export const customerNavigation = [
+  ...customerMainNavigation,
+  ...customerRequestsNavigation,
+  ...customerOtherNavigation,
+  ...customerHiddenNavigation,
+];
 
 export const navigationIcons: Record<string, LucideIcon> = {
+  "Ad Account Requests": Megaphone,
   "Ad Accounts": BriefcaseBusiness,
   "Balance History": WalletCards,
   "Business Profile Requests": BriefcaseBusiness,
