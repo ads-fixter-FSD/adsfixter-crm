@@ -1,13 +1,15 @@
-import { ClientAdAccountsSection } from "@/features/crm/client-dashboard/components/client-ad-accounts-section";
-import { ClientBalanceHistorySection } from "@/features/crm/client-dashboard/components/client-balance-history-section";
-import { ClientBusinessProfileRequestSection } from "@/features/crm/client-dashboard/components/client-business-profile-request-section";
-import { ClientBusinessProfileRequestsListSection } from "@/features/crm/client-dashboard/components/client-business-profile-requests-list-section";
-import { ClientHelpSupportSection } from "@/features/crm/client-dashboard/components/client-help-support-section";
-import { ClientNewPaymentSection } from "@/features/crm/client-dashboard/components/client-new-payment-section";
-import { ClientPaymentSetupSection } from "@/features/crm/client-dashboard/components/client-payment-setup-section";
-import { ClientNotificationsSection } from "@/features/crm/client-dashboard/components/client-notifications-section";
-import { ClientPaymentHistorySection } from "@/features/crm/client-dashboard/components/client-payment-history-section";
-import { ClientSettingsSection } from "@/features/crm/client-dashboard/components/client-settings-section";
+import {
+  ClientAdAccountsSection,
+  ClientBalanceHistorySection,
+  ClientBusinessProfileRequestSection,
+  ClientBusinessProfileRequestsListSection,
+  ClientHelpSupportSection,
+  ClientNewPaymentSection,
+  ClientNotificationsSection,
+  ClientPaymentHistorySection,
+  ClientPaymentSetupSection,
+  ClientSettingsSection,
+} from "@/features/crm/client-dashboard/sections";
 import { CustomerRequestForm } from "@/features/crm/components/forms/customer-request-form";
 import type { DashboardSectionWithNavigationProps } from "@/features/crm/components/dashboard-sections/dashboard-section-types";
 
