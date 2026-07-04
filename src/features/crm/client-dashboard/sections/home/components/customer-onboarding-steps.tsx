@@ -168,11 +168,20 @@ export function CustomerOnboardingSteps({
   };
 
   return (
-    <section className="rounded-xl border border-[var(--line)] bg-[var(--white)] p-5 max-[1180px]:p-4">
-      <div className="flex flex-wrap items-start justify-between gap-4">
-        <h2 className="h6-medium m-0 primary-text">
-          Complete these steps to get started
-        </h2>
+    <section className="rounded-xl border border-[var(--line)] bg-[var(--white)] ">
+      <div className="flex flex-wrap items-start  p-4 justify-between gap-4">
+        <div>
+          <h2 className="h6-medium m-0 primary-text">
+            Complete these steps to get started
+          </h2>
+          {currentStepIndex === 0 ? (
+            <p className="body-regular subtext max-w-[700px] mt-3">
+              Each stage (Business Profile, Payment Setup, Ad Account Request)
+              requires admin approval. You can move to the next stage only after
+              the previous one is approved.
+            </p>
+          ) : null}
+        </div>
 
         <SecondaryButton
           className="min-h-10 gap-2 px-4"
@@ -184,7 +193,9 @@ export function CustomerOnboardingSteps({
         </SecondaryButton>
       </div>
 
-      <div className="mt-8 flex items-start max-[1180px]:grid max-[1180px]:grid-cols-1 max-[1180px]:gap-6">
+      <hr className="text-[var(--line)]" />
+
+      <div className="mt-8 flex items-start max-[1180px]:grid max-[1180px]:grid-cols-1 max-[1180px]:gap-6 p-4">
         {onboardingSteps.map((step, index) => {
           const Icon = step.icon;
           const isLast = index === onboardingSteps.length - 1;
@@ -249,7 +260,7 @@ export function CustomerOnboardingSteps({
                       })()
                     : null}
                   {isCompleted && index === 1 ? (
-                    <span className="body-xsm-medium inline-flex items-center justify-center gap-1.5 rounded-full bg-[var(--success-bg)] px-2.5 py-1 text-[var(--success-text)] max-[1180px]:justify-start">
+                    <span className="body-xsm-regular inline-flex items-center justify-center gap-1.5 rounded-full bg-[var(--success-bg)] px-2.5 py-1 text-[var(--success-text)] max-[1180px]:justify-start">
                       <CheckCircle2
                         aria-hidden="true"
                         size={12}
@@ -260,7 +271,7 @@ export function CustomerOnboardingSteps({
                   ) : null}
 
                   {isCompleted && index === 2 ? (
-                    <span className="body-xsm-medium inline-flex items-center justify-center gap-1.5 rounded-full bg-[var(--success-bg)] px-2.5 py-1 text-[var(--success-text)] max-[1180px]:justify-start">
+                    <span className="body-xsm-regular inline-flex items-center justify-center gap-1.5 rounded-full bg-[var(--success-bg)] px-2.5 py-1 text-[var(--success-text)] max-[1180px]:justify-start">
                       <CheckCircle2
                         aria-hidden="true"
                         size={12}
@@ -272,7 +283,7 @@ export function CustomerOnboardingSteps({
 
                   {isLast &&
                   (visualState === "completed" || isFullyComplete) ? (
-                    <span className="body-xsm-medium inline-flex items-center justify-center gap-1.5 rounded-full bg-[var(--success-bg)] px-2.5 py-1 text-[var(--success-text)] max-[1180px]:justify-start">
+                    <span className="body-xsm-regular inline-flex items-center justify-center gap-1.5 rounded-full bg-[var(--success-bg)] px-2.5 py-1 text-[var(--success-text)] max-[1180px]:justify-start">
                       <CheckCircle2
                         aria-hidden="true"
                         size={12}
@@ -293,9 +304,9 @@ export function CustomerOnboardingSteps({
       </div>
 
       {shouldShowSetupCompleteContinue ? (
-        <div className="mt-8 flex justify-center">
+        <div className=" flex justify-center">
           <PrimaryButton
-            className="min-h-11 gap-2 px-8"
+            className="min-h-9 gap-2 px-8"
             onClick={handlePrimaryClick}
             type="button"
           >
@@ -304,9 +315,9 @@ export function CustomerOnboardingSteps({
           </PrimaryButton>
         </div>
       ) : !isFullyComplete ? (
-        <div className="mt-8 flex justify-center">
+        <div className="mt-8 py-8 flex justify-center">
           <PrimaryButton
-            className="min-h-11 gap-2 px-8"
+            className="min-h-9 gap-2 px-8"
             onClick={handlePrimaryClick}
             type="button"
           >
