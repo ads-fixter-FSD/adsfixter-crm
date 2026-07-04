@@ -126,12 +126,12 @@ export function BusinessProfileRequestsTable({
           <div className="overflow-x-auto">
             <table className="w-full min-w-[960px] border-collapse">
               <thead>
-                <tr className="bg-[#F2F3F3] text-left">
+                <tr className="bg-[var(--table-header-bg)] text-left">
                   {tableHeaders.map((header, i) => (
                     <th
                       className={`body-sm-regular subtext-500 px-4 py-3 align-middle ${
                         i !== tableHeaders.length - 1
-                          ? "border-r border-[#EDEDED]"
+                          ? "border-r border-[var(--table-header-border)]"
                           : ""
                       }`}
                       key={header}
