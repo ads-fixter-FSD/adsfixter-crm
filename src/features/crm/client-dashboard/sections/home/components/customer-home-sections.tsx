@@ -10,8 +10,8 @@ function getTodayLabel() {
 export function CustomerHomeWelcome() {
   return (
     <section className="grid gap-1">
-      <h1 className="h4 m-0 primary-text">Welcome Mr.X !</h1>
-      <p className="body-regular m-0 subtext">Everything you need to manage your Meta advertising workflow in one dashboard.</p>
+      <h1 className="h6-medium m-0 primary-text-500">Welcome Mr.X !</h1>
+      <p className="body-am-regular m-0 subtext-500">Everything you need to manage your Meta advertising workflow in one dashboard.</p>
     </section>
   );
 }
