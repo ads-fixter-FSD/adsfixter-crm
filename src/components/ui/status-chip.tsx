@@ -36,7 +36,7 @@ export function StatusChip({ status }: StatusChipProps) {
 
   return (
     <span
-      className={`inline-flex h-7 items-center justify-center gap-1.5 whitespace-nowrap rounded-full px-3 text-center text-xs font-semibold leading-none ${className}`}
+      className={`inline-flex h-7 items-center justify-center gap-1.5 whitespace-nowrap rounded-[6px] px-3 text-center text-xs font-semibold leading-none ${className}`}
     >
       <Icon aria-hidden="true" className="shrink-0" size={12} strokeWidth={2} />
       {status}
