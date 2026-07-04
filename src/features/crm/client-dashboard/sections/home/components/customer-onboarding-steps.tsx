@@ -1,6 +1,15 @@
 "use client";
 
-import { BriefcaseBusiness, CheckCircle2, ChevronRight, CreditCard, Headset, Megaphone, Play } from "lucide-react";
+import {
+  BriefcaseBusiness,
+  CheckCircle2,
+  ChevronRight,
+  CreditCard,
+  Headset,
+  Loader,
+  Megaphone,
+  Play,
+} from "lucide-react";
 import { PrimaryButton, SecondaryButton } from "@/components/shared-buttons";
 import {
   getCustomerCurrentStepIndex,
@@ -46,7 +55,10 @@ type CustomerOnboardingStepsProps = {
 
 type StepVisualState = "completed" | "current" | "upcoming";
 
-function getStepVisualState(stepIndex: number, currentStepIndex: number): StepVisualState {
+function getStepVisualState(
+  stepIndex: number,
+  currentStepIndex: number,
+): StepVisualState {
   if (stepIndex < currentStepIndex) {
     return "completed";
   }
@@ -60,50 +72,86 @@ function getStepVisualState(stepIndex: number, currentStepIndex: number): StepVi
 
 function StepConnector({ isActive }: { isActive: boolean }) {
   return (
-    <div aria-hidden="true" className="mt-7 flex min-w-10 max-w-28 flex-1 items-center px-1 max-[1180px]:hidden">
-      <div className={`h-0 w-full border-t-2 border-dashed ${isActive ? "border-[var(--color-adsfixter-primary)]" : "border-[var(--line)]"}`} />
-      <ChevronRight
-        className={`-ml-1 shrink-0 ${isActive ? "text-[var(--color-adsfixter-primary)]" : "text-[var(--line)]"}`}
-        size={18}
-        strokeWidth={2}
+    <div
+      aria-hidden="true"
+      className="mt-7 flex min-w-10 max-w-64 flex-1 items-center px-1 max-[1180px]:hidden"
+    >
+      <div
+        className={`h-0 w-full border-t-2 border-dashed ${isActive ? "border-[var(--color-adsfixter-primary)]" : "border-[var(--line)]"}`}
       />
+      {isActive ? (
+        <ChevronRight
+          className="-ml-1 shrink-0 text-[var(--color-adsfixter-primary)]"
+          size={18}
+          strokeWidth={2}
+        />
+      ) : null}
     </div>
   );
 }
 
 function getStepDescription(stepIndex: number, visualState: StepVisualState) {
   const step = onboardingSteps[stepIndex];
-  return visualState === "completed" ? step.completedDescription : step.defaultDescription;
+  return visualState === "completed"
+    ? step.completedDescription
+    : step.defaultDescription;
 }
 
 function getPrimaryAction(phase: CustomerOnboardingPhase) {
   if (phase === "verify_business") {
-    return { icon: BriefcaseBusiness, label: "Request Business Profile", section: null as string | null };
+    return {
+      icon: BriefcaseBusiness,
+      label: "Request Business Profile",
+      section: null as string | null,
+    };
   }
 
   if (phase === "payment_setup") {
-    return { icon: CreditCard, label: "Payment Setup", section: "Payment Setup" };
+    return {
+      icon: CreditCard,
+      label: "Payment Setup",
+      section: "Payment Setup",
+    };
   }
 
   if (phase === "request_ad_account") {
-    return { icon: Megaphone, label: "Request Ad Account", section: "Request Account" };
+    return {
+      icon: Megaphone,
+      label: "Request Ad Account",
+      section: "Request Account",
+    };
   }
 
   if (phase === "start_advertising") {
-    return { icon: CheckCircle2, label: "Continue", section: null as string | null };
+    return {
+      icon: CheckCircle2,
+      label: "Continue",
+      section: null as string | null,
+    };
   }
 
-  return { icon: CheckCircle2, label: "Continue", section: null as string | null };
+  return {
+    icon: CheckCircle2,
+    label: "Continue",
+    section: null as string | null,
+  };
 }
 
-export function CustomerOnboardingSteps({ onContactSupport, onNavigate, onRequestBusinessProfile }: CustomerOnboardingStepsProps) {
+export function CustomerOnboardingSteps({
+  onContactSupport,
+  onNavigate,
+  onRequestBusinessProfile,
+}: CustomerOnboardingStepsProps) {
   const phase = getCustomerOnboardingPhase();
   const currentStepIndex = getCustomerCurrentStepIndex();
   const primaryAction = getPrimaryAction(phase);
   const PrimaryActionIcon = primaryAction.icon;
   const isFullyComplete = phase === "complete";
-  const shouldShowSetupCompleteContinue = isAdAccountRequestSubmitted() && !isStartAdvertisingReady();
-  const displayStepIndex = shouldShowSetupCompleteContinue ? onboardingSteps.length : currentStepIndex;
+  const shouldShowSetupCompleteContinue =
+    isAdAccountRequestSubmitted() && !isStartAdvertisingReady();
+  const displayStepIndex = shouldShowSetupCompleteContinue
+    ? onboardingSteps.length
+    : currentStepIndex;
 
   const handlePrimaryClick = () => {
     if (shouldShowSetupCompleteContinue) {
@@ -120,17 +168,34 @@ export function CustomerOnboardingSteps({ onContactSupport, onNavigate, onReques
   };
 
   return (
-    <section className="rounded-xl border border-[var(--line)] bg-[var(--white)] p-5 max-[1180px]:p-4">
-      <div className="flex flex-wrap items-start justify-between gap-4">
-        <h2 className="h6-medium m-0 primary-text">Complete these steps to get started</h2>
+    <section className="rounded-xl border border-[var(--line)] bg-[var(--white)] ">
+      <div className="flex flex-wrap items-start  p-4 justify-between gap-4">
+        <div>
+          <h2 className="h6-medium m-0 primary-text">
+            Complete these steps to get started
+          </h2>
+          {currentStepIndex === 0 ? (
+            <p className="body-regular subtext max-w-[700px] mt-3">
+              Each stage (Business Profile, Payment Setup, Ad Account Request)
+              requires admin approval. You can move to the next stage only after
+              the previous one is approved.
+            </p>
+          ) : null}
+        </div>
 
-        <SecondaryButton className="min-h-10 gap-2 px-4" onClick={onContactSupport} type="button">
+        <SecondaryButton
+          className="min-h-10 gap-2 px-4"
+          onClick={onContactSupport}
+          type="button"
+        >
           <Headset aria-hidden="true" size={16} strokeWidth={1.8} />
           Contact Support
         </SecondaryButton>
       </div>
 
-      <div className="mt-8 flex items-start max-[1180px]:grid max-[1180px]:grid-cols-1 max-[1180px]:gap-6">
+      <hr className="text-[var(--line)]" />
+
+      <div className="mt-8 flex items-start max-[1180px]:grid max-[1180px]:grid-cols-1 max-[1180px]:gap-6 p-4">
         {onboardingSteps.map((step, index) => {
           const Icon = step.icon;
           const isLast = index === onboardingSteps.length - 1;
@@ -154,62 +219,108 @@ export function CustomerOnboardingSteps({ onContactSupport, onNavigate, onReques
                 </span>
 
                 <div className="grid w-full max-w-44 gap-2">
-                  <strong className="body-sm-medium primary-text">{step.title}</strong>
-                  <p className="body-xsm-regular m-0 subtext">{getStepDescription(index, visualState)}</p>
+                  <strong className="title-medium primary-text">
+                    {step.title}
+                  </strong>
+                  <p className="body-sm-regular m-0 subtext">
+                    {getStepDescription(index, visualState)}
+                  </p>
 
-                  {isCompleted && index === 0 ? (
-                    <span
-                      className={`body-xsm-medium inline-flex items-center justify-center gap-1.5 rounded-full px-2.5 py-1 max-[1180px]:justify-start ${
-                        getBusinessProfileRequests().some((request) => request.status === "Approved")
-                          ? "bg-[var(--success-bg)] text-[var(--success-text)]"
-                          : "bg-[var(--warning-bg)] text-[var(--warning-text)]"
-                      }`}
-                    >
-                      <CheckCircle2 aria-hidden="true" size={12} strokeWidth={2} />
-                      {getBusinessProfileRequests().some((request) => request.status === "Approved") ? "Verified" : "Waiting for approval"}
-                    </span>
-                  ) : null}
+                  {isCompleted && index === 0
+                    ? (() => {
+                        const isApproved = getBusinessProfileRequests().some(
+                          (request) => request.status === "Approved",
+                        );
 
+                        return (
+                          <span
+                            className={`body-xsm-regular inline-flex items-center justify-center gap-1.5 rounded-full px-2.5 py-1 max-[1180px]:justify-start ${
+                              isApproved
+                                ? "bg-[var(--success-bg)] text-[var(--success-text)]"
+                                : "bg-[#ffece6] adsfixter-primary-text"
+                            }`}
+                          >
+                            {isApproved ? (
+                              <CheckCircle2
+                                aria-hidden="true"
+                                size={12}
+                                strokeWidth={2}
+                              />
+                            ) : (
+                              <Loader
+                                aria-hidden="true"
+                                className="animate-spin"
+                                size={12}
+                                strokeWidth={2}
+                              />
+                            )}
+                            {isApproved ? "Verified" : "Waiting for approval"}
+                          </span>
+                        );
+                      })()
+                    : null}
                   {isCompleted && index === 1 ? (
-                    <span className="body-xsm-medium inline-flex items-center justify-center gap-1.5 rounded-full bg-[var(--success-bg)] px-2.5 py-1 text-[var(--success-text)] max-[1180px]:justify-start">
-                      <CheckCircle2 aria-hidden="true" size={12} strokeWidth={2} />
+                    <span className="body-xsm-regular inline-flex items-center justify-center gap-1.5 rounded-full bg-[var(--success-bg)] px-2.5 py-1 text-[var(--success-text)] max-[1180px]:justify-start">
+                      <CheckCircle2
+                        aria-hidden="true"
+                        size={12}
+                        strokeWidth={2}
+                      />
                       Complete
                     </span>
                   ) : null}
 
                   {isCompleted && index === 2 ? (
-                    <span className="body-xsm-medium inline-flex items-center justify-center gap-1.5 rounded-full bg-[var(--success-bg)] px-2.5 py-1 text-[var(--success-text)] max-[1180px]:justify-start">
-                      <CheckCircle2 aria-hidden="true" size={12} strokeWidth={2} />
+                    <span className="body-xsm-regular inline-flex items-center justify-center gap-1.5 rounded-full bg-[var(--success-bg)] px-2.5 py-1 text-[var(--success-text)] max-[1180px]:justify-start">
+                      <CheckCircle2
+                        aria-hidden="true"
+                        size={12}
+                        strokeWidth={2}
+                      />
                       Submitted
                     </span>
                   ) : null}
 
-                  {isLast && (visualState === "completed" || isFullyComplete) ? (
-                    <span className="body-xsm-medium inline-flex items-center justify-center gap-1.5 rounded-full bg-[var(--success-bg)] px-2.5 py-1 text-[var(--success-text)] max-[1180px]:justify-start">
-                      <CheckCircle2 aria-hidden="true" size={12} strokeWidth={2} />
+                  {isLast &&
+                  (visualState === "completed" || isFullyComplete) ? (
+                    <span className="body-xsm-regular inline-flex items-center justify-center gap-1.5 rounded-full bg-[var(--success-bg)] px-2.5 py-1 text-[var(--success-text)] max-[1180px]:justify-start">
+                      <CheckCircle2
+                        aria-hidden="true"
+                        size={12}
+                        strokeWidth={2}
+                      />
                       Complete
                     </span>
                   ) : null}
-
                 </div>
               </div>
 
-              {!isLast ? <StepConnector isActive={index < displayStepIndex} /> : null}
+              {!isLast ? (
+                <StepConnector isActive={index < currentStepIndex} />
+              ) : null}
             </div>
           );
         })}
       </div>
 
       {shouldShowSetupCompleteContinue ? (
-        <div className="mt-8 flex justify-center">
-          <PrimaryButton className="min-h-11 gap-2 px-8" onClick={handlePrimaryClick} type="button">
+        <div className=" flex justify-center">
+          <PrimaryButton
+            className="min-h-9 gap-2 px-8"
+            onClick={handlePrimaryClick}
+            type="button"
+          >
             <CheckCircle2 aria-hidden="true" size={16} strokeWidth={1.8} />
             Continue
           </PrimaryButton>
         </div>
       ) : !isFullyComplete ? (
-        <div className="mt-8 flex justify-center">
-          <PrimaryButton className="min-h-11 gap-2 px-8" onClick={handlePrimaryClick} type="button">
+        <div className="mt-8 py-8 flex justify-center">
+          <PrimaryButton
+            className="min-h-9 gap-2 px-8"
+            onClick={handlePrimaryClick}
+            type="button"
+          >
             <PrimaryActionIcon aria-hidden="true" size={16} strokeWidth={1.8} />
             {primaryAction.label}
           </PrimaryButton>
