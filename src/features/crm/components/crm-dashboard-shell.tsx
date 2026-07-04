@@ -8,17 +8,18 @@ import { useCallback, useEffect, useMemo, useState } from "react";
 import { CustomerSidebar, CustomerSidebarBrand, getSectionHref, sectionToSlug } from "@/components/layout/app-sidebar";
 import { CustomerDashboardTopbar } from "@/components/layout/customer-dashboard-topbar";
 import { getCustomerAllowedSections } from "@/components/layout/customer-navigation";
+import { getCustomerRequestsNavState } from "@/components/layout/customer-requests-nav";
 import { createDefaultDateRange, isDateWithinRange } from "@/components/ui/date-range-filter";
 import { ToastStack, type Toast } from "@/components/ui/toast-stack";
 import { getCrmOverview, crmQueryKeys } from "@/features/crm/api/crm-queries";
-import { enableBusinessProfileRequestsNav, isBusinessProfileRequestsNavEnabled } from "@/features/crm/client-dashboard/business-profile-request-storage";
+import { enableBusinessProfileRequestsNav } from "@/features/crm/client-dashboard/sections/business-profile/business-profile-request-storage";
+import { isAdAccountRequestSubmitted } from "@/features/crm/client-dashboard/sections/ad-account-request/ad-account-request-storage";
 import { CustomerDashboard, SectionRenderer } from "@/features/crm/components/dashboard-sections";
 import type { ToastType } from "@/features/crm/types/crm";
 
 export function CrmDashboardShell() {
   const router = useRouter();
   const [activeSection, setActiveSection] = useState("Dashboard");
-  const [showRequestsNav, setShowRequestsNav] = useState(false);
   const [isSidebarVisible, setIsSidebarVisible] = useState(true);
   const [profileMenuOpen, setProfileMenuOpen] = useState(false);
   const [theme, setTheme] = useState<"light" | "dark">("light");
@@ -32,28 +33,26 @@ export function CrmDashboardShell() {
 
   const enableRequestsNav = useCallback(() => {
     enableBusinessProfileRequestsNav();
-    setShowRequestsNav(true);
   }, []);
 
   useEffect(() => {
-    const requestsNavEnabled = isBusinessProfileRequestsNavEnabled();
+    const requestsNavState = getCustomerRequestsNavState();
     const requestedSectionSlug = new URLSearchParams(window.location.search).get("section");
-    const allowedSections = getCustomerAllowedSections({ showRequestsNav: requestsNavEnabled });
+    const requestsSectionSlugs = [
+      sectionToSlug("Business Profile Requests"),
+      sectionToSlug("New Business Profile Request"),
+      sectionToSlug("Payment Setup"),
+      sectionToSlug("Ad Account Requests"),
+      sectionToSlug("Request Account"),
+    ];
+    const allowedSections = getCustomerAllowedSections({ requestItems: requestsNavState.requestItems });
     const requestedSection = allowedSections.find((section) => sectionToSlug(section) === requestedSectionSlug);
 
-    if (
-      requestedSectionSlug === sectionToSlug("Business Profile Requests") ||
-      requestedSectionSlug === sectionToSlug("New Business Profile Request")
-    ) {
+    if (requestedSectionSlug !== null && requestsSectionSlugs.includes(requestedSectionSlug)) {
       enableBusinessProfileRequestsNav();
     }
 
     window.queueMicrotask(() => {
-      setShowRequestsNav(
-        requestsNavEnabled ||
-          requestedSectionSlug === sectionToSlug("Business Profile Requests") ||
-          requestedSectionSlug === sectionToSlug("New Business Profile Request"),
-      );
       setActiveSection(requestedSection ?? "Dashboard");
     });
   }, []);
@@ -68,7 +67,8 @@ export function CrmDashboardShell() {
     });
   }, []);
 
-  const allowedSections = getCustomerAllowedSections({ showRequestsNav });
+  const requestsNavState = getCustomerRequestsNavState();
+  const allowedSections = getCustomerAllowedSections({ requestItems: requestsNavState.requestItems });
   const visibleSection = allowedSections.includes(activeSection) ? activeSection : "Dashboard";
   const filteredData = useMemo(() => {
     if (!data) return data;
@@ -94,6 +94,22 @@ export function CrmDashboardShell() {
   };
 
   const handleSectionChange = (section: string) => {
+    if (section === "Setup Complete" && !isAdAccountRequestSubmitted()) {
+      setActiveSection("Dashboard");
+      router.push(getSectionHref("Dashboard"));
+      return;
+    }
+
+    if (
+      section === "Business Profile Requests" ||
+      section === "New Business Profile Request" ||
+      section === "Payment Setup" ||
+      section === "Ad Account Requests" ||
+      section === "Request Account"
+    ) {
+      enableRequestsNav();
+    }
+
     setActiveSection(section);
     router.push(getSectionHref(section));
   };
@@ -139,7 +155,12 @@ export function CrmDashboardShell() {
         {isSidebarVisible ? (
           <aside className="hidden w-[clamp(260px,18vw,300px)] shrink-0 flex-col border-r border-[var(--line)] bg-[var(--white)] min-[1181px]:flex">
             <CustomerSidebarBrand />
-            <CustomerSidebar activeSection={visibleSection} onSectionChange={setActiveSection} showRequestsNav={showRequestsNav} />
+            <CustomerSidebar
+              activeSection={visibleSection}
+              onSectionChange={handleSectionChange}
+              requestNavItems={requestsNavState.requestItems}
+              showRequestsNav={requestsNavState.showRequestsNav}
+            />
           </aside>
         ) : null}
 
@@ -159,7 +180,12 @@ export function CrmDashboardShell() {
           {isSidebarVisible ? (
             <div className="border-b border-[var(--line)] min-[1181px]:hidden">
               <CustomerSidebarBrand />
-              <CustomerSidebar activeSection={visibleSection} onSectionChange={setActiveSection} showRequestsNav={showRequestsNav} />
+              <CustomerSidebar
+              activeSection={visibleSection}
+              onSectionChange={handleSectionChange}
+              requestNavItems={requestsNavState.requestItems}
+              showRequestsNav={requestsNavState.showRequestsNav}
+            />
             </div>
           ) : null}
 

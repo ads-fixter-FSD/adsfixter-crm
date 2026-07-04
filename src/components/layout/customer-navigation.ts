@@ -1,14 +1,18 @@
-import { customerHiddenNavigation, customerMainNavigation, customerOtherNavigation, customerRequestsNavigation } from "@/components/layout/app-sidebar-navigation";
+import {
+  customerHiddenNavigation,
+  customerMainNavigation,
+  customerOtherNavigation,
+} from "@/components/layout/app-sidebar-navigation";
 
 type AllowedSectionsOptions = {
-  showRequestsNav?: boolean;
+  requestItems?: string[];
 };
 
 export function getCustomerAllowedSections(options?: AllowedSectionsOptions) {
   const sections = [...customerMainNavigation];
 
-  if (options?.showRequestsNav) {
-    sections.push(...customerRequestsNavigation);
+  if (options?.requestItems?.length) {
+    sections.push(...options.requestItems);
   }
 
   return [...sections, ...customerOtherNavigation, ...customerHiddenNavigation];
@@ -47,6 +51,18 @@ export function getCustomerBreadcrumbParts(section: string) {
 
   if (section === "Payment Setup") {
     return { parent: "Home", current: "Payment Setup" };
+  }
+
+  if (section === "Request Account") {
+    return { parent: "Home", current: "Request Ad Account" };
+  }
+
+  if (section === "Ad Account Requests") {
+    return { parent: "Home", current: "Ad Account Requests" };
+  }
+
+  if (section === "Setup Complete") {
+    return { parent: "Home", current: "All Set" };
   }
 
   return { parent: "Home", current: getCustomerSectionLabel(section) };

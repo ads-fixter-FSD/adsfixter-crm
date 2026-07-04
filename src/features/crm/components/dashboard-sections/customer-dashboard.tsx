@@ -1,11 +1,14 @@
 "use client";
 
 import { useState } from "react";
-import { CustomerBusinessProfilesSection } from "@/features/crm/client-dashboard/components/home/customer-business-profiles-section";
-import { CustomerHomeWelcome } from "@/features/crm/client-dashboard/components/home/customer-home-sections";
-import { CustomerOnboardingSteps } from "@/features/crm/client-dashboard/components/home/customer-onboarding-steps";
-import { CustomerRecentActivitiesLayout } from "@/features/crm/client-dashboard/components/home/customer-recent-activities-layout";
-import { CustomerSupportChat } from "@/features/crm/client-dashboard/components/home/customer-support-chat";
+import {
+  CustomerBusinessProfilesSection,
+  CustomerHomeWelcome,
+  CustomerOnboardingSteps,
+  CustomerRecentActivitiesLayout,
+  CustomerSupportChat,
+} from "@/features/crm/client-dashboard/sections/home";
+import { CustomerPaymentSetupSummary } from "@/features/crm/client-dashboard/sections/home/components/customer-payment-setup-summary";
 import type { DashboardSectionWithNavigationProps } from "@/features/crm/components/dashboard-sections/dashboard-section-types";
 
 type CustomerDashboardProps = DashboardSectionWithNavigationProps & {
@@ -15,16 +18,21 @@ type CustomerDashboardProps = DashboardSectionWithNavigationProps & {
 export function CustomerDashboard({ onSectionChange, onRequestBusinessProfile, showToast }: CustomerDashboardProps) {
   const [isSupportLauncherVisible, setIsSupportLauncherVisible] = useState(false);
 
+  const handleNavigate = (section: string) => {
+    onSectionChange?.(section);
+  };
+
   return (
     <>
       <div className="grid gap-5">
         <CustomerHomeWelcome />
         <CustomerOnboardingSteps
           onContactSupport={() => setIsSupportLauncherVisible(true)}
-          onPaymentSetup={() => onSectionChange?.("Payment Setup")}
+          onNavigate={handleNavigate}
           onRequestBusinessProfile={() => onRequestBusinessProfile?.()}
         />
         <CustomerBusinessProfilesSection onAddNew={() => onSectionChange?.("New Business Profile Request")} showToast={showToast} />
+        <CustomerPaymentSetupSummary onEdit={() => onSectionChange?.("Payment Setup")} />
         <CustomerRecentActivitiesLayout />
       </div>
 
