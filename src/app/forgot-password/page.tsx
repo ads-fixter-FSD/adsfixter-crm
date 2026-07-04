@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { ArrowRight } from "lucide-react";
-import { AuthField, AuthLayout } from "@/features/auth/components/auth-layout";
+import { AuthField, AuthLayout } from "@/components/auth/auth-layout";
 
 export default function ForgotPasswordPage() {
   return (

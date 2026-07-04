@@ -1,6 +1,6 @@
 import type { ReactNode } from "react";
-import { AuthBrandLink } from "@/features/auth/components/auth-brand-link";
-import { AuthCopy } from "@/features/auth/components/auth-copy";
+import { AuthBrandLink } from "@/components/auth/auth-brand-link";
+import { AuthCopy } from "@/components/auth/auth-copy";
 
 type AuthLayoutProps = {
   eyebrow: string;
@@ -21,5 +21,5 @@ export function AuthLayout({ eyebrow, title, description, children }: AuthLayout
   );
 }
 
-export { AuthDivider } from "@/features/auth/components/auth-divider";
-export { AuthField } from "@/features/auth/components/auth-field";
+export { AuthDivider } from "@/components/auth/auth-divider";
+export { AuthField } from "@/components/auth/auth-field";
