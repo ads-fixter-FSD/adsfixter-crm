@@ -44,20 +44,7 @@ export default function SignUpForm({ onSwitchToSignIn }: SignUpFormProps) {
 
   return (
     <div className="flex flex-col gap-6">
-      <div>
-        <h1
-          className="h6-semibold"
-          style={{ color: "var(--color-primary-text-500)" }}
-        >
-          Create your account
-        </h1>
-        <p
-          className="body-sm-regular mt-1"
-          style={{ color: "var(--color-subtext-500)" }}
-        >
-          Fill the details below to get started
-        </p>
-      </div>
+
 
       <form onSubmit={handleSubmit} className="flex flex-col gap-4">
         <TextField
@@ -108,7 +95,7 @@ export default function SignUpForm({ onSwitchToSignIn }: SignUpFormProps) {
         />
 
         <label
-          className="body-sm-regular flex items-start gap-2"
+          className="body-regular flex items-start gap-2"
           style={{ color: "var(--color-subtext-500)" }}
         >
           <input
@@ -142,15 +129,14 @@ export default function SignUpForm({ onSwitchToSignIn }: SignUpFormProps) {
       </form>
 
       <p
-        className="body-sm-regular text-center"
+        className="body-regular text-center"
         style={{ color: "var(--color-subtext-500)" }}
       >
         Already have an account?{" "}
         <button
           type="button"
           onClick={onSwitchToSignIn}
-          className="body-sm-medium"
-          style={{ color: "var(--color-primary)" }}
+          className="body-regular text-[#F74608]"
         >
           Sign In
         </button>

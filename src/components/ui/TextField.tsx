@@ -21,7 +21,7 @@ export default function TextField({
     <div className="flex flex-col gap-1.5">
       <label
         htmlFor={id}
-        className="body-regular text-[#3E4D60]"
+        className="body-regular primary-text text-[#3E4D60]"
       >
         {label}
       </label>
