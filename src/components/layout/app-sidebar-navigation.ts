@@ -1,123 +1,42 @@
-import {
-  BadgeDollarSign,
-  Bell,
-  BellRing,
-  BriefcaseBusiness,
-  Building2,
-  ChartNoAxesColumnIncreasing,
-  CircleDollarSign,
-  ClipboardList,
-  CreditCard,
-  FileClock,
-  HandCoins,
-  History,
-  TriangleAlert,
-  LayoutDashboard,
-  Megaphone,
-  PlusCircle,
-  ReceiptText,
-  RefreshCw,
-  ScrollText,
-  Send,
-  Settings,
-  ShieldCheck,
-  Share2,
-  UserCog,
-  UserCheck,
-  UserPlus,
-  Users,
-  WalletCards,
-  type LucideIcon,
-} from "lucide-react";
-import type { Role } from "@/features/crm/types/crm";
+import { BadgeDollarSign, Bell, BriefcaseBusiness, CreditCard, HandCoins, LayoutDashboard, LifeBuoy, PlusCircle, ReceiptText, Settings, Share2, WalletCards, type LucideIcon } from "lucide-react";
 
-export const roleNavigation: Record<Role, string[]> = {
-  "Super Admin": [
-    "Dashboard",
-    "Ad Accounts",
-    "Requests",
-    "Failed Top-ups",
-    "Clients",
-    "Business Managers",
-    "Reports",
-    "Maintainers",
-    "Settings",
-  ],
-  Maintainer: [
-    "Dashboard",
-    "Top-up Requests",
-    "Account Requests",
-    "Business Share",
-    "Clients",
-    "Notifications",
-    "Security",
-    "Settings",
-  ],
-  Customer: [
-    "Dashboard",
-    "Ad Accounts",
-    "Request Account",
-    "Business Share",
-    "Payments",
-    "Balance History",
-    "Notifications",
-    "Settings",
-  ],
-};
+export const customerMainNavigation = ["Dashboard"];
 
-export const adAccountSubNavigation = ["Ad Accounts", "Create New Account", "Auto Add From Meta"];
+export const customerRequestsNavigation = ["Business Profile Requests", "Payment Setup"];
 
-export const requestSubNavigation = ["New Account Requests", "Top-Up Requests", "BM Share Requests"];
+export const customerOtherNavigation = ["Help & Support", "Settings"];
 
-export const notificationSubNavigation = ["Create Notifications", "Notifications History"];
+export const customerHiddenNavigation = [
+  "New Business Profile Request",
+  "Ad Accounts",
+  "Request Account",
+  "Business Share",
+  "Payments",
+  "New Payment",
+  "Payment History",
+  "Balance History",
+  "Notifications",
+];
 
-export const businessManagerSubNavigation = ["All Business Managers", "Pending Requests"];
-
-export const clientSubNavigation = ["All Clients", "Pending Approvals"];
-
-export const reportSubNavigation = ["Accounts Overview", "Revenue Reports"];
-
-export const paymentSubNavigation = ["New Payment", "Payment History"];
-
-export const settingsSubNavigation = ["Notifications", "Wallet Settings", "Security", "Profile Update"];
+export const customerNavigation = [...customerMainNavigation, ...customerRequestsNavigation, ...customerOtherNavigation, ...customerHiddenNavigation];
 
 export const navigationIcons: Record<string, LucideIcon> = {
-  "Account Requests": UserPlus,
-  "Accounts Overview": ChartNoAxesColumnIncreasing,
   "Ad Accounts": BriefcaseBusiness,
-  "Auto Add From Meta": RefreshCw,
   "Balance History": WalletCards,
-  "All Business Managers": Building2,
-  "All Clients": Users,
-  "Business Managers": Building2,
+  "Business Profile Requests": BriefcaseBusiness,
   "Business Share": Share2,
-  "Clients": Users,
-  "Create New Account": PlusCircle,
-  "Create Notifications": Send,
-  "Dashboard": LayoutDashboard,
-  "Failed Top-ups": TriangleAlert,
-  "Maintainers": UserCog,
+  Dashboard: LayoutDashboard,
+  "Help & Support": LifeBuoy,
+  Home: LayoutDashboard,
   "My Accounts": BriefcaseBusiness,
-  "New Account Requests": UserPlus,
+  "New Business Profile Request": BriefcaseBusiness,
   "New Payment": HandCoins,
-  "Notifications": Bell,
-  "Notifications History": BellRing,
-  "Payments": BadgeDollarSign,
+  Notifications: Bell,
+  Payments: BadgeDollarSign,
   "Payment History": ReceiptText,
-  "Pending Requests": FileClock,
-  "Pending Approvals": UserCheck,
-  "Profile Update": UserCog,
-  "Reports": ScrollText,
-  "Revenue Reports": CircleDollarSign,
+  "Payment Setup": CreditCard,
   "Request Account": PlusCircle,
-  "Requests": ClipboardList,
-  "BM Share Requests": Share2,
-  "Security": ShieldCheck,
-  "Settings": Settings,
-  "Top-Up Requests": CircleDollarSign,
-  "Top-up Requests": CircleDollarSign,
-  "Wallet": CreditCard,
-  "Wallet Settings": WalletCards,
+  Settings: Settings,
 };
 
 export function convertSectionNameToUrlSlug(section: string) {

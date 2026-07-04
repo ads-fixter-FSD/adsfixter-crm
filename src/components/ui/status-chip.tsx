@@ -1,7 +1,7 @@
-import type { Status } from "@/features/crm/types/crm";
+import type { MetaAdAccountStatus, Status } from "@/features/crm/types/crm";
 
 type StatusChipProps = {
-  status: Status;
+  status: Status | MetaAdAccountStatus;
 };
 
 export function StatusChip({ status }: StatusChipProps) {
