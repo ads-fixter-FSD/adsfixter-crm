@@ -21,8 +21,7 @@ export default function TextField({
     <div className="flex flex-col gap-1.5">
       <label
         htmlFor={id}
-        className="body-sm-medium"
-        style={{ color: "var(--color-primary-text-500)" }}
+        className="body-regular primary-text text-[#3E4D60]"
       >
         {label}
       </label>
@@ -34,7 +33,7 @@ export default function TextField({
         value={value}
         autoComplete={autoComplete}
         onChange={(e) => onChange(e.target.value)}
-        className="body-sm-regular w-full rounded-lg px-4 py-3 outline-none transition-colors placeholder:text-[var(--color-subtext-400)]"
+        className="body-sm-regular w-full rounded-lg px-4 py-3 outline-none transition-colors placeholder:text-[var(--color-subtext-400)] "
         style={{
           border: "1px solid var(--color-line)",
           background: "var(--color-field)",

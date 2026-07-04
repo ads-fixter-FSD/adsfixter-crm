@@ -25,8 +25,7 @@ export default function PasswordField({
     <div className="flex flex-col gap-1.5">
       <label
         htmlFor={id}
-        className="body-sm-medium"
-        style={{ color: "var(--color-primary-text-500)" }}
+        className="body-regular text-[#3E4D60]"
       >
         {label}
       </label>
