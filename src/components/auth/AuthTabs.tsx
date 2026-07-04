@@ -45,6 +45,3 @@ export default function AuthTabs({ mode, onChange }: AuthTabsProps) {
     </div>
   );
 }
-
-
-// ffhshfshfhfhfhfhfhfhfhf
