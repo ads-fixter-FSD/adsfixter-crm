@@ -15,7 +15,7 @@ export function CustomerBusinessProfilesSection({ onAddNew, showToast }: Custome
   }
 
   return (
-    <section className="grid gap-4 rounded-xl border border-[var(--line)] bg-[var(--white)] p-5 max-[1180px]:p-4">
+    <section className="grid gap-4 rounded-xl border border-[var(--line)] bg-[var(--white)]">
       <BusinessProfileRequestsTable
         onAddNew={onAddNew}
         showAddButton
