@@ -13,10 +13,14 @@ import {
 import { PrimaryButton, SecondaryButton } from "@/components/shared-buttons";
 
 import Image from "next/image";
+<<<<<<< HEAD
 import {
   getCustomerCurrentStepIndex,
   getCustomerOnboardingPhase,
 } from "../../sections";
+=======
+import { getCustomerCurrentStepIndex, getCustomerOnboardingPhase } from "../../sections";
+>>>>>>> 9deb623 (modify)
 
 const onboardingSteps = [
   {
@@ -109,11 +113,19 @@ export function CustomerOnboardingSteps({
           label: "Request Business Profile",
           onClick: onRequestBusinessProfile,
         }
+<<<<<<< HEAD
       : phase === "payment_setup"
         ? { icon: CreditCard, label: "Payment Setup", onClick: onPaymentSetup }
         : {
             icon: Megaphone,
             label: "Request Ad Account",
+=======
+      : phase === "waiting_approval"
+        ? { icon: CreditCard, label: "Payment Setup", onClick: onPaymentSetup }
+        : {
+            icon: Megaphone,
+            label: "Request Ad Account",  
+>>>>>>> 9deb623 (modify)
             onClick: onPaymentSetup,
           };
 
