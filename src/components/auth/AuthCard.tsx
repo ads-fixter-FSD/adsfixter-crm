@@ -41,6 +41,7 @@ export default function AuthCard({ defaultMode = "signin" }: AuthCardProps) {
 
       <AuthTabs mode={mode} onChange={setMode} />
 
+<<<<<<< HEAD
       <AnimatePresence mode="popLayout" initial={false}>
         <motion.div
           key={mode}
@@ -53,6 +54,15 @@ export default function AuthCard({ defaultMode = "signin" }: AuthCardProps) {
             opacity: { duration: 0.2 },
             x: { duration: 0.22, ease: "easeInOut" },
           }}
+=======
+      <AnimatePresence mode="wait" initial={false}>
+        <motion.div
+          key={mode}
+          initial={{ opacity: 0, x: mode === "signin" ? -16 : 16 }}
+          animate={{ opacity: 1, x: 0 }}
+          exit={{ opacity: 0, x: mode === "signin" ? 16 : -16 }}
+          transition={{ duration: 0.22, ease: "easeInOut" }}
+>>>>>>> 324546f (resolve conflict)
         >
           {mode === "signin" ? (
             <SignInForm onSwitchToSignUp={() => setMode("signup")} />
