@@ -3,6 +3,7 @@ import type { ButtonHTMLAttributes, ReactNode } from "react";
 type SecondaryButtonProps = ButtonHTMLAttributes<HTMLButtonElement> & {
   children: ReactNode;
 };
+// ddd
 
 export function SecondaryButtonWhite({ children, className = "", type = "button", ...props }: SecondaryButtonProps) {
   return (
