@@ -22,12 +22,12 @@ export function BusinessProfileRequestHeader({
       </div>
 
       <FlatButton
-        className="min-h-10 gap-2 px-4"
+        className="min-h-10 gap-2 px-4 "
         onClick={onAddNew}
         type="button"
       >
         <Plus aria-hidden="true" size={16} strokeWidth={1.8} />
-        Add New Business Request
+        Add New Business Request 
       </FlatButton>
     </div>
   );

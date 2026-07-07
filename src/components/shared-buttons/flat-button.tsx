@@ -15,9 +15,9 @@ export function FlatButton({
       type={type}
       className={`
         inline-flex h-10 items-center justify-center gap-2
-        rounded-lg border border-[var(--Color-Stroke,#E9E9E9)]
-        bg-white px-5 py-2.5
-        body-sm-medium text-[var(--primary-text)]
+        rounded-lg border bg-black border-[var(--Color-Stroke,#E9E9E9)]
+        px-5 py-2.5
+        body-sm-medium text-white
         transition-colors
         hover:bg-[var(--surface)]
         active:bg-[var(--surface-hover)]
