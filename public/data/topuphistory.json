@@ -1,0 +1,50 @@
+{
+  "summary": {
+    "totalTopUps": 12,
+    "totalAmountBDT": 12000.0,
+    "totalFeesBDT": 0.0,
+    "currentBalanceUSD": 49.25
+  },
+  "entries": [
+    {
+      "dateTime": "Jul 4, 11:42 AM",
+      "type": "Top-up",
+      "amountBDT": 1000.0,
+      "feeBDT": 0.0,
+      "usd": 49.45,
+      "description": "Wallet top-up, rate $129.45"
+    },
+    {
+      "dateTime": "Jul 4, 10:05 AM",
+      "type": "Top-up",
+      "amountBDT": 1000.0,
+      "feeBDT": 0.0,
+      "usd": 20.0,
+      "description": "Wallet top-up, rate $130.00"
+    },
+    {
+      "dateTime": "Jul 3, 6:40 PM",
+      "type": "Top-up",
+      "amountBDT": 1000.0,
+      "feeBDT": 0.0,
+      "usd": 21.2,
+      "description": "Wallet top-UD, rate $128.90"
+    },
+    {
+      "dateTime": "Jul 3, 3:15 PM",
+      "type": "Top-up",
+      "amountBDT": 1000.0,
+      "feeBDT": 0.0,
+      "usd": 49.45,
+      "description": "Wallet top-up, rate $130.00"
+    },
+    {
+      "dateTime": "Jul 2, 1:22 PM",
+      "type": "Top-up",
+      "amountBDT": 1000.0,
+      "feeBDT": 0.0,
+      "usd": 49.45,
+      "description": "Wallet top-UD, rate $128.90"
+    }
+  ]
+}
