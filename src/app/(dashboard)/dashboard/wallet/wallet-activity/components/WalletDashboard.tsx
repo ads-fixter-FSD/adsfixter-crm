@@ -154,7 +154,7 @@ export default function WalletDashboard() {
           </div>
 
           <div className="flex items-center gap-3">
-            <div className="relative max-w-[240px]">
+            <div className="relative max-w-60">
               <input
                 type="text"
                 placeholder="Search Statement ID"
@@ -229,10 +229,10 @@ export default function WalletDashboard() {
       <div className="relative bg-white border border-slate-100 rounded-2xl shadow-[0_1px_3px_rgba(0,0,0,0.01)] overflow-hidden">
         
         {/* রাইট ফেড মাস্ক ইফেক্ট (মোবাইলে কলাম লুকানো ইঙ্গিত করবে) */}
-        <div className="pointer-events-none absolute top-0 right-0 bottom-0 w-14 bg-gradient-to-l from-white via-white/80 to-transparent z-10 md:hidden" />
+        <div className="pointer-events-none absolute top-0 right-0 bottom-0 w-14 bg-linear-to-l from-white via-white/80 to-transparent z-10 md:hidden" />
 
         <div className="forced-dashboard-scroll w-full pb-4">
-          <table className="w-full text-left border-collapse min-w-[1000px]">
+          <table className="w-full text-left border-collapse min-w-250">
             <thead>
               <tr className="bg-slate-50/50 border-b border-slate-100 text-[10px] font-extrabold uppercase tracking-wider text-slate-400">
                 <th className="py-3 px-4"><div className="flex items-center gap-1"><span>ID</span><ArrowUpDown size={10} /></div></th>
@@ -254,7 +254,7 @@ export default function WalletDashboard() {
                       <span className="text-slate-900 font-bold block">{row.date}</span>
                       <span className="text-[10px] text-slate-400 block mt-0.5">{row.time}</span>
                     </td>
-                    <td className="py-3.5 px-4 max-w-[200px]">
+                    <td className="py-3.5 px-4 max-w-50">
                       <span className="text-slate-900 font-bold block truncate">{row.title}</span>
                       <span className="text-[10px] text-slate-400 block font-medium mt-0.5 truncate">{row.subtitle}</span>
                     </td>
@@ -274,8 +274,8 @@ export default function WalletDashboard() {
                         {row.type}
                       </span>
                     </td>
-                    <td className="py-3.5 px-4 text-slate-400 font-medium max-w-[180px] truncate">{row.note}</td>
-                    {/* শেষ কলামে pr-14 দেওয়া হয়েছে যেন ফেড ওভারলের নিচে টেক্সট কেটে না যায় */}
+                    <td className="py-3.5 px-4 text-slate-400 font-medium max-w-45 truncate">{row.note}</td>
+                    {/* শেষ কলামে pr-14 দেওয়া হয়েছে যেন ফেড ওভারলের নিচে টেক্সট কেটে না যায় */}
                     <td className="py-3.5 px-4 text-center pr-14 md:pr-4">
                       <span className={`inline-flex items-center gap-1 px-2.5 py-1 rounded-full text-[10px] font-bold ${
                         row.status === "Completed" ? "bg-emerald-50 text-emerald-600" : row.status === "Processing" ? "bg-amber-50 text-amber-600" : "bg-red-50 text-red-600"

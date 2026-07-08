@@ -88,10 +88,10 @@ export default function RecentActivityTable() {
       <div className="relative bg-white border border-slate-100 rounded-2xl shadow-xs overflow-hidden w-full">
         
         {/* রাইট গ্রেডিয়েন্ট ওভারলে: এটি ইউজারকে ইঙ্গিত দেবে যে ডানপাশে আরও ডেটা আছে (শুধু মোবাইলে দেখাবে) */}
-        <div className="pointer-events-none absolute top-0 right-0 bottom-0 w-12 bg-gradient-to-l from-white/90 to-transparent z-10 md:hidden" />
+        <div className="pointer-events-none absolute top-0 right-0 bottom-0 w-12 bg-linear-to-l from-white/90 to-transparent z-10 md:hidden" />
 
         <div className="mobile-scroll-container w-full pb-3">
-          <table className="w-full text-left border-collapse min-w-[850px] md:min-w-full">
+          <table className="w-full text-left border-collapse min-w-212.5 md:min-w-full">
             <thead>
               <tr className="bg-slate-50 text-[11px] font-bold tracking-wider text-slate-400 uppercase border-b border-slate-100">
                 <th className="py-3.5 px-6 whitespace-nowrap">
@@ -112,7 +112,7 @@ export default function RecentActivityTable() {
                     <span className="font-semibold text-slate-700 block">{row.date}, {row.time.split(",")[0]}</span>
                   </td>
                   {/* Description */}
-                  <td className="py-4 px-6 max-w-[280px]">
+                  <td className="py-4 px-6 max-w-70">
                     <span className="font-bold text-slate-800 block line-clamp-1">{row.title}</span>
                     <span className="text-xs text-slate-400 block mt-0.5">{row.desc}</span>
                   </td>
