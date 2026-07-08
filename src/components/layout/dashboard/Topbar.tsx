@@ -99,7 +99,7 @@ export default function Topbar() {
           </div>
           <div className="w-9 h-9 rounded-full overflow-hidden relative bg-[var(--color-surface)] shrink-0">
             <Image
-              src="/images/dashboard/topbar/avatar-placeholder.png"
+              src="/images/dashboard/settings/faruk.webp"
               alt="Sarah Jenkins"
               fill
               className="object-cover"
