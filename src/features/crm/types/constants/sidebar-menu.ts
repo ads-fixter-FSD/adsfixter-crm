@@ -21,7 +21,7 @@ export const menuItems: MenuItem[] = [
     icon: "/images/dashboard/sitebar/advertising.svg",
     children: [
       { name: "Overview", href: "/dashboard/advertising/overview" },
-      { name: "Ad Accounts", href: "/dashboard/advertising/ad-accounts" },
+      { name: "Ad Accounts", href: "/dashboard/advertising/ad-account" },
       { name: "Portfolios", href: "/dashboard/advertising/portfolios" },
       { name: "Campaigns", href: "/dashboard/advertising/campaigns" },
       { name: "Ads", href: "/dashboard/advertising/ads" },
@@ -36,7 +36,7 @@ export const menuItems: MenuItem[] = [
       { name: "Deposit", href: "/dashboard/wallet/deposit" },
       { name: "Statement", href: "/dashboard/wallet/statement" },
       { name: "Wallet Activity", href: "/dashboard/wallet/wallet-activity" },
-      { name: "Saved Bank Accounts", href: "/dashboard/wallet/saved-aank-accounts" },
+      { name: "Saved Bank Accounts", href: "/dashboard/wallet/saved-bank-accounts" },
       { name: "Refund", href: "/dashboard/wallet/refund" },
     ],
   },

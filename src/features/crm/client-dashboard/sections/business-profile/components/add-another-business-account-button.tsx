@@ -11,8 +11,8 @@ export function AddAnotherBusinessAccountButton({ onClick }: AddAnotherBusinessA
       onClick={onClick}
       type="button"
     >
-      <Plus aria-hidden="true" size={16} strokeWidth={1.8} />
-      Add Multiple business account
+     Cancel
+   
     </button>
   );
 }
