@@ -14,7 +14,6 @@ export default function OverviewPage() {
         dateRangeLabel={overviewData.header.dateRangeFilter.displayLabel}
         stats={overviewData.statsCards as any}
       />
-
       <div className="flex w-full flex-col gap-5 md:flex-row md:items-stretch">
         <section className="flex w-full min-w-0 flex-[2]">
           <SpendingOverview />

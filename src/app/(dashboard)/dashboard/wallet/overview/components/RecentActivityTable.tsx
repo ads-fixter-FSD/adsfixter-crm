@@ -1,5 +1,8 @@
+
+"use client";
+
 import React from "react";
-import { Copy, ChevronUp, ChevronDown } from "lucide-react";
+import { Copy, ChevronUp } from "lucide-react";
 
 type ActivityData = {
   date: string;
@@ -40,8 +43,12 @@ const statusStyles: Record<string, string> = {
 };
 
 export default function RecentActivityTable() {
+  const copyToClipboard = (text: string) => {
+    navigator.clipboard.writeText(text);
+  };
+
   return (
-    <div className="space-y-4">
+    <div className="space-y-4 w-full">
       <div className="flex items-center justify-between">
         <h2 className="text-xl font-bold text-slate-900">Recent Activity</h2>
         <button className="px-4 py-2 bg-white border border-slate-200 text-slate-500 font-semibold text-xs rounded-xl hover:bg-slate-50 transition">
@@ -49,12 +56,47 @@ export default function RecentActivityTable() {
         </button>
       </div>
 
-      <div className="bg-white border border-slate-100 rounded-2xl shadow-xs overflow-hidden">
-        <div className="overflow-x-auto">
-          <table className="w-full text-left border-collapse">
+      {/* রিল্যান্ডারিং এবং স্থায়ী স্ক্রলবার দেখানোর গ্লোবাল স্টাইল */}
+      <style dangerouslySetInnerHTML={{__html: `
+        @media (max-width: 768px) {
+          .mobile-scroll-container {
+            overflow-x: auto !important;
+            -webkit-overflow-scrolling: touch !important;
+          }
+          /* স্ক্রলবার শুরুতেই স্থায়ীভাবে দেখানোর জন্য */
+          .mobile-scroll-container::-webkit-scrollbar {
+            height: 6px !important;
+            display: block !important;
+          }
+          .mobile-scroll-container::-webkit-scrollbar-track {
+            background: #f8fafc !important; 
+            border-radius: 10px !important;
+          }
+          .mobile-scroll-container::-webkit-scrollbar-thumb {
+            background: #cbd5e1 !important; /* একটু ডার্ক স্লেট কালার যাতে সহজেই চোখে পড়ে */
+            border-radius: 10px !important;
+          }
+        }
+        @media (min-width: 769px) {
+          .mobile-scroll-container::-webkit-scrollbar {
+            display: none !important;
+          }
+        }
+      `}} />
+
+      {/* টেবিলের মেইন কন্টেইনার - রাইট ফেড ইফেক্ট দেওয়ার জন্য রিলেটিভ পজিশন ব্যবহার করা হয়েছে */}
+      <div className="relative bg-white border border-slate-100 rounded-2xl shadow-xs overflow-hidden w-full">
+        
+        {/* রাইট গ্রেডিয়েন্ট ওভারলে: এটি ইউজারকে ইঙ্গিত দেবে যে ডানপাশে আরও ডেটা আছে (শুধু মোবাইলে দেখাবে) */}
+        <div className="pointer-events-none absolute top-0 right-0 bottom-0 w-12 bg-linear-to-l from-white/90 to-transparent z-10 md:hidden" />
+
+        <div className="mobile-scroll-container w-full pb-3">
+          <table className="w-full text-left border-collapse min-w-212.5 md:min-w-full">
             <thead>
               <tr className="bg-slate-50 text-[11px] font-bold tracking-wider text-slate-400 uppercase border-b border-slate-100">
-                <th className="py-3.5 px-6 flex items-center gap-1 cursor-pointer">DATE & TIME <ChevronUp size={12} /></th>
+                <th className="py-3.5 px-6 whitespace-nowrap">
+                  <div className="flex items-center gap-1 cursor-pointer">DATE & TIME <ChevronUp size={12} /></div>
+                </th>
                 <th className="py-3.5 px-6">DESCRIPTION</th>
                 <th className="py-3.5 px-6">TRANSACTION ID</th>
                 <th className="py-3.5 px-6">AMOUNT</th>
@@ -70,7 +112,7 @@ export default function RecentActivityTable() {
                     <span className="font-semibold text-slate-700 block">{row.date}, {row.time.split(",")[0]}</span>
                   </td>
                   {/* Description */}
-                  <td className="py-4 px-6 max-w-[280px]">
+                  <td className="py-4 px-6 max-w-70">
                     <span className="font-bold text-slate-800 block line-clamp-1">{row.title}</span>
                     <span className="text-xs text-slate-400 block mt-0.5">{row.desc}</span>
                   </td>
@@ -78,7 +120,10 @@ export default function RecentActivityTable() {
                   <td className="py-4 px-6 whitespace-nowrap text-slate-600 font-medium">
                     <div className="flex items-center gap-2">
                       <span>{row.trxId}</span>
-                      <button className="text-slate-400 hover:text-slate-600 transition">
+                      <button 
+                        onClick={() => copyToClipboard(row.trxId)} 
+                        className="text-slate-400 hover:text-slate-600 transition cursor-pointer"
+                      >
                         <Copy size={13} />
                       </button>
                     </div>
@@ -94,7 +139,7 @@ export default function RecentActivityTable() {
                     </span>
                   </td>
                   {/* Status Badge */}
-                  <td className="py-4 px-6 whitespace-nowrap">
+                  <td className="py-4 px-6 whitespace-nowrap pr-10 md:pr-6">
                     <span className={`inline-flex items-center gap-1.5 px-3 py-1 text-xs font-bold rounded-lg ${statusStyles[row.status]}`}>
                       <span className="w-1.5 h-1.5 rounded-full bg-current" />
                       {row.status}

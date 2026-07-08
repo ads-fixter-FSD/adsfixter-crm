@@ -45,6 +45,8 @@ export const menuItems: MenuItem[] = [
     icon: "/images/dashboard/sitebar/support.svg",
     children: [
       { name: "Tickets", href: "/dashboard/support/tickets" },
+      { name: "Live Chat", href: "/dashboard/support/live-chat" },
+      { name: "FAQ", href: "/dashboard/support/faq" },
       
     ],
   },
