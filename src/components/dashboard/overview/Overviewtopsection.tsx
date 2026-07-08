@@ -39,14 +39,29 @@ export interface OverviewTopSectionProps {
 
 /* ------------------------------- Icons -------------------------------- */
 
-const ICON_MAP: Record<StatCardData["icon"], LucideIcon> = {
-  wallet: Wallet,
-  "arrow-down-tray": ArrowDownToLine,
-  "dollar-sign": DollarSign,
-  "credit-badge": BadgeDollarSign,
-  "user-group": Users,
-  token: Hash,
+const SvgIcon = ({ d, className }: { d: string; className?: string }) => (
+  <svg className={className} width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+    <path d={d} />
+  </svg>
+);
+
+const ICON_MAP: Record<StatCardData["icon"], React.FC<{className?: string}>> = {
+  wallet: (props) => <SvgIcon className={props.className} d="M20 12V8H6a2 2 0 0 1-2-2c0-1.1.9-2 2-2h12v4M4 6v12c0 1.1.9 2 2 2h14v-4M18 12a2 2 0 1 0 0 4 2 2 0 0 0 0-4z" />,
+  "arrow-down-tray": (props) => <SvgIcon className={props.className} d="M12 2v10M8 8l4 4 4-4M20 21H4" />,
+  "dollar-sign": (props) => <SvgIcon className={props.className} d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6" />,
+  "credit-badge": (props) => <SvgIcon className={props.className} d="M22 2v20L18 5 14 22 10 5 6 22 2 2" />, 
+  "user-group": (props) => <SvgIcon className={props.className} d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2M9 11a4 4 0 1 0 0-8 4 4 0 0 0 0 8zM23 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75" />,
+  token: (props) => <SvgIcon className={props.className} d="M4 15s1-1 4-1 5 2 8 2 4-1 4-1V3s-1 1-4 1-5-2-8-2-4 1-4 1zM4 22v-7" />,
 };
+
+// const ICON_MAP: Record<StatCardData["icon"], LucideIcon> = {
+//   wallet: Wallet,
+//   "arrow-down-tray": ArrowDownToLine,
+//   "dollar-sign": DollarSign,
+//   "credit-badge": BadgeDollarSign,
+//   "user-group": Users,
+//   token: Hash,
+// };
 
 function formatValue(item: StatCardData) {
   if (
@@ -82,15 +97,15 @@ export default function OverviewTopSection({
       <div className="flex w-full flex-col items-start justify-between gap-4 sm:flex-row sm:items-center sm:gap-0">
         {/* Title & Date Section */}
         <div className="flex flex-col">
-          <h1 className="m-0 font-sans text-2xl font-medium leading-[120%] tracking-[0%] text-[var(--color-primary-text-500,#0e2038)]">
+          <h1 className="m-0 font-sans h6-medium  leading-[120%] tracking-[0%] text-[var(--color-primary-text-500,#0e2038)]">
             {title}
           </h1>
 
-          <p className="m-0 flex items-center gap-1">
-            <span className="font-sans text-sm font-normal leading-[150%] tracking-[-1%] text-[var(--color-subtext-500,#7f8482)]">
+          <p className="m-0 flex items-center gap-1 mt-2">
+            <span className="font-sans body-sm-regular font-normal leading-[150%] tracking-[-1%] text-[var(--color-subtext-500,#7f8482)]">
               Today is
             </span>
-            <span className="font-sans text-sm font-medium leading-5 tracking-[-1%] text-[var(--color-adsfixter-primary,#f74608)]">
+            <span className="font-sans body-sm-regular font-medium leading-5 tracking-[-1%] text-[var(--color-adsfixter-primary,#f74608)]">
               {todayDate}
             </span>
           </p>
@@ -132,29 +147,30 @@ export default function OverviewTopSection({
           return (
             <div
               key={item.id}
-              className="flex h-[130px] min-w-0 flex-col justify-between rounded-[10px] border border-[#E9E9E9] bg-[var(--color-white,#ffffff)] p-4 shadow-[0px_1px_2px_0px_#E4E5E73D]"
+              className="flex  gap-4 min-w-0 flex-col justify-between rounded-[10px] border border-[#E9E9E9] bg-[var(--color-white,#ffffff)] p-4 shadow-[0px_1px_2px_0px_#E4E5E73D]"
             >
               {/* Icon */}
               <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg bg-[var(--color-primary-soft,rgba(247,70,8,0.08))]">
                 <Icon size={16} className="text-[var(--color-adsfixter-primary,#f74608)]" />
               </div>
-
+   
               {/* Title */}
               <p
-                className="m-0 truncate whitespace-nowrap font-sans text-sm font-normal leading-[150%] text-[var(--color-subtext-500,#7f8482)]"
+                className="m-0 truncate whitespace-nowrap font-sans body-sm-regular leading-[150%] text-[var(--color-subtext-500,#7f8482)]"
                 title={item.title}
               >
                 {item.title}
               </p>
 
               {/* Value */}
-              <p className="m-0 truncate whitespace-nowrap font-sans text-xl font-medium leading-[120%] text-[var(--color-primary-text-500,#0e2038)]">
+              <p className="m-0 truncate whitespace-nowrap font-sans h6-medium font-medium leading-[120%] text-[var(--color-primary-text-500,#0e2038)]">
                 {formatValue(item)}
               </p>
 
               {/* Subtitle */}
               <p
-                className="m-0 truncate whitespace-nowrap font-sans text-xs font-normal leading-[150%] text-[var(--color-subtext-400,#999d9b)]"
+                className="m-0 truncate whitespace-nowrap font-sans 
+                regular leading-[150%] text-[var(--color-subtext-400,#999d9b)]"
                 title={item.subtitle}
               >
                 {item.subtitle}
