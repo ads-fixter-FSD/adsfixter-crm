@@ -42,11 +42,10 @@ export const menuItems: MenuItem[] = [
   },
   {
     name: "Help & Support",
-    href: "/dashboard/support",
     icon: "/images/dashboard/sitebar/support.svg",
     children: [
       { name: "Tickets", href: "/dashboard/support/tickets" },
-      { name: "Contact Us", href: "/dashboard/support/contact" },
+      
     ],
   },
   {
