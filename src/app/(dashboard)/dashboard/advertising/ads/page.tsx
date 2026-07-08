@@ -3,7 +3,7 @@ import React from 'react'
 export default function page() {
   return (
     <div>
-      adfad
+      <h1>akldkla</h1>
     </div>
   )
 }
