@@ -32,7 +32,8 @@ const data = [
 
 export default function SpendingOverview() {
   return (
-    <section className="bg-white border border-[#EDEDED] rounded-[12px] p-6 w-full shadow-[0px_1px_2px_0px_#E4E5E73D]">
+ 
+    <section className="flex h-full w-full flex-col rounded-[12px] border border-[#EDEDED] bg-white p-6 shadow-[0px_1px_2px_0px_#E4E5E73D]">
       {/* Header */}
       <div className="flex items-center justify-between mb-8">
         <h2 className="text-[20px] font-medium text-[#0E2038] m-0">Spending Overview</h2>

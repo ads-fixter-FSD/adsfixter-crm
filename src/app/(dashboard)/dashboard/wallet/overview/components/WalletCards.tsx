@@ -10,7 +10,7 @@ type CardProps = {
 
 function MiniCard({ title, amount, subtitle, icon }: CardProps) {
   return (
-    <div className="bg-white border border-slate-100 rounded-2xl p-5 shadow-xs flex flex-col justify-between min-h-[125px]">
+    <div className="bg-white border border-slate-100 rounded-2xl p-5 shadow-xs flex flex-col justify-between min-h-31.25">
       <div className="flex items-center gap-2 text-slate-400">
         {icon}
         <span className="text-xs font-semibold tracking-wide">{title}</span>

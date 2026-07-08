@@ -269,10 +269,10 @@ export default function AccountOverview({
     <section className="flex w-full flex-col gap-4 rounded-xl border border-[#E9E9E9] bg-[var(--color-white,#ffffff)] p-4">
       {/* ---------- Title ---------- */}
       <div className="flex flex-col gap-1">
-        <h2 className="m-0 font-sans text-xl font-medium leading-[120%] text-[var(--color-primary-text-500,#0e2038)]">
+        <h2 className="m-0 font-sans title-medium  font-medium leading-[120%] text-[var(--color-primary-text-500,#0e2038)]">
           {title}
         </h2>
-        <p className="m-0 font-sans text-sm font-normal leading-[150%] text-[var(--color-subtext-500,#7f8482)]">
+        <p className="m-0 font-sans body-sm-regular mt-2 leading-[150%] text-[var(--color-subtext-500,#7f8482)]">
           {subtitle}
         </p>
       </div>

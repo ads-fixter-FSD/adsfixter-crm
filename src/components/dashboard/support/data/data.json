@@ -1,0 +1,137 @@
+{
+  "pageTitle": "Help & Support / Campaigns",
+  "user": {
+    "name": "Sarah Jenkins",
+    "role": "Senior Consultant"
+  },
+  "overview": {
+    "totalOpened": 6,
+    "active": 4,
+    "inProgress": 1,
+    "resolved": 4
+  },
+  "tickets": {
+    "totalTickets": 12,
+    "filters": {
+      "all": 12,
+      "active": 11,
+      "pending": 2,
+      "solved": 2
+    },
+    "data": [
+      {
+        "ticketId": "#TK-2024-0012",
+        "date": "May 11, 2026",
+        "assetType": "Ad Account",
+        "account": "ADF1001-UrbanCart Fashion",
+        "accountId": "9182736489273",
+        "subject": "Account restriction",
+        "description": "I am facing an error when trying to connect my ad acc...",
+        "status": "In Progress",
+        "statusColor": "orange",
+        "lastUpdate": "1 Day Ago"
+      },
+      {
+        "ticketId": "#TK-2024-0012",
+        "date": "May 11, 2026",
+        "assetType": "Business Profile",
+        "account": "ADF1001-UrbanCart Fashion",
+        "accountId": "9182736489273",
+        "subject": "Pricing queries",
+        "description": "I am facing an error when trying to connect my ad acc...",
+        "status": "In Progress",
+        "statusColor": "orange",
+        "lastUpdate": "2 Day Ago"
+      },
+      {
+        "ticketId": "#TK-2024-0012",
+        "date": "May 11, 2026",
+        "assetType": "Ad Account",
+        "account": "ADF1001-UrbanCart Fashion",
+        "accountId": "9182736489273",
+        "subject": "Ad consultancy",
+        "description": "I am facing an error when trying to connect my ad acc...",
+        "status": "Open",
+        "statusColor": "blue",
+        "lastUpdate": "10 Days Ago"
+      },
+      {
+        "ticketId": "#TK-2024-0012",
+        "date": "May 11, 2026",
+        "assetType": "Business Profile",
+        "account": "ADF1001-UrbanCart Fashion",
+        "accountId": "9182736489273",
+        "subject": "Account restriction",
+        "description": "I am facing an error when trying to connect my ad acc...",
+        "status": "Open",
+        "statusColor": "blue",
+        "lastUpdate": "1 Week Ago"
+      },
+      {
+        "ticketId": "#TK-2024-0012",
+        "date": "May 11, 2026",
+        "assetType": "Ad Account",
+        "account": "ADF1001-UrbanCart Fashion",
+        "accountId": "9182736489273",
+        "subject": "Meta account setup",
+        "description": "I am facing an error when trying to connect my ad acc...",
+        "status": "Resolved",
+        "statusColor": "green",
+        "lastUpdate": "2 Month Ago"
+      },
+      {
+        "ticketId": "#TK-2024-0012",
+        "date": "May 11, 2026",
+        "assetType": "Business Profile",
+        "account": "ADF1001-UrbanCart Fashion",
+        "accountId": "9182736489273",
+        "subject": "Technical errors",
+        "description": "I am facing an error when trying to connect my ad acc...",
+        "status": "Resolved",
+        "statusColor": "green",
+        "lastUpdate": "1 Year Ago"
+      },
+      {
+        "ticketId": "#TK-2024-0012",
+        "date": "May 11, 2026",
+        "assetType": "Ad Account",
+        "account": "ADF1001-UrbanCart Fashion",
+        "accountId": "9182736489273",
+        "subject": "Account restriction",
+        "description": "I am facing an error when trying to connect my ad acc...",
+        "status": "Resolved",
+        "statusColor": "green",
+        "lastUpdate": "5 Year Ago"
+      },
+      {
+        "ticketId": "#TK-20224-0012",
+        "date": "May 11, 2026",
+        "assetType": "Business Profile",
+        "account": "ADF1001-UrbanCart Fashion",
+        "accountId": "9182736489273",
+        "subject": "Technical errors",
+        "description": "I am facing an error when trying to connect my ad acc...",
+        "status": "Resolved",
+        "statusColor": "green",
+        "lastUpdate": "1 Year Ago"
+      },
+      {
+        "ticketId": "#TK-20224-0012",
+        "date": "May 11, 2026",
+        "assetType": "Ad Account",
+        "account": "ADF1001-UrbanCart Fashion",
+        "accountId": "9182736489273",
+        "subject": "Account restriction",
+        "description": "I am facing an error when trying to connect my ad acc...",
+        "status": "Resolved",
+        "statusColor": "green",
+        "lastUpdate": "5 Year Ago"
+      }
+    ]
+  },
+  "pagination": {
+    "currentPage": 1,
+    "totalPages": 5,
+    "perPage": 10
+  }
+}
