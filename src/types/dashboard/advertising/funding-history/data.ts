@@ -24,11 +24,25 @@ export const TABLE_HEADERS = [
   "Action",
 ];
 
+// Header label → sort key ম্যাপিং (Type/Description/Action sortable না)
+export const HEADER_SORT_KEY_MAP: Record<string, string | null> = {
+  "Date & Time": "timestamp",
+  "Ad Account": "accountName",
+  Type: null,
+  Amount: "amount",
+  Fee: "fee",
+  USD: "usd",
+  "Remaining Bal": "remainingBal",
+  Description: null,
+  Action: null,
+};
+
 export const fundingRows: FundingRow[] = [
   {
     id: "1",
     date: "Jul 4",
     time: "11:42 AM",
+    timestamp: new Date("2026-07-04T11:42:00").getTime(),
     accountName: "UrbanCart Fashion",
     accountId: "91827364518273",
     platform: "meta",
@@ -42,6 +56,7 @@ export const fundingRows: FundingRow[] = [
     id: "2",
     date: "Jul 4",
     time: "10:05 AM",
+    timestamp: new Date("2026-07-04T10:05:00").getTime(),
     accountName: "Nexoria Store",
     accountId: "56291836417215",
     platform: "meta",
@@ -55,6 +70,7 @@ export const fundingRows: FundingRow[] = [
     id: "3",
     date: "Jul 3",
     time: "6:40 PM",
+    timestamp: new Date("2026-07-03T18:40:00").getTime(),
     accountName: "BoostFixter",
     accountId: "78234190183475",
     platform: "google",
@@ -68,6 +84,7 @@ export const fundingRows: FundingRow[] = [
     id: "4",
     date: "Jul 3",
     time: "3:15 PM",
+    timestamp: new Date("2026-07-03T15:15:00").getTime(),
     accountName: "DesignFixter",
     accountId: "238894650128374",
     platform: "meta",
@@ -81,6 +98,7 @@ export const fundingRows: FundingRow[] = [
     id: "5",
     date: "Jul 2",
     time: "1:22 PM",
+    timestamp: new Date("2026-07-02T13:22:00").getTime(),
     accountName: "Pawtify",
     accountId: "238894650128374",
     platform: "tiktok",
@@ -94,6 +112,7 @@ export const fundingRows: FundingRow[] = [
     id: "6",
     date: "Jul 1",
     time: "9:10 AM",
+    timestamp: new Date("2026-07-01T09:10:00").getTime(),
     accountName: "Retailix",
     accountId: "238894650128374",
     platform: "meta",
@@ -107,6 +126,7 @@ export const fundingRows: FundingRow[] = [
     id: "7",
     date: "Jun 30",
     time: "8:30 PM",
+    timestamp: new Date("2026-06-30T20:30:00").getTime(),
     accountName: "Homelynix",
     accountId: "238894650128374",
     platform: "tiktok",
