@@ -67,16 +67,16 @@ const BusinessProfile = () => {
             Select Business Profile
           </label>
 
-          <details className="group relative w-full">
+          <details className="group relative w-full">     
             <summary
               className="flex h-16 w-full list-none items-center justify-between rounded-[10px] bg-white px-4 py-3 border border-[#F0F0F0] cursor-pointer select-none [&::-webkit-details-marker]:hidden"
               style={{ boxShadow: "0px 1px 2px 0px rgba(13, 13, 18, 0.06)" }}
             >
               <div className="flex flex-col text-left justify-center">
-                <div className="font-semibold text-[#0E2038]">
+                <div className="body-sm-medium font-semibold text-[#0E2038]">
                   UrbanCart Fashion
                 </div>
-                <div className="text-sm font-normal text-gray-400 mt-0.5">
+                <div className="body-xsm-regular font-normal text-gray-400 mt-0.5">
                   ID: 91827364518273
                 </div>
               </div>
@@ -162,10 +162,10 @@ const BusinessProfile = () => {
         <div className="overflow-hidden rounded-xl border border-[#F0F0F0] ">
           {/* Main Card Header */}
           <div className="border-b border-[#F0F0F0] p-6">
-            <h2 className="text-lg font-semibold text-gray-900">
+            <h2 className="title-medium font-semibold text-gray-900">
               Business Information
             </h2>
-            <p className="mt-1 text-sm text-gray-400">
+            <p className="mt-1 body-sm-regular text-gray-400">
               Manage your business information and profile details
             </p>
 
@@ -239,11 +239,10 @@ const BusinessProfile = () => {
           {/* Business Profile Information Grid Section */}
           <div>
             <div className="flex items-center justify-between border-b  border-[#F0F0F0] p-6 max-[640px]:flex-col max-[640px]:items-start max-[640px]:gap-3">
-              <h2 className="text-base font-semibold tracking-[-0.01em] text-[#0F172A]">
+              <h2 className="title-medium font-semibold tracking-[-0.01em] text-[#0F172A]">
                 Business Profile Information
               </h2>
 
-              {/* এখানে আপনার PrimaryButton কম্পোনেন্টটি কল করা হয়েছে */}
               <PrimaryButton
                 onClick={() => modalRef.current?.showModal()}
                 className="min-h-9 gap-2 px-4 py-2 !bg-[#F74608] hover:!bg-[#e03d04] border-0 text-white">
