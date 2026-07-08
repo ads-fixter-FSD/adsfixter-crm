@@ -14,19 +14,6 @@ export default function OverviewPage() {
         dateRangeLabel={overviewData.header.dateRangeFilter.displayLabel}
         stats={overviewData.statsCards as any}
       />
-
-      {/* <div className="flex w-full flex-col gap-5 md:flex-row md:items-start">
-        <section className="w-full min-w-0 flex-[2]">
-          <SpendingOverview />
-        </section>
-
-        <div className="w-full min-w-0 flex-[1]">
-          <QuickActions
-            title="Quick Action"
-            actions={overviewData.quickActions as any}
-          />
-        </div>
-      </div> */}
       <div className="flex w-full flex-col gap-5 md:flex-row md:items-stretch">
         <section className="flex w-full min-w-0 flex-[2]">
           <SpendingOverview />
