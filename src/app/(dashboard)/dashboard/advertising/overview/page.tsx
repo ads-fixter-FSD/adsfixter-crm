@@ -7,7 +7,6 @@ import Platform from "./components/platform";
 import NeedAttention from "./components/needAttention";
 import RecentActivity from "./components/recentActivity";
 import { getFilteredOverviewData } from "./overview-data";
-
 export default function AdvertisingOverviewPage() {
   const [dateRange, setDateRange] = useState<DateRangeValue>(() => createDefaultDateRange());
 
