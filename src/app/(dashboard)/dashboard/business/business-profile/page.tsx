@@ -1,4 +1,5 @@
-import React from "react";
+"use client";
+import React, { useRef } from "react";
 import {
   Smartphone,
   Store,
@@ -17,6 +18,7 @@ import {
   Search,
 } from "lucide-react";
 import { PrimaryButton } from "@/components/shared-buttons";
+import EditModalProfile from "./_component/EditModalProfile";
 
 // ---- Custom Edit icon ----
 const EditIcon = ({ size = 20 }: { size?: number }) => (
@@ -55,18 +57,18 @@ const CustomFacebookIcon = ({ size = 16 }: { size?: number }) => (
 );
 
 const BusinessProfile = () => {
+  const modalRef = useRef<HTMLDialogElement>(null);
   return (
     <div className="min-h-screen  p-6 max-[640px]:p-4">
       <div className="mx-auto  space-y-6">
-        
         {/* Dropdown Section */}
         <div className="flex w-full max-w-[588px] flex-col gap-2">
           <label className="text-sm font-normal text-[#3E4D60]">
             Select Business Profile
           </label>
-          
+
           <details className="group relative w-full">
-            <summary 
+            <summary
               className="flex h-16 w-full list-none items-center justify-between rounded-[10px] bg-white px-4 py-3 border border-[#F0F0F0] cursor-pointer select-none [&::-webkit-details-marker]:hidden"
               style={{ boxShadow: "0px 1px 2px 0px rgba(13, 13, 18, 0.06)" }}
             >
@@ -97,9 +99,7 @@ const BusinessProfile = () => {
             </summary>
 
             {/* Dropdown Menu List */}
-            <div 
-              className="absolute top-[72px] left-0 z-50 w-full rounded-xl bg-white border border-[#EDEDED] p-2 "
-            >
+            <div className="absolute top-[72px] left-0 z-50 w-full rounded-xl bg-white border border-[#EDEDED] p-2 ">
               {/* Search Bar Input */}
               <div className="relative mb-2 flex items-center border-b border-[#F4F4F5] px-3 pb-2 pt-1">
                 <Search size={18} className="text-[#94A3B8] mr-2" />
@@ -115,13 +115,29 @@ const BusinessProfile = () => {
                 {/* Profile Item 1 (Selected Style) */}
                 <div className="flex w-full items-center gap-3 rounded-lg p-2.5 text-left transition hover:bg-[#F8FAFC] cursor-pointer">
                   <div className="flex h-5 w-5 shrink-0 items-center justify-center rounded-md border bg-[#F74608] border-[#F74608]">
-                    <svg width="10" height="8" viewBox="0 0 10 8" fill="none" xmlns="http://www.w3.org/2000/svg">
-                      <path d="M9 1L3.5 6.5L1 4" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                    <svg
+                      width="10"
+                      height="8"
+                      viewBox="0 0 10 8"
+                      fill="none"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <path
+                        d="M9 1L3.5 6.5L1 4"
+                        stroke="white"
+                        strokeWidth="2"
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                      />
                     </svg>
                   </div>
                   <div>
-                    <div className="text-sm font-semibold text-[#0F172A]">UrbanCart Fashion</div>
-                    <div className="text-xs text-gray-400 mt-0.5">ID: 91827364518273</div>
+                    <div className="text-sm font-semibold text-[#0F172A]">
+                      UrbanCart Fashion
+                    </div>
+                    <div className="text-xs text-gray-400 mt-0.5">
+                      ID: 91827364518273
+                    </div>
                   </div>
                 </div>
 
@@ -129,8 +145,12 @@ const BusinessProfile = () => {
                 <div className="flex w-full items-center gap-3 rounded-lg p-2.5 text-left transition hover:bg-[#F8FAFC] cursor-pointer">
                   <div className="h-5 w-5 shrink-0 rounded-md border border-[#E4E4E7] bg-white" />
                   <div>
-                    <div className="text-sm font-semibold text-[#0F172A]">UrbanCart Men</div>
-                    <div className="text-xs text-gray-400 mt-0.5">ID: 91827364518273</div>
+                    <div className="text-sm font-semibold text-[#0F172A]">
+                      UrbanCart Men
+                    </div>
+                    <div className="text-xs text-gray-400 mt-0.5">
+                      ID: 91827364518273
+                    </div>
                   </div>
                 </div>
               </div>
@@ -139,10 +159,7 @@ const BusinessProfile = () => {
         </div>
 
         {/* Outer Wrapper Box */}
-        <div
-          className="overflow-hidden rounded-xl border border-[#F0F0F0] "
-         
-        >
+        <div className="overflow-hidden rounded-xl border border-[#F0F0F0] ">
           {/* Main Card Header */}
           <div className="border-b border-[#F0F0F0] p-6">
             <h2 className="text-lg font-semibold text-gray-900">
@@ -153,9 +170,7 @@ const BusinessProfile = () => {
             </p>
 
             {/* Profile Avatar & Header Card */}
-            <div
-              className="mt-5 flex items-center justify-between rounded-xl bg-white p-5 max-[990px]:flex-col max-[990px]:items-start max-[990px]:gap-4 max-[720px]:p-4 border border-[#F0F0F0]"
-            >
+            <div className="mt-5 flex items-center justify-between rounded-xl bg-white p-5 max-[990px]:flex-col max-[990px]:items-start max-[990px]:gap-4 max-[720px]:p-4 border border-[#F0F0F0]">
               <div className="flex items-center gap-4 max-[550px]:flex-col max-[550px]:items-start">
                 <div className="relative shrink-0">
                   <div className="flex h-[76px] w-[76px] items-center justify-center rounded-xl bg-[#FFECE6] text-[32px] font-semibold text-[#F74608]">
@@ -174,7 +189,7 @@ const BusinessProfile = () => {
                   <h2 className="m-0 text-xl font-semibold tracking-[-0.02em] text-[#0F172A]">
                     UrbanCart Fashion
                   </h2>
-                  
+
                   <div className="mt-2 flex flex-wrap items-center gap-x-4 gap-y-2 text-sm text-[#64748B]">
                     <span className="inline-flex items-center gap-1.5 rounded-lg bg-[#E8F5E9] px-2.5 py-1 text-xs font-medium text-[#2E7D32]">
                       <span className="h-1.5 w-1.5 rounded-full bg-[#4CAF50]" />
@@ -182,8 +197,12 @@ const BusinessProfile = () => {
                     </span>
 
                     <span className="flex items-center gap-1 font-medium text-[#475569]">
-                      Business ID : <span className="text-[#0F172A]">91827364518273</span>
-                      <button type="button" className="ml-0.5 text-[#94A3B8] hover:text-[#475569]">
+                      Business ID :{" "}
+                      <span className="text-[#0F172A]">91827364518273</span>
+                      <button
+                        type="button"
+                        className="ml-0.5 text-[#94A3B8] hover:text-[#475569]"
+                      >
                         <Copy size={14} />
                       </button>
                     </span>
@@ -191,13 +210,16 @@ const BusinessProfile = () => {
 
                   <div className="mt-2.5 flex flex-wrap items-center gap-x-4 gap-y-2 text-xs font-medium text-[#64748B]">
                     <span className="flex items-center gap-1.5">
-                      <UserCircle2 size={15} className="text-[#94A3B8]" /> Moderator
+                      <UserCircle2 size={15} className="text-[#94A3B8]" />{" "}
+                      Moderator
                     </span>
                     <span className="flex items-center gap-1.5">
-                      <Calendar size={15} className="text-[#94A3B8]" /> Joined : May 11, 2026
+                      <Calendar size={15} className="text-[#94A3B8]" /> Joined :
+                      May 11, 2026
                     </span>
                     <span className="flex items-center gap-1.5">
-                      <Clock size={15} className="text-[#94A3B8]" /> Last Updated : 2 min ago
+                      <Clock size={15} className="text-[#94A3B8]" /> Last
+                      Updated : 2 min ago
                     </span>
                   </div>
                 </div>
@@ -205,8 +227,8 @@ const BusinessProfile = () => {
 
               <button
                 type="button"
-                className="inline-flex min-h-10 items-center justify-center gap-2 rounded-xl bg-white px-4 text-sm font-semibold text-[#334155] transition hover:bg-[#F8FAFC] max-[990px]:w-full"
-                style={{ border: "1px solid #EDEDED" }}
+                className="border border-[#F0F0F0] inline-flex min-h-10 items-center justify-center gap-2 rounded-xl bg-white px-4 text-sm font-semibold text-[#334155] transition hover:bg-[#F8FAFC] max-[990px]:w-full"
+                // style={{ border: "1px solid #EDEDED" }}
               >
                 <Upload size={16} className="text-[#475569]" />
                 Upload an Image
@@ -220,9 +242,12 @@ const BusinessProfile = () => {
               <h2 className="text-base font-semibold tracking-[-0.01em] text-[#0F172A]">
                 Business Profile Information
               </h2>
-              
+
               {/* এখানে আপনার PrimaryButton কম্পোনেন্টটি কল করা হয়েছে */}
-              <PrimaryButton className="min-h-9 gap-2 px-4 py-2 !bg-[#F74608] hover:!bg-[#e03d04] border-0 text-white">
+              <PrimaryButton
+                onClick={() => modalRef.current?.showModal()}
+                className="min-h-9 gap-2 px-4 py-2 !bg-[#F74608] hover:!bg-[#e03d04] border-0 text-white">
+              
                 <EditIcon size={16} />
                 Edit Business Profile
               </PrimaryButton>
@@ -231,7 +256,11 @@ const BusinessProfile = () => {
             <div className="grid grid-cols-1 md:grid-cols-2 [&>div]:border-[#F0F0F0]">
               <div className="border-b p-5 md:border-r">
                 <div className="flex items-center gap-2 text-sm text-[#71717A]">
-                  <Smartphone size={16} strokeWidth={1.5} className="text-[#71717A]" />
+                  <Smartphone
+                    size={16}
+                    strokeWidth={1.5}
+                    className="text-[#71717A]"
+                  />
                   <span>Platform</span>
                 </div>
                 <div className="mt-2 flex items-center gap-2 text-base font-semibold text-[#1E293B]">
@@ -244,7 +273,11 @@ const BusinessProfile = () => {
 
               <div className="border-b p-5">
                 <div className="flex items-center gap-2 text-sm text-[#71717A]">
-                  <Store size={16} strokeWidth={1.5} className="text-[#71717A]" />
+                  <Store
+                    size={16}
+                    strokeWidth={1.5}
+                    className="text-[#71717A]"
+                  />
                   <span>Business Name</span>
                 </div>
                 <div className="mt-2 text-base font-semibold text-[#1E293B]">
@@ -254,7 +287,11 @@ const BusinessProfile = () => {
 
               <div className="border-b p-5 md:border-r">
                 <div className="flex items-center gap-2 text-sm text-[#71717A]">
-                  <Phone size={16} strokeWidth={1.5} className="text-[#71717A]" />
+                  <Phone
+                    size={16}
+                    strokeWidth={1.5}
+                    className="text-[#71717A]"
+                  />
                   <span>Business Phone Number</span>
                 </div>
                 <div className="mt-2 text-base font-semibold text-[#1E293B]">
@@ -264,7 +301,11 @@ const BusinessProfile = () => {
 
               <div className="border-b p-5">
                 <div className="flex items-center gap-2 text-sm text-[#71717A]">
-                  <Mail size={16} strokeWidth={1.5} className="text-[#71717A]" />
+                  <Mail
+                    size={16}
+                    strokeWidth={1.5}
+                    className="text-[#71717A]"
+                  />
                   <span>Business Email</span>
                 </div>
                 <div className="mt-2 text-base font-semibold text-[#1E293B]">
@@ -274,7 +315,11 @@ const BusinessProfile = () => {
 
               <div className="border-b p-5 md:border-b-0 md:border-r">
                 <div className="flex items-center gap-2 text-sm text-[#71717A]">
-                  <MapPin size={16} strokeWidth={1.5} className="text-[#71717A]" />
+                  <MapPin
+                    size={16}
+                    strokeWidth={1.5}
+                    className="text-[#71717A]"
+                  />
                   <span>Business Address</span>
                 </div>
                 <div className="mt-2 text-base font-semibold text-[#1E293B]">
@@ -300,7 +345,11 @@ const BusinessProfile = () => {
 
               <div className="border-b p-5 md:border-b-0 md:border-r md:border-t">
                 <div className="flex items-center gap-2 text-sm text-[#71717A]">
-                  <Globe size={16} strokeWidth={1.5} className="text-[#71717A]" />
+                  <Globe
+                    size={16}
+                    strokeWidth={1.5}
+                    className="text-[#71717A]"
+                  />
                   <span>Website Link</span>
                 </div>
                 <a
@@ -316,7 +365,11 @@ const BusinessProfile = () => {
 
               <div className="p-5 md:border-t">
                 <div className="flex items-center gap-2 text-sm text-[#71717A]">
-                  <UserCircle2 size={16} strokeWidth={1.5} className="text-[#71717A]" />
+                  <UserCircle2
+                    size={16}
+                    strokeWidth={1.5}
+                    className="text-[#71717A]"
+                  />
                   <span>Designation of User</span>
                 </div>
                 <div className="mt-2 text-base font-semibold text-[#1E293B]">
@@ -336,6 +389,7 @@ const BusinessProfile = () => {
       >
         <MessageSquare size={22} />
       </button>
+      <EditModalProfile dialogRef={modalRef} />
     </div>
   );
 };
