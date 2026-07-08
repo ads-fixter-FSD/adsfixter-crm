@@ -6,7 +6,7 @@ import FundingTableRow from "./FundingTableRow";
 
 export default function FundingTable({ rows }: { rows: FundingRow[] }) {
   return (
-    <div className="mt-6 overflow-x-auto">
+    <div className="overflow-x-auto border-[1px] border-[var(--table-header-border)] rounded-xl">
       <table className="w-full border-collapse">
         <thead>
           <tr className="bg-[var(--table-header-bg)] border-y border-[var(--table-header-border)]">

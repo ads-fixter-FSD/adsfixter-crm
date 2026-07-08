@@ -1,7 +1,6 @@
 "use client";
 
 import React, { useState } from "react";
-import { Clock } from "lucide-react";
 import SummaryCard from "./component/SummaryCard";
 import FundingTabs from "./component/FundingTabs";
 import SearchFilterBar from "./component/SearchFilterBar";
@@ -18,10 +17,10 @@ export default function FundingHistoryPage() {
   const totalPages = 5;
 
   return (
-    <div className="bg-[var(--color-white)] border border-[var(--color-line)] rounded-2xl">
+    <div className="bg-[var(--color-white)] border border-[var(--color-line)] rounded-xl">
       {/* Header */}
-      <div className="px-6 py-6 border-b border-[var(--color-line)]">
-        <h1 className="h6-bold text-[var(--color-primary-text-500)]">
+      <div className="p-5 border-b border-[var(--color-line)]">
+        <h1 className="h6-bold text-[var(--color-primary-text-500)] h6-medium">
           Funding History for this Account
         </h1>
         <p className="body-sm-regular text-[var(--color-subtext-500)] mt-1">
@@ -30,23 +29,25 @@ export default function FundingHistoryPage() {
       </div>
 
       {/* Summary cards */}
-      <div className="px-6 pt-6 flex flex-col sm:flex-row gap-4">
-        <SummaryCard icon="∞" label="Total Funded (Lifetime)" value="$49.45" />
+      <div className="p-5 flex flex-col sm:flex-row gap-4">
+        <SummaryCard icon="/images/dashboard/sitebar/advertising.svg" label="Total Funded (Lifetime)" value="$49.45" />
         <SummaryCard
-          icon={<Clock size={16} />}
+          icon={"/images/dashboard/advertising/clock-svgrepo-com.svg"}
           label="Last Funded"
           value="Jul 4, 11:42 AM"
         />
       </div>
 
       {/* Tabs + Search/Filter */}
-      <div className="px-6 pt-6 flex flex-col lg:flex-row lg:items-center justify-between gap-3">
+      <div className="p-5 flex flex-col lg:flex-row lg:items-center justify-between gap-3">
         <FundingTabs tabs={TABS} activeTab={activeTab} onChange={setActiveTab} />
         <SearchFilterBar search={search} onSearchChange={setSearch} />
       </div>
 
       {/* Table */}
-      <FundingTable rows={fundingRows} />
+     <div className="p-5">
+       <FundingTable rows={fundingRows} />
+     </div>
 
       {/* Pagination */}
       <Pagination
