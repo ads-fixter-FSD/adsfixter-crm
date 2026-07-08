@@ -84,10 +84,10 @@ export default function StatementTable() {
       <div className="relative bg-white border border-slate-100 rounded-2xl shadow-xs overflow-hidden w-full">
         
         {/* রাইট গ্রেডিয়েন্ট ওভারলে: ইউজারকে বোঝাবে যে ডানপাশে আরও ডেটা আছে */}
-        <div className="pointer-events-none absolute top-0 right-0 bottom-0 w-14 bg-gradient-to-l from-white via-white/80 to-transparent z-10 md:hidden" />
+        <div className="pointer-events-none absolute top-0 right-0 bottom-0 w-14 bg-linear-to-l from-white via-white/80 to-transparent z-10 md:hidden" />
 
         <div className="forced-mobile-scroll w-full pb-4">
-          <table className="w-full text-left border-collapse min-w-[900px] md:min-w-full">
+          <table className="w-full text-left border-collapse min-w-225 md:min-w-full">
             <thead>
               <tr className="bg-slate-50/70 border-b border-slate-100 text-[11px] font-bold uppercase tracking-wider text-slate-500">
                 <th className="py-3 px-5">Payment Id</th>
@@ -118,7 +118,7 @@ export default function StatementTable() {
                     </span>
                   </td>
                   {/* শেষ কলামে pr-14 দেওয়া হয়েছে যেন ফেড মাস্কের নিচে টেক্সট কেটে না যায় */}
-                  <td className="py-4 px-5 text-slate-400 font-medium max-w-[240px] truncate pr-14 md:pr-5">
+                  <td className="py-4 px-5 text-slate-400 font-medium max-w-60 truncate pr-14 md:pr-5">
                     {row.note}
                   </td>
                 </tr>
