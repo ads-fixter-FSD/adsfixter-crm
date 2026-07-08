@@ -1,6 +1,10 @@
-import React from "react";
+"use client";
+
+
+import React, { useState } from "react";
 import { Upload, Eye, MessageSquare } from "lucide-react";
 import { PrimaryButton } from "@/components/shared-buttons";
+import DocumentView from "./_components/DocumentView";
 
 type DocumentStatus = "verified" | "not_verified" | "pending";
 
@@ -13,6 +17,7 @@ type BusinessDocument = {
   uploadedOnTime: string;
   expiryDate: string;
   status: DocumentStatus;
+  imageUrl: string;
 };
 
 const documents: BusinessDocument[] = [
@@ -25,6 +30,7 @@ const documents: BusinessDocument[] = [
     uploadedOnTime: "10:30 am",
     expiryDate: "July 5, 2027",
     status: "verified",
+    imageUrl: "https://placehold.co/800x600/png?text=Trade+License+Preview", // <--- এইরকম ইমেজ ইউআরএল
   },
   {
     id: "2",
@@ -35,6 +41,7 @@ const documents: BusinessDocument[] = [
     uploadedOnTime: "10:30 am",
     expiryDate: "July 5, 2027",
     status: "verified",
+    imageUrl: "https://placehold.co/800x600/png?text=Passport+Preview", // <--- এইরকম ইমেজ ইউআরএল
   },
   {
     id: "3",
@@ -45,6 +52,7 @@ const documents: BusinessDocument[] = [
     uploadedOnTime: "10:30 am",
     expiryDate: "July 5, 2027",
     status: "not_verified",
+    imageUrl: "https://placehold.co/800x600/png?text=Trade+License+Preview", // <--- এইরকম ইমেজ ইউআরএল
   },
   {
     id: "4",
@@ -55,6 +63,7 @@ const documents: BusinessDocument[] = [
     uploadedOnTime: "10:30 am",
     expiryDate: "July 5, 2027",
     status: "pending",
+    imageUrl: "https://placehold.co/800x600/png?text=Trade+License+Preview", // <--- এইরকম ইমেজ ইউআরএল
   },
 ];
 
@@ -95,6 +104,12 @@ const StatusBadge = ({ status }: { status: DocumentStatus }) => {
 };
 
 const BusinessDocuments = () => {
+  const [isPreviewOpen, setIsPreviewOpen] = useState(false);
+  const [selectedDoc, setSelectedDoc] = useState({ title: "", imageUrl: "" });
+  const handleViewDocument = (title: string, imageUrl: string) => {
+    setSelectedDoc({ title, imageUrl });
+    setIsPreviewOpen(true);
+  };
   return (
     <div className="min-h-screen p-6 max-[640px]:p-4">
       <div className="mx-auto space-y-6">
@@ -187,13 +202,15 @@ const BusinessDocuments = () => {
                           <StatusBadge status={doc.status} />
                         </td>
                         <td className="px-6 py-4">
-                          <button
-                            type="button"
-                            aria-label={`View ${doc.type}`}
-                            className="flex h-8 w-8 items-center justify-center rounded-lg border border-[#EDEDED] text-[#94A3B8] transition hover:bg-[#F8FAFC] hover:text-[#475569]"
-                          >
-                            <Eye size={15} />
-                          </button>
+                  <button
+    type="button"
+    // ---- ৪. এই onClick লাইনটি যুক্ত করুন ----
+    onClick={() => handleViewDocument(doc.type, doc.imageUrl || "https://placehold.co/800x600")}
+    aria-label={`View ${doc.type}`}
+    className="flex h-8 w-8 items-center justify-center rounded-lg border border-[#EDEDED] text-[#94A3B8] transition hover:bg-[#F8FAFC] hover:text-[#475569]"
+  >
+    <Eye size={15} />
+  </button>
                         </td>
                       </tr>
                     ))}
@@ -213,6 +230,12 @@ const BusinessDocuments = () => {
       >
         <MessageSquare size={22} />
       </button>
+      <DocumentView
+        open={isPreviewOpen}
+        onClose={() => setIsPreviewOpen(false)}
+        title={selectedDoc.title}
+        imageUrl={selectedDoc.imageUrl}
+      />
     </div>
   );
 };
