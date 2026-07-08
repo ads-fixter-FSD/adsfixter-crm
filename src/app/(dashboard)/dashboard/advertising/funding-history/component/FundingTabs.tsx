@@ -11,7 +11,7 @@ export default function FundingTabs({
   onChange: (key: string) => void;
 }) {
   return (
-    <div className="flex items-center gap-1 p-1 rounded-lg border border-[var(--color-line)] w-fit">
+    <div className="flex items-center gap-1 p-1 rounded-lg  bg-[#F8F8F8] w-fit">
       {tabs.map((tab) => {
         const isActive = activeTab === tab.key;
         return (
@@ -21,16 +21,16 @@ export default function FundingTabs({
             onClick={() => onChange(tab.key)}
             className={`flex items-center gap-1.5 px-3 py-1.5 rounded-md body-sm-medium transition-colors ${
               isActive
-                ? "bg-[var(--color-surface)] text-[var(--color-primary-text-500)]"
+                ? "bg-[#FFFFFF] text-[var(--color-primary-text-500)]"
                 : "text-[var(--color-subtext-500)] hover:text-[var(--color-primary-text-500)]"
             }`}
           >
             {tab.label}
             <span
-              className={`text-xs px-1.5 py-0.5 rounded ${
+              className={`text-xs px-1.5 py-1 rounded-full ${
                 isActive
-                  ? "bg-[var(--color-white)] text-[var(--color-primary-text-500)]"
-                  : "bg-[var(--color-surface)] text-[var(--color-subtext-500)]"
+                  ? "bg-[#F5F5F5] text-[var(--color-primary-text-500)]"
+                  : "bg-[#FFFFFF] text-[var(--color-subtext-500)]"
               }`}
             >
               {tab.count}
