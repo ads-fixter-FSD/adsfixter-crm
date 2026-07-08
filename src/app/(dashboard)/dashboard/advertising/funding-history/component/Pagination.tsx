@@ -1,5 +1,5 @@
 import React from "react";
-import { ChevronLeft, ChevronRight } from "lucide-react";
+import { ChevronLeft, ChevronRight, ListFilter } from "lucide-react";
 
 export default function Pagination({
   currentPage,
@@ -18,15 +18,23 @@ export default function Pagination({
     <div className="px-6 py-5 flex flex-col sm:flex-row items-center justify-between gap-4 border-t border-[var(--color-line)] mt-2">
       <div className="flex items-center gap-2 body-sm-regular text-[var(--color-subtext-500)]">
         <span>Show</span>
-        <select
-          value={perPage}
-          onChange={(e) => onPerPageChange(Number(e.target.value))}
-          className="h-9 pl-3 pr-8 rounded-lg border border-[var(--color-line)] body-sm-regular text-[var(--color-primary-text-500)] bg-[var(--color-field)] outline-none appearance-none cursor-pointer"
-        >
-          <option value={10}>10</option>
-          <option value={25}>25</option>
-          <option value={50}>50</option>
-        </select>
+
+        <div className="relative">
+          <ListFilter
+            size={14}
+            className="absolute left-3 top-1/2 -translate-y-1/2 text-[var(--color-subtext-500)] pointer-events-none"
+          />
+          <select
+            value={perPage}
+            onChange={(e) => onPerPageChange(Number(e.target.value))}
+            className="h-9 pl-8 pr-8 rounded-lg border border-[var(--color-line)] body-sm-regular text-[var(--color-primary-text-500)] bg-[var(--color-field)] outline-none appearance-none cursor-pointer"
+          >
+            <option value={10}>10</option>
+            <option value={25}>25</option>
+            <option value={50}>50</option>
+          </select>
+        </div>
+
         <span>Per Page</span>
       </div>
 

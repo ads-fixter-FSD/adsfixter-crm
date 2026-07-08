@@ -11,61 +11,70 @@ export default function FundingTableRow({
   row: FundingRow;
   isLast: boolean;
 }) {
+  const cellBase =
+    "px-6 py-5 align-middle text-center border-[var(--color-line)] border-r";
+  const lastCellBase = "px-6 py-5 align-middle text-center";
+
   return (
     <tr className={isLast ? "" : "border-b border-[var(--color-line)]"}>
-      <td className="px-4 py-4 whitespace-nowrap">
+      <td className={`${cellBase} whitespace-nowrap`}>
         <p className="body-sm-medium text-[var(--color-primary-text-500)]">
           {row.date}, {row.time}
         </p>
       </td>
 
-      <td className="px-4 py-4">
-        <PlatformBadge
-          platform={row.platform}
-          accountName={row.accountName}
-          accountId={row.accountId}
-        />
+      <td className={cellBase}>
+        <div className="flex justify-center">
+          <PlatformBadge
+            platform={row.platform}
+            accountName={row.accountName}
+            accountId={row.accountId}
+            showCopy={row.id === "1"}
+          />
+        </div>
       </td>
 
-      <td className="px-4 py-4 whitespace-nowrap">
-        <TypeBadge />
+      <td className={`${cellBase} whitespace-nowrap`}>
+        <div className="flex justify-center">
+          <TypeBadge />
+        </div>
       </td>
 
-      <td className="px-4 py-4 whitespace-nowrap">
-        <span className="body-sm-regular text-[var(--color-primary-text-500)]">
+      <td className={`${cellBase} whitespace-nowrap`}>
+        <span className="body-sm-medium text-[var(--color-primary-text-500)]">
           {row.amount}
         </span>
       </td>
 
-      <td className="px-4 py-4 whitespace-nowrap">
-        <span className="body-sm-regular text-[var(--color-danger-text)]">
+      <td className={`${cellBase} whitespace-nowrap`}>
+        <span className="body-sm-medium text-[var(--color-danger-text)]">
           {row.fee}
         </span>
       </td>
 
-      <td className="px-4 py-4 whitespace-nowrap">
-        <span className="body-sm-regular text-[var(--color-primary-text-500)]">
+      <td className={`${cellBase} whitespace-nowrap`}>
+        <span className="body-sm-medium text-[var(--color-primary-text-500)]">
           {row.usd}
         </span>
       </td>
 
-      <td className="px-4 py-4 whitespace-nowrap">
+      <td className={`${cellBase} whitespace-nowrap`}>
         <span className="body-sm-medium text-[var(--color-success-text)]">
           {row.remainingBal}
         </span>
       </td>
 
-      <td className="px-4 py-4 max-w-[200px]">
-        <span className="body-sm-regular text-[var(--color-subtext-500)]">
+      <td className={`${cellBase} max-w-[220px]`}>
+        <span className="body-sm-regular text-[var(--color-subtext-500)] leading-relaxed">
           {row.description}
         </span>
       </td>
 
-      <td className="px-4 py-4">
+      <td className={lastCellBase}>
         <button
           type="button"
           aria-label="Row actions"
-          className="w-8 h-8 rounded-lg border border-[var(--color-line)] flex items-center justify-center text-[var(--color-subtext-500)] hover:bg-[var(--color-surface)] transition-colors"
+          className="w-9 h-9 rounded-lg border border-[var(--color-line)] flex items-center justify-center text-[var(--color-subtext-500)] hover:bg-[var(--color-surface)] transition-colors mx-auto"
         >
           <MoreVertical size={16} />
         </button>
