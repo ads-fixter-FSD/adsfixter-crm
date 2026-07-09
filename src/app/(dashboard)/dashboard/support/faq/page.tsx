@@ -22,10 +22,10 @@ export default function FAQPage() {
         {/* টপ ফিক্সড হেডার */}
         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-slate-100/70 pb-5 md:pb-6">
           <div className="space-y-1">
-            <h1 className="text-lg md:text-2xl font-bold text-[#1e293b] tracking-tight">
+            <h1 className="text-lg md:text-2xl font-bold text-[#0E2038] tracking-tight">
               Frequently Asked Questions
             </h1>
-            <p className="text-xs md:text-sm text-slate-400 font-medium">
+            <p className="text-[14px] md:text-sm text-[#7F8482] font-medium">
               Got questions about metabari? Find real-time answer and expert resolution guides below
             </p>
           </div>
