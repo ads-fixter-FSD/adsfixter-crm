@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useState } from "react";
+import Image from "next/image";
 import {
   Ticket,
   ChevronRight,
@@ -395,10 +396,12 @@ const TicketsPage = () => {
                     {msg.attachments && (
                       <div className="mb-1.5 flex gap-2 rounded-2xl rounded-tr-sm bg-[#F2F3F3] p-2.5">
                         {msg.attachments.map((att, i) => (
-                          <img
+                          <Image
                             key={i}
                             src={att.url}
                             alt="attachment"
+                            width={56}
+                            height={56}
                             className="h-14 w-14 rounded-lg object-cover"
                           />
                         ))}
@@ -441,10 +444,12 @@ const TicketsPage = () => {
                 {/* Attached file chips */}
                 <div className="mb-2 flex gap-2">
                   <span className="relative h-8 w-8 overflow-hidden rounded-md">
-                    <img
+                    <Image
                       src="https://images.unsplash.com/photo-1614850523060-8da1d56ae167?w=100&q=80"
                       alt="attachment"
-                      className="h-full w-full object-cover"
+                      fill
+                      sizes="32px"
+                      className="object-cover"
                     />
                     <button
                       type="button"

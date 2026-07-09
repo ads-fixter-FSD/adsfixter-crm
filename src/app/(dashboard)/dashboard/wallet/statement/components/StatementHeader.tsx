@@ -3,7 +3,7 @@ import { Download } from "lucide-react";
 
 export default function StatementHeader() {
   return (
-    <div className="bg-white border border-slate-100 rounded-2xl p-6 shadow-[0_1px_2px_rgba(0,0,0,0.01)] flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+    <div className="rounded-[20px] flex flex-col sm:flex-row sm:items-center justify-between gap-4">
       <div className="space-y-1">
         <h1 className="text-2xl font-bold tracking-tight text-slate-950">Wallet Statements</h1>
         <p className="text-sm text-slate-400 font-medium">

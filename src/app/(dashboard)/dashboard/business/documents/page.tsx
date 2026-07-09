@@ -1,6 +1,5 @@
 "use client";
 
-
 import React, { useState } from "react";
 import { Upload, Eye, MessageSquare } from "lucide-react";
 import { PrimaryButton } from "@/components/shared-buttons";
@@ -202,15 +201,20 @@ const BusinessDocuments = () => {
                           <StatusBadge status={doc.status} />
                         </td>
                         <td className="px-6 py-4">
-                  <button
-    type="button"
-    // ---- ৪. এই onClick লাইনটি যুক্ত করুন ----
-    onClick={() => handleViewDocument(doc.type, doc.imageUrl || "https://placehold.co/800x600")}
-    aria-label={`View ${doc.type}`}
-    className="flex h-8 w-8 items-center justify-center rounded-lg border border-[#EDEDED] text-[#94A3B8] transition hover:bg-[#F8FAFC] hover:text-[#475569]"
-  >
-    <Eye size={15} />
-  </button>
+                          <button
+                            type="button"
+                            // ---- ৪. এই onClick লাইনটি যুক্ত করুন ----
+                            onClick={() =>
+                              handleViewDocument(
+                                doc.type,
+                                doc.imageUrl || "https://placehold.co/800x600",
+                              )
+                            }
+                            aria-label={`View ${doc.type}`}
+                            className="flex h-8 w-8 items-center justify-center rounded-lg border border-[#EDEDED] text-[#94A3B8] transition hover:bg-[#F8FAFC] hover:text-[#475569]"
+                          >
+                            <Eye size={15} />
+                          </button>
                         </td>
                       </tr>
                     ))}

@@ -4,7 +4,9 @@
     "build": "next build",
     "start": "next start",
     "lint": "eslint .",
-    "typecheck": "tsc --noEmit"
+    "typecheck": "tsc --noEmit",
+    "validate": "npm run lint && npm run typecheck && npm run build",
+    "prepare": "husky"
   },
   "dependencies": {
     "@tailwindcss/postcss": "^4.3.1",
@@ -26,6 +28,7 @@
     "@types/react-dom": "latest",
     "eslint": "latest",
     "eslint-config-next": "latest",
+    "husky": "^9.1.7",
     "typescript": "latest"
   }
 }
