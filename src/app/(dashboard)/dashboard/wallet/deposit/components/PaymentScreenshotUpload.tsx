@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useRef, useState } from "react";
+import Image from "next/image";
 import { Upload, X } from "lucide-react";
 
 type AttachedFile = {
@@ -74,8 +75,15 @@ export default function PaymentScreenshotUpload() {
         {attachments.length > 0 && (
           <div className="flex flex-wrap gap-3 pt-2">
             {attachments.map((file) => (
-              <div key={file.id} className="relative w-16 h-16 rounded-lg border border-slate-200 overflow-hidden shadow-3xs bg-slate-100">
-                <img src={file.url} alt={file.name} className="w-full h-full object-cover" />
+              <div key={file.id} className="relative h-16 w-16 overflow-hidden rounded-lg border border-slate-200 bg-slate-100 shadow-3xs">
+                <Image
+                  src={file.url}
+                  alt={file.name}
+                  fill
+                  unoptimized
+                  sizes="64px"
+                  className="object-cover"
+                />
                 <button
                   type="button"
                   onClick={() => handleRemove(file.id)}

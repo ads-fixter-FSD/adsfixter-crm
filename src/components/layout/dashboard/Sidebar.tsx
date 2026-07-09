@@ -198,11 +198,13 @@ export default function Sidebar() {
 
       {/* User Profile Info (Bottom of Sidebar) */}
       <div className="border-t border-[var(--color-line)] pt-4 flex items-center gap-3">
-        <div className="w-10 h-10 bg-gray-200 rounded-full overflow-hidden relative">
-          <img
+        <div className="relative h-10 w-10 overflow-hidden rounded-full bg-gray-200">
+          <Image
             src="/avatar-placeholder.png"
             alt="Abdullah"
-            className="w-full h-full object-cover"
+            fill
+            sizes="40px"
+            className="object-cover"
           />
         </div>
         <div className="flex-1 min-w-0">

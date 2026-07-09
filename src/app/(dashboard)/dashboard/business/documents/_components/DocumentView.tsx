@@ -1,6 +1,7 @@
 "use client";
 
 import React from "react";
+import Image from "next/image";
 import { X } from "lucide-react";
 
 type DocumentViewProps = {
@@ -38,10 +39,13 @@ const DocumentView = ({ open, onClose, title, imageUrl }: DocumentViewProps) => 
         {/* Document Preview */}
         <div className="p-6 overflow-y-auto">
           <div className="overflow-hidden rounded-xl border border-[#EDEDED] bg-[#F2F3F3]">
-            <img
+            <Image
               src={imageUrl}
               alt={title}
-              className="w-full h-auto max-h-[65vh] object-contain"
+              width={900}
+              height={600}
+              unoptimized
+              className="h-auto max-h-[65vh] w-full object-contain"
             />
           </div>
         </div>

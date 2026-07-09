@@ -3,6 +3,7 @@
 "use client";
 
 import { Link2, Upload, X, ChevronDown } from "lucide-react";
+import Image from "next/image";
 import { useEffect, useRef, useState } from "react";
 import { PhoneInput } from "react-international-phone";
 import "react-international-phone/style.css";
@@ -81,14 +82,17 @@ function BusinessProfileModalDocuments({
         <div className="flex flex-wrap items-center gap-4">
           {documents.map((document) => (
             <div
-              className="relative h-24 w-24 overflow-hidden rounded-xl border border-slate-200 bg-slate-50 flex-shrink-0"
+              className="relative h-24 w-24 shrink-0 overflow-hidden rounded-xl border border-slate-200 bg-slate-50"
               key={document.id}
             >
               {document.url && !document.isPdf ? (
-                <img 
-                  src={document.url} 
-                  alt={document.label} 
-                  className="h-full w-full object-cover"
+                <Image
+                  src={document.url}
+                  alt={document.label}
+                  fill
+                  unoptimized
+                  sizes="96px"
+                  className="object-cover"
                 />
               ) : (
                 <div className="grid h-full place-content-center p-2 text-center bg-slate-100">
@@ -249,7 +253,14 @@ export function BusinessProfileRequestModal({
                       className={`${businessProfileInputClassName} flex items-center justify-between text-left w-full bg-white`}
                     >
                       <div className="flex items-center gap-2.5">
-                        <img src={selectedPlatform.logo} alt={selectedPlatform.label} className="w-4 h-4 object-contain" />
+                        <Image
+                          src={selectedPlatform.logo}
+                          alt={selectedPlatform.label}
+                          width={16}
+                          height={16}
+                          unoptimized
+                          className="h-4 w-4 object-contain"
+                        />
                         <span className="text-sm text-slate-800">{selectedPlatform.label}</span>
                       </div>
                       <ChevronDown className="text-slate-400" size={16} />
@@ -267,7 +278,14 @@ export function BusinessProfileRequestModal({
                             }}
                             className="flex items-center gap-2.5 w-full px-4 py-2.5 text-left text-sm hover:bg-slate-50 text-slate-700 transition"
                           >
-                            <img src={platform.logo} alt={platform.label} className="w-4 h-4 object-contain" />
+                            <Image
+                              src={platform.logo}
+                              alt={platform.label}
+                              width={16}
+                              height={16}
+                              unoptimized
+                              className="h-4 w-4 object-contain"
+                            />
                             <span>{platform.label}</span>
                           </button>
                         ))}
