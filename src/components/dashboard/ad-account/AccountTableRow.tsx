@@ -1,3 +1,6 @@
+"use client";
+
+import { useState } from "react";
 import type { AdAccount } from "@/types/account";
 import StatusBadge from ".//StatuBadge";
 import PlatformIcon from "./PlatFormIcon";
@@ -32,6 +35,19 @@ export default function AccountTableRow({
   onRequestNameChange,
   onDeleteAccount,
 }: AccountTableRowProps) {
+  const [copied, setCopied] = useState(false);
+
+  async function handleCopyAccountId(e: React.MouseEvent) {
+    e.stopPropagation();
+    try {
+      await navigator.clipboard.writeText(account.accountId);
+      setCopied(true);
+      setTimeout(() => setCopied(false), 1500);
+    } catch {
+      // Clipboard API unavailable (e.g. insecure context) — fail silently.
+    }
+  }
+
   return (
     <tr className="border-b border-[var(--color-line)] last:border-b-0">
       <td className={`${CELL} body-sm-medium primary-text whitespace-nowrap`}>
@@ -45,28 +61,48 @@ export default function AccountTableRow({
             <p className="body-sm-medium primary-text">{account.accountName}</p>
             <p className="body-xsm-regular subtext-400 flex items-center gap-1">
               ID: {account.accountId}
-              <svg
-                width="12"
-                height="12"
-                viewBox="0 0 24 24"
-                fill="none"
-                className="opacity-70"
+              <button
+                type="button"
+                onClick={handleCopyAccountId}
+                title={copied ? "Copied!" : "Copy account ID"}
+                aria-label="Copy account ID"
+                className="relative inline-flex items-center justify-center opacity-70 hover:opacity-100 transition-opacity"
               >
-                <rect
-                  x="9"
-                  y="9"
-                  width="12"
-                  height="12"
-                  rx="2"
-                  stroke="currentColor"
-                  strokeWidth="1.5"
-                />
-                <path
-                  d="M5 15V5a2 2 0 0 1 2-2h10"
-                  stroke="currentColor"
-                  strokeWidth="1.5"
-                />
-              </svg>
+                {copied ? (
+                  <svg
+                    width="12"
+                    height="12"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    className="text-[var(--color-success-text)]"
+                  >
+                    <path
+                      d="M5 13l4 4L19 7"
+                      stroke="currentColor"
+                      strokeWidth="2"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                    />
+                  </svg>
+                ) : (
+                  <svg width="12" height="12" viewBox="0 0 24 24" fill="none">
+                    <rect
+                      x="9"
+                      y="9"
+                      width="12"
+                      height="12"
+                      rx="2"
+                      stroke="currentColor"
+                      strokeWidth="1.5"
+                    />
+                    <path
+                      d="M5 15V5a2 2 0 0 1 2-2h10"
+                      stroke="currentColor"
+                      strokeWidth="1.5"
+                    />
+                  </svg>
+                )}
+              </button>
             </p>
           </div>
         </div>
@@ -130,3 +166,4 @@ export default function AccountTableRow({
     </tr>
   );
 }
+

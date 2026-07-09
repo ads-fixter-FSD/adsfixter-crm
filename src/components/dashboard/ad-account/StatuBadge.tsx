@@ -1,23 +1,17 @@
 import type { MetaStatus } from "@/types/account";
 
-const STATUS_STYLES: Record<
-  MetaStatus,
-  { bg: string; text: string; dot: string }
-> = {
+const STATUS_STYLES: Record<MetaStatus, { bg: string; accent: string }> = {
   Active: {
-    bg: "bg-[var(--color-success-bg)]",
-    text: "text-[var(--color-success-text)]",
-    dot: "bg-[var(--color-success-text)]",
+    bg: "#E6FFEE",
+    accent: "#166534",
   },
   Disable: {
-    bg: "bg-[var(--color-danger-bg)]",
-    text: "text-[var(--color-danger-text)]",
-    dot: "bg-[var(--color-danger-text)]",
+    bg: "#FFF3F3",
+    accent: "#BE1C23",
   },
   Inactive: {
-    bg: "bg-[var(--color-danger-bg)]",
-    text: "text-[var(--color-danger-text)]",
-    dot: "bg-[var(--color-danger-text)]",
+    bg: "#FFECE6",
+    accent: "#F74608",
   },
 };
 
@@ -26,10 +20,37 @@ export default function StatusBadge({ status }: { status: MetaStatus }) {
 
   return (
     <span
-      className={`inline-flex items-center gap-1.5 rounded-full px-2.5 py-1 body-sm-medium ${style.bg} ${style.text}`}
+      className="inline-flex items-center justify-center"
+      style={{
+        width: 84,
+        height: 26,
+        paddingTop: 4,
+        paddingRight: 8,
+        paddingBottom: 4,
+        paddingLeft: 4,
+        gap: 4,
+        borderRadius: 6,
+        background: style.bg,
+      }}
     >
-      <span className={`h-1.5 w-1.5 rounded-full ${style.dot}`} />
-      {status}
+      <span
+        className="shrink-0 rounded-full"
+        style={{ width: 6, height: 6, background: style.accent }}
+      />
+      <span
+        className="whitespace-nowrap"
+        style={{
+          fontFamily: "var(--font-aeonik)",
+          fontWeight: 400,
+          fontSize: 12,
+          lineHeight: "150%",
+          letterSpacing: "0%",
+          verticalAlign: "middle",
+          color: style.accent,
+        }}
+      >
+        {status}
+      </span>
     </span>
   );
 }

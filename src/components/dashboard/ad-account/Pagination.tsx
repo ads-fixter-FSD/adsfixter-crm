@@ -1,3 +1,5 @@
+import { ChevronLeft, ChevronRight } from "lucide-react";
+
 interface PaginationProps {
   page: number;
   totalPages: number;
@@ -40,10 +42,10 @@ export default function Pagination({
           type="button"
           disabled={page === 1}
           onClick={() => onPageChange(page - 1)}
-          className="flex h-8 w-8 items-center justify-center rounded-full border border-[var(--color-line)] text-[var(--color-subtext-500)] disabled:opacity-40"
+          className="flex h-8 w-8 items-center justify-center rounded-md border border-[var(--color-line)] bg-white text-[var(--color-subtext-500)] hover:bg-[var(--color-surface)] disabled:opacity-40 disabled:hover:bg-white"
           aria-label="Previous page"
         >
-          ‹
+          <ChevronLeft size={16} strokeWidth={2} />
         </button>
 
         {pages.map((p) => (
@@ -51,10 +53,10 @@ export default function Pagination({
             key={p}
             type="button"
             onClick={() => onPageChange(p)}
-            className={`flex h-8 w-8 items-center justify-center rounded-full body-sm-medium transition-colors ${
+            className={`flex h-8 w-8 items-center justify-center rounded-md border body-sm-medium transition-colors ${
               p === page
-                ? "bg-[var(--color-primary)] text-[var(--color-on-primary)]"
-                : "text-[var(--color-primary-text-400)] hover:bg-[var(--color-surface)]"
+                ? "border-[var(--color-primary)] bg-[var(--color-primary)] text-[var(--color-on-primary)]"
+                : "border-[var(--color-line)] bg-white text-[var(--color-primary-text-400)] hover:bg-[var(--color-surface)]"
             }`}
           >
             {p}
@@ -65,10 +67,10 @@ export default function Pagination({
           type="button"
           disabled={page === totalPages}
           onClick={() => onPageChange(page + 1)}
-          className="flex h-8 w-8 items-center justify-center rounded-full border border-[var(--color-line)] text-[var(--color-subtext-500)] disabled:opacity-40"
+          className="flex h-8 w-8 items-center justify-center rounded-md border border-[var(--color-line)] bg-white text-[var(--color-subtext-500)] hover:bg-[var(--color-surface)] disabled:opacity-40 disabled:hover:bg-white"
           aria-label="Next page"
         >
-          ›
+          <ChevronRight size={16} strokeWidth={2} />
         </button>
       </div>
     </div>
