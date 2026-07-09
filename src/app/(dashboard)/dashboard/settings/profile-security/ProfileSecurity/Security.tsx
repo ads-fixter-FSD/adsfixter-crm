@@ -32,10 +32,10 @@ export default function Security() {
   const [activeSessionsEnabled, setActiveSessionsEnabled] = useState(true);
 
   return (
-    <div className="bg-[var(--color-white)] border border-[var(--color-line)] rounded-xl p-5">
+    <div className="bg-[var(--color-white)] border border-[var(--color-line)] rounded-xl p-4 sm:p-5">
       {/* ── Header ── */}
-      <div className="mb-5">
-        <h1 className="h6-bold text-[var(--color-primary-text-500)]">
+      <div className="mb-4 sm:mb-5">
+        <h1 className="h6-bold text-[var(--color-primary-text-500)] text-base sm:text-lg">
           Security
         </h1>
         <p className="body-sm-regular text-[var(--color-subtext-500)] mt-1">
@@ -53,7 +53,7 @@ export default function Security() {
           right={
             <button
               type="button"
-              className="px-4 py-2 rounded-lg border border-[var(--color-adsfixter-primary)] text-[var(--color-adsfixter-primary)] body-sm-medium hover:bg-[var(--color-primary-soft)] transition-colors"
+              className="w-full sm:w-auto px-4 py-2 rounded-lg border border-[var(--color-adsfixter-primary)] text-[var(--color-adsfixter-primary)] body-sm-medium hover:bg-[var(--color-primary-soft)] transition-colors"
             >
               Change Password
             </button>
@@ -66,10 +66,7 @@ export default function Security() {
           title="Two-Factor Authentication"
           subtitle="Add an extra layer of security to your account"
           right={
-            <button
-              type="button"
-              className="flex items-center gap-3 group"
-            >
+            <button type="button" className="flex items-center gap-3 group">
               <span
                 className={`px-2.5 py-1 rounded-md text-xs font-medium ${
                   twoFactorEnabled
@@ -100,6 +97,7 @@ export default function Security() {
               />
             </button>
           }
+          rightAlignOnMobile
         />
 
         {/* Active Sessions + toggle */}
@@ -114,21 +112,22 @@ export default function Security() {
             />
           }
           bottomBorder={activeSessionsEnabled}
+          rightAlignOnMobile
         />
 
         {/* Session list */}
         {activeSessionsEnabled && (
-          <div className="px-6 pb-4">
+          <div className="px-4 sm:px-6 pb-4">
             {sessions.map((session, idx) => (
               <div
                 key={session.id}
-                className={`flex items-center justify-between py-4 ${
+                className={`flex flex-col sm:flex-row sm:items-center justify-between gap-2 sm:gap-3 py-4 ${
                   idx !== sessions.length - 1
                     ? "border-b border-[var(--color-line)]"
                     : ""
                 }`}
               >
-                <div>
+                <div className="min-w-0">
                   <p className="body-sm-medium text-[var(--color-primary-text-500)]">
                     {session.device}{" "}
                     <span className="text-[var(--color-subtext-500)] font-normal">
@@ -141,13 +140,13 @@ export default function Security() {
                 </div>
 
                 {session.current ? (
-                  <span className="px-2.5 py-1 rounded-md bg-[var(--color-success-bg)] text-[var(--color-success-text)] text-xs font-medium">
+                  <span className="self-start sm:self-auto px-2.5 py-1 rounded-md bg-[var(--color-success-bg)] text-[var(--color-success-text)] text-xs font-medium shrink-0">
                     Current
                   </span>
                 ) : (
                   <button
                     type="button"
-                    className="px-2.5 py-1 rounded-md bg-[var(--color-danger-bg)] text-[var(--color-danger-text)] text-xs font-medium hover:opacity-80 transition-opacity"
+                    className="self-start sm:self-auto px-2.5 py-1 rounded-md bg-[var(--color-danger-bg)] text-[var(--color-danger-text)] text-xs font-medium hover:opacity-80 transition-opacity shrink-0"
                   >
                     Sign Out
                   </button>
@@ -168,24 +167,28 @@ function Row({
   subtitle,
   right,
   bottomBorder = true,
+  rightAlignOnMobile = false,
 }: {
   icon: React.ReactNode;
   title: string;
   subtitle: string;
   right: React.ReactNode;
   bottomBorder?: boolean;
+  rightAlignOnMobile?: boolean;
 }) {
   return (
     <div
-      className={`flex items-center justify-between px-6 py-4 ${
+      className={`flex ${
+        rightAlignOnMobile ? "flex-row items-center" : "flex-col sm:flex-row sm:items-center"
+      } justify-between gap-3 px-4 sm:px-6 py-4 ${
         bottomBorder ? "border-b border-[var(--color-line)]" : ""
       }`}
     >
-      <div className="flex items-center gap-3">
+      <div className="flex items-center gap-3 min-w-0">
         <span className="text-[var(--color-primary-text-500)] shrink-0">
           {icon}
         </span>
-        <div>
+        <div className="min-w-0">
           <p className="body-sm-medium text-[var(--color-primary-text-500)]">
             {title}
           </p>
@@ -194,7 +197,9 @@ function Row({
           </p>
         </div>
       </div>
-      {right}
+      <div className={rightAlignOnMobile ? "shrink-0" : "w-full sm:w-auto pl-8 sm:pl-0"}>
+        {right}
+      </div>
     </div>
   );
 }
