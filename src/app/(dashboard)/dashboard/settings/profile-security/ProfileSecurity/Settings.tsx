@@ -3,7 +3,7 @@
 import React, { useRef, useState } from "react";
 import Image from "next/image";
 import { Camera, Calendar, ChevronDown, AlertCircle } from "lucide-react";
-// ── Country → dial code map ──
+
 const COUNTRY_CODES: Record<string, string> = {
   Bangladesh: "+880",
   India: "+91",
@@ -11,17 +11,16 @@ const COUNTRY_CODES: Record<string, string> = {
   "United States": "+1",
 };
 
-// শুধুমাত্র digit, +, স্পেস, ড্যাশ অনুমোদিত (phone number এর জন্য)
 const PHONE_ALLOWED_REGEX = /^[0-9+\-\s]*$/;
+
 export default function Settings() {
-  const [dob, setDob] = useState("2002-03-12"); // yyyy-mm-dd (input[type=date] format)
+  const [dob, setDob] = useState("2002-03-12");
   const [country, setCountry] = useState("Bangladesh");
   const [phone, setPhone] = useState("+880 1712 345 678");
   const [phoneError, setPhoneError] = useState("");
 
   const dateInputRef = useRef<HTMLInputElement>(null);
 
-  // ── Date of Birth: display format (12 Mar 2002) ──
   const formattedDob = dob
     ? new Date(dob).toLocaleDateString("en-GB", {
         day: "2-digit",
@@ -31,7 +30,6 @@ export default function Settings() {
     : "";
 
   const handleCalendarIconClick = () => {
-    // Modern browsers এ native date picker সরাসরি খুলে দেয়
     if (dateInputRef.current) {
       if (typeof dateInputRef.current.showPicker === "function") {
         dateInputRef.current.showPicker();
@@ -42,7 +40,6 @@ export default function Settings() {
     }
   };
 
-  // ── Country change: phone number এর শুরুতে country code বসিয়ে দেওয়া ──
   const handleCountryChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
     const newCountry = e.target.value;
     setCountry(newCountry);
@@ -50,7 +47,6 @@ export default function Settings() {
     const newCode = COUNTRY_CODES[newCountry] ?? "";
 
     setPhone((prevPhone) => {
-      // আগের phone number থেকে existing country code বাদ দিয়ে বাকি অংশ (local number) বের করা
       const existingCode = Object.values(COUNTRY_CODES).find((code) =>
         prevPhone.trim().startsWith(code),
       );
@@ -63,13 +59,11 @@ export default function Settings() {
     setPhoneError("");
   };
 
-  // ── Phone number validation ──
   const handlePhoneChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const value = e.target.value;
 
     if (!PHONE_ALLOWED_REGEX.test(value)) {
       setPhoneError("Only numbers are allowed in phone number.");
-      // ভুল character গুলো বাদ দিয়ে valid অংশটুকুই রাখা হচ্ছে
       const sanitized = value.replace(/[^0-9+\-\s]/g, "");
       setPhone(sanitized);
       return;
@@ -80,10 +74,10 @@ export default function Settings() {
   };
 
   return (
-    <div className="bg-[var(--color-white)] border border-[var(--color-line)] rounded-xl p-5">
+    <div className="bg-[var(--color-white)] border border-[var(--color-line)] rounded-xl p-4 sm:p-5">
       {/* ── Header ── */}
-      <div className=" border-b border-[var(--color-line)] pb-5 space-y-2">
-        <h1 className="h6-medium text-[var(--color-primary-text-500)]">
+      <div className="border-b border-[var(--color-line)] pb-4 sm:pb-5 space-y-1.5 sm:space-y-2">
+        <h1 className="h6-medium text-[var(--color-primary-text-500)] text-base sm:text-lg">
           Settings
         </h1>
         <p className="body-sm-regular text-[var(--color-subtext-500)]">
@@ -92,8 +86,8 @@ export default function Settings() {
       </div>
 
       {/* ── Profile & Account Section ── */}
-      <div className="mt-5">
-        <div className="flex items-start justify-between mb-5">
+      <div className="mt-4 sm:mt-5">
+        <div className="flex flex-col sm:flex-row sm:items-start justify-between gap-3 sm:gap-4 mb-4 sm:mb-5">
           <div>
             <h2 className="body-l-medium text-[var(--color-primary-text-500)]">
               Profile &amp; Account
@@ -105,7 +99,7 @@ export default function Settings() {
 
           <button
             type="button"
-            className="flex items-center gap-2 px-4 py-2 rounded-lg border border-[var(--color-line)] text-[var(--color-adsfixter-primary)] body-sm-medium hover:bg-[var(--color-primary-soft)] transition-colors shrink-0"
+            className="w-full sm:w-auto flex items-center justify-center gap-2 px-4 py-2 rounded-lg border border-[var(--color-line)] text-[var(--color-adsfixter-primary)] body-sm-medium hover:bg-[var(--color-primary-soft)] transition-colors shrink-0"
           >
             <Image
               src={"/images/dashboard/settings/edit.svg"}
@@ -117,9 +111,9 @@ export default function Settings() {
           </button>
         </div>
 
-        <div className="flex flex-col md:flex-row gap-8">
+        <div className="flex flex-col md:flex-row gap-6 sm:gap-8">
           {/* Avatar */}
-          <div className="relative w-[162px] h-[162px] shrink-0">
+          <div className="relative w-[120px] h-[120px] sm:w-[140px] sm:h-[140px] md:w-[162px] md:h-[162px] shrink-0 mx-auto md:mx-0">
             <div className="w-full h-full rounded-full overflow-hidden bg-[var(--color-surface)] relative">
               <Image
                 src="/images/dashboard/settings/faruk.webp"
@@ -131,17 +125,17 @@ export default function Settings() {
             <button
               type="button"
               aria-label="Change photo"
-              className="absolute bottom-1 right-1 w-12 h-12 rounded-full bg-[var(--color-white)] border border-[var(--color-line)] flex items-center justify-center shadow-sm hover:bg-[var(--color-surface)] transition-colors"
+              className="absolute bottom-1 right-1 w-9 h-9 sm:w-10 sm:h-10 md:w-12 md:h-12 rounded-full bg-[var(--color-white)] border border-[var(--color-line)] flex items-center justify-center shadow-sm hover:bg-[var(--color-surface)] transition-colors"
             >
               <Camera
-                size={18}
-                className="text-[var(--color-primary-text-500)]"
+                size={16}
+                className="text-[var(--color-primary-text-500)] sm:w-[18px] sm:h-[18px]"
               />
             </button>
           </div>
 
           {/* Fields */}
-          <div className="flex-1 min-w-0 grid grid-cols-1 md:grid-cols-3 gap-x-4 gap-y-4">
+          <div className="flex-1 min-w-0 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-x-4 gap-y-4">
             <Field label="Full Name">
               <input
                 type="text"
@@ -156,9 +150,9 @@ export default function Settings() {
                   type="email"
                   defaultValue="faruk@gmail.com"
                   readOnly
-                  className="w-full h-11 pl-4 pr-24 rounded-lg border border-[var(--color-line)] body-sm-regular text-[var(--color-primary-text-500)] bg-[var(--color-field)] outline-none"
+                  className="w-full h-11 pl-4 pr-20 sm:pr-24 rounded-lg border border-[var(--color-line)] body-sm-regular text-[var(--color-primary-text-500)] bg-[var(--color-field)] outline-none truncate"
                 />
-                <span className="absolute right-2 top-1/2 -translate-y-1/2 flex items-center gap-1 px-2.5 py-1 rounded-md bg-[#23CA5B1A] text-[#23CA5B] body-xsm-medium">
+                <span className="absolute right-2 top-1/2 -translate-y-1/2 flex items-center gap-1 px-2 sm:px-2.5 py-1 rounded-md bg-[#23CA5B1A] text-[#23CA5B] text-[10px] sm:text-xs font-medium whitespace-nowrap">
                   Verified
                 </span>
               </div>
@@ -179,7 +173,7 @@ export default function Settings() {
               </div>
               {phoneError && (
                 <p className="flex items-center gap-1 mt-1 text-xs text-[var(--color-danger-text)]">
-                  <AlertCircle size={12} />
+                  <AlertCircle size={12} className="shrink-0" />
                   {phoneError}
                 </p>
               )}
@@ -187,7 +181,6 @@ export default function Settings() {
 
             <Field label="Date of Birth">
               <div className="relative">
-                {/* ব্যবহারকারীর দেখার জন্য formatted, read-only text input */}
                 <input
                   type="text"
                   value={formattedDob}
@@ -203,7 +196,6 @@ export default function Settings() {
                 >
                   <Calendar size={16} />
                 </button>
-                {/* আসল native date picker — visually hidden কিন্তু showPicker() দিয়ে trigger হয় */}
                 <input
                   ref={dateInputRef}
                   type="date"
