@@ -10,6 +10,14 @@ import { menuItems } from "@/features/crm/types/constants/sidebar-menu";
 const ACTIVE_ICON_FILTER =
   "brightness(0) saturate(100%) invert(38%) sepia(84%) saturate(3000%) hue-rotate(0deg) brightness(101%) contrast(101%)";
 
+function findActiveParentName(pathname: string): string | null {
+  const activeParent = menuItems.find(
+    (item) =>
+      item.children && item.children.some((child) => pathname === child.href)
+  );
+  return activeParent ? activeParent.name : null;
+}
+
 export default function Sidebar({
   isMobileOpen = false,
   onMobileClose,
@@ -19,18 +27,22 @@ export default function Sidebar({
 }) {
   const pathname = usePathname();
   const router = useRouter();
-  const [openMenu, setOpenMenu] = React.useState<string | null>(null);
 
-  React.useEffect(() => {
-    const activeParent = menuItems.find(
-      (item) =>
-        item.children &&
-        item.children.some((child) => pathname === child.href)
-    );
-    if (activeParent) {
-      setOpenMenu(activeParent.name);
+  // route অনুযায়ী কোন menu খোলা থাকবে সেটা প্রথমে render-time এ ঠিক করা হচ্ছে
+  const [openMenu, setOpenMenu] = React.useState<string | null>(() =>
+    findActiveParentName(pathname)
+  );
+  const [prevPathname, setPrevPathname] = React.useState(pathname);
+
+  // পথ পরিবর্তন হলে render এর সময়ই state adjust করা হচ্ছে (effect এর বদলে) —
+  // এটাই React এর সুপারিশকৃত প্যাটার্ন "Adjusting state when a prop changes"
+  if (pathname !== prevPathname) {
+    setPrevPathname(pathname);
+    const activeParentName = findActiveParentName(pathname);
+    if (activeParentName) {
+      setOpenMenu(activeParentName);
     }
-  }, [pathname]);
+  }
 
   const handleParentClick = (item: (typeof menuItems)[number]) => {
     const isOpen = openMenu === item.name;
@@ -41,7 +53,6 @@ export default function Sidebar({
     }
   };
 
-  // মোবাইলে কোনো লিংকে ক্লিক করলে sidebar বন্ধ হয়ে যাবে
   const handleMobileLinkClick = () => {
     onMobileClose?.();
   };
@@ -93,7 +104,6 @@ export default function Sidebar({
               />
             </div>
 
-            {/* মোবাইলে Close বাটন — শুধু mobile এ দেখাবে */}
             <button
               type="button"
               aria-label="Close menu"
@@ -225,10 +235,11 @@ export default function Sidebar({
       {/* User Profile Info (Bottom of Sidebar) */}
       <div className="border-t border-[var(--color-line)] pt-4 flex items-center gap-3">
         <div className="w-10 h-10 bg-gray-200 rounded-full overflow-hidden relative shrink-0">
-          <img
+          <Image
             src="/avatar-placeholder.png"
             alt="Abdullah"
-            className="w-full h-full object-cover"
+            fill
+            className="object-cover"
           />
         </div>
         <div className="flex-1 min-w-0">
