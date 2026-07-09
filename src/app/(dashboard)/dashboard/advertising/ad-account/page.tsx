@@ -14,7 +14,7 @@ export default function AccountOverviewPage() {
   const entries = topUpHistoryData.entries as TopUpHistoryEntry[];
 
   return (
-    <main className="min-h-screen bg-[var(--color-surface)] py-8">
+    <main className="bg-[var(--color-surface)] py-8">
       <div className="">
         <AccountOverview
           accounts={accounts}
