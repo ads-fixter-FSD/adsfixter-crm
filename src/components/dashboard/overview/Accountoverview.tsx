@@ -81,21 +81,21 @@ const STATUS_STYLES: Record<
 > = {
   active: {
     label: "Active",
-    dot: "bg-[#22C55E]",
-    text: "text-[#166534]",
-    bg: "bg-[#E9F9EF]",
+    dot: "bg-[#1CA430]",
+    text: "text-[#1CA430]",
+    bg: "bg-[#E6FFEE]",
   },
   inactive: {
     label: "Inactive",
-    dot: "bg-[#F59E0B]",
-    text: "text-[#92400E]",
-    bg: "bg-[#FEF3E2]",
+    dot: "bg-[#F74608]",
+    text: "text-[#F74608]",
+    bg: "bg-[#FFECE6]",
   },
   disable: {
     label: "Disable",
-    dot: "bg-[#EF4444]",
-    text: "text-[#991B1B]",
-    bg: "bg-[#FDECEC]",
+    dot: "bg-[#BE1C23]",
+    text: "text-[#BE1C23]",
+    bg: "bg-[#FFF3F3]",
   },
 };
 
@@ -279,8 +279,6 @@ export default function AccountOverview({
       });
     }
 
-    
-
     return result;
   }, [rows, activeTab, search, metaFilters, platformFilters, sortKey, sortDir]);
 
@@ -315,7 +313,7 @@ export default function AccountOverview({
                 setActiveTab(tab.key);
                 setCurrentPage(1);
               }}
-              className={`rounded-md px-3 py-1.5 font-sans text-sm font-medium transition-colors ${
+              className={`rounded-md px-3 py-1.5 font-sans body-xsm-medium  font-medium transition-colors ${
                 activeTab === tab.key
                   ? "bg-[var(--color-white,#ffffff)] text-[var(--color-primary-text-500,#0e2038)] shadow-[0px_1px_2px_0px_#E4E5E73D]"
                   : "text-[var(--color-subtext-500,#7f8482)]"
@@ -341,7 +339,7 @@ export default function AccountOverview({
                 setCurrentPage(1);
               }}
               placeholder="Search..."
-              className="w-full bg-transparent font-sans text-sm text-[var(--color-primary-text-500,#0e2038)] outline-none placeholder:text-[var(--color-subtext-400,#999d9b)]"
+              className="w-full bg-transparent font-sans body-xsm-medium  text-[var(--color-primary-text-500,#0e2038)] outline-none placeholder:text-[var(--color-subtext-400,#999d9b)]"
             />
           </div>
 
@@ -353,7 +351,7 @@ export default function AccountOverview({
                 setIsFilterOpen((prev) => !prev);
                 setIsSortOpen(false);
               }}
-              className="flex h-10 items-center gap-2 rounded-lg border border-[var(--color-line,#eceff3)] bg-[var(--color-white,#ffffff)] px-4 font-sans text-sm font-medium text-[var(--color-primary-text-500,#0e2038)]"
+              className="flex h-10 items-center gap-2 rounded-lg border border-[var(--color-line,#eceff3)] bg-[var(--color-white,#ffffff)] px-4 font-sans body-xsm-medium  font-medium text-[var(--color-primary-text-500,#0e2038)]"
             >
               <SlidersHorizontal
                 size={16}
@@ -376,7 +374,7 @@ export default function AccountOverview({
                   {META_STATUS_FILTERS.map((opt) => (
                     <label
                       key={opt.key}
-                      className="flex items-center gap-2 font-sans text-sm text-[var(--color-primary-text-500,#0e2038)]"
+                      className="flex items-center gap-2 font-sans body-xsm-medium  text-[var(--color-primary-text-500,#0e2038)]"
                     >
                       <input
                         type="checkbox"
@@ -401,7 +399,7 @@ export default function AccountOverview({
                   {PLATFORM_FILTERS.map((opt) => (
                     <label
                       key={opt.key}
-                      className="flex items-center gap-2 font-sans text-sm text-[var(--color-primary-text-500,#0e2038)]"
+                      className="flex items-center gap-2 font-sans body-xsm-medium  text-[var(--color-primary-text-500,#0e2038)]"
                     >
                       <input
                         type="checkbox"
@@ -425,7 +423,7 @@ export default function AccountOverview({
                       setPlatformFilters(new Set());
                       setCurrentPage(1);
                     }}
-                    className="mt-3 font-sans text-sm font-medium text-[var(--color-adsfixter-primary,#f74608)]"
+                    className="mt-3 font-sans body-xsm-medium  font-medium text-[var(--color-adsfixter-primary,#f74608)]"
                   >
                     Clear all
                   </button>
@@ -442,7 +440,7 @@ export default function AccountOverview({
                 setIsSortOpen((prev) => !prev);
                 setIsFilterOpen(false);
               }}
-              className="flex h-10 items-center gap-2 rounded-lg border border-[var(--color-line,#eceff3)] bg-[var(--color-white,#ffffff)] px-4 font-sans text-sm font-medium text-[var(--color-primary-text-500,#0e2038)]"
+              className="flex h-10 items-center gap-2 rounded-lg border border-[var(--color-line,#eceff3)] bg-[var(--color-white,#ffffff)] px-4 font-sans body-xsm-medium  font-medium text-[var(--color-primary-text-500,#0e2038)]"
             >
               <ArrowUpDown
                 size={16}
@@ -467,7 +465,7 @@ export default function AccountOverview({
                       setActiveSort(opt);
                       setIsSortOpen(false);
                     }}
-                    className={`w-full rounded-lg px-3 py-2 text-left font-sans text-sm ${
+                    className={`w-full rounded-lg px-3 py-2 text-left font-sans body-xsm-medium  ${
                       activeSort === opt
                         ? "bg-[var(--color-primary-soft,rgba(247,70,8,0.08))] text-[var(--color-adsfixter-primary,#f74608)]"
                         : "text-[var(--color-primary-text-500,#0e2038)]"
@@ -491,7 +489,7 @@ export default function AccountOverview({
                 <th
                   key={col.key}
                   onClick={() => handleHeaderSort(col.key, col.sortable)}
-                  className={`border-b border-r border-[#F0F0F0] px-4 py-3 text-left font-sans text-xs font-medium text-[var(--color-subtext-500,#7f8482)] last:border-r-0 ${
+                  className={`border-b border-r border-[#F0F0F0] px-4 py-3 text-left font-sans body-xsm-medium  text-[var(--color-subtext-500,#7f8482)] last:border-r-0 ${
                     col.sortable ? "cursor-pointer select-none" : ""
                   }`}
                 >
@@ -521,7 +519,7 @@ export default function AccountOverview({
                   key={`${row.id}-${idx}`}
                   className="border-b border-[#F0F0F0] last:border-b-0"
                 >
-                  <td className="border-r border-[#F0F0F0] px-4 py-4 font-sans text-sm text-[var(--color-primary-text-500,#0e2038)] last:border-r-0">
+                  <td className="border-r border-[#F0F0F0] px-4 py-4 font-sans body-regular text-[var(--color-primary-text-500,#0e2038)] last:border-r-0">
                     {row.id}
                   </td>
 
@@ -531,7 +529,7 @@ export default function AccountOverview({
                         {PLATFORM_ICON[row.platform]}
                       </span>
                       <div className="flex flex-col">
-                        <span className="font-sans text-sm font-medium text-[var(--color-primary-text-500,#0e2038)]">
+                        <span className="font-sans body-xsm-medium  font-medium text-[var(--color-primary-text-500,#0e2038)]">
                           {row.accountName}
                         </span>
                         <span className="font-sans text-xs text-[var(--color-subtext-400,#999d9b)]">
@@ -541,17 +539,17 @@ export default function AccountOverview({
                     </div>
                   </td>
 
-                  <td className="border-r border-[#F0F0F0] px-4 py-4 font-sans text-sm text-[var(--color-primary-text-500,#0e2038)] last:border-r-0">
+                  <td className="border-r border-[#F0F0F0] px-4 py-4 font-sans body-xsm-medium  text-[var(--color-primary-text-500,#0e2038)] last:border-r-0">
                     ${row.creditBalance.toFixed(2)}
                   </td>
 
-                  <td className="border-r border-[#F0F0F0] px-4 py-4 font-sans text-sm text-[var(--color-primary-text-500,#0e2038)] last:border-r-0">
+                  <td className="border-r border-[#F0F0F0] px-4 py-4 font-sans body-xsm-medium  text-[var(--color-primary-text-500,#0e2038)] last:border-r-0">
                     ${row.spendMonth.toFixed(2)}
                   </td>
 
                   <td className="border-r border-[#F0F0F0] px-4 py-4 last:border-r-0">
                     <div className="flex flex-col">
-                      <span className="font-sans text-sm text-[var(--color-primary-text-500,#0e2038)]">
+                      <span className="font-sans body-xsm-medium  text-[var(--color-primary-text-500,#0e2038)]">
                         {row.lastTopUp.value}
                       </span>
                       <span className="font-sans text-xs text-[var(--color-subtext-400,#999d9b)]">
@@ -562,7 +560,7 @@ export default function AccountOverview({
 
                   <td className="border-r border-[#F0F0F0] px-4 py-4 last:border-r-0">
                     <span
-                      className={`inline-flex items-center gap-1.5 rounded-full px-2.5 py-1 font-sans text-xs font-medium ${statusStyle.bg} ${statusStyle.text}`}
+                      className={`inline-flex items-center gap-1.5 rounded-[6px] px-2.5 py-1 font-sans text-xs font-medium ${statusStyle.bg} ${statusStyle.text}`}
                     >
                       <span
                         className={`h-1.5 w-1.5 rounded-full ${statusStyle.dot}`}
@@ -571,15 +569,15 @@ export default function AccountOverview({
                     </span>
                   </td>
 
-                  <td className="border-r border-[#F0F0F0] px-4 py-4 font-sans text-sm text-[var(--color-primary-text-500,#0e2038)] last:border-r-0">
+                  <td className="border-r border-[#F0F0F0] px-4 py-4 font-sans body-xsm-medium  text-[var(--color-primary-text-500,#0e2038)] last:border-r-0">
                     {row.agencyStatus}
                   </td>
 
-                  <td className="border-r border-[#F0F0F0] px-4 py-4 font-sans text-sm text-[var(--color-primary-text-500,#0e2038)] last:border-r-0">
+                  <td className="border-r border-[#F0F0F0] px-4 py-4 font-sans body-xsm-medium  text-[var(--color-primary-text-500,#0e2038)] last:border-r-0">
                     {row.optimizeScore}
                   </td>
 
-                  <td className="border-r border-[#F0F0F0] px-4 py-4 font-sans text-sm text-[var(--color-subtext-500,#7f8482)] last:border-r-0">
+                  <td className="border-r border-[#F0F0F0] px-4 py-4 font-sans body-xsm-medium  text-[var(--color-subtext-500,#7f8482)] last:border-r-0">
                     {row.updatedAgo}
                   </td>
 
@@ -603,7 +601,7 @@ export default function AccountOverview({
                               key={item.key}
                               type="button"
                               onClick={() => setOpenActionRow(null)}
-                              className="flex w-full items-center gap-2.5 rounded-lg px-3 py-2 text-left font-sans text-sm text-[var(--color-primary-text-500,#0e2038)] hover:bg-[var(--color-surface,#f7f8fa)]"
+                              className="flex w-full items-center gap-2.5 rounded-lg px-3 py-2 text-left font-sans body-xsm-medium  text-[var(--color-primary-text-500,#0e2038)] hover:bg-[var(--color-surface,#f7f8fa)]"
                             >
                               <ItemIcon
                                 size={16}
@@ -619,7 +617,7 @@ export default function AccountOverview({
                         <button
                           type="button"
                           onClick={() => setOpenActionRow(null)}
-                          className="flex w-full items-center gap-2.5 rounded-lg px-3 py-2 text-left font-sans text-sm font-medium text-[var(--color-danger-text,#991b1b)] hover:bg-[var(--color-danger-bg,#fee2e2)]"
+                          className="flex w-full items-center gap-2.5 rounded-lg px-3 py-2 text-left font-sans body-xsm-medium  font-medium text-[var(--color-danger-text,#991b1b)] hover:bg-[var(--color-danger-bg,#fee2e2)]"
                         >
                           <Trash2
                             size={16}
@@ -638,7 +636,7 @@ export default function AccountOverview({
               <tr>
                 <td
                   colSpan={COLUMNS.length}
-                  className="px-4 py-10 text-center font-sans text-sm text-[var(--color-subtext-500,#7f8482)]"
+                  className="px-4 py-10 text-center font-sans body-xsm-medium  text-[var(--color-subtext-500,#7f8482)]"
                 >
                   No accounts match your search / filters.
                 </td>
@@ -650,7 +648,7 @@ export default function AccountOverview({
 
       {/* ---------- Pagination ---------- */}
       <div className="flex w-full flex-col items-center justify-between gap-3 sm:flex-row">
-        <div className="flex items-center gap-2 font-sans text-sm text-[var(--color-subtext-500,#7f8482)]">
+        <div className="flex items-center gap-2 font-sans body-xsm-medium  text-[var(--color-subtext-500,#7f8482)]">
           <span>Show</span>
           <div className="relative">
             <select
@@ -659,7 +657,7 @@ export default function AccountOverview({
                 setPerPage(Number(e.target.value));
                 setCurrentPage(1);
               }}
-              className="appearance-none rounded-lg border border-[var(--color-line,#eceff3)] bg-[var(--color-white,#ffffff)] py-1.5 pl-3 pr-7 font-sans text-sm text-[var(--color-primary-text-500,#0e2038)] outline-none"
+              className="appearance-none rounded-lg border border-[var(--color-line,#eceff3)] bg-[var(--color-white,#ffffff)] py-1.5 pl-3 pr-7 font-sans body-xsm-medium  text-[var(--color-primary-text-500,#0e2038)] outline-none"
             >
               {[10, 25, 50, 100].map((n) => (
                 <option key={n} value={n}>
@@ -690,7 +688,7 @@ export default function AccountOverview({
               key={page}
               type="button"
               onClick={() => setCurrentPage(page)}
-              className={`flex h-8 w-8 items-center justify-center rounded-md font-sans text-sm font-medium ${
+              className={`flex h-8 w-8 items-center justify-center rounded-md font-sans body-xsm-medium  font-medium ${
                 currentPage === page
                   ? "bg-[var(--color-adsfixter-primary,#f74608)] text-[var(--color-on-primary,#ffffff)]"
                   : "border border-[var(--color-line,#eceff3)] text-[var(--color-primary-text-500,#0e2038)]"
