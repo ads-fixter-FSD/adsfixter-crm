@@ -2,7 +2,7 @@
 
 import Image from "next/image";
 import { useRouter } from "next/navigation";
-import { useEffect, useMemo, useState } from "react";
+import { useMemo, useState } from "react";
 import { ChevronDown, GripVertical, Monitor, MoreVertical, Plus, Search } from "lucide-react";
 import { getSectionHref } from "@/components/layout/app-sidebar-navigation";
 import { PrimaryButton } from "@/components/shared-buttons";
@@ -182,10 +182,12 @@ function AdAccountRow({ account, platform }: { account: PortfolioAdAccount; plat
 export default function BusinessManagersList({ platform, managers }: BusinessManagersListProps) {
   const [search, setSearch] = useState("");
   const [expandedManagerId, setExpandedManagerId] = useState<string | null>(null);
+  const [expandedPlatform, setExpandedPlatform] = useState(platform);
 
-  useEffect(() => {
+  if (platform !== expandedPlatform) {
+    setExpandedPlatform(platform);
     setExpandedManagerId(null);
-  }, [platform]);
+  }
 
   const filteredManagers = useMemo(() => {
     const query = search.trim().toLowerCase();

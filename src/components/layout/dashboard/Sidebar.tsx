@@ -14,18 +14,20 @@ export default function Sidebar() {
   const pathname = usePathname();
   const router = useRouter();
   const [openMenu, setOpenMenu] = React.useState<string | null>(null);
+  const [openMenuPath, setOpenMenuPath] = React.useState(pathname);
 
-  // পেজ লোড হওয়ার সময় বর্তমান route এর parent menu automatically খোলা রাখা
-  React.useEffect(() => {
+  if (pathname !== openMenuPath) {
     const activeParent = menuItems.find(
       (item) =>
         item.children &&
-        item.children.some((child) => pathname === child.href)
+        item.children.some((child) => pathname === child.href),
     );
+
+    setOpenMenuPath(pathname);
     if (activeParent) {
       setOpenMenu(activeParent.name);
     }
-  }, [pathname]);
+  }
 
   const handleParentClick = (item: (typeof menuItems)[number]) => {
     const isOpen = openMenu === item.name;

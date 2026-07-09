@@ -17,14 +17,15 @@ export function BanksMultiSelect({ selectedBanks, onChange }: BanksMultiSelectPr
   const [isOpen, setIsOpen] = useState(true);
   const [searchQuery, setSearchQuery] = useState("");
 
-  useEffect(() => {
-    setIsOpen(true);
-  }, []);
+  const closeDropdown = () => {
+    setIsOpen(false);
+    setSearchQuery("");
+  };
 
   useEffect(() => {
     const handlePointerDown = (event: MouseEvent) => {
       if (!containerRef.current?.contains(event.target as Node)) {
-        setIsOpen(false);
+        closeDropdown();
       }
     };
 
@@ -34,12 +35,6 @@ export function BanksMultiSelect({ selectedBanks, onChange }: BanksMultiSelectPr
       document.removeEventListener("mousedown", handlePointerDown);
     };
   }, []);
-
-  useEffect(() => {
-    if (!isOpen) {
-      setSearchQuery("");
-    }
-  }, [isOpen]);
 
   const toggleBank = (bankName: string) => {
     onChange(selectedBanks.includes(bankName) ? selectedBanks.filter((item) => item !== bankName) : [...selectedBanks, bankName]);
@@ -61,7 +56,14 @@ export function BanksMultiSelect({ selectedBanks, onChange }: BanksMultiSelectPr
         aria-expanded={isOpen}
         aria-haspopup="listbox"
         className={`${paymentSetupSelectClassName} flex items-center justify-between text-left ${selectedBanks.length === 0 ? "text-[var(--muted)]" : "text-[var(--brand-navy)]"}`}
-        onClick={() => setIsOpen((current) => !current)}
+        onClick={() => {
+          if (isOpen) {
+            closeDropdown();
+            return;
+          }
+
+          setIsOpen(true);
+        }}
         type="button"
       >
         <span className="truncate pr-2">{displayLabel}</span>

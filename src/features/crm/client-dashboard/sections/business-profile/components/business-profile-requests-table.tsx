@@ -1,7 +1,7 @@
 "use client";
 
 import { Eye, FileText, Pencil, X } from "lucide-react";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { StatusChip } from "@/components/ui/status-chip";
 import { formatBusinessProfileSubmittedDate } from "@/features/crm/client-dashboard/sections/business-profile/business-profile-request-format";
 import {
@@ -48,7 +48,7 @@ export function BusinessProfileRequestsTable({
   showAddButton, // 👈 ডিস্ট্রাকচার করা হলো (ভবিষ্যতে লজিক লিখতে চাইলে ব্যবহার করতে পারবেন)
   variant,       // 👈 ডিস্ট্রাকচার করা হলো
 }: BusinessProfileRequestsTableProps) {
-  const [requests, setRequests] = useState<BusinessProfileRequest[]>([]);
+  const [requests, setRequests] = useState<BusinessProfileRequest[]>(() => getBusinessProfileRequests());
   const [modalMode, setModalMode] = useState<"view" | "edit" | null>(null);
   const [selectedRequest, setSelectedRequest] =
     useState<BusinessProfileRequest | null>(null);
@@ -56,10 +56,6 @@ export function BusinessProfileRequestsTable({
   const refreshRequests = () => {
     setRequests(getBusinessProfileRequests());
   };
-
-  useEffect(() => {
-    refreshRequests();
-  }, []);
 
   const openModal = (
     request: BusinessProfileRequest,

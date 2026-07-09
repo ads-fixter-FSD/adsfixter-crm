@@ -2,27 +2,30 @@
 
 import Image from "next/image";
 import { useRouter } from "next/navigation";
-import { useEffect, useState } from "react";
+import { useEffect, useSyncExternalStore } from "react";
 import { isAuthenticated } from "@/components/auth/auth-session";
 
 type AuthGateProps = {
   children: React.ReactNode;
 };
 
+const subscribeNoop = () => () => {};
+
 export function AuthGate({ children }: AuthGateProps) {
   const router = useRouter();
-  const [isReady, setIsReady] = useState(false);
+  const authed = useSyncExternalStore(
+    subscribeNoop,
+    () => isAuthenticated(),
+    () => false,
+  );
 
   useEffect(() => {
-    if (!isAuthenticated()) {
+    if (!authed) {
       router.replace("/auth/signin");
-      return;
     }
+  }, [authed, router]);
 
-    setIsReady(true);
-  }, [router]);
-
-  if (!isReady) {
+  if (!authed) {
     return (
       <div className="grid min-h-screen place-content-center gap-4 text-center">
         <Image alt="AdsFixter" className="block h-10 w-10 object-contain" height={44} src="/adsfixter-logo.png" width={44} />
