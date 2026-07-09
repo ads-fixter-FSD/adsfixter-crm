@@ -4,18 +4,23 @@ import React from "react";
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
 import Image from "next/image";
-import { ChevronDown } from "lucide-react";
+import { ChevronDown, X } from "lucide-react";
 import { menuItems } from "@/features/crm/types/constants/sidebar-menu";
 
 const ACTIVE_ICON_FILTER =
   "brightness(0) saturate(100%) invert(38%) sepia(84%) saturate(3000%) hue-rotate(0deg) brightness(101%) contrast(101%)";
 
-export default function Sidebar() {
+export default function Sidebar({
+  isMobileOpen = false,
+  onMobileClose,
+}: {
+  isMobileOpen?: boolean;
+  onMobileClose?: () => void;
+}) {
   const pathname = usePathname();
   const router = useRouter();
   const [openMenu, setOpenMenu] = React.useState<string | null>(null);
 
-  // পেজ লোড হওয়ার সময় বর্তমান route এর parent menu automatically খোলা রাখা
   React.useEffect(() => {
     const activeParent = menuItems.find(
       (item) =>
@@ -31,51 +36,72 @@ export default function Sidebar() {
     const isOpen = openMenu === item.name;
     setOpenMenu(isOpen ? null : item.name);
 
-    // প্রথমবার menu open করলে সাথে সাথে প্রথম child route এ navigate করে দেওয়া হচ্ছে
     if (!isOpen && item.children && item.children.length > 0) {
       router.push(item.children[0].href);
     }
   };
 
+  // মোবাইলে কোনো লিংকে ক্লিক করলে sidebar বন্ধ হয়ে যাবে
+  const handleMobileLinkClick = () => {
+    onMobileClose?.();
+  };
+
   return (
-    <aside className="w-72 bg-[var(--color-white)] border-r border-[var(--color-line)] flex flex-col justify-between p-3 hidden lg:flex h-full shrink-0">
-      <div>
+    <aside
+      className={`w-72 bg-[var(--color-white)] border-r border-[var(--color-line)] flex flex-col justify-between p-3 h-full shrink-0 fixed lg:static inset-y-0 left-0 z-50 transition-transform duration-300 ease-in-out ${
+        isMobileOpen ? "translate-x-0" : "-translate-x-full lg:translate-x-0"
+      }`}
+    >
+      <div className="overflow-y-auto">
         {/* Logo / Brand Info */}
         <div
           className="flex justify-between items-center py-3 border-b"
           style={{ borderBottomColor: "#F0F0F0", borderBottomWidth: "1px" }}
         >
-          <div className="flex items-center gap-2 ">
+          <div className="flex items-center gap-2 min-w-0">
             <Image
               src={"/images/dashboard/sitebar/Apex.svg"}
               width={40}
               height={40}
               alt="logo"
             ></Image>
-            <div className="space-y-1">
-              <h2 className="body-sm-medium text-[var(--color-primary-text-500)]">
+            <div className="space-y-1 min-w-0">
+              <h2 className="body-sm-medium text-[var(--color-primary-text-500)] truncate">
                 Meta Bari
               </h2>
-              <p className="text-[var(--color-subtext-500)] body-xsm-regular">
+              <p className="text-[var(--color-subtext-500)] body-xsm-regular truncate">
                 Meta Ads CRM Platform
               </p>
             </div>
           </div>
-          <div
-            className="w-6 h-6 flex items-center justify-center gap-0.5 p-0.5 rounded-md border"
-            style={{
-              background: "var(--Natural-White, #FFFFFF)",
-              borderColor: "#F0F0F0",
-              borderWidth: "1px",
-              boxShadow: "0px 2px 4px 0px #1B1C1D0A",
-            }}
-          >
-            <Image
-              src={"/images/dashboard/sitebar/Vector.svg"}
-              width={9.55}
-              height={5.83}
-              alt="toggle icon"
-            />
+
+          <div className="flex items-center gap-2 shrink-0">
+            <div
+              className="w-6 h-6 flex items-center justify-center gap-0.5 p-0.5 rounded-md border"
+              style={{
+                background: "var(--Natural-White, #FFFFFF)",
+                borderColor: "#F0F0F0",
+                borderWidth: "1px",
+                boxShadow: "0px 2px 4px 0px #1B1C1D0A",
+              }}
+            >
+              <Image
+                src={"/images/dashboard/sitebar/Vector.svg"}
+                width={9.55}
+                height={5.83}
+                alt="toggle icon"
+              />
+            </div>
+
+            {/* মোবাইলে Close বাটন — শুধু mobile এ দেখাবে */}
+            <button
+              type="button"
+              aria-label="Close menu"
+              onClick={onMobileClose}
+              className="lg:hidden w-6 h-6 flex items-center justify-center text-[var(--color-subtext-500)]"
+            >
+              <X size={18} />
+            </button>
           </div>
         </div>
 
@@ -136,6 +162,7 @@ export default function Sidebar() {
                   ) : (
                     <Link
                       href={item.href ?? "#"}
+                      onClick={handleMobileLinkClick}
                       className={`flex items-center justify-between px-4 py-3.5 rounded-2xl transition-all ${
                         isParentActive
                           ? "bg-[#FFF1EC] text-[#F74608]"
@@ -174,6 +201,7 @@ export default function Sidebar() {
                             <Link
                               key={child.href}
                               href={child.href}
+                              onClick={handleMobileLinkClick}
                               className={`block px-3 py-2.5 rounded-xl body-sm-medium transition-all ${
                                 isChildActive
                                   ? "bg-[#FFF1EC] text-[#F74608] font-semibold"
@@ -196,7 +224,7 @@ export default function Sidebar() {
 
       {/* User Profile Info (Bottom of Sidebar) */}
       <div className="border-t border-[var(--color-line)] pt-4 flex items-center gap-3">
-        <div className="w-10 h-10 bg-gray-200 rounded-full overflow-hidden relative">
+        <div className="w-10 h-10 bg-gray-200 rounded-full overflow-hidden relative shrink-0">
           <img
             src="/avatar-placeholder.png"
             alt="Abdullah"
