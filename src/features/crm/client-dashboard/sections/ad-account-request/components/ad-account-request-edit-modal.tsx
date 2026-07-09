@@ -1,7 +1,7 @@
 "use client";
 
 import { Loader2 } from "lucide-react";
-import { useEffect, useMemo, useState } from "react";
+import { useMemo, useState } from "react";
 import { PrimaryButton, SecondaryButton } from "@/components/shared-buttons";
 import { formatBusinessProfileSubmittedDateTime } from "@/features/crm/client-dashboard/sections/business-profile/business-profile-request-format";
 import { getBusinessProfileRequests } from "@/features/crm/client-dashboard/sections/business-profile/business-profile-request-storage";
@@ -23,10 +23,12 @@ type AdAccountRequestEditModalProps = {
 export function AdAccountRequestEditModal({ onClose, onSave, request, showToast }: AdAccountRequestEditModalProps) {
   const businessProfiles = useMemo(() => getBusinessProfileRequests(), []);
   const [values, setValues] = useState<AdAccountFormValues>(() => createFormValuesFromRequest(request));
+  const [syncedRequestId, setSyncedRequestId] = useState(request.id);
 
-  useEffect(() => {
+  if (request.id !== syncedRequestId) {
+    setSyncedRequestId(request.id);
     setValues(createFormValuesFromRequest(request));
-  }, [request]);
+  }
 
   const handleSave = () => {
     if (!values.businessProfileId || !values.adAccountName.trim()) {

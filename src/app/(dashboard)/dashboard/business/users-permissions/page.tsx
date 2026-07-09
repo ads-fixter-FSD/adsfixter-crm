@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useState, useRef, useEffect } from "react";
+import Image from "next/image";
 import {
   Plus,
   ClipboardList,
@@ -365,9 +366,11 @@ const TeamOverviewPage = () => {
                   >
                     <td className="border-r border-[#EDEDED] px-6 py-4">
                       <div className="flex items-center gap-3">
-                        <img
+                        <Image
                           src={user.avatarUrl}
                           alt={user.name}
+                          width={36}
+                          height={36}
                           className="h-9 w-9 shrink-0 rounded-full object-cover"
                         />
                         <div>

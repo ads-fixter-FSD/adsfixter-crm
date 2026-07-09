@@ -14,18 +14,20 @@ export default function Sidebar() {
   const pathname = usePathname();
   const router = useRouter();
   const [openMenu, setOpenMenu] = React.useState<string | null>(null);
+  const [openMenuPath, setOpenMenuPath] = React.useState(pathname);
 
-  // পেজ লোড হওয়ার সময় বর্তমান route এর parent menu automatically খোলা রাখা
-  React.useEffect(() => {
+  if (pathname !== openMenuPath) {
     const activeParent = menuItems.find(
       (item) =>
         item.children &&
-        item.children.some((child) => pathname === child.href)
+        item.children.some((child) => pathname === child.href),
     );
+
+    setOpenMenuPath(pathname);
     if (activeParent) {
       setOpenMenu(activeParent.name);
     }
-  }, [pathname]);
+  }
 
   const handleParentClick = (item: (typeof menuItems)[number]) => {
     const isOpen = openMenu === item.name;
@@ -196,11 +198,13 @@ export default function Sidebar() {
 
       {/* User Profile Info (Bottom of Sidebar) */}
       <div className="border-t border-[var(--color-line)] pt-4 flex items-center gap-3">
-        <div className="w-10 h-10 bg-gray-200 rounded-full overflow-hidden relative">
-          <img
+        <div className="relative h-10 w-10 overflow-hidden rounded-full bg-gray-200">
+          <Image
             src="/avatar-placeholder.png"
             alt="Abdullah"
-            className="w-full h-full object-cover"
+            fill
+            sizes="40px"
+            className="object-cover"
           />
         </div>
         <div className="flex-1 min-w-0">
