@@ -18,7 +18,7 @@ export default function DashboardLayout({
         <Topbar />
 
         {/* DYNAMIC CONTENT CONTAINER */}
-        <main className="flex-1 overflow-x-hidden overflow-y-auto p-8">
+        <main className="flex-1 overflow-x-hidden overflow-y-auto px-6">
           {children}
         </main>
       </div>
