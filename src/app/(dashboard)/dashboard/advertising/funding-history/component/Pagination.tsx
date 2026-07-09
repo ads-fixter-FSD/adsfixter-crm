@@ -30,19 +30,19 @@ export default function Pagination({
   const visiblePages = getVisiblePages();
 
   return (
-    <div className="px-4 sm:px-6 py-4 sm:py-5 flex flex-col sm:flex-row items-center justify-between gap-3 sm:gap-4 border-t border-[var(--color-line)] mt-2">
+    <div className="px-4 sm:px-6 py-4 sm:py-5 flex flex-col sm:flex-row items-center justify-between gap-3 sm:gap-4 mt-2">
       <div className="flex items-center gap-2 body-sm-regular text-[var(--color-subtext-500)] text-xs sm:text-sm order-2 sm:order-1">
-        <span className="hidden xs:inline">Show</span>
+        <span className="hidden md:block xs:inline">Show</span>
 
         <div className="relative">
           <ListFilter
             size={14}
-            className="absolute left-2.5 sm:left-3 top-1/2 -translate-y-1/2 text-[var(--color-subtext-500)] pointer-events-none"
+            className="absolute right-2.5 sm:right-3 top-1/2 -translate-y-1/2 text-[var(--color-subtext-500)] pointer-events-none"
           />
           <select
             value={perPage}
             onChange={(e) => onPerPageChange(Number(e.target.value))}
-            className="h-8 sm:h-9 pl-7 sm:pl-8 pr-6 sm:pr-8 rounded-lg border border-[var(--color-line)] text-xs sm:text-sm text-[var(--color-primary-text-500)] bg-[var(--color-field)] outline-none appearance-none cursor-pointer"
+            className="h-8 sm:h-9 pl-2 sm:pl-2 pr-6 sm:pr-8 rounded-lg border border-[var(--color-line)] text-xs sm:text-sm text-[var(--color-primary-text-500)] bg-[var(--color-field)] outline-none appearance-none cursor-pointer"
           >
             <option value={10}>10</option>
             <option value={25}>25</option>
