@@ -30,7 +30,7 @@ const COLUMNS: Column[] = [
   { label: "CPM", sortKey: "cpm" },
   { label: "Reach", sortKey: "reach" },
   { label: "Results", sortKey: "results" },
-  { label: "Action", sortKey: null },
+  { label: "Action", sortKey: null }, 
 ];
 
 interface AdPerformanceTableProps {
