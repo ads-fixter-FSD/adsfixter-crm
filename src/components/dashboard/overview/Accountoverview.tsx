@@ -279,6 +279,8 @@ export default function AccountOverview({
       });
     }
 
+    
+
     return result;
   }, [rows, activeTab, search, metaFilters, platformFilters, sortKey, sortDir]);
 
