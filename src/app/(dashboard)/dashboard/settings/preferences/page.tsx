@@ -25,10 +25,10 @@ export default function PreferencesPage() {
   const [currency, setCurrency] = useState("BDT (৳) - Bangladeshi Taka");
 
   return (
-    <div className="space-y-6">
+    <div className="space-y-4 sm:space-y-6">
       {/* ── Settings Header Card ── */}
-      <div className="bg-[var(--color-white)] border border-[var(--color-line)] rounded-2xl px-6 py-6">
-        <h1 className="h6-bold text-[var(--color-primary-text-500)]">
+      <div className="bg-[var(--color-white)] border border-[var(--color-line)] rounded-2xl px-4 sm:px-6 py-4 sm:py-6">
+        <h1 className="h6-bold text-[var(--color-primary-text-500)] text-base sm:text-lg">
           Settings
         </h1>
         <p className="body-sm-regular text-[var(--color-subtext-500)] mt-1">
@@ -38,7 +38,7 @@ export default function PreferencesPage() {
 
       {/* ── Preferences Card ── */}
       <div className="bg-[var(--color-white)] border border-[var(--color-line)] rounded-2xl">
-        <div className="px-6 py-6">
+        <div className="px-4 sm:px-6 py-4 sm:py-6">
           <h2 className="body-l-medium text-[var(--color-primary-text-500)]">
             Preferences
           </h2>
@@ -47,7 +47,7 @@ export default function PreferencesPage() {
           </p>
         </div>
 
-        <div className="mx-6 mb-6 border border-[var(--color-line)] rounded-xl overflow-hidden">
+        <div className="mx-4 sm:mx-6 mb-4 sm:mb-6 border border-[var(--color-line)] rounded-xl overflow-hidden">
           <Row
             icon={<Globe size={18} />}
             title="Language"
@@ -109,7 +109,7 @@ function Row({
 }) {
   return (
     <div
-      className={`flex items-center justify-between gap-4 px-6 py-4 ${
+      className={`flex flex-col sm:flex-row sm:items-center justify-between gap-3 sm:gap-4 px-4 sm:px-6 py-4 ${
         bottomBorder ? "border-b border-[var(--color-line)]" : ""
       }`}
     >
@@ -126,7 +126,7 @@ function Row({
           </p>
         </div>
       </div>
-      {right}
+      <div className="w-full sm:w-auto pl-8 sm:pl-0">{right}</div>
     </div>
   );
 }
@@ -142,7 +142,7 @@ function SelectField({
   options: string[];
 }) {
   return (
-    <div className="relative w-64 shrink-0">
+    <div className="relative w-full sm:w-64 shrink-0">
       <select
         value={value}
         onChange={(e) => onChange(e.target.value)}
