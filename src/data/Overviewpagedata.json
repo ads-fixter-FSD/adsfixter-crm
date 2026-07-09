@@ -1,0 +1,289 @@
+{
+  "header": {
+    "title": "Overview",
+    "todayLabel": "Today is",
+    "todayDate": "2026-06-30",
+    "todayDateFormatted": "Tuesday - June 30, 2026",
+    "dateRangeFilter": {
+      "startDate": "2025-01-01",
+      "endDate": "2025-06-30",
+      "displayLabel": "Jan 2025 - Jun 2025"
+    }
+  },
+
+  "statsCards": [
+    {
+      "id": "wallet_balance",
+      "icon": "wallet",
+      "title": "Wallet Balance",
+      "value": 0.00,
+      "currency": "BDT",
+      "currencySymbol": "৳",
+      "subtitle": "Available balance (BDT)"
+    },
+    {
+      "id": "total_top_up",
+      "icon": "arrow-down-tray",
+      "title": "Total Top Up",
+      "value": 0.00,
+      "currency": "USD",
+      "currencySymbol": "$",
+      "subtitle": "This month"
+    },
+    {
+      "id": "total_ad_spend",
+      "icon": "dollar-sign",
+      "title": "Total Ad Spend",
+      "value": 0.00,
+      "currency": "BDT",
+      "currencySymbol": "৳",
+      "subtitle": "This month"
+    },
+    {
+      "id": "ad_credit_balance",
+      "icon": "credit-badge",
+      "title": "Ad Credit Balance",
+      "value": 0.00,
+      "currency": "USD",
+      "currencySymbol": "$",
+      "subtitle": "Available to Spend"
+    },
+    {
+      "id": "total_ad_account",
+      "icon": "user-group",
+      "title": "Total Ad Account",
+      "value": 12,
+      "subtitle": "7 Active account"
+    },
+    {
+      "id": "token",
+      "icon": "token",
+      "title": "Token",
+      "value": 0,
+      "subtitle": "Token created"
+    }
+  ],
+
+  "spendingOverview": {
+    "title": "Spending Overview",
+    "filterOptions": ["Weekly", "Monthly"],
+    "activeFilter": "Monthly",
+    "legend": [
+      { "key": "topUp", "label": "Top Up", "color": "#D9D9D9" },
+      { "key": "adSpend", "label": "Ad Spend", "color": "#D2601A" }
+    ],
+    "monthly": {
+      "unit": "k",
+      "data": [
+        { "period": "Jan", "topUp": 4000, "adSpend": 4500 },
+        { "period": "Feb", "topUp": 4200, "adSpend": 4800 },
+        { "period": "Mar", "topUp": 4300, "adSpend": 5000 },
+        { "period": "Apr", "topUp": 4100, "adSpend": 4700 },
+        { "period": "May", "topUp": 15000, "adSpend": 15647, "highlight": true, "highlightDate": "2026-05-12", "highlightLabel": "$15,647" },
+        { "period": "Jun", "topUp": 8000, "adSpend": 7500 },
+        { "period": "Jul", "topUp": 4500, "adSpend": 4000 },
+        { "period": "Aug", "topUp": 3800, "adSpend": 3200 },
+        { "period": "Sep", "topUp": 1000, "adSpend": 800 },
+        { "period": "Oct", "topUp": 6500, "adSpend": 6000 },
+        { "period": "Nov", "topUp": 8200, "adSpend": 8000 },
+        { "period": "Dec", "topUp": 8300, "adSpend": 8100 }
+      ]
+    },
+    "weekly": {
+      "unit": "k",
+      "data": [
+        { "period": "Week 1", "topUp": 2500, "adSpend": 3000 },
+        { "period": "Week 2", "topUp": 3200, "adSpend": 3600 },
+        { "period": "Week 3", "topUp": 2800, "adSpend": 3100 },
+        { "period": "Week 4", "topUp": 4000, "adSpend": 4300 }
+      ]
+    }
+  },
+
+  "quickActions": [
+    {
+      "id": "add_money",
+      "icon": "add-money",
+      "title": "Add Money",
+      "subtitle": "Top up your wallet instantly.",
+      "action": "navigate",
+      "target": "/wallet/add-money"
+    },
+    {
+      "id": "add_ad_account",
+      "icon": "ad-account",
+      "title": "Add Ad Account",
+      "subtitle": "Connect and manage ad accounts.",
+      "action": "navigate",
+      "target": "/ad-accounts/add"
+    },
+    {
+      "id": "request_top_up",
+      "icon": "request-top-up",
+      "title": "Request Top Up",
+      "subtitle": "Request for your account instantly",
+      "action": "navigate",
+      "target": "/wallet/request-top-up"
+    },
+    {
+      "id": "ticket_open",
+      "icon": "ticket",
+      "title": "Ticket Open",
+      "subtitle": "Open ticket instantly for various purpose.",
+      "action": "navigate",
+      "target": "/support/ticket/new"
+    }
+  ],
+
+  "accountOverview": {
+    "title": "Account Overview",
+    "subtitle": "Manage and monitor all your Meta ad accounts",
+    "tabs": [
+      { "key": "all", "label": "All" },
+      { "key": "active", "label": "Active Account" },
+      { "key": "inactive", "label": "Inactive Account" }
+    ],
+    "activeTab": "all",
+    "search": {
+      "placeholder": "Search...",
+      "value": ""
+    },
+    "filterButton": { "label": "Filter" },
+    "sortBy": {
+      "label": "Sort by",
+      "options": ["Newest", "Oldest", "Highest Spend", "Lowest Spend", "Name A-Z", "Name Z-A"],
+      "active": "Newest"
+    },
+    "columns": [
+      { "key": "id", "label": "ID", "sortable": false },
+      { "key": "accountDetails", "label": "Account Details", "sortable": true },
+      { "key": "creditBalance", "label": "Credit Bal", "sortable": true },
+      { "key": "spendMonth", "label": "Spend(month)", "sortable": true },
+      { "key": "lastTopUp", "label": "Last Top-Up", "sortable": true },
+      { "key": "metaStatus", "label": "Meta Status", "sortable": true },
+      { "key": "agencyStatus", "label": "Agency Status", "sortable": false },
+      { "key": "optimizeScore", "label": "Optimize Score", "sortable": true },
+      { "key": "update", "label": "Update", "sortable": true },
+      { "key": "action", "label": "Action", "sortable": false }
+    ],
+    "rows": [
+      {
+        "id": "ADF001",
+        "platform": "facebook",
+        "accountName": "UrbanCart Fashion",
+        "accountIdMasked": "91827364581273",
+        "creditBalance": 190.00,
+        "spendMonth": 30000.00,
+        "lastTopUp": { "value": "1 Day Ago", "date": "2026-05-11" },
+        "metaStatus": "active",
+        "agencyStatus": "Take Off",
+        "optimizeScore": 100,
+        "updatedAgo": "1 min ago",
+        "status": "active"
+      },
+      {
+        "id": "ADF001",
+        "platform": "facebook",
+        "accountName": "Nexoria Store",
+        "accountIdMasked": "56219836417215",
+        "creditBalance": 190.00,
+        "spendMonth": 30000.00,
+        "lastTopUp": { "value": "2 Day Ago", "date": "2026-05-11" },
+        "metaStatus": "active",
+        "agencyStatus": "Starter",
+        "optimizeScore": 80,
+        "updatedAgo": "1 min ago",
+        "status": "active"
+      },
+      {
+        "id": "ADF001",
+        "platform": "google",
+        "accountName": "BoostFixter",
+        "accountIdMasked": "78234190183475",
+        "creditBalance": 190.00,
+        "spendMonth": 30000.00,
+        "lastTopUp": { "value": "10 Day Ago", "date": "2026-05-11" },
+        "metaStatus": "disable",
+        "agencyStatus": "Growth",
+        "optimizeScore": 70,
+        "updatedAgo": "1 min ago",
+        "status": "active"
+      },
+      {
+        "id": "ADF001",
+        "platform": "facebook",
+        "accountName": "DesignFixter",
+        "accountIdMasked": "23894650123746 4",
+        "creditBalance": 190.00,
+        "spendMonth": 30000.00,
+        "lastTopUp": { "value": "1 Week Ago", "date": "2026-05-11" },
+        "metaStatus": "inactive",
+        "agencyStatus": "Standard",
+        "optimizeScore": 90,
+        "updatedAgo": "1 min ago",
+        "status": "inactive"
+      },
+      {
+        "id": "ADF001",
+        "platform": "tiktok",
+        "accountName": "Pawtify",
+        "accountIdMasked": "23894650123746",
+        "creditBalance": 190.00,
+        "spendMonth": 30000.00,
+        "lastTopUp": { "value": "2 Month Ago", "date": "2026-05-11" },
+        "metaStatus": "active",
+        "agencyStatus": "Professional",
+        "optimizeScore": 100,
+        "updatedAgo": "1 min ago",
+        "status": "active"
+      },
+      {
+        "id": "ADF001",
+        "platform": "facebook",
+        "accountName": "Retailix",
+        "accountIdMasked": "23894650123746",
+        "creditBalance": 190.00,
+        "spendMonth": 30000.00,
+        "lastTopUp": { "value": "1 Year Ago", "date": "2026-05-11" },
+        "metaStatus": "active",
+        "agencyStatus": "Gold",
+        "optimizeScore": 70,
+        "updatedAgo": "1 min ago",
+        "status": "active"
+      },
+      {
+        "id": "ADF001",
+        "platform": "tiktok",
+        "accountName": "Homelynix",
+        "accountIdMasked": "23894650123746",
+        "creditBalance": 190.00,
+        "spendMonth": 30000.00,
+        "lastTopUp": { "value": "5 Year Ago", "date": "2026-05-11" },
+        "metaStatus": "inactive",
+        "agencyStatus": "Platinum",
+        "optimizeScore": 90,
+        "updatedAgo": "1 min ago",
+        "status": "inactive"
+      }
+    ],
+    "pagination": {
+      "perPageOptions": [10, 25, 50, 100],
+      "perPage": 10,
+      "currentPage": 2,
+      "totalPages": 4,
+      "totalItems": 34
+    }
+  },
+
+  "statusStyleMap": {
+    "active": { "label": "Active", "color": "#22C55E", "bg": "#E9F9EF" },
+    "inactive": { "label": "Inactive", "color": "#F59E0B", "bg": "#FEF3E2" },
+    "disable": { "label": "Disable", "color": "#EF4444", "bg": "#FDECEC" }
+  },
+
+  "platformIconMap": {
+    "facebook": "meta",
+    "google": "google",
+    "tiktok": "tiktok"
+  }
+}

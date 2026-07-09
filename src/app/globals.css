@@ -145,6 +145,13 @@
   --modal-backdrop: var(--color-modal-backdrop);
   --sidebar-link: var(--color-sidebar-link);
   --sidebar-label: var(--color-sidebar-label);
+
+  /* Filter tabs */
+  --color-tab-track: #f8f8f8;
+  --color-tab-active-bg: #ffffff;
+  --color-tab-active-shadow: 0px 0px 12px 0px #0000000a;
+  --color-tab-badge-active-bg: #f5f5f5;
+  --color-tab-badge-inactive-bg: #ffffff;
 }
 
 [data-theme="dark"] {
@@ -216,6 +223,13 @@
   --modal-backdrop: var(--color-modal-backdrop);
   --sidebar-link: var(--color-sidebar-link);
   --sidebar-label: var(--color-sidebar-label);
+
+  /* Filter tabs */
+  --color-tab-track: #171b22;
+  --color-tab-active-bg: #242831;
+  --color-tab-active-shadow: 0px 0px 12px 0px rgba(0, 0, 0, 0.35);
+  --color-tab-badge-active-bg: #2a2f3a;
+  --color-tab-badge-inactive-bg: #171b22;
 }
 
 html {
@@ -337,6 +351,13 @@ body {
 
 .body-xsm-regular {
   font-weight: 400;
+  font-size: 12px;
+  line-height: 150%;
+  letter-spacing: 0;
+}
+
+.body-xsm-medium {
+  font-weight: 500;
   font-size: 12px;
   line-height: 150%;
   letter-spacing: 0;
@@ -592,4 +613,11 @@ body {
 
 [data-theme="dark"] .subtext {
   color: var(--color-subtext-500);
+}
+.scrollbar-hide::-webkit-scrollbar {
+  display: none;
+}
+.scrollbar-hide {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
 }

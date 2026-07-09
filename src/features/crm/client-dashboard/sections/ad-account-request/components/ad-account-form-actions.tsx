@@ -20,7 +20,7 @@ export function AdAccountFormActions({ onAddAnother, onCancel, showAddAnother = 
         </SecondaryButton>
       ) : null}
       <PrimaryButton className="min-h-10 px-6" type="submit">
-        Submit Details
+        Submit Details 
       </PrimaryButton>
     </div>
   );

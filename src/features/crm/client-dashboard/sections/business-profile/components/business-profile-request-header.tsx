@@ -1,23 +1,34 @@
-import { ChevronLeft, Plus } from "lucide-react";
-import { SecondaryButton } from "@/components/shared-buttons";
+"use client";
+
+import { Plus } from "lucide-react";
+import { FlatButton } from "@/components/shared-buttons/flat-button";
 
 type BusinessProfileRequestHeaderProps = {
-  onAddBusinessAccount: () => void;
-  onBack: () => void;
+  onAddNew: () => void;
+  title?: string;
+  subtitle?: string;
 };
 
-export function BusinessProfileRequestHeader({ onAddBusinessAccount, onBack }: BusinessProfileRequestHeaderProps) {
+export function BusinessProfileRequestHeader({
+  onAddNew,
+  title = "My Business Account Requests",
+  subtitle = "Review and manage business profile requests",
+}: BusinessProfileRequestHeaderProps) {
   return (
-    <div className="flex flex-wrap items-center justify-between gap-3">
-      <button className="body-sm-medium inline-flex items-center gap-1 border-0 bg-transparent p-0 primary-text hover:text-[var(--color-adsfixter-primary)]" onClick={onBack} type="button">
-        <ChevronLeft aria-hidden="true" size={18} strokeWidth={1.8} />
-        Request Business Profile
-      </button>
+    <div className="flex flex-wrap items-start justify-between gap-4 p-4">
+      <div>
+        <h2 className="h4 m-0 primary-text">{title}</h2>
+        <p className="body-regular m-0 subtext">{subtitle}</p>
+      </div>
 
-      <SecondaryButton className="min-h-10 gap-2 px-4" onClick={onAddBusinessAccount} type="button">
+      <FlatButton
+        className="min-h-10 gap-2 px-4 "
+        onClick={onAddNew}
+        type="button"
+      >
         <Plus aria-hidden="true" size={16} strokeWidth={1.8} />
-        Add Multiple business account
-      </SecondaryButton>
+        Add New Business Request 
+      </FlatButton>
     </div>
   );
 }
