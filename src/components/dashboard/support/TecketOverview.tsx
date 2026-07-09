@@ -121,7 +121,7 @@ export default function TecketOverview({
         <h2 className="m-0 font-sans text-[22px] font-medium leading-[120%] text-[var(--color-primary-text-500,#0e2038)] dark:text-zinc-100">
           {title}
         </h2>
-        <p className="m-0 font-sans text-sm leading-[150%] text-[var(--color-subtext-500,#7f8482)] dark:text-zinc-400">
+        <p className="m-0 font-sans body-xsm-medium  leading-[150%] text-[var(--color-subtext-500,#7f8482)] dark:text-zinc-400">
           {subtitle}
         </p>
       </div>
@@ -143,7 +143,7 @@ export default function TecketOverview({
                 setActiveFilter(key as any);
                 setCurrentPage(1);
               }}
-              className={`rounded-md px-4 py-1.5 font-sans text-sm font-medium transition-all ${
+              className={`rounded-md px-4 py-1.5 font-sans body-xsm-medium  font-medium transition-all ${
                 activeFilter === key
                   ? "bg-[var(--color-white,#ffffff)] dark:bg-zinc-700 text-[var(--color-primary-text-500,#0e2038)] dark:text-zinc-100 shadow-[0px_1px_2px_0px_#E4E5E73D]"
                   : "text-[var(--color-subtext-500,#7f8482)] dark:text-zinc-400 hover:bg-[var(--color-white,#ffffff)]/60 dark:hover:bg-zinc-700/50"
@@ -165,7 +165,7 @@ export default function TecketOverview({
               setSearch(e.target.value);
               setCurrentPage(1);
             }}
-            className="w-full rounded-lg border border-[var(--color-line,#eceff3)] dark:border-zinc-700 bg-[var(--color-white,#ffffff)] dark:bg-zinc-800 pl-10 pr-4 py-2.5 font-sans text-sm text-[var(--color-primary-text-500,#0e2038)] dark:text-zinc-100 outline-none placeholder:text-[var(--color-subtext-400,#999d9b)] dark:placeholder:text-zinc-500"
+            className="w-full rounded-lg border border-[var(--color-line,#eceff3)] dark:border-zinc-700 bg-[var(--color-white,#ffffff)] dark:bg-zinc-800 pl-10 pr-4 py-2.5 font-sans body-xsm-medium  text-[var(--color-primary-text-500,#0e2038)] dark:text-zinc-100 outline-none placeholder:text-[var(--color-subtext-400,#999d9b)] dark:placeholder:text-zinc-500"
           />
         </div>
       </div>
@@ -215,45 +215,45 @@ export default function TecketOverview({
                 >
                   {/* Ticket ID */}
                   <td className="border-r border-[#F0F0F0] dark:border-zinc-700 px-4 py-4 last:border-r-0">
-                    <div className="font-sans font-medium text-[var(--color-primary-text-500,#0e2038)] dark:text-zinc-200">
+                    <div className="font-sans body-xsm-medium  text-[var(--color-primary-text-500,#0e2038)] dark:text-zinc-200">
                       #{ticket.ticketId.replace("#", "")}
                     </div>
-                    <div className="font-sans text-xs text-[var(--color-subtext-400,#999d9b)] dark:text-zinc-400">{ticket.date}</div>
+                    <div className="font-sans body-xsm-medium  text-[var(--color-subtext-400,#999d9b)] dark:text-zinc-400">{ticket.date}</div>
                   </td>
                   
                   {/* Asset Type */}
-                  <td className="border-r border-[#F0F0F0] dark:border-zinc-700 px-4 py-4 font-sans text-sm text-[var(--color-primary-text-500,#0e2038)] dark:text-zinc-300 last:border-r-0">
+                  <td className="border-r border-[#F0F0F0] dark:border-zinc-700 px-4 py-4 font-sans body-xsm-medium  text-[var(--color-primary-text-300,#5E6A7A)] dark:text-zinc-300 last:border-r-0">
                     {ticket.assetType}
                   </td>
                   
                   {/* Account */}
                   <td className="border-r border-[#F0F0F0] dark:border-zinc-700 px-4 py-4 last:border-r-0">
-                    <div className="font-sans font-medium text-[var(--color-primary-text-500,#0e2038)] dark:text-zinc-200">{ticket.account || "---"}</div>
+                    <div className="font-sans body-xsm-medium  text-[var(--color-primary-text-500,#0e2038)] dark:text-zinc-200">{ticket.account || "---"}</div>
                     {ticket.accountId && (
-                      <div className="font-sans text-xs text-[var(--color-subtext-400,#999d9b)] dark:text-zinc-400">ID: {ticket.accountId}</div>
+                      <div className="font-sans body-xsm-medium  text-[var(--color-subtext-500,#999d9b)] dark:text-zinc-400">ID: {ticket.accountId}</div>
                     )}
                   </td>
                   
                   {/* Subject */}
-                  <td className="border-r border-[#F0F0F0] dark:border-zinc-700 px-4 py-4 font-sans font-medium text-[var(--color-primary-text-500,#0e2038)] dark:text-zinc-200 last:border-r-0">
+                  <td className="border-r border-[#F0F0F0] dark:border-zinc-700 px-4 py-4 font-sans body-sm-regular text-[var(--color-primary-text-500,#0e2038)] dark:text-zinc-200 last:border-r-0">
                     {ticket.subject}
-                  </td>
+                  </td> 
                   
                   {/* Descriptions */}
-                  <td className="border-r border-[#F0F0F0] dark:border-zinc-700 px-4 py-4 font-sans text-sm text-[var(--color-subtext-500,#7f8482)] dark:text-zinc-400 max-w-md truncate last:border-r-0">
-                    {ticket.description}
+                  <td className="border-r border-[#F0F0F0] dark:border-zinc-700 px-4 py-4 font-sans body-xsm-medium  text-[var(--color-subtext-500,#7f8482)] dark:text-zinc-400 max-w-md truncate last:border-r-0">
+                    {ticket.description} 
                   </td>
                   
                   {/* Status */}
                   <td className="border-r border-[#F0F0F0] dark:border-zinc-700 px-4 py-4 last:border-r-0">
-                    <span className={`inline-flex items-center gap-1.5 rounded-full px-3 py-1 font-sans text-xs font-medium ${statusStyle.bg} ${statusStyle.text}`}>
+                    <span className={`inline-flex items-center gap-1.5 rounded-[6px] px-3 py-1 font-sans text-xs font-medium ${statusStyle.bg} ${statusStyle.text}`}>
                       <span className={`h-1.5 w-1.5 rounded-full ${statusStyle.dot}`} />
                       {statusStyle.label}
                     </span>
                   </td>
                   
                   {/* Last Update */}
-                  <td className="border-r border-[#F0F0F0] dark:border-zinc-700 px-4 py-4 font-sans text-sm text-[var(--color-subtext-500,#7f8482)] dark:text-zinc-400 last:border-r-0">
+                  <td className="border-r border-[#F0F0F0] dark:border-zinc-700 px-4 py-4 font-sans body-xsm-medium  text-[var(--color-subtext-500,#7f8482)] dark:text-zinc-400 last:border-r-0">
                     {ticket.lastUpdate}
                   </td>
                   
@@ -276,7 +276,7 @@ export default function TecketOverview({
               <tr>
                 <td
                   colSpan={8}
-                  className="px-4 py-10 text-center font-sans text-sm text-[var(--color-subtext-500,#7f8482)] dark:text-zinc-400"
+                  className="px-4 py-10 text-center font-sans body-xsm-medium  text-[var(--color-subtext-500,#7f8482)] dark:text-zinc-400"
                 >
                   No tickets match your search or filters.
                 </td>
@@ -288,7 +288,7 @@ export default function TecketOverview({
 
       {/* Pagination Container */}
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pt-2">
-        <div className="flex items-center gap-2 font-sans text-sm text-[var(--color-subtext-500,#7f8482)] dark:text-zinc-400">
+        <div className="flex items-center gap-2 font-sans body-xsm-medium  text-[var(--color-subtext-500,#7f8482)] dark:text-zinc-400">
           Show
           <div className="relative">
             <select 
@@ -297,7 +297,7 @@ export default function TecketOverview({
                 setPerPage(Number(e.target.value));
                 setCurrentPage(1);
               }}
-              className="appearance-none rounded-lg border border-[var(--color-line,#eceff3)] dark:border-zinc-700 bg-[var(--color-white,#ffffff)] dark:bg-zinc-800 pl-3 pr-8 py-1.5 font-sans text-sm text-[var(--color-primary-text-500,#0e2038)] dark:text-zinc-100 outline-none"
+              className="appearance-none rounded-lg border border-[var(--color-line,#eceff3)] dark:border-zinc-700 bg-[var(--color-white,#ffffff)] dark:bg-zinc-800 pl-3 pr-8 py-1.5 font-sans body-xsm-medium  text-[var(--color-primary-text-500,#0e2038)] dark:text-zinc-100 outline-none"
             >
               <option value={10}>10</option>
               <option value={20}>20</option>
@@ -323,7 +323,7 @@ export default function TecketOverview({
               key={page}
               type="button"
               onClick={() => setCurrentPage(page)}
-              className={`h-8 w-8 rounded-md font-sans text-sm font-medium transition-colors ${
+              className={`h-8 w-8 rounded-md font-sans body-xsm-medium  font-medium transition-colors ${
                 currentPage === page 
                   ? "bg-[var(--color-adsfixter-primary,#f74608)] text-[var(--color-on-primary,#ffffff)]" 
                   : "border border-[var(--color-line,#eceff3)] dark:border-zinc-700 text-[var(--color-primary-text-500,#0e2038)] dark:text-zinc-300 hover:bg-[var(--color-surface,#f7f8fa)] dark:hover:bg-zinc-800"

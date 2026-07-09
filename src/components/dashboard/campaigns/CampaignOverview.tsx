@@ -640,7 +640,7 @@ export default function CampaignOverview({
                     <tr
                       key={idx}
                       className="border-b border-[#F0F0F0] dark:border-zinc-700 hover:bg-[var(--color-surface,#f7f8fa)]/40 dark:hover:bg-zinc-800/30 transition-colors last:border-b-0"
-                    >
+                    > 
                       {/* Ad Account */}
                       <td className="border-r border-[#F0F0F0] dark:border-zinc-700 px-4 py-4 last:border-r-0">
                         <div className="flex items-center gap-3">
