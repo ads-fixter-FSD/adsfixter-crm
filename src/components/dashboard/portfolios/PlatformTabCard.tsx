@@ -23,8 +23,10 @@ export default function PlatformTabCard({
         padding: "16px",
         borderRadius: "8px",
         borderWidth: "1px",
-        borderColor: isActive ? "#F74608" : "var(--color-line)",
-        backgroundColor: isActive ? "#FFECE6" : "var(--color-white)",
+        borderColor: isActive ? "var(--color-primary)" : "var(--color-line)",
+        backgroundColor: isActive
+          ? "var(--color-primary-soft)"
+          : "var(--color-white)",
         boxShadow: isActive ? "0px 1px 2px 0px #0D0D120F" : "none",
       }}
     >
@@ -40,13 +42,15 @@ export default function PlatformTabCard({
         <span
           className="flex h-4 w-4 shrink-0 items-center justify-center rounded-full border-2"
           style={{
-            borderColor: isActive ? "#F74608" : "var(--color-line)",
+            borderColor: isActive
+              ? "var(--color-primary)"
+              : "var(--color-line)",
           }}
         >
           {isActive && (
             <span
               className="h-2 w-2 rounded-full"
-              style={{ backgroundColor: "#F74608" }}
+              style={{ backgroundColor: "var(--color-primary)" }}
             />
           )}
         </span>

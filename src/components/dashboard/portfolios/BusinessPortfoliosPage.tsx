@@ -101,8 +101,7 @@ export default function BusinessPortfoliosPage() {
         </div>
         <button
           type="button"
-          className="flex items-center gap-1.5 rounded-[var(--btn-radius)] px-4 py-2.5 body-sm-medium text-white"
-          style={{ backgroundColor: "var(--color-primary)" }}
+          className="flex items-center gap-2 rounded-[var(--btn-radius)] bg-[var(--color-primary)] px-4 py-3 body-sm-medium text-[var(--color-on-primary)] transition-colors hover:bg-[var(--color-primary-hover)]"
         >
           <Plus size={16} />
           Add Business Portfolios
