@@ -23,13 +23,8 @@ export default function FundingHistoryPage() {
 
   const totalPages = 5;
 
-  // একই column আবার ক্লিক করলে asc → desc → none, cycle হবে
-  const handleSortChange = (key: SortKey) => {
-    setSortConfig((prev) => {
-      if (prev.key !== key) return { key, direction: "asc" };
-      if (prev.direction === "asc") return { key, direction: "desc" };
-      return { key: null, direction: null };
-    });
+  const handleSortChange = (key: SortKey, direction: "asc" | "desc") => {
+    setSortConfig({ key, direction });
   };
 
   const sortedRows = useMemo(

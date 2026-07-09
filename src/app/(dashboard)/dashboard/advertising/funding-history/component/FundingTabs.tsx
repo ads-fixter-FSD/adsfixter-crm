@@ -11,7 +11,7 @@ export default function FundingTabs({
   onChange: (key: string) => void;
 }) {
   return (
-    <div className="flex items-center gap-1 p-1 rounded-lg  bg-[#F8F8F8] w-fit">
+    <div className="flex items-center gap-1 p-1 rounded-lg bg-[#F8F8F8] w-full sm:w-fit overflow-x-auto scrollbar-hide">
       {tabs.map((tab) => {
         const isActive = activeTab === tab.key;
         return (
@@ -19,7 +19,7 @@ export default function FundingTabs({
             key={tab.key}
             type="button"
             onClick={() => onChange(tab.key)}
-            className={`flex items-center gap-1.5 px-3 py-1.5 rounded-md body-sm-medium transition-colors ${
+            className={`flex items-center gap-1.5 px-2.5 sm:px-3 py-1.5 rounded-md body-sm-medium transition-colors whitespace-nowrap shrink-0 ${
               isActive
                 ? "bg-[#FFFFFF] text-[var(--color-primary-text-500)]"
                 : "text-[var(--color-subtext-500)] hover:text-[var(--color-primary-text-500)]"

@@ -614,3 +614,10 @@ body {
 [data-theme="dark"] .subtext {
   color: var(--color-subtext-500);
 }
+.scrollbar-hide::-webkit-scrollbar {
+  display: none;
+}
+.scrollbar-hide {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
