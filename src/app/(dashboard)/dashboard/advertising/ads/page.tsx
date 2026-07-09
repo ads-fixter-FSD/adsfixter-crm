@@ -1,9 +1,10 @@
-import React from 'react'
+import AdsPerformanceReport from "@/components/dashboard/ads/AdsPerformanceReport";
 
-export default function page() {
+
+export default function Page() {
   return (
-    <div>
-      <h1>akldkla</h1>
-    </div>
-  )
+    <main className="py-8">
+      <AdsPerformanceReport />
+    </main>
+  );
 }
