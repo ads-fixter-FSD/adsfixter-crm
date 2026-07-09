@@ -258,15 +258,16 @@ const BusinessProfile = () => {
                   <Smartphone
                     size={16}
                     strokeWidth={1.5}
-                    className="text-[#71717A]"
+                    className="text-[#71717A] "
                   />
-                  <span>Platform</span>
+                  <span className="body-sm-regular text-[#7F8482]">Platform</span>
                 </div>
                 <div className="mt-2 flex items-center gap-2 text-base font-semibold text-[#1E293B]">
                   <span className="flex h-5 w-5 items-center justify-center rounded-full bg-[#EDF4FF] text-[10px] font-bold text-[#0064E0]">
                     ∞
                   </span>
-                  Meta
+                  <span className="body-medium">Meta</span>
+                  
                 </div>
               </div>
 
@@ -277,10 +278,10 @@ const BusinessProfile = () => {
                     strokeWidth={1.5}
                     className="text-[#71717A]"
                   />
-                  <span>Business Name</span>
+                  <span className="body-sm-regular text-[#7F8482]">Business Name</span>
                 </div>
                 <div className="mt-2 text-base font-semibold text-[#1E293B]">
-                  Urban Cart
+                  <span className="body-medium">Urban Cart</span>
                 </div>
               </div>
 
@@ -291,10 +292,11 @@ const BusinessProfile = () => {
                     strokeWidth={1.5}
                     className="text-[#71717A]"
                   />
-                  <span>Business Phone Number</span>
+                  <span className="body-sm-regular text-[#7F8482]">Business Phone Number</span>
                 </div>
                 <div className="mt-2 text-base font-semibold text-[#1E293B]">
-                  +880 1726512261
+                  <span className="body-medium">  +880 1726512261</span>
+                
                 </div>
               </div>
 
@@ -305,10 +307,11 @@ const BusinessProfile = () => {
                     strokeWidth={1.5}
                     className="text-[#71717A]"
                   />
-                  <span>Business Email</span>
+                  <span className="body-sm-regular text-[#7F8482]">Business Email</span>
                 </div>
                 <div className="mt-2 text-base font-semibold text-[#1E293B]">
-                  urbancartllc@gmail.com
+                       <span className="body-medium">   urbancartllc@gmail.com</span>
+                 
                 </div>
               </div>
 
@@ -319,23 +322,23 @@ const BusinessProfile = () => {
                     strokeWidth={1.5}
                     className="text-[#71717A]"
                   />
-                  <span>Business Address</span>
+                  <span className="body-sm-regular text-[#7F8482]">Business Address</span>
                 </div>
                 <div className="mt-2 text-base font-semibold text-[#1E293B]">
-                  +880 1726512261
+                  <span className="body-medium">  +880 1726512261</span>
                 </div>
               </div>
 
               <div className="border-b p-5 md:border-b-0">
                 <div className="flex items-center gap-2 text-sm text-[#71717A]">
                   <CustomFacebookIcon size={16} />
-                  <span>Facebook Page Link</span>
+                  <span className="body-sm-regular text-[#7F8482]">Facebook Page Link</span>
                 </div>
                 <a
                   href="https://facebook.com/urbancart"
                   target="_blank"
                   rel="noreferrer"
-                  className="mt-2 inline-flex items-center gap-1.5 text-base font-semibold text-[#1E293B] hover:underline"
+                  className="mt-2 inline-flex body-medium items-center gap-1.5 text-base font-semibold text-[#1E293B] hover:underline"
                 >
                   https://facebook.com/urbancart
                   <ExternalLink size={15} className="text-[#94A3B8]" />
@@ -349,13 +352,13 @@ const BusinessProfile = () => {
                     strokeWidth={1.5}
                     className="text-[#71717A]"
                   />
-                  <span>Website Link</span>
+                  <span className="body-sm-regular text-[#7F8482]">Website Link</span>
                 </div>
                 <a
                   href="https://urbancart.com"
                   target="_blank"
                   rel="noreferrer"
-                  className="mt-2 inline-flex items-center gap-1.5 text-base font-semibold text-[#1E293B] hover:underline"
+                  className="mt-2 body-medium inline-flex items-center gap-1.5 text-base font-semibold text-[#1E293B] hover:underline"
                 >
                   https://urbancart.com
                   <ExternalLink size={15} className="text-[#94A3B8]" />
@@ -369,10 +372,10 @@ const BusinessProfile = () => {
                     strokeWidth={1.5}
                     className="text-[#71717A]"
                   />
-                  <span>Designation of User</span>
+                  <span className="body-sm-regular text-[#7F8482]">Designation of User</span>
                 </div>
                 <div className="mt-2 text-base font-semibold text-[#1E293B]">
-                  Moderator
+                  <span className="body-medium">Moderator</span>
                 </div>
               </div>
             </div>
