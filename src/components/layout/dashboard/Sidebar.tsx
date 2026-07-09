@@ -66,8 +66,7 @@ export default function Sidebar({
       <div className="overflow-y-auto">
         {/* Logo / Brand Info */}
         <div
-          className="flex justify-between items-center py-3 border-b"
-          style={{ borderBottomColor: "#F0F0F0", borderBottomWidth: "1px" }}
+          className="flex items-center justify-between border-b border-[var(--color-line)] py-3"
         >
           <div className="flex items-center gap-2 min-w-0">
             <Image
@@ -87,15 +86,7 @@ export default function Sidebar({
           </div>
 
           <div className="flex items-center gap-2 shrink-0">
-            <div
-              className="w-6 h-6 flex items-center justify-center gap-0.5 p-0.5 rounded-md border"
-              style={{
-                background: "var(--Natural-White, #FFFFFF)",
-                borderColor: "#F0F0F0",
-                borderWidth: "1px",
-                boxShadow: "0px 2px 4px 0px #1B1C1D0A",
-              }}
-            >
+            <div className="flex h-6 w-6 items-center justify-center gap-0.5 rounded-md border border-[var(--color-line)] bg-[var(--color-white)] p-0.5 shadow-[0px_2px_4px_0px_#1B1C1D0A]">
               <Image
                 src={"/images/dashboard/sitebar/Vector.svg"}
                 width={9.55}
@@ -117,7 +108,7 @@ export default function Sidebar({
 
         {/* Navigation Links */}
         <div className="py-5 space-y-3">
-          <h1 className="body-xsm-medium text-[#A9ADAB] px-4">MAIN</h1>
+          <h1 className="body-xsm-medium px-4 text-[var(--color-subtext-400)]">MAIN</h1>
           <nav className="space-y-1">
             {menuItems.map((item) => {
               const hasChildren = !!item.children && item.children.length > 0;
@@ -135,8 +126,8 @@ export default function Sidebar({
                       onClick={() => handleParentClick(item)}
                       className={`w-full flex items-center justify-between px-4 py-3.5 rounded-2xl transition-all ${
                         isParentActive
-                          ? "text-[#F74608]"
-                          : "text-[#525866] hover:bg-gray-50"
+                          ? "text-[var(--color-adsfixter-primary)]"
+                          : "text-[var(--color-primary-text-400)] hover:bg-[var(--color-surface)]"
                       }`}
                     >
                       <div className="flex items-center gap-3">
@@ -165,7 +156,7 @@ export default function Sidebar({
                         className={`transition-transform duration-300 ease-in-out ${
                           isOpen ? "rotate-180" : "rotate-0"
                         } ${
-                          isParentActive ? "text-[#F74608]" : "text-[#A9ADAB]"
+                          isParentActive ? "text-[var(--color-adsfixter-primary)]" : "text-[var(--color-subtext-400)]"
                         }`}
                       />
                     </button>
@@ -175,8 +166,8 @@ export default function Sidebar({
                       onClick={handleMobileLinkClick}
                       className={`flex items-center justify-between px-4 py-3.5 rounded-2xl transition-all ${
                         isParentActive
-                          ? "bg-[#FFF1EC] text-[#F74608]"
-                          : "text-[#525866] hover:bg-gray-50"
+                          ? "bg-[var(--color-primary-soft)] text-[var(--color-adsfixter-primary)]"
+                          : "text-[var(--color-primary-text-400)] hover:bg-[var(--color-surface)]"
                       }`}
                     >
                       <div className="flex items-center gap-3">
@@ -212,10 +203,10 @@ export default function Sidebar({
                               key={child.href}
                               href={child.href}
                               onClick={handleMobileLinkClick}
-                              className={`block px-3 py-2.5 rounded-xl body-sm-medium transition-all ${
+                              className={`block rounded-xl px-3 py-2.5 body-sm-medium transition-all ${
                                 isChildActive
-                                  ? "bg-[#FFF1EC] text-[#F74608] font-semibold"
-                                  : "text-[#525866] hover:bg-gray-50"
+                                  ? "bg-[var(--color-primary-soft)] font-semibold text-[var(--color-adsfixter-primary)]"
+                                  : "text-[var(--color-primary-text-400)] hover:bg-[var(--color-surface)]"
                               }`}
                             >
                               {child.name}
@@ -234,7 +225,7 @@ export default function Sidebar({
 
       {/* User Profile Info (Bottom of Sidebar) */}
       <div className="border-t border-[var(--color-line)] pt-4 flex items-center gap-3">
-        <div className="w-10 h-10 bg-gray-200 rounded-full overflow-hidden relative shrink-0">
+        <div className="relative h-10 w-10 shrink-0 overflow-hidden rounded-full bg-[var(--color-surface)]">
           <Image
             src="/avatar-placeholder.png"
             alt="Abdullah"

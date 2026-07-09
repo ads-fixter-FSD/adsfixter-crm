@@ -1,3 +1,6 @@
+"use client";
+
+import { useRouter } from "next/navigation";
 import {
   ClientAdAccountsSection,
   ClientBalanceHistorySection,
@@ -23,6 +26,8 @@ type SectionRendererProps = DashboardSectionWithNavigationProps & {
 };
 
 export function SectionRenderer({ data, section, showToast, onSectionChange }: SectionRendererProps) {
+  const router = useRouter();
+
   if (section === "Help & Support") {
     return <ClientHelpSupportSection />;
   }
@@ -111,7 +116,9 @@ export function SectionRenderer({ data, section, showToast, onSectionChange }: S
       <CustomerSetupCompleteSection
         onGrow={() => {
           markStartAdvertisingReady();
-          onSectionChange?.("Ad Accounts");
+          window.localStorage.setItem("adsfixter-theme", "light");
+          document.documentElement.dataset.theme = "light";
+          router.push("/dashboard");
         }}
       />
     );

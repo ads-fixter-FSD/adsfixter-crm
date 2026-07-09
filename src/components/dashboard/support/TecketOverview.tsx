@@ -130,13 +130,13 @@ export default function TecketOverview({
   const solvedCount = tickets.filter(t => t.status === "Resolved").length;
 
   return (
-    <section className="flex w-full flex-col gap-4 rounded-xl border border-[#E9E9E9]  bg-[var(--color-white,#ffffff)] dark:bg-zinc-900 p-4 transition-colors">
+    <section className="flex w-full flex-col gap-4 rounded-xl border border-[var(--color-line)] bg-[var(--color-white)] p-4 transition-colors">
       {/* Title section */}
       <div className="flex flex-col gap-1">
-        <h2 className="m-0 font-sans text-[22px] font-medium leading-[120%] text-[var(--color-primary-text-500,#0e2038)] dark:text-zinc-100">
+        <h2 className="m-0 font-sans text-[22px] font-medium leading-[120%] text-[var(--color-primary-text-500)]">
           {title}
         </h2>
-        <p className="m-0 font-sans body-xsm-medium  leading-[150%] text-[var(--color-subtext-500,#7f8482)] ">
+        <p className="body-xsm-medium m-0 font-sans leading-[150%] text-[var(--color-subtext-500)]">
           {subtitle}
         </p>
       </div>
@@ -144,7 +144,7 @@ export default function TecketOverview({
       {/* Filters & Search */}
       <div className="flex flex-col gap-3 lg:flex-row lg:items-center lg:justify-between">
         {/* Tabs Filter */}
-        <div className="flex flex-wrap items-center gap-1 rounded-lg border border-[var(--color-line,#eceff3)]  bg-[var(--color-surface,#f7f8fa)] p-1">
+        <div className="flex flex-wrap items-center gap-1 rounded-lg border border-[var(--color-line)] bg-[var(--color-surface)] p-1">
           {[
             { key: "All", label: "All", count: allCount },
             { key: "Active", label: "Active", count: activeCount },
@@ -155,13 +155,13 @@ export default function TecketOverview({
               key={key}
               type="button"
               onClick={() => {
-                setActiveFilter(key as any);
+                setActiveFilter(key as "All" | "Active" | "Pending" | "Solved");
                 setCurrentPage(1);
               }}
-              className={`rounded-md px-4 py-1.5 font-sans body-xsm-medium  font-medium transition-all ${
+              className={`rounded-md px-4 py-1.5 font-sans body-xsm-medium font-medium transition-all ${
                 activeFilter === key
-                  ? "bg-[var(--color-white,#ffffff)] dark:bg-zinc-700 text-[var(--color-primary-text-500,#0e2038)] dark:text-zinc-100 shadow-[0px_1px_2px_0px_#E4E5E73D]"
-                  : "text-[var(--color-subtext-500,#7f8482)]  hover:bg-[var(--color-white,#ffffff)]/60 /50"
+                  ? "bg-[var(--color-white)] text-[var(--color-primary-text-500)] shadow-[0px_1px_2px_0px_#E4E5E73D]"
+                  : "text-[var(--color-subtext-500)] hover:bg-[var(--color-white)]/60"
               }`}
             >
               {label} <span className="text-xs opacity-70">({count})</span>
@@ -171,7 +171,7 @@ export default function TecketOverview({
 
         {/* Search Input */}
         <div className="relative w-full lg:w-80">
-          <Search className="absolute left-3 top-1/2 -translate-y-1/2 text-[var(--color-subtext-500,#7f8482)] " size={18} />
+          <Search className="absolute left-3 top-1/2 -translate-y-1/2 text-[var(--color-subtext-500)]" size={18} />
           <input
             type="text"
             placeholder="Search tickets..."
@@ -180,16 +180,16 @@ export default function TecketOverview({
               setSearch(e.target.value);
               setCurrentPage(1);
             }}
-            className="w-full rounded-lg border border-[var(--color-line,#eceff3)]  bg-[var(--color-white,#ffffff)] pl-10 pr-4 py-2.5 font-sans body-xsm-medium  text-[var(--color-primary-text-500,#0e2038)] dark:text-zinc-100 outline-none placeholder:text-[var(--color-subtext-400,#999d9b)] dark:placeholder:text-zinc-500"
+            className="body-xsm-medium w-full rounded-lg border border-[var(--color-line)] bg-[var(--color-white)] py-2.5 pl-10 pr-4 font-sans text-[var(--color-primary-text-500)] outline-none placeholder:text-[var(--color-subtext-400)]"
           />
         </div>
       </div>
 
       {/* Table Section */}
-      <div className="overflow-x-auto rounded-lg border border-[#F0F0F0] ">
-        <table className="w-full min-w-[1100px] border-collapse">
+      <div className="overflow-x-auto rounded-lg border border-[var(--color-line)] bg-[var(--color-white)]">
+        <table className="w-full min-w-[1100px] border-collapse bg-[var(--color-white)]">
           <thead>
-            <tr className="border-b border-[#E5E7EB]  bg-[var(--table-header-bg,#f8f9fa)] text-left text-xs font-medium text-[var(--color-subtext-500,#7f8482)] ">
+            <tr className="border-b border-[var(--table-header-border)] bg-[var(--table-header-bg)] text-left text-xs font-medium text-[var(--color-subtext-500)]">
               {[
                 { label: "Ticket ID", key: "ticketId" },
                 { label: "Asset Type", key: "assetType" },
@@ -202,83 +202,83 @@ export default function TecketOverview({
                 <th
                   key={i}
                   onClick={() => column.key && handleSort(column.key as SortKey)}
-                  className={`border-r border-[#E5E7EB]  px-4 py-3 font-sans last:border-r-0 ${
-                    column.key ? "cursor-pointer select-none hover:bg-gray-100 " : ""
+                  className={`border-r border-[var(--table-header-border)] px-4 py-3 font-sans last:border-r-0 ${
+                    column.key ? "cursor-pointer select-none hover:bg-[var(--color-surface)]" : ""
                   }`}
                 >
                   <span className="flex items-center gap-1.5">
                     {column.label}
                     {column.key && (
-                      <ArrowUpDown 
-                        size={14} 
-                        className={`transition-colors ${sortKey === column.key ? "text-[var(--color-adsfixter-primary,#f74608)]" : "text-gray-400 dark:text-zinc-500"}`} 
+                      <ArrowUpDown
+                        size={14}
+                        className={`transition-colors ${sortKey === column.key ? "text-[var(--color-adsfixter-primary)]" : "text-[var(--color-subtext-400)]"}`}
                       />
                     )}
                   </span>
                 </th>
               ))}
-              <th className="border-r border-[#E5E7EB]  px-4 py-3 w-12 text-center font-sans last:border-r-0">Action</th>
+              <th className="w-12 border-r border-[var(--table-header-border)] px-4 py-3 text-center font-sans last:border-r-0">Action</th>
             </tr>
           </thead>
-          <tbody>
+          <tbody className="bg-[var(--color-white)]">
             {paginatedTickets.map((ticket, idx) => {
               const statusStyle = STATUS_STYLES[ticket.status] || STATUS_STYLES.Open;
               return (
                 <tr
                   key={idx}
-                  className="border-b border-[#F0F0F0]  hover:bg-[var(--color-surface,#f7f8fa)]/40      transition-colors last:border-b-0"
+                  className="border-b border-[var(--table-header-border)] transition-colors last:border-b-0 hover:bg-[var(--color-surface)]/40"
                 >
                   {/* Ticket ID */}
-                  <td className="border-r border-[#F0F0F0]  px-4 py-4 last:border-r-0">
-                    <div className="font-sans body-xsm-medium  text-[var(--color-primary-text-500,#0e2038)] ">
+                  <td className="border-r border-[var(--table-header-border)] px-4 py-4 last:border-r-0">
+                    <div className="body-xsm-medium font-sans text-[var(--color-primary-text-500)]">
                       #{ticket.ticketId.replace("#", "")}
                     </div>
-                    <div className="font-sans body-xsm-medium  text-[var(--color-subtext-400,#999d9b)] ">{ticket.date}</div>
+                    <div className="body-xsm-medium font-sans text-[var(--color-subtext-400)]">{ticket.date}</div>
                   </td>
-                  
+
                   {/* Asset Type */}
-                  <td className="border-r border-[#F0F0F0]  px-4 py-4 font-sans body-xsm-medium  text-[var(--color-primary-text-300,#5E6A7A)] dark:text-zinc-300 last:border-r-0">
+                  <td className="body-xsm-medium border-r border-[var(--table-header-border)] px-4 py-4 font-sans text-[var(--color-primary-text-300)] last:border-r-0">
                     {ticket.assetType}
                   </td>
-                  
+
                   {/* Account */}
-                  <td className="border-r border-[#F0F0F0]  px-4 py-4 last:border-r-0">
-                    <div className="font-sans body-sm-regular  text-[var(--color-primary-text-500,#0e2038)] ">{ticket.account || "---"}</div>
+                  <td className="border-r border-[var(--table-header-border)] px-4 py-4 last:border-r-0">
+                    <div className="body-sm-regular font-sans text-[var(--color-primary-text-500)]">{ticket.account || "---"}</div>
                     {ticket.accountId && (
-                      <div className="font-sans body-xsm-medium  text-[var(--color-subtext-500,#999d9b)] ">ID: {ticket.accountId}</div>
+                      <div className="body-xsm-medium font-sans text-[var(--color-subtext-500)]">ID: {ticket.accountId}</div>
                     )}
                   </td>
-                  
+
                   {/* Subject */}
-                  <td className="border-r border-[#F0F0F0]  px-4 py-4 font-sans body-sm-regular text-[var(--color-primary-text-500,#0e2038)]  last:border-r-0">
+                  <td className="body-sm-regular border-r border-[var(--table-header-border)] px-4 py-4 font-sans text-[var(--color-primary-text-500)] last:border-r-0">
                     {ticket.subject}
-                  </td> 
-                  
-                  {/* Descriptions */}
-                  <td className="border-r border-[#F0F0F0]  px-4 py-4 font-sans body-sm-regular  text-[var(--color-subtext-500,#7f8482)]  max-w-md truncate last:border-r-0">
-                    {ticket.description} 
                   </td>
-                  
+
+                  {/* Descriptions */}
+                  <td className="body-sm-regular max-w-md truncate border-r border-[var(--table-header-border)] px-4 py-4 font-sans text-[var(--color-subtext-500)] last:border-r-0">
+                    {ticket.description}
+                  </td>
+
                   {/* Status */}
-                  <td className="border-r border-[#F0F0F0]  px-4 py-4 last:border-r-0">
+                  <td className="border-r border-[var(--table-header-border)] px-4 py-4 last:border-r-0">
                     <span className={`inline-flex items-center gap-1.5 rounded-[6px] px-3 py-1 font-sans text-xs font-medium ${statusStyle.bg} ${statusStyle.text}`}>
                       <span className={`h-1.5 w-1.5 rounded-full ${statusStyle.dot}`} />
                       {statusStyle.label}
                     </span>
                   </td>
-                  
+
                   {/* Last Update */}
-                  <td className="border-r border-[#F0F0F0]  px-4 py-4 font-sans body-xsm-medium  text-[var(--color-subtext-500,#7f8482)]  last:border-r-0">
+                  <td className="body-xsm-medium border-r border-[var(--table-header-border)] px-4 py-4 font-sans text-[var(--color-subtext-500)] last:border-r-0">
                     {ticket.lastUpdate}
                   </td>
-                  
+
                   {/* Action Buttons */}
-                  <td className="border-r border-[#F0F0F0]  px-4 py-4 last:border-r-0">
+                  <td className="border-r border-[var(--table-header-border)] px-4 py-4 last:border-r-0">
                     <div className="flex items-center justify-center gap-2">
-                      <button type="button" className="text-[var(--color-subtext-500,#7f8482)] hover:text-[var(--color-primary-text-500,#0e2038)]  dark:hover:text-zinc-200 transition-colors">
+                      <button type="button" className="text-[var(--color-subtext-500)] transition-colors hover:text-[var(--color-primary-text-500)]">
                         <Eye size={18} />
                       </button>
-                      <button type="button" className="text-[var(--color-subtext-500,#7f8482)] hover:text-[var(--color-primary-text-500,#0e2038)]  dark:hover:text-zinc-200 transition-colors">
+                      <button type="button" className="text-[var(--color-subtext-500)] transition-colors hover:text-[var(--color-primary-text-500)]">
                         <MoreVertical size={18} />
                       </button>
                     </div>
@@ -291,7 +291,7 @@ export default function TecketOverview({
               <tr>
                 <td
                   colSpan={8}
-                  className="px-4 py-10 text-center font-sans body-xsm-medium  text-[var(--color-subtext-500,#7f8482)] "
+                  className="body-xsm-medium px-4 py-10 text-center font-sans text-[var(--color-subtext-500)]"
                 >
                   No tickets match your search or filters.
                 </td>
@@ -302,23 +302,23 @@ export default function TecketOverview({
       </div>
 
       {/* Pagination Container */}
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pt-2">
-        <div className="flex items-center gap-2 font-sans body-xsm-medium  text-[var(--color-subtext-500,#7f8482)] ">
+      <div className="flex flex-col justify-between gap-4 pt-2 sm:flex-row sm:items-center">
+        <div className="body-xsm-medium flex items-center gap-2 font-sans text-[var(--color-subtext-500)]">
           Show
           <div className="relative">
-            <select 
+            <select
               value={perPage}
               onChange={(e) => {
                 setPerPage(Number(e.target.value));
                 setCurrentPage(1);
               }}
-              className="appearance-none rounded-lg border border-[var(--color-line,#eceff3)]  bg-[var(--color-white,#ffffff)] pl-3 pr-8 py-1.5 font-sans body-xsm-medium  text-[var(--color-primary-text-500,#0e2038)] dark:text-zinc-100 outline-none"
+              className="body-xsm-medium appearance-none rounded-lg border border-[var(--color-line)] bg-[var(--color-white)] py-1.5 pl-3 pr-8 font-sans text-[var(--color-primary-text-500)] outline-none"
             >
               <option value={10}>10</option>
               <option value={20}>20</option>
               <option value={50}>50</option>
             </select>
-            <ChevronDown size={14} className="pointer-events-none absolute right-2.5 top-1/2 -translate-y-1/2 text-gray-400" />
+            <ChevronDown size={14} className="pointer-events-none absolute right-2.5 top-1/2 -translate-y-1/2 text-[var(--color-subtext-400)]" />
           </div>
           Per Page
         </div>
@@ -326,22 +326,22 @@ export default function TecketOverview({
         <div className="flex items-center gap-1">
           <button
             type="button"
-            onClick={() => setCurrentPage(p => Math.max(1, p - 1))}
+            onClick={() => setCurrentPage((p) => Math.max(1, p - 1))}
             disabled={currentPage === 1}
-            className="h-8 w-8 flex items-center justify-center border border-[var(--color-line,#eceff3)]  rounded-md text-[var(--color-subtext-500,#7f8482)]  disabled:opacity-40 transition-colors hover:bg-[var(--color-surface,#f7f8fa)] dark:hover:bg-zinc-800"
+            className="flex h-8 w-8 items-center justify-center rounded-md border border-[var(--color-line)] text-[var(--color-subtext-500)] transition-colors hover:bg-[var(--color-surface)] disabled:opacity-40"
           >
             <ChevronLeft size={16} />
           </button>
 
-          {Array.from({ length: totalPages }, (_, i) => i + 1).map(page => (
+          {Array.from({ length: totalPages }, (_, i) => i + 1).map((page) => (
             <button
               key={page}
               type="button"
               onClick={() => setCurrentPage(page)}
-              className={`h-8 w-8 rounded-md font-sans body-xsm-medium  font-medium transition-colors ${
-                currentPage === page 
-                  ? "bg-[var(--color-adsfixter-primary,#f74608)] text-[var(--color-on-primary,#ffffff)]" 
-                  : "border border-[var(--color-line,#eceff3)]  text-[var(--color-primary-text-500,#0e2038)] dark:text-zinc-300 hover:bg-[var(--color-surface,#f7f8fa)] dark:hover:bg-zinc-800"
+              className={`body-xsm-medium h-8 w-8 rounded-md font-sans font-medium transition-colors ${
+                currentPage === page
+                  ? "bg-[var(--color-adsfixter-primary)] text-[var(--color-on-primary)]"
+                  : "border border-[var(--color-line)] text-[var(--color-primary-text-500)] hover:bg-[var(--color-surface)]"
               }`}
             >
               {page}
@@ -350,9 +350,9 @@ export default function TecketOverview({
 
           <button
             type="button"
-            onClick={() => setCurrentPage(p => Math.min(totalPages, p + 1))}
+            onClick={() => setCurrentPage((p) => Math.min(totalPages, p + 1))}
             disabled={currentPage === totalPages}
-            className="h-8 w-8 flex items-center justify-center border border-[var(--color-line,#eceff3)]  rounded-md text-[var(--color-subtext-500,#7f8482)]  disabled:opacity-40 transition-colors hover:bg-[var(--color-surface,#f7f8fa)] dark:hover:bg-zinc-800"
+            className="flex h-8 w-8 items-center justify-center rounded-md border border-[var(--color-line)] text-[var(--color-subtext-500)] transition-colors hover:bg-[var(--color-surface)] disabled:opacity-40"
           >
             <ChevronRight size={16} />
           </button>

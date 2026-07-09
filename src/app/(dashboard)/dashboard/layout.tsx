@@ -3,6 +3,8 @@
 import React, { useState } from "react";
 import Sidebar from "@/components/layout/dashboard/Sidebar";
 import Topbar from "@/components/layout/dashboard/Topbar";
+import { DashboardThemeInit } from "@/components/layout/dashboard/dashboard-theme-init";
+import "@/app/styles/dashboard-theme.css";
 
 export default function DashboardLayout({
   children,
@@ -12,29 +14,26 @@ export default function DashboardLayout({
   const [isMobileSidebarOpen, setIsMobileSidebarOpen] = useState(false);
 
   return (
-    <div className="flex h-screen w-full bg-white overflow-hidden font-sans">
-      {/* ─── LEFT SIDEBAR (Desktop: static, Mobile: drawer) ─── */}
+    <div className="dashboard-shell flex h-screen w-full overflow-hidden bg-[var(--color-white)] font-sans text-[var(--color-primary-text-500)]">
+      <DashboardThemeInit />
+
       <Sidebar
         isMobileOpen={isMobileSidebarOpen}
         onMobileClose={() => setIsMobileSidebarOpen(false)}
       />
 
-      {/* ─── Mobile overlay backdrop (sidebar খোলা থাকলে দেখাবে) ─── */}
       {isMobileSidebarOpen && (
         <div
-          className="fixed inset-0 bg-black/40 z-40 lg:hidden"
+          className="fixed inset-0 z-40 bg-black/40 lg:hidden"
           onClick={() => setIsMobileSidebarOpen(false)}
           aria-hidden="true"
         />
       )}
 
-      {/* ─── RIGHT CONTENT AREA ─── */}
-      <div className="flex-1 flex flex-col h-full min-w-0 overflow-hidden">
-        {/* ─── TOP NAVBAR ─── */}
+      <div className="flex h-full min-w-0 flex-1 flex-col overflow-hidden">
         <Topbar onMenuClick={() => setIsMobileSidebarOpen(true)} />
 
-        {/* DYNAMIC CONTENT CONTAINER */}
-        <main className="flex-1 overflow-x-hidden overflow-y-auto px-4 sm:px-5 lg:px-6 py-4 sm:py-5 lg:py-0">
+        <main className="flex-1 overflow-x-hidden overflow-y-auto bg-[var(--color-surface)] px-4 py-4 sm:px-5 sm:py-5 lg:px-6 lg:py-0">
           {children}
         </main>
       </div>

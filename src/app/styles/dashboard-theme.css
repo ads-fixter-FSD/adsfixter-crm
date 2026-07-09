@@ -1,0 +1,83 @@
+.dashboard-shell {
+  background-color: var(--color-white);
+  color: var(--color-primary-text-500);
+}
+
+.dashboard-shell table {
+  border-collapse: collapse;
+}
+
+[data-theme="dark"] .dashboard-shell {
+  background-color: var(--color-surface);
+  color: var(--color-primary-text-500);
+}
+
+[data-theme="dark"] .dashboard-shell .bg-white {
+  background-color: var(--color-white) !important;
+}
+
+[data-theme="dark"] .dashboard-shell .bg-slate-50,
+[data-theme="dark"] .dashboard-shell .bg-slate-50\/40,
+[data-theme="dark"] .dashboard-shell .bg-slate-50\/80,
+[data-theme="dark"] .dashboard-shell .bg-slate-100,
+[data-theme="dark"] .dashboard-shell .hover\:bg-slate-50:hover,
+[data-theme="dark"] .dashboard-shell .hover\:bg-slate-50\/80:hover {
+  background-color: var(--color-surface) !important;
+}
+
+[data-theme="dark"] .dashboard-shell [class*="text-[#0F172A]"],
+[data-theme="dark"] .dashboard-shell [class*="text-[#0E2038]"],
+[data-theme="dark"] .dashboard-shell [class*="text-[#334155]"],
+[data-theme="dark"] .dashboard-shell [class*="text-[#525866]"],
+[data-theme="dark"] .dashboard-shell [class*="text-slate-800"],
+[data-theme="dark"] .dashboard-shell [class*="text-slate-700"],
+[data-theme="dark"] .dashboard-shell [class*="text-slate-900"] {
+  color: var(--color-primary-text-500) !important;
+}
+
+[data-theme="dark"] .dashboard-shell [class*="text-[#94A3B8]"],
+[data-theme="dark"] .dashboard-shell [class*="text-[#64748B]"],
+[data-theme="dark"] .dashboard-shell [class*="text-[#71717A]"],
+[data-theme="dark"] .dashboard-shell [class*="text-slate-500"],
+[data-theme="dark"] .dashboard-shell [class*="text-slate-400"],
+[data-theme="dark"] .dashboard-shell [class*="text-slate-600"] {
+  color: var(--color-subtext-500) !important;
+}
+
+[data-theme="dark"] .dashboard-shell [class*="border-[#EDEDED]"],
+[data-theme="dark"] .dashboard-shell [class*="border-[#F0F0F0]"],
+[data-theme="dark"] .dashboard-shell [class*="border-[#E9E9E9]"],
+[data-theme="dark"] .dashboard-shell [class*="border-[#E4E4E7]"],
+[data-theme="dark"] .dashboard-shell [class*="border-[#f1f5f9]"],
+[data-theme="dark"] .dashboard-shell [class*="border-slate-100"],
+[data-theme="dark"] .dashboard-shell [class*="border-slate-200"] {
+  border-color: var(--table-header-border) !important;
+}
+
+[data-theme="dark"] .dashboard-shell table th,
+[data-theme="dark"] .dashboard-shell table td,
+[data-theme="dark"] .dashboard-shell table tr {
+  border-color: var(--table-header-border) !important;
+}
+
+[data-theme="dark"] .dashboard-shell .divide-y > :not([hidden]) ~ :not([hidden]),
+[data-theme="dark"] .dashboard-shell .divide-slate-100 > :not([hidden]) ~ :not([hidden]) {
+  border-color: var(--color-line) !important;
+}
+
+[data-theme="dark"] .dashboard-shell .hover\:bg-gray-50:hover,
+[data-theme="dark"] .dashboard-shell .hover\:bg-\[\#FAFAFA\]:hover,
+[data-theme="dark"] .dashboard-shell .hover\:bg-\[\#F8FAFC\]:hover {
+  background-color: var(--color-surface) !important;
+}
+
+[data-theme="dark"] .dashboard-shell [class*="bg-[#FFF1EC]"],
+[data-theme="dark"] .dashboard-shell [class*="bg-[#F2F3F3]"],
+[data-theme="dark"] .dashboard-shell [class*="bg-[#FAFAFA]"],
+[data-theme="dark"] .dashboard-shell [class*="bg-[#F8FAFC]"] {
+  background-color: var(--color-surface) !important;
+}
+
+[data-theme="dark"] .dashboard-shell [class*="hover:bg-gray-200"] {
+  background-color: var(--color-line) !important;
+}
