@@ -1,8 +1,7 @@
-
 "use client";
 
 import React from "react";
-import { Copy, ChevronUp } from "lucide-react";
+import { Copy, ArrowUpDown, ArrowUp, Gift, RefreshCw, Landmark, ArrowRightLeft, Sparkles, Receipt } from "lucide-react";
 
 type ActivityData = {
   date: string;
@@ -26,20 +25,36 @@ const activities: ActivityData[] = [
   { date: "Jun 30", time: "8:30 PM", title: "Monthly usage bonus", desc: "Bonus for high ad spend", trxId: "TRX24567890", amount: "+৳300", isPositive: true, type: "Bonus", status: "Canceled" },
 ];
 
-const typeStyles: Record<string, string> = {
-  "Top-up": "bg-sky-50 text-sky-500 border-sky-100",
-  "Cashback": "bg-fuchsia-50 text-fuchsia-500 border-fuchsia-100",
-  "Credit Transfer": "bg-emerald-50 text-emerald-500 border-emerald-100",
-  "Deposit": "bg-amber-50 text-amber-500 border-amber-100",
-  "Refund": "bg-rose-50 text-rose-500 border-rose-100",
-  "Adjustment": "bg-blue-50 text-blue-500 border-blue-100",
-  "Bonus": "bg-teal-50 text-teal-500 border-teal-100",
+// ছবির সাথে ম্যাচিং কাস্টম আইকন ম্যাপিং
+const getTypeIcon = (type: string) => {
+  switch (type) {
+    case "Top-up": return <ArrowUp size={12} className="rotate-45" />;
+    case "Cashback": return <Gift size={12} />;
+    case "Credit Transfer": return <ArrowRightLeft size={12} />;
+    case "Deposit": return <Landmark size={12} />;
+    case "Refund": return <RefreshCw size={12} />;
+    case "Adjustment": return <Receipt size={12} />;
+    case "Bonus": return <Sparkles size={12} />;
+    default: return null;
+  }
 };
 
+// ছবির হুবহু টাইপ ব্যাজ স্টাইল
+const typeStyles: Record<string, string> = {
+  "Top-up": "bg-[#eaf5ff] text-[#3b9eff] border-transparent",
+  "Cashback": "bg-[#fae8ff] text-[#d946ef] border-transparent",
+  "Credit Transfer": "bg-[#f0fdf4] text-[#22c55e] border-transparent",
+  "Deposit": "bg-[#fffbeb] text-[#f59e0b] border-transparent",
+  "Refund": "bg-[#fff1f2] text-[#f43f5e] border-transparent",
+  "Adjustment": "bg-[#eff6ff] text-[#3b82f6] border-transparent",
+  "Bonus": "bg-[#f0fdf4] text-[#22c55e] border-transparent",
+};
+
+// ছবির হুবহু স্ট্যাটাস ব্যাজ স্টাইল (ফুল পিল ব্যাকগ্রাউন্ড)
 const statusStyles: Record<string, string> = {
-  Completed: "bg-emerald-50/60 text-emerald-500",
-  Processing: "bg-amber-50/60 text-amber-500",
-  Canceled: "bg-rose-50 text-rose-400",
+  Completed: "bg-[#e6fcf5] text-[#0ca678]",
+  Processing: "bg-[#fff9db] text-[#f59f00]",
+  Canceled: "bg-[#fff5f5] text-[#fa5252]",
 };
 
 export default function RecentActivityTable() {
@@ -48,103 +63,115 @@ export default function RecentActivityTable() {
   };
 
   return (
-    <div className="space-y-4 w-full">
-      <div className="flex items-center justify-between">
-        <h2 className="text-xl font-bold text-slate-900">Recent Activity</h2>
-        <button className="px-4 py-2 bg-white border border-slate-200 text-slate-500 font-semibold text-xs rounded-xl hover:bg-slate-50 transition">
+    <div className="space-y-5 w-full">
+      {/* টপ হেডার */}
+      <div className="flex items-center justify-between px-1">
+        <h2 className="text-xl font-bold text-[#1e293b]">Recent Activity</h2>
+        <button className="px-4 py-1.5 bg-white border border-slate-200 text-slate-500 font-bold text-xs rounded-lg hover:bg-slate-50 transition shadow-3xs cursor-pointer">
           View All
         </button>
       </div>
 
-      {/* রিল্যান্ডারিং এবং স্থায়ী স্ক্রলবার দেখানোর গ্লোবাল স্টাইল */}
+      {/* কাস্টম মোবাইল স্ক্রলবার এবং টেবিল বর্ডার ফিক্সার সিএসএস */}
       <style dangerouslySetInnerHTML={{__html: `
-        @media (max-width: 768px) {
-          .mobile-scroll-container {
-            overflow-x: auto !important;
-            -webkit-overflow-scrolling: touch !important;
-          }
-          /* স্ক্রলবার শুরুতেই স্থায়ীভাবে দেখানোর জন্য */
-          .mobile-scroll-container::-webkit-scrollbar {
-            height: 6px !important;
-            display: block !important;
-          }
-          .mobile-scroll-container::-webkit-scrollbar-track {
-            background: #f8fafc !important; 
-            border-radius: 10px !important;
-          }
-          .mobile-scroll-container::-webkit-scrollbar-thumb {
-            background: #cbd5e1 !important; /* একটু ডার্ক স্লেট কালার যাতে সহজেই চোখে পড়ে */
-            border-radius: 10px !important;
-          }
+        .mobile-scroll-container {
+          overflow-x: auto !important;
+          -webkit-overflow-scrolling: touch !important;
         }
-        @media (min-width: 769px) {
-          .mobile-scroll-container::-webkit-scrollbar {
-            display: none !important;
-          }
+        .mobile-scroll-container::-webkit-scrollbar {
+          height: 5px !important;
+          display: block !important;
+        }
+        .mobile-scroll-container::-webkit-scrollbar-track {
+          background: #fdfdfd !important;
+        }
+        .mobile-scroll-container::-webkit-scrollbar-thumb {
+          background: #cbd5e1 !important;
+          border-radius: 10px !important;
         }
       `}} />
 
-      {/* টেবিলের মেইন কন্টেইনার - রাইট ফেড ইফেক্ট দেওয়ার জন্য রিলেটিভ পজিশন ব্যবহার করা হয়েছে */}
-      <div className="relative bg-white border border-slate-100 rounded-2xl shadow-xs overflow-hidden w-full">
-        
-        {/* রাইট গ্রেডিয়েন্ট ওভারলে: এটি ইউজারকে ইঙ্গিত দেবে যে ডানপাশে আরও ডেটা আছে (শুধু মোবাইলে দেখাবে) */}
-        <div className="pointer-events-none absolute top-0 right-0 bottom-0 w-12 bg-linear-to-l from-white/90 to-transparent z-10 md:hidden" />
-
-        <div className="mobile-scroll-container w-full pb-3">
-          <table className="w-full text-left border-collapse min-w-212.5 md:min-w-full">
+      {/* মেইন টেবিল কন্টেইনার */}
+      <div className="bg-white border border-[#f1f5f9] rounded-2xl overflow-hidden w-full shadow-[0_1px_3px_rgba(0,0,0,0.02)]">
+        <div className="mobile-scroll-container w-full">
+          {/* টেবিল গ্রিড বর্ডারিং - border-collapse এর বদলে border-separate ও spacing-0 ব্যবহার করা হয়েছে পারফেক্ট বর্ডারের জন্য */}
+          <table className="w-full text-left border-separate border-spacing-0 min-w-[1000px] md:min-w-full">
             <thead>
-              <tr className="bg-slate-50 text-[11px] font-bold tracking-wider text-slate-400 uppercase border-b border-slate-100">
-                <th className="py-3.5 px-6 whitespace-nowrap">
-                  <div className="flex items-center gap-1 cursor-pointer">DATE & TIME <ChevronUp size={12} /></div>
-                </th>
-                <th className="py-3.5 px-6">DESCRIPTION</th>
-                <th className="py-3.5 px-6">TRANSACTION ID</th>
-                <th className="py-3.5 px-6">AMOUNT</th>
-                <th className="py-3.5 px-6">TYPE</th>
-                <th className="py-3.5 px-6">STATUS</th>
+              <tr className="bg-[#f8fafc]">
+                {[
+                  { name: "DATE & TIME" },
+                  { name: "DESCRIPTION" },
+                  { name: "TRANSACTION ID" },
+                  { name: "AMOUNT" },
+                  { name: "TYPE" },
+                  { name: "STATUS" }
+                ].map((th, index) => (
+                  <th 
+                    key={index} 
+                    className="py-4 px-5 text-[11px] font-bold tracking-wider text-slate-500 uppercase border-b border-[#f1f5f9] border-r border-[#f1f5f9] last:border-r-0"
+                  >
+                    <div className="flex items-center gap-1.5 text-slate-400 font-bold">
+                      <span>{th.name}</span>
+                      <ArrowUpDown size={11} className="text-slate-300 stroke-[2.5]" />
+                    </div>
+                  </th>
+                ))}
               </tr>
             </thead>
-            <tbody className="divide-y divide-slate-100 text-sm">
+            
+            <tbody className="text-xs md:text-sm">
               {activities.map((row, idx) => (
-                <tr key={idx} className="hover:bg-slate-50/50 transition">
+                <tr key={idx} className="hover:bg-slate-50/40 transition">
+                  
                   {/* Date & Time */}
-                  <td className="py-4 px-6 whitespace-nowrap">
-                    <span className="font-semibold text-slate-700 block">{row.date}, {row.time.split(",")[0]}</span>
+                  <td className="py-4 px-5 whitespace-nowrap text-slate-700 font-medium border-b border-[#f1f5f9] border-r border-[#f1f5f9]">
+                    {row.date}, {row.time}
                   </td>
+                  
                   {/* Description */}
-                  <td className="py-4 px-6 max-w-70">
-                    <span className="font-bold text-slate-800 block line-clamp-1">{row.title}</span>
-                    <span className="text-xs text-slate-400 block mt-0.5">{row.desc}</span>
+                  <td className="py-4 px-5 max-w-[280px] border-b border-[#f1f5f9] border-r border-[#f1f5f9]">
+                    <span className="font-bold text-slate-800 block leading-tight">{row.title}</span>
+                    <span className="text-[11px] text-slate-400 block mt-1 font-medium">{row.desc}</span>
                   </td>
-                  {/* TRX ID */}
-                  <td className="py-4 px-6 whitespace-nowrap text-slate-600 font-medium">
-                    <div className="flex items-center gap-2">
+                  
+                  {/* Transaction ID */}
+                  <td className="py-4 px-5 whitespace-nowrap text-slate-600 font-semibold border-b border-[#f1f5f9] border-r border-[#f1f5f9]">
+                    <div className="flex items-center justify-between gap-4 group">
                       <span>{row.trxId}</span>
                       <button 
                         onClick={() => copyToClipboard(row.trxId)} 
                         className="text-slate-400 hover:text-slate-600 transition cursor-pointer"
                       >
-                        <Copy size={13} />
+                        <Copy size={13} strokeWidth={2.2} />
                       </button>
                     </div>
                   </td>
-                  {/* Amount */}
-                  <td className={`py-4 px-6 whitespace-nowrap font-bold ${row.isPositive ? "text-emerald-500" : "text-rose-500"}`}>
+                  
+                  {/* Amount (হালকা ব্যাকগ্রাউন্ড টিন্ট সহ) */}
+                  <td className={`py-4 px-5 whitespace-nowrap font-bold border-b border-[#f1f5f9] border-r border-[#f1f5f9] ${
+                    row.isPositive ? "text-[#2baf68] bg-[#fcfdfb]" : "text-[#e04848] bg-[#fffcfc]"
+                  }`}>
                     {row.amount}
                   </td>
+                  
                   {/* Type Badge */}
-                  <td className="py-4 px-6 whitespace-nowrap">
-                    <span className={`inline-flex items-center gap-1.5 px-3 py-1.5 border text-xs font-semibold rounded-xl ${typeStyles[row.type]}`}>
-                      {row.type}
-                    </span>
+                  <td className="py-4 px-5 whitespace-nowrap text-center border-b border-[#f1f5f9] border-r border-[#f1f5f9]">
+                    <div className="flex justify-start">
+                      <span className={`inline-flex items-center gap-1.5 px-3 py-1.5 text-[11px] font-bold rounded-lg border min-w-[100px] justify-center ${typeStyles[row.type]}`}>
+                        {getTypeIcon(row.type)}
+                        <span>{row.type}</span>
+                      </span>
+                    </div>
                   </td>
+                  
                   {/* Status Badge */}
-                  <td className="py-4 px-6 whitespace-nowrap pr-10 md:pr-6">
-                    <span className={`inline-flex items-center gap-1.5 px-3 py-1 text-xs font-bold rounded-lg ${statusStyles[row.status]}`}>
+                  <td className="py-4 px-5 whitespace-nowrap border-b border-[#f1f5f9]">
+                    <span className={`inline-flex items-center gap-1.5 px-3 py-1.5 text-[11px] font-bold rounded-xl min-w-[90px] justify-center ${statusStyles[row.status]}`}>
                       <span className="w-1.5 h-1.5 rounded-full bg-current" />
-                      {row.status}
+                      <span>{row.status}</span>
                     </span>
                   </td>
+
                 </tr>
               ))}
             </tbody>

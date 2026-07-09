@@ -6,7 +6,7 @@ import YourRefundRequests from "./components/YourRefundRequests";
 
 export default function RefundPage() {
   return (
-    <div className="min-h-screen bg-[#f8fafc] p-6 lg:p-8 font-sans antialiased text-slate-900">
+    <div className="min-h-screen font-sans antialiased text-slate-900">
       <div className="space-y-6">
         {/* Top Section: Refund Request Interactive Form */}
         <RefundRequestForm />
