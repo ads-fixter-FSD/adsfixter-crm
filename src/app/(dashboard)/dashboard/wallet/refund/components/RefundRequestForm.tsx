@@ -25,8 +25,9 @@ export default function RefundRequestForm() {
   ];
 
   return (
-    <div className="bg-white border border-slate-100 rounded-2xl p-6 shadow-[0_1px_3px_rgba(0,0,0,0.01)] space-y-6">
-      {/* Header */}
+    <div className="bg-white  rounded-2xl space-y-6">
+      <div className="border border-[#EDEDED] p-4 rounded-xl">
+        {/* Header */}
       <div className="space-y-1">
         <h2 className="text-xl font-bold tracking-tight text-slate-950">Request a Refund</h2>
         <p className="text-xs font-semibold text-slate-400">
@@ -35,7 +36,7 @@ export default function RefundRequestForm() {
       </div>
 
       {/* Top Config Row */}
-      <div className="grid grid-cols-1 md:grid-cols-12 gap-5 items-start">
+      <div className="grid grid-cols-1 md:grid-cols-12 gap-5 items-start pt-5">
         {/* Available Balance Box */}
         <div className="md:col-span-3 bg-slate-50/50 border border-slate-100/80 rounded-xl p-4 space-y-2">
           <span className="text-[11px] font-bold text-slate-400 uppercase tracking-wide block">Available for refund</span>
@@ -74,6 +75,7 @@ export default function RefundRequestForm() {
             <ChevronDown size={14} className="absolute right-3.5 top-1/2 -translate-y-1/2 text-slate-400 pointer-events-none" />
           </div>
         </div>
+      </div>
       </div>
 
       {/* Destination Grid List */}
