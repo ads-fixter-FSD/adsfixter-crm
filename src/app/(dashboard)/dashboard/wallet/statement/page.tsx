@@ -7,7 +7,7 @@ import StatementStatsCards from "./components/StatementStatsCards";
 
 export default function WalletStatementsPage() {
   return (
-    <div className="min-h-screen bg-[#f8fafc] p-6 lg:p-8 font-sans antialiased text-slate-900">
+    <div className="min-h-screen font-sans antialiased text-slate-900">
       <div className="space-y-6">
         
         {/* Header with Export Button */}

@@ -10,8 +10,8 @@ import PaymentScreenshotUpload from "./components/PaymentScreenshotUpload";
 
 export default function DepositToWalletPage() {
   return (
-    <div className="min-h-screen bg-[#f8fafc] p-6 lg:p-8 font-sans antialiased text-slate-900">
-      <div className="max-w-[1100px] mx-auto space-y-6">
+    <div className="min-h-screen font-sans antialiased text-slate-900">
+      <div className=" space-y-6">
         
         {/* Top Banner Header */}
         <DepositHeader />
