@@ -67,7 +67,7 @@ const BusinessProfile = () => {
             Select Business Profile
           </label>
 
-          <details className="group relative w-full">     
+          <details className="group relative w-full">
             <summary
               className="flex h-16 w-full list-none items-center justify-between rounded-[10px] bg-white px-4 py-3 border border-[#F0F0F0] cursor-pointer select-none [&::-webkit-details-marker]:hidden"
               style={{ boxShadow: "0px 1px 2px 0px rgba(13, 13, 18, 0.06)" }}
@@ -245,8 +245,8 @@ const BusinessProfile = () => {
 
               <PrimaryButton
                 onClick={() => modalRef.current?.showModal()}
-                className="min-h-9 gap-2 px-4 py-2 !bg-[#F74608] hover:!bg-[#e03d04] border-0 text-white">
-              
+                className="min-h-9 gap-2 px-4 py-2 !bg-[#F74608] hover:!bg-[#e03d04] border-0 text-white"
+              >
                 <EditIcon size={16} />
                 Edit Business Profile
               </PrimaryButton>
@@ -260,14 +260,15 @@ const BusinessProfile = () => {
                     strokeWidth={1.5}
                     className="text-[#71717A] "
                   />
-                  <span className="body-sm-regular text-[#7F8482]">Platform</span>
+                  <span className="body-sm-regular text-[#7F8482]">
+                    Platform
+                  </span>
                 </div>
                 <div className="mt-2 flex items-center gap-2 text-base font-semibold text-[#1E293B]">
                   <span className="flex h-5 w-5 items-center justify-center rounded-full bg-[#EDF4FF] text-[10px] font-bold text-[#0064E0]">
                     ∞
                   </span>
                   <span className="body-medium">Meta</span>
-                  
                 </div>
               </div>
 
@@ -278,7 +279,9 @@ const BusinessProfile = () => {
                     strokeWidth={1.5}
                     className="text-[#71717A]"
                   />
-                  <span className="body-sm-regular text-[#7F8482]">Business Name</span>
+                  <span className="body-sm-regular text-[#7F8482]">
+                    Business Name
+                  </span>
                 </div>
                 <div className="mt-2 text-base font-semibold text-[#1E293B]">
                   <span className="body-medium">Urban Cart</span>
@@ -292,11 +295,12 @@ const BusinessProfile = () => {
                     strokeWidth={1.5}
                     className="text-[#71717A]"
                   />
-                  <span className="body-sm-regular text-[#7F8482]">Business Phone Number</span>
+                  <span className="body-sm-regular text-[#7F8482]">
+                    Business Phone Number
+                  </span>
                 </div>
                 <div className="mt-2 text-base font-semibold text-[#1E293B]">
-                  <span className="body-medium">  +880 1726512261</span>
-                
+                  <span className="body-medium"> +880 1726512261</span>
                 </div>
               </div>
 
@@ -307,11 +311,12 @@ const BusinessProfile = () => {
                     strokeWidth={1.5}
                     className="text-[#71717A]"
                   />
-                  <span className="body-sm-regular text-[#7F8482]">Business Email</span>
+                  <span className="body-sm-regular text-[#7F8482]">
+                    Business Email
+                  </span>
                 </div>
                 <div className="mt-2 text-base font-semibold text-[#1E293B]">
-                       <span className="body-medium">   urbancartllc@gmail.com</span>
-                 
+                  <span className="body-medium"> urbancartllc@gmail.com</span>
                 </div>
               </div>
 
@@ -322,17 +327,21 @@ const BusinessProfile = () => {
                     strokeWidth={1.5}
                     className="text-[#71717A]"
                   />
-                  <span className="body-sm-regular text-[#7F8482]">Business Address</span>
+                  <span className="body-sm-regular text-[#7F8482]">
+                    Business Address
+                  </span>
                 </div>
                 <div className="mt-2 text-base font-semibold text-[#1E293B]">
-                  <span className="body-medium">  +880 1726512261</span>
+                  <span className="body-medium"> +880 1726512261</span>
                 </div>
               </div>
 
               <div className="border-b p-5 md:border-b-0">
                 <div className="flex items-center gap-2 text-sm text-[#71717A]">
                   <CustomFacebookIcon size={16} />
-                  <span className="body-sm-regular text-[#7F8482]">Facebook Page Link</span>
+                  <span className="body-sm-regular text-[#7F8482]">
+                    Facebook Page Link
+                  </span>
                 </div>
                 <a
                   href="https://facebook.com/urbancart"
@@ -352,7 +361,9 @@ const BusinessProfile = () => {
                     strokeWidth={1.5}
                     className="text-[#71717A]"
                   />
-                  <span className="body-sm-regular text-[#7F8482]">Website Link</span>
+                  <span className="body-sm-regular text-[#7F8482]">
+                    Website Link
+                  </span>
                 </div>
                 <a
                   href="https://urbancart.com"
@@ -372,7 +383,9 @@ const BusinessProfile = () => {
                     strokeWidth={1.5}
                     className="text-[#71717A]"
                   />
-                  <span className="body-sm-regular text-[#7F8482]">Designation of User</span>
+                  <span className="body-sm-regular text-[#7F8482]">
+                    Designation of User
+                  </span>
                 </div>
                 <div className="mt-2 text-base font-semibold text-[#1E293B]">
                   <span className="body-medium">Moderator</span>
