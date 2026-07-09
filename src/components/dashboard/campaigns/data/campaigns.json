@@ -1,0 +1,178 @@
+
+{
+  "pageTitle": "Campaigns",
+  "pageSubtitle": "All campaigns across your assigned ad accounts, in one place.",
+  "overview": {
+    "totalCampaigns": 6,
+    "activeCampaigns": 4,
+    "totalSpend": 19.00,
+    "currency": "$"
+  },
+  "campaigns": {
+    "totalCampaigns": 7,
+    "data": [
+      {
+        "id": "1",
+        "name": "Summer Sale Retargeting",
+        "campaignId": "91827364518273",
+        "status": "Active",
+        "budget": 10.00,
+        "currency": "$",
+        "budgetType": "daily",
+        "totalSpend": 49.45,
+        "results": {
+          "type": "purchase",
+          "count": 18
+        },
+        "adAccountId": "ADF1001-UrbanCart Fashion",
+        "startDate": "2024-01-15",
+        "endDate": "2024-02-15"
+      },
+      {
+        "id": "2",
+        "name": "New Customer Acquisition",
+        "campaignId": "91827364518273",
+        "status": "Active",
+        "budget": 5.00,
+        "currency": "$",
+        "budgetType": "daily",
+        "totalSpend": 20.00,
+        "results": {
+          "type": "purchase",
+          "count": 9
+        },
+        "adAccountId": "ADF1001-Nexoria Store",
+        "startDate": "2024-01-20"
+      },
+      {
+        "id": "3",
+        "name": "Brand Awareness",
+        "campaignId": "91827364518273",
+        "status": "Learning",
+        "budget": 9.00,
+        "currency": "$",
+        "budgetType": "daily",
+        "totalSpend": 21.20,
+        "results": {
+          "type": "leads",
+          "count": 23
+        },
+        "adAccountId": "ADF1001-BoostFixter",
+        "startDate": "2024-01-10"
+      },
+      {
+        "id": "4",
+        "name": "Skincare Prospecting",
+        "campaignId": "91827364518273",
+        "status": "Paused",
+        "budget": 12.00,
+        "currency": "$",
+        "budgetType": "daily",
+        "totalSpend": 49.45,
+        "results": {
+          "type": "link_clicks",
+          "count": 1245
+        },
+        "adAccountId": "ADF1001-DesignFixter",
+        "startDate": "2024-01-01",
+        "endDate": "2024-01-30"
+      },
+      {
+        "id": "5",
+        "name": "Summer Sale - UGC v-1",
+        "campaignId": "91827364518273",
+        "status": "Active",
+        "budget": 15.00,
+        "currency": "$",
+        "budgetType": "daily",
+        "totalSpend": 49.45,
+        "results": {
+          "type": "purchase",
+          "count": 32
+        },
+        "adAccountId": "ADF1001-Pawtify",
+        "startDate": "2024-01-25"
+      },
+      {
+        "id": "6",
+        "name": "Summer Sale - UGC v-1",
+        "campaignId": "91827364518273",
+        "status": "Learning",
+        "budget": 19.00,
+        "currency": "$",
+        "budgetType": "daily",
+        "totalSpend": 49.45,
+        "results": {
+          "type": "leads",
+          "count": 32
+        },
+        "adAccountId": "ADF1001-Retailix",
+        "startDate": "2024-01-28"
+      },
+      {
+        "id": "7",
+        "name": "Summer Sale - UGC v-1",
+        "campaignId": "91827364518273",
+        "status": "Paused",
+        "budget": 35.00,
+        "currency": "$",
+        "budgetType": "daily",
+        "totalSpend": 49.45,
+        "results": {
+          "type": "leads",
+          "count": 2
+        },
+        "adAccountId": "ADF1001-Homelynix",
+        "startDate": "2024-01-05"
+      },
+      {
+        "id": "6",
+        "name": "Summer Sale - UGC v-1",
+        "campaignId": "91827364518273",
+        "status": "Active",
+        "budget": 15.00,
+        "currency": "$",
+        "budgetType": "daily",
+        "totalSpend": 49.45,
+        "results": {
+          "type": "purchase",
+          "count": 32
+        },
+        "adAccountId": "ADF1001-Pawtify",
+        "startDate": "2024-01-25"
+      },
+      {
+        "id": "7",
+        "name": "Summer Sale - UGC v-1",
+        "campaignId": "91827364518273",
+        "status": "Learning",
+        "budget": 19.00,
+        "currency": "$",
+        "budgetType": "daily",
+        "totalSpend": 49.45,
+        "results": {
+          "type": "leads",
+          "count": 32
+        },
+        "adAccountId": "ADF1001-Retailix",
+        "startDate": "2024-01-28"
+      },
+      {
+        "id": "8",
+        "name": "Summer Sale - UGC v-1",
+        "campaignId": "91827364518273",
+        "status": "Paused",
+        "budget": 35.00,
+        "currency": "$",
+        "budgetType": "daily",
+        "totalSpend": 49.45,
+        "results": {
+          "type": "leads",
+          "count": 2
+        },
+        "adAccountId": "ADF1001-Homelynix",
+        "startDate": "2024-01-05"
+      }
+    ]
+  }
+}
