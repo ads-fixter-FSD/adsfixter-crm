@@ -1,6 +1,5 @@
 import { FundingRow, SortConfig } from "@/types/dashboard/advertising/funding-history/types";
 
-// "৳1000.00", "$49.45" এর মতো string থেকে শুধু numeric value বের করা
 function parseAmount(value: string): number {
   const numeric = value.replace(/[^0-9.-]/g, "");
   return parseFloat(numeric) || 0;

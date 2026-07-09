@@ -9,16 +9,16 @@ import SortIcon from "./SortIcon";
 
 export default function FundingTable({
   rows,
-  sortConfig = { key: null, direction: null }, // ← default value যোগ করলাম
+  sortConfig = { key: null, direction: null },
   onSortChange,
 }: {
   rows: FundingRow[];
   sortConfig?: SortConfig;
-  onSortChange?: (key: SortKey) => void;
+  onSortChange?: (key: SortKey, direction: "asc" | "desc") => void;
 }) {
   return (
     <div className="overflow-x-auto border border-[var(--table-header-border)] rounded-xl">
-      <table className="w-full border-collapse">
+      <table className="w-full border-collapse min-w-[900px]">
         <thead>
           <tr className="bg-[var(--table-header-bg)]">
             {TABLE_HEADERS.map((header, idx) => {
@@ -29,33 +29,31 @@ export default function FundingTable({
               return (
                 <th
                   key={header}
-                  className={`text-center px-6 py-4 whitespace-nowrap border-b border-[var(--table-header-border)] ${
+                  className={`text-center px-3 sm:px-4 md:px-6 py-3 sm:py-4 whitespace-nowrap border-b border-[var(--table-header-border)] ${
                     idx !== TABLE_HEADERS.length - 1
                       ? "border-r border-[var(--table-header-border)]"
                       : ""
                   }`}
                 >
                   {isSortable ? (
-                    <button
-                      type="button"
-                      onClick={() => onSortChange?.(sortKey!)}
-                      className="flex items-center justify-center gap-1.5 mx-auto group"
-                    >
+                    <div className="flex items-center justify-center gap-1.5">
                       <span
-                        className={`body-sm-medium transition-colors ${
+                        className={`text-xs sm:text-sm font-medium transition-colors ${
                           isActive
                             ? "text-[var(--color-primary-text-500)]"
-                            : "text-[var(--color-primary-text-400)] group-hover:text-[var(--color-primary-text-500)]"
+                            : "text-[var(--color-primary-text-400)]"
                         }`}
                       >
                         {header}
                       </span>
                       <SortIcon
                         direction={isActive ? sortConfig.direction : null}
+                        onAscClick={() => onSortChange?.(sortKey!, "asc")}
+                        onDescClick={() => onSortChange?.(sortKey!, "desc")}
                       />
-                    </button>
+                    </div>
                   ) : (
-                    <span className="flex items-center justify-center body-sm-medium text-[var(--color-primary-text-400)]">
+                    <span className="flex items-center justify-center text-xs sm:text-sm font-medium text-[var(--color-primary-text-400)]">
                       {header}
                     </span>
                   )}
