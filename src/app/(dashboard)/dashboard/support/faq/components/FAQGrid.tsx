@@ -38,17 +38,17 @@ export default function FAQGrid({ onSelectFAQ }: FAQGridProps) {
       <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-4">
         {/* ট্যাব বাটন */}
         <div className="w-full lg:w-auto overflow-x-auto no-scrollbar -mx-4 px-4 lg:mx-0 lg:px-0">
-          <div className="flex items-center gap-2 min-w-max pb-1 lg:pb-0">
+          <div className="flex items-center gap-2 min-w-max  py-1  bg-[#F8F8F8] p ">
             {tabs.map((tab) => {
               const isActive = activeTab === tab.name;
               return (
                 <button
                   key={tab.name}
                   onClick={() => setActiveTab(tab.name)}
-                  className={`flex items-center gap-2 px-3.5 py-2 text-xs font-bold rounded-xl border transition-all ${
+                  className={`flex items-center gap-2 px-3.5 py-2 text-xs font-bold rounded-xl transition-all ${
                     isActive
-                      ? "bg-slate-50 text-slate-800 border-slate-200/60 shadow-3xs"
-                      : "bg-white text-slate-400 border-transparent hover:text-slate-600"
+                      ? "bg-white text-[#3E4D60]"
+                      : " text-[#525866] border-transparent hover:text-slate-600"
                   }`}
                 >
                   <span className="whitespace-nowrap">{tab.label}</span>
@@ -80,18 +80,18 @@ export default function FAQGrid({ onSelectFAQ }: FAQGridProps) {
           {filteredFAQs.map((faq) => (
             <div key={faq.id} className="group bg-white border border-slate-100 rounded-2xl p-5 md:p-6 flex flex-col justify-between space-y-4 hover:border-slate-200/80 hover:shadow-[0_4px_16px_rgba(0,0,0,0.01)] transition-all duration-200">
               <div className="flex items-center justify-between gap-2">
-                <span className="text-[10px] md:text-[11px] font-bold text-slate-400 uppercase tracking-wider">{faq.category}</span>
+                <span className="text-[10px] md:text-[12px] text-[#5E6A7A] uppercase tracking-wider">{faq.category}</span>
                 <button 
                   onClick={() => onSelectFAQ(faq)}
-                  className="flex items-center gap-1 px-2.5 py-1.5 border border-slate-100 rounded-lg text-[10px] font-bold text-slate-600 bg-white hover:bg-slate-50 transition-colors"
+                  className="flex items-center gap-1 px-2.5 py-1.5 border border-slate-100 rounded-lg text-[12px] text-[#5E6A7A] bg-white hover:bg-slate-50 transition-colors"
                 >
                   <span>Read More</span>
-                  <ArrowUpRight size={11} className="text-slate-400 group-hover:text-slate-600 transition-colors" />
+                  <ArrowUpRight size={11} className=" transition-colors" />
                 </button>
               </div>
               <div className="space-y-1.5 flex-1">
-                <h3 className="text-xs md:text-sm font-bold text-slate-800 leading-snug group-hover:text-slate-950 transition-colors line-clamp-2">{faq.title}</h3>
-                <p className="text-[11px] md:text-xs text-slate-400 font-medium leading-relaxed line-clamp-3">{faq.description}</p>
+                <h3 className="text-xs md:text-[16px] font-medium text-[#0E2038] leading-snug group-hover:text-slate-950 transition-colors line-clamp-2">{faq.title}</h3>
+                <p className="text-[11px] md:text-[14px] text-[#7F8482] leading-relaxed line-clamp-3">{faq.description}</p>
               </div>
             </div>
           ))}
