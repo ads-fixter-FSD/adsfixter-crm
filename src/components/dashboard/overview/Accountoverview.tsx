@@ -75,10 +75,28 @@ const PLATFORM_FILTERS: { key: Platform; label: string }[] = [
   { key: "tiktok", label: "TikTok" },
 ];
 
-const STATUS_STYLES: Record<MetaStatus, { label: string; dot: string; text: string; bg: string }> = {
-  active: { label: "Active", dot: "bg-[#22C55E]", text: "text-[#166534]", bg: "bg-[#E9F9EF]" },
-  inactive: { label: "Inactive", dot: "bg-[#F59E0B]", text: "text-[#92400E]", bg: "bg-[#FEF3E2]" },
-  disable: { label: "Disable", dot: "bg-[#EF4444]", text: "text-[#991B1B]", bg: "bg-[#FDECEC]" },
+const STATUS_STYLES: Record<
+  MetaStatus,
+  { label: string; dot: string; text: string; bg: string }
+> = {
+  active: {
+    label: "Active",
+    dot: "bg-[#22C55E]",
+    text: "text-[#166534]",
+    bg: "bg-[#E9F9EF]",
+  },
+  inactive: {
+    label: "Inactive",
+    dot: "bg-[#F59E0B]",
+    text: "text-[#92400E]",
+    bg: "bg-[#FEF3E2]",
+  },
+  disable: {
+    label: "Disable",
+    dot: "bg-[#EF4444]",
+    text: "text-[#991B1B]",
+    bg: "bg-[#FDECEC]",
+  },
 };
 
 const COLUMNS: { key: string; label: string; sortable: boolean }[] = [
@@ -158,9 +176,12 @@ export default function AccountOverview({
   const [search, setSearch] = useState("");
   const [isFilterOpen, setIsFilterOpen] = useState(false);
   const [isSortOpen, setIsSortOpen] = useState(false);
-  const [activeSort, setActiveSort] = useState<(typeof SORT_OPTIONS)[number]>("Newest");
+  const [activeSort, setActiveSort] =
+    useState<(typeof SORT_OPTIONS)[number]>("Newest");
   const [metaFilters, setMetaFilters] = useState<Set<MetaStatus>>(new Set());
-  const [platformFilters, setPlatformFilters] = useState<Set<Platform>>(new Set());
+  const [platformFilters, setPlatformFilters] = useState<Set<Platform>>(
+    new Set(),
+  );
   const [sortKey, setSortKey] = useState<string | null>(null);
   const [sortDir, setSortDir] = useState<"asc" | "desc">("asc");
   const [openActionRow, setOpenActionRow] = useState<number | null>(null);
@@ -206,7 +227,7 @@ export default function AccountOverview({
         (r) =>
           r.accountName.toLowerCase().includes(q) ||
           r.accountIdMasked.toLowerCase().includes(q) ||
-          r.id.toLowerCase().includes(q)
+          r.id.toLowerCase().includes(q),
       );
     }
 
@@ -262,7 +283,10 @@ export default function AccountOverview({
   }, [rows, activeTab, search, metaFilters, platformFilters, sortKey, sortDir]);
 
   const totalPages = Math.max(1, Math.ceil(filteredRows.length / perPage));
-  const pagedRows = filteredRows.slice((currentPage - 1) * perPage, currentPage * perPage);
+  const pagedRows = filteredRows.slice(
+    (currentPage - 1) * perPage,
+    currentPage * perPage,
+  );
   const activeFilterCount = metaFilters.size + platformFilters.size;
 
   return (
@@ -303,7 +327,10 @@ export default function AccountOverview({
         {/* Search + Filter + Sort */}
         <div className="flex flex-wrap items-center gap-2">
           <div className="flex h-10 w-full items-center gap-2 rounded-lg border border-[var(--color-line,#eceff3)] bg-[var(--color-white,#ffffff)] px-3 sm:w-64">
-            <Search size={16} className="text-[var(--color-subtext-500,#7f8482)]" />
+            <Search
+              size={16}
+              className="text-[var(--color-subtext-500,#7f8482)]"
+            />
             <input
               type="text"
               value={search}
@@ -326,7 +353,10 @@ export default function AccountOverview({
               }}
               className="flex h-10 items-center gap-2 rounded-lg border border-[var(--color-line,#eceff3)] bg-[var(--color-white,#ffffff)] px-4 font-sans text-sm font-medium text-[var(--color-primary-text-500,#0e2038)]"
             >
-              <SlidersHorizontal size={16} className="text-[var(--color-subtext-500,#7f8482)]" />
+              <SlidersHorizontal
+                size={16}
+                className="text-[var(--color-subtext-500,#7f8482)]"
+              />
               <span>Filter</span>
               {activeFilterCount > 0 && (
                 <span className="flex h-5 w-5 items-center justify-center rounded-full bg-[var(--color-adsfixter-primary,#f74608)] font-sans text-xs font-medium text-[var(--color-on-primary,#ffffff)]">
@@ -412,7 +442,10 @@ export default function AccountOverview({
               }}
               className="flex h-10 items-center gap-2 rounded-lg border border-[var(--color-line,#eceff3)] bg-[var(--color-white,#ffffff)] px-4 font-sans text-sm font-medium text-[var(--color-primary-text-500,#0e2038)]"
             >
-              <ArrowUpDown size={16} className="text-[var(--color-subtext-500,#7f8482)]" />
+              <ArrowUpDown
+                size={16}
+                className="text-[var(--color-subtext-500,#7f8482)]"
+              />
               <span>Sort by</span>
               <ChevronDown
                 size={16}
@@ -456,7 +489,7 @@ export default function AccountOverview({
                 <th
                   key={col.key}
                   onClick={() => handleHeaderSort(col.key, col.sortable)}
-                  className={`border-b border-[#F0F0F0] px-4 py-3 text-left font-sans text-xs font-medium text-[var(--color-subtext-500,#7f8482)] ${
+                  className={`border-b border-r border-[#F0F0F0] px-4 py-3 text-left font-sans text-xs font-medium text-[var(--color-subtext-500,#7f8482)] last:border-r-0 ${
                     col.sortable ? "cursor-pointer select-none" : ""
                   }`}
                 >
@@ -482,12 +515,15 @@ export default function AccountOverview({
             {pagedRows.map((row, idx) => {
               const statusStyle = STATUS_STYLES[row.metaStatus];
               return (
-                <tr key={`${row.id}-${idx}`} className="border-b border-[#F0F0F0] last:border-b-0">
-                  <td className="px-4 py-4 font-sans text-sm text-[var(--color-primary-text-500,#0e2038)]">
+                <tr
+                  key={`${row.id}-${idx}`}
+                  className="border-b border-[#F0F0F0] last:border-b-0"
+                >
+                  <td className="border-r border-[#F0F0F0] px-4 py-4 font-sans text-sm text-[var(--color-primary-text-500,#0e2038)] last:border-r-0">
                     {row.id}
                   </td>
 
-                  <td className="px-4 py-4">
+                  <td className="border-r border-[#F0F0F0] px-4 py-4 last:border-r-0">
                     <div className="flex items-center gap-2">
                       <span className="flex h-6 w-6 items-center justify-center rounded-full bg-[var(--color-surface,#f7f8fa)]">
                         {PLATFORM_ICON[row.platform]}
@@ -503,15 +539,15 @@ export default function AccountOverview({
                     </div>
                   </td>
 
-                  <td className="px-4 py-4 font-sans text-sm text-[var(--color-primary-text-500,#0e2038)]">
+                  <td className="border-r border-[#F0F0F0] px-4 py-4 font-sans text-sm text-[var(--color-primary-text-500,#0e2038)] last:border-r-0">
                     ${row.creditBalance.toFixed(2)}
                   </td>
 
-                  <td className="px-4 py-4 font-sans text-sm text-[var(--color-primary-text-500,#0e2038)]">
+                  <td className="border-r border-[#F0F0F0] px-4 py-4 font-sans text-sm text-[var(--color-primary-text-500,#0e2038)] last:border-r-0">
                     ${row.spendMonth.toFixed(2)}
                   </td>
 
-                  <td className="px-4 py-4">
+                  <td className="border-r border-[#F0F0F0] px-4 py-4 last:border-r-0">
                     <div className="flex flex-col">
                       <span className="font-sans text-sm text-[var(--color-primary-text-500,#0e2038)]">
                         {row.lastTopUp.value}
@@ -522,31 +558,35 @@ export default function AccountOverview({
                     </div>
                   </td>
 
-                  <td className="px-4 py-4">
+                  <td className="border-r border-[#F0F0F0] px-4 py-4 last:border-r-0">
                     <span
                       className={`inline-flex items-center gap-1.5 rounded-full px-2.5 py-1 font-sans text-xs font-medium ${statusStyle.bg} ${statusStyle.text}`}
                     >
-                      <span className={`h-1.5 w-1.5 rounded-full ${statusStyle.dot}`} />
+                      <span
+                        className={`h-1.5 w-1.5 rounded-full ${statusStyle.dot}`}
+                      />
                       {statusStyle.label}
                     </span>
                   </td>
 
-                  <td className="px-4 py-4 font-sans text-sm text-[var(--color-primary-text-500,#0e2038)]">
+                  <td className="border-r border-[#F0F0F0] px-4 py-4 font-sans text-sm text-[var(--color-primary-text-500,#0e2038)] last:border-r-0">
                     {row.agencyStatus}
                   </td>
 
-                  <td className="px-4 py-4 font-sans text-sm text-[var(--color-primary-text-500,#0e2038)]">
+                  <td className="border-r border-[#F0F0F0] px-4 py-4 font-sans text-sm text-[var(--color-primary-text-500,#0e2038)] last:border-r-0">
                     {row.optimizeScore}
                   </td>
 
-                  <td className="px-4 py-4 font-sans text-sm text-[var(--color-subtext-500,#7f8482)]">
+                  <td className="border-r border-[#F0F0F0] px-4 py-4 font-sans text-sm text-[var(--color-subtext-500,#7f8482)] last:border-r-0">
                     {row.updatedAgo}
                   </td>
 
                   <td className="relative px-4 py-4">
                     <button
                       type="button"
-                      onClick={() => setOpenActionRow(openActionRow === idx ? null : idx)}
+                      onClick={() =>
+                        setOpenActionRow(openActionRow === idx ? null : idx)
+                      }
                       className="flex h-8 w-8 items-center justify-center rounded-md text-[var(--color-subtext-500,#7f8482)] hover:bg-[var(--color-surface,#f7f8fa)]"
                     >
                       <MoreVertical size={16} />
@@ -563,7 +603,10 @@ export default function AccountOverview({
                               onClick={() => setOpenActionRow(null)}
                               className="flex w-full items-center gap-2.5 rounded-lg px-3 py-2 text-left font-sans text-sm text-[var(--color-primary-text-500,#0e2038)] hover:bg-[var(--color-surface,#f7f8fa)]"
                             >
-                              <ItemIcon size={16} className="text-[var(--color-subtext-500,#7f8482)]" />
+                              <ItemIcon
+                                size={16}
+                                className="text-[var(--color-subtext-500,#7f8482)]"
+                              />
                               {item.label}
                             </button>
                           );
@@ -576,7 +619,10 @@ export default function AccountOverview({
                           onClick={() => setOpenActionRow(null)}
                           className="flex w-full items-center gap-2.5 rounded-lg px-3 py-2 text-left font-sans text-sm font-medium text-[var(--color-danger-text,#991b1b)] hover:bg-[var(--color-danger-bg,#fee2e2)]"
                         >
-                          <Trash2 size={16} className="text-[var(--color-danger-text,#991b1b)]" />
+                          <Trash2
+                            size={16}
+                            className="text-[var(--color-danger-text,#991b1b)]"
+                          />
                           Delete Ad Account
                         </button>
                       </div>
