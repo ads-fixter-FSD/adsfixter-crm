@@ -7,7 +7,7 @@ import BalanceTrendChart from "./BalanceTrendChart";
 
 export default function BalanceTrendSection() {
   return (
-    <div className="bg-white border border-slate-100 rounded-2xl p-6 shadow-xs">
+    <div className="bg-white border border-[#E9E9E9] rounded-2xl p-6">
       {/* Header Inside Card */}
       <div className="flex items-center justify-between border-b border-slate-50 pb-5">
         <h3 className="text-lg font-bold text-slate-900">Balance Trend (Last 30 Days)</h3>

@@ -32,7 +32,7 @@ const data = [
 const CustomTooltip = ({ active, payload }: any) => {
   if (active && payload && payload.length) {
     return (
-      <div className="bg-white px-5 py-4 shadow-xl rounded-2xl border border-slate-100 min-w-[180px]">
+      <div className="bg-white px-5 py-4 rounded-2xl border border[#E9E9E9] min-w-[180px]">
         <p className="text-[11px] font-bold text-slate-400 tracking-wider uppercase mb-2">
           JULY 17, 2026
         </p>
