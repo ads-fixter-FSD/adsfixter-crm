@@ -22,7 +22,7 @@ export function resetCustomerSetupProgress() {
 export const customerDemoLogin = {
   email: "customer@adsfixter.com",
   password: "Customer@12345",
-  signInPath: "/auth/signin",,
+  signInPath: "/auth/signin",
 } as const;
 
 export const customerSetupTestSteps = [
