@@ -1,5 +1,3 @@
-
-
 import React from "react";
 import {
   ResponsiveContainer,
@@ -12,7 +10,7 @@ import {
   ReferenceDot,
 } from "recharts";
 
-// মক ডাটা (আপনার ডিজাইনের ওয়েভ প্যাটার্ন অনুযায়ী তৈরি)
+// মক ডাটা (আপনার ডিজাইনের ওয়েভ প্যাটার্ন অনুযায়ী তৈরি)
 const data = [
   { name: "Jan", balance: 39000, topUp: 40000 },
   { name: "Feb", balance: 39000, topUp: 42000 },
@@ -32,7 +30,7 @@ const data = [
 const CustomTooltip = ({ active, payload }: any) => {
   if (active && payload && payload.length) {
     return (
-      <div className="bg-white px-5 py-4 shadow-xl rounded-2xl border border-slate-100 min-w-[180px]">
+      <div className="bg-white px-5 py-4 rounded-2xl border border[#E9E9E9] min-w-[180px]">
         <p className="text-[11px] font-bold text-slate-400 tracking-wider uppercase mb-2">
           JULY 17, 2026
         </p>
@@ -65,7 +63,7 @@ export default function BalanceTrendChart() {
           margin={{ top: 20, right: 10, left: -10, bottom: 0 }}
         >
           <defs>
-            {/* লাইন দুটির নিচের শ্যাডো বা গ্রেডিয়েন্ট ইফেক্ট */}
+            {/* লাইন দুটির নিচের শ্যাডো বা গ্রেডিয়েন্ট ইফেক্ট */}
             <linearGradient id="balanceGradient" x1="0" y1="0" x2="0" y2="1">
               <stop offset="5%" stopColor="#f24e1e" stopOpacity={0.06} />
               <stop offset="95%" stopColor="#f24e1e" stopOpacity={0} />
@@ -74,7 +72,7 @@ export default function BalanceTrendChart() {
               <stop offset="5%" stopColor="#f5a623" stopOpacity={0.04} />
               <stop offset="95%" stopColor="#f5a623" stopOpacity={0} />
             </linearGradient>
-            
+
             {/* জুলাই মাসের পেছনের কাস্টম হাইলাইট শ্যাডো */}
             <linearGradient id="julHighlight" x1="0" y1="0" x2="0" y2="1">
               <stop offset="0%" stopColor="#f24e1e" stopOpacity={0.1} />
@@ -97,8 +95,8 @@ export default function BalanceTrendChart() {
             tickLine={false}
             tick={({ x, y, payload }) => (
               <text
-                x={x}
-                y={y + 16}
+                x={Number(x)}
+                y={Number(y) + 16}
                 textAnchor="middle"
                 className={`text-xs font-medium ${
                   payload.value === "Jul"
@@ -121,9 +119,23 @@ export default function BalanceTrendChart() {
             tickFormatter={(value) => `৳${value / 1000}K`}
           />
 
-          {/* ইমেজের মতো নির্দিষ্ট পয়েন্টে ডট মার্কার এড করা */}
-          <ReferenceDot x="Jul" y={28000} r={4} fill="#f24e1e" stroke="#fff" strokeWidth={2} isFront />
-          <ReferenceDot x="Jul" y={24000} r={4} fill="#f5a623" stroke="#fff" strokeWidth={2} isFront />
+          {/* ইমেজের মতো নির্দিষ্ট পয়েন্টে ডট মার্কার এড করা */}
+          <ReferenceDot
+            x="Jul"
+            y={28000}
+            r={4}
+            fill="#f24e1e"
+            stroke="#fff"
+            strokeWidth={2}
+          />
+          <ReferenceDot
+            x="Jul"
+            y={24000}
+            r={4}
+            fill="#f5a623"
+            stroke="#fff"
+            strokeWidth={2}
+          />
 
           <Tooltip
             content={<CustomTooltip />}

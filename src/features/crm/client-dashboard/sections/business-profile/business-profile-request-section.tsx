@@ -43,7 +43,7 @@ export function ClientBusinessProfileRequestSection({ onBack, onContactSupport, 
 
   return (
     <section className="grid gap-5">
-      <BusinessProfileRequestHeader onAddBusinessAccount={addBusinessForm} onBack={onBack} />
+      <BusinessProfileRequestHeader onAddNew={addBusinessForm} />
 
       <form className="grid gap-5" onSubmit={handleSubmit}>
         {businessForms.map((form, index) => (

@@ -63,11 +63,11 @@ export default function RecentActivityTable() {
   };
 
   return (
-    <div className="space-y-5 w-full">
+    <div className="space-y-5 w-full border border-[#E9E9E9] p-3 rounded-[20px]">
       {/* টপ হেডার */}
       <div className="flex items-center justify-between px-1">
-        <h2 className="text-xl font-bold text-[#1e293b]">Recent Activity</h2>
-        <button className="px-4 py-1.5 bg-white border border-slate-200 text-slate-500 font-bold text-xs rounded-lg hover:bg-slate-50 transition shadow-3xs cursor-pointer">
+        <h2 className="text-xl font-medium text-[#0E2038]">Recent Activity</h2>
+        <button className="px-4 py-1.5 bg-white border border-[#E9E9E9] text-slate-500 font-bold text-xs rounded-lg hover:bg-slate-50 transition shadow-3xs cursor-pointer">
           View All
         </button>
       </div>
@@ -97,7 +97,7 @@ export default function RecentActivityTable() {
           {/* টেবিল গ্রিড বর্ডারিং - border-collapse এর বদলে border-separate ও spacing-0 ব্যবহার করা হয়েছে পারফেক্ট বর্ডারের জন্য */}
           <table className="w-full text-left border-separate border-spacing-0 min-w-[1000px] md:min-w-full">
             <thead>
-              <tr className="bg-[#f8fafc]">
+              <tr className="bg-[#F8F8F8]">
                 {[
                   { name: "DATE & TIME" },
                   { name: "DESCRIPTION" },
@@ -108,9 +108,9 @@ export default function RecentActivityTable() {
                 ].map((th, index) => (
                   <th 
                     key={index} 
-                    className="py-4 px-5 text-[11px] font-bold tracking-wider text-slate-500 uppercase border-b border-[#f1f5f9] border-r border-[#f1f5f9] last:border-r-0"
+                    className="py-4 px-5 text-[11px] font-medium tracking-wider uppercase border-b border-[#f1f5f9] border-r border-[#f1f5f9] last:border-r-0"
                   >
-                    <div className="flex items-center gap-1.5 text-slate-400 font-bold">
+                    <div className="flex items-center gap-1.5 text-[#525866]font-bold">
                       <span>{th.name}</span>
                       <ArrowUpDown size={11} className="text-slate-300 stroke-[2.5]" />
                     </div>
@@ -149,7 +149,7 @@ export default function RecentActivityTable() {
                   
                   {/* Amount (হালকা ব্যাকগ্রাউন্ড টিন্ট সহ) */}
                   <td className={`py-4 px-5 whitespace-nowrap font-bold border-b border-[#f1f5f9] border-r border-[#f1f5f9] ${
-                    row.isPositive ? "text-[#2baf68] bg-[#fcfdfb]" : "text-[#e04848] bg-[#fffcfc]"
+                    row.isPositive ? "text-[#2baf68]" : "text-[#e04848]"
                   }`}>
                     {row.amount}
                   </td>

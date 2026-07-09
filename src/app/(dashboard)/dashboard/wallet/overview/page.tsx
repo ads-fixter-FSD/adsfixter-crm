@@ -11,10 +11,11 @@ import { FlatButton } from "@/components/shared-buttons/flat-button";
 
 export default function WalletOverviewPage() {
   return (
-    <div className="min-h-screen  font-sans antialiased text-[#0f172a]">
+    <div className="min-h-screen text-[#0f172a]">
       <div className=" space-y-6">
         
-        {/* Top Header Section */}
+        <div className="p-4 border border-[#EDEDED] rounded-[20px] flex flex-col gap-5">
+          {/* Top Header Section */}
         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
           <div>
             <h1 className="text-2xl font-bold tracking-tight text-slate-900">Wallet Overview</h1>
@@ -38,6 +39,7 @@ export default function WalletOverviewPage() {
 
         {/* 1. Top Balance Cards Grid */}
         <WalletCards />
+        </div>
 
         {/* 2. Balance Trend Graph Chart Section */}
         <BalanceTrendSection />

@@ -1,5 +1,5 @@
 import AccountOverview from "@/components/dashboard/overview/Accountoverview";
-import OverviewTopSection from "@/components/dashboard/overview/Overviewtopsection";
+import OverviewTopSection from "@/components/dashboard/overview/OverviewCardSection";
 import QuickActions from "@/components/dashboard/overview/Quickactions";
 import SpendingOverview from "@/components/dashboard/overview/SpendingOverview";
 import overviewData from "@/data/Overviewpagedata.json";

@@ -1,4 +1,3 @@
-/* eslint-disable react-hooks/set-state-in-effect */
 "use client";
 
 import { Eye, FileText, Pencil, X } from "lucide-react";
@@ -16,6 +15,7 @@ import { BusinessProfileRequestModal } from "@/features/crm/client-dashboard/sec
 import type { ToastType } from "@/features/crm/types/crm";
 import { BusinessProfileRequestHeader } from "./business-profile-request-header";
 
+// 1. এখানে নতুন প্রোপসগুলো টাইপস্ক্রিপ্টে যোগ করা হয়েছে
 type BusinessProfileRequestsTableProps = {
   emptyMessage?: string;
   onAddNew?: () => void;
@@ -23,6 +23,8 @@ type BusinessProfileRequestsTableProps = {
   showToast: (type: ToastType, message: string) => void;
   title?: string;
   subtitle?: string;
+  showAddButton?: boolean; // 👈 নতুন যোগ করা হলো
+  variant?: string;        // 👈 নতুন যোগ করা হলো
 };
 
 const tableHeaders = [
@@ -43,6 +45,8 @@ export function BusinessProfileRequestsTable({
   showToast,
   title,
   subtitle,
+  showAddButton, // 👈 ডিস্ট্রাকচার করা হলো (ভবিষ্যতে লজিক লিখতে চাইলে ব্যবহার করতে পারবেন)
+  variant,       // 👈 ডিস্ট্রাকচার করা হলো
 }: BusinessProfileRequestsTableProps) {
   const [requests, setRequests] = useState<BusinessProfileRequest[]>([]);
   const [modalMode, setModalMode] = useState<"view" | "edit" | null>(null);

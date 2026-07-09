@@ -146,7 +146,7 @@ export default function WalletDashboard() {
       `}} />
 
       {/* Top Filter Area */}
-      <div className="bg-white border border-slate-100 rounded-2xl p-5 space-y-4 shadow-[0_1px_3px_rgba(0,0,0,0.01)]">
+      <div className="bg-white border border-slate-100 rounded-[20px] p-4 space-y-4 shadow-[0_1px_3px_rgba(0,0,0,0.01)]">
         <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
           <div>
             <h2 className="text-xl font-bold text-slate-950 tracking-tight">Wallet activity</h2>
@@ -192,22 +192,21 @@ export default function WalletDashboard() {
           </div>
         </div>
 
-        <div className="flex flex-wrap items-center gap-1.5 pt-2">
+        <div className="flex flex-wrap items-center  gap-1.5 bg-[#F8F8F8] rounded-lg">
           {tabs.map((tab) => (
             <button
               key={tab}
               onClick={() => handleTabChange(tab)}
               className={`px-4 py-1.5 rounded-lg text-xs font-bold transition tracking-wide ${
-                activeTab === tab ? "bg-orange-50/70 text-[#f24e1e] border border-orange-200/50" : "text-slate-400 hover:text-slate-600 border border-transparent"
+                activeTab === tab ? "bg-white text-[#f24e1e]" : "text-slate-400 hover:text-slate-600 border border-transparent"
               }`}
             >
               {tab}
             </button>
           ))}
         </div>
-      </div>
 
-      {/* Analytics Counter Boxes */}
+        {/* Analytics Counter Boxes */}
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
         {[
           { label: "Payments in", value: `+৳${stats.paymentsIn.toLocaleString()}`, icon: <ArrowUpRight size={14} className="text-slate-400" /> },
@@ -224,17 +223,21 @@ export default function WalletDashboard() {
           </div>
         ))}
       </div>
+      </div>
 
-      {/* Table Section */}
-      <div className="relative bg-white border border-slate-100 rounded-2xl shadow-[0_1px_3px_rgba(0,0,0,0.01)] overflow-hidden">
+      
+
+     <div className="border border-[#EDEDED] rounded-[20px] p-4">
+       {/* Table Section */}
+      <div className=" relative bg-white border border-[#EDEDED] rounded-2xl overflow-hidden">
         
         {/* রাইট ফেড মাস্ক ইফেক্ট (মোবাইলে কলাম লুকানো ইঙ্গিত করবে) */}
-        <div className="pointer-events-none absolute top-0 right-0 bottom-0 w-14 bg-linear-to-l from-white via-white/80 to-transparent z-10 md:hidden" />
+        <div className="pointer-events-none  absolute top-0 right-0 bottom-0 w-14 bg-linear-to-l from-white via-white/80 to-transparent z-10 md:hidden" />
 
-        <div className="forced-dashboard-scroll w-full pb-4">
+        <div className="forced-dashboard-scroll w-full pb-4 ">
           <table className="w-full text-left border-collapse min-w-250">
             <thead>
-              <tr className="bg-slate-50/50 border-b border-slate-100 text-[10px] font-extrabold uppercase tracking-wider text-slate-400">
+              <tr className="bg-[#F8F8F8] border-b border-slate-100 text-[10px] font-extrabold uppercase tracking-wider text-slate-400">
                 <th className="py-3 px-4"><div className="flex items-center gap-1"><span>ID</span><ArrowUpDown size={10} /></div></th>
                 <th className="py-3 px-4"><div className="flex items-center gap-1"><span>DATE & TIME</span><ArrowUpDown size={10} /></div></th>
                 <th className="py-3 px-4"><div className="flex items-center gap-1"><span>DESCRIPTION</span><ArrowUpDown size={10} /></div></th>
@@ -345,6 +348,7 @@ export default function WalletDashboard() {
           )}
         </div>
       </div>
+     </div>
     </div>
   );
 }
